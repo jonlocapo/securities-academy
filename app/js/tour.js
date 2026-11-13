@@ -54,7 +54,7 @@
     } else {
       if (k) row.appendChild(h('button', { type: 'button', class: 'btn ghost', onclick: () => { k--; show(); } }, 'Back'));
       row.appendChild(h('button', { type: 'button', class: 'btn primary', onclick: () => { k++; show(); } }, k ? 'Next' : 'Show me'));
-      row.appendChild(h('button', { type: 'button', class: 'btn ghost tour-skip', onclick: () => finish() }, 'Skip the tour'));
+      row.appendChild(h('button', { type: 'button', class: 'btn ghost tour-skip', onclick: () => { k = STEPS.length - 1; show(); } }, 'Skip the tour'));
     }
     card.appendChild(row);
     box.appendChild(hole); box.appendChild(card);
@@ -81,7 +81,7 @@
     k = 0; box = h('div', { class: 'tour' }); document.body.appendChild(box);
     onKey = (e) => {
       if (!box) return;
-      if (e.key === 'Escape') { e.preventDefault(); finish(); }
+      if (e.key === 'Escape') { e.preventDefault(); if (STEPS[k].end) finish(); else { k = STEPS.length - 1; show(); } } // skipping leads to the placement offer first
       else if (e.key === 'ArrowRight' && !STEPS[k].end) { e.preventDefault(); k++; show(); }
       else if (e.key === 'ArrowLeft' && k) { e.preventDefault(); k--; show(); }
       else if (e.key === 'Tab') { const f = box.querySelectorAll('button'); if (!f.length) return; const i = Array.prototype.indexOf.call(f, document.activeElement); if (e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); } else if (!e.shiftKey && i === f.length - 1) { e.preventDefault(); f[0].focus(); } }
