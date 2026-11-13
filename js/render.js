@@ -26,6 +26,8 @@
     for (let i = 2; i < arguments.length; i++) add(e, arguments[i]);
     return e;
   }
+  // THE way content reaches the screen: every course string (prompts, choices, labels, keys) goes through mdEl, so maths and
+  // emphasis render the same everywhere. stripMd/plainTex are only for attributes (aria-label), which cannot hold markup.
   function mdEl(tag, cls, src, isInline) { const e = h(tag, { class: cls }); SA.md.into(e, src, isInline); return e; }
   // plain text for places that cannot hold rendered maths (aria-labels): TeX turned into a readable approximation
   const plainTex = (t) => { let x = t, prev;
@@ -33,8 +35,6 @@
     return x.replace(/\\(times|cdot)(?![a-zA-Z])/g, '×').replace(/\\div(?![a-zA-Z])/g, '÷').replace(/\\leq?(?![a-zA-Z])/g, '≤').replace(/\\geq?(?![a-zA-Z])/g, '≥').replace(/\\neq?(?![a-zA-Z])/g, '≠').replace(/\\approx/g, '≈').replace(/\\%/g, '%')
       .replace(/\\(left|right|,|;|!|quad|qquad)/g, ' ').replace(/\\text\{([^{}]*)\}/g, '$1').replace(/\\([a-zA-Z]+)/g, '$1').replace(/[{}]/g, '').replace(/\s+/g, ' ').trim(); };
   const stripMd = (s) => String(s == null ? '' : s).replace(/\$([^$]*)\$/g, (m, t) => plainTex(t)).replace(/[*`]/g, '');
-  const hasMath = (s) => /\$[^$]+\$/.test(String(s == null ? '' : s));
-  const inlineMd = (tag, cls, src) => (hasMath(src) || /[*`]/.test(String(src)) ? mdEl(tag, cls, src, true) : h(tag, { class: cls }, String(src)));
 
   /* a dropdown whose options can hold maths (a native <select> shows raw TeX). Button + listbox, keyboard as a select:
      arrows / Home / End move, Enter or Space picks, Escape or Tab closes. */
@@ -151,14 +151,14 @@
   R.numeric = function (c, inst, onChange) {
     const input = h('input', { type: 'text', inputmode: 'decimal', autocomplete: 'off', spellcheck: 'false', class: 'num-input', 'aria-label': 'Your answer' });
     input.addEventListener('input', () => onChange(input.value));
-    const unit = inst.unit ? h('span', { class: 'unit' }, inst.unit) : null;
+    const unit = inst.unit ? mdEl('span', 'unit', inst.unit, true) : null;
     c.appendChild(h('div', { class: 'num-row' }, input, unit));
     onChange('');
     return {
       get: () => input.value,
       lock(res) {
         input.disabled = true; input.classList.add(res.correct ? 'ok' : 'bad');
-        if (!res.correct) c.appendChild(h('p', { class: 'key-line' }, 'Answer: ', h('strong', null, keyOf(inst) + (inst.unit ? ' ' + inst.unit : ''))));
+        if (!res.correct) c.appendChild(h('p', { class: 'key-line' }, 'Answer: ', mdEl('strong', null, keyOf(inst) + (inst.unit ? ' ' + inst.unit : ''), true)));
       },
     };
   };
@@ -188,7 +188,7 @@
     if (bank) {
       const wrap = h('div', { class: 'bank', role: 'group', 'aria-label': 'Word bank' });
       bank.forEach((w, ci) => {
-        const chip = h('button', { type: 'button', class: 'chip' }, w);
+        const chip = h('button', { type: 'button', class: 'chip' }, mdEl('span', '', w, true));
         chip.addEventListener('click', () => {
           if (locked) return;
           let k = active >= 0 && !vals[active] ? active : -1;
@@ -202,7 +202,7 @@
     }
     function release(k) { vals[k] = ''; chipOf[k] = -1; refresh(); onChange(vals.slice()); }
     function refresh() {
-      slots.forEach((s, k) => { if (!s) return; s.textContent = vals[k] || '      '; s.classList.toggle('filled', !!vals[k]); s.classList.toggle('active', active === k); });
+      slots.forEach((s, k) => { if (!s) return; if (vals[k]) SA.md.into(s, vals[k], true); else s.textContent = '      '; s.classList.toggle('filled', !!vals[k]); s.classList.toggle('active', active === k); });
       chips.forEach((ch, ci) => { ch.disabled = chipOf.indexOf(ci) >= 0; });
     }
     refresh(); onChange(vals.slice());
@@ -212,7 +212,7 @@
         locked = true; const ok = res.detail || [];
         for (let k = 0; k < n; k++) { const el = slots[k] || inputs[k]; if (inputs[k]) inputs[k].disabled = true; el.classList.add(ok[k] ? 'ok' : 'bad'); }
         chips.forEach((ch) => { ch.disabled = true; });
-        if (!res.correct) c.appendChild(h('p', { class: 'key-line' }, 'Answers: ', h('strong', null, keyOf(inst).join(' · '))));
+        if (!res.correct) c.appendChild(h('p', { class: 'key-line' }, 'Answers: ', mdEl('strong', null, keyOf(inst).join(' · '), true)));
       },
     };
   };
@@ -273,7 +273,7 @@
       get: () => resp.slice(),
       lock(res) {
         const ok = res.detail || [];
-        rows.forEach((row, k) => { selects[k].disable(); row.classList.add(ok[k] ? 'ok' : 'bad'); if (!ok[k]) row.appendChild(h('div', { class: 'key-line small' }, 'Correct: ', inlineMd('strong', null, inst.pairs[k][1]))); });
+        rows.forEach((row, k) => { selects[k].disable(); row.classList.add(ok[k] ? 'ok' : 'bad'); if (!ok[k]) row.appendChild(h('div', { class: 'key-line small' }, 'Correct: ', mdEl('strong', null, inst.pairs[k][1], true))); });
       },
     };
   };
@@ -285,7 +285,7 @@
     perm.forEach((k) => {
       const group = h('div', { class: 'seg-group', role: 'radiogroup', 'aria-label': 'Category' }); btns[k] = [];
       inst.buckets.forEach((b, bi) => {
-        const btn = h('button', { type: 'button', class: 'seg-btn', role: 'radio', 'aria-checked': 'false' }, b);
+        const btn = h('button', { type: 'button', class: 'seg-btn', role: 'radio', 'aria-checked': 'false' }, mdEl('span', '', b, true));
         btn.addEventListener('click', () => { resp[k] = bi; btns[k].forEach((x, j) => { x.setAttribute('aria-checked', j === bi ? 'true' : 'false'); x.classList.toggle('sel', j === bi); }); onChange(resp.slice()); });
         btns[k].push(btn); group.appendChild(btn);
       });
@@ -297,7 +297,7 @@
       get: () => resp.slice(),
       lock(res) {
         const ok = res.detail || [];
-        inst.items.forEach((it, k) => { btns[k].forEach((b) => { b.disabled = true; }); rows[k].classList.add(ok[k] ? 'ok' : 'bad'); if (!ok[k]) rows[k].appendChild(h('div', { class: 'key-line small' }, 'Correct: ', h('strong', null, inst.buckets[it.bucket]))); });
+        inst.items.forEach((it, k) => { btns[k].forEach((b) => { b.disabled = true; }); rows[k].classList.add(ok[k] ? 'ok' : 'bad'); if (!ok[k]) rows[k].appendChild(h('div', { class: 'key-line small' }, 'Correct: ', mdEl('strong', null, inst.buckets[it.bucket], true))); });
       },
     };
   };
@@ -311,7 +311,7 @@
     function chip(e) {
       const ok = okMask ? okMask[e] : null;
       const b = h('button', { type: 'button', class: 'tl-chip' + (selected === e ? ' sel' : '') + (ok === true ? ' ok' : ok === false ? ' bad' : ''), disabled: locked ? true : null }, mdEl('span', '', inst.events[e].text, true));
-      if (ok === false) b.appendChild(h('small', { class: 'tl-fix' }, ' → ', inlineMd('span', null, inst.slots[inst.events[e].slot])));
+      if (ok === false) b.appendChild(h('small', { class: 'tl-fix' }, ' → ', mdEl('span', null, inst.slots[inst.events[e].slot], true)));
       b.addEventListener('click', (ev) => {
         ev.stopPropagation(); if (locked) return;
         if (selected == null) selected = e;
@@ -325,7 +325,7 @@
     function draw() {
       clear(track); clear(tray);
       inst.slots.forEach((s, si) => {
-        const col = h('div', { class: 'tl-slot', role: 'button', tabindex: locked ? '-1' : '0', 'aria-label': 'Slot ' + stripMd(s) }, inlineMd('div', 'tl-label', s), h('div', { class: 'tl-dot', 'aria-hidden': 'true' }));
+        const col = h('div', { class: 'tl-slot', role: 'button', tabindex: locked ? '-1' : '0', 'aria-label': 'Slot ' + stripMd(s) }, mdEl('div', 'tl-label', s, true), h('div', { class: 'tl-dot', 'aria-hidden': 'true' }));
         const body = h('div', { class: 'tl-body' });
         order.filter((e) => resp[e] === si).forEach((e) => body.appendChild(chip(e)));
         col.appendChild(body);
@@ -365,7 +365,7 @@
     function draw() {
       clear(rowsBox);
       lines.forEach((l, i) => {
-        const sel = h('select', { 'aria-label': 'Account, line ' + (i + 1) }, h('option', { value: '' }, '— account —'), inst.accounts.map((a) => h('option', { value: a, selected: a === l.account ? true : null }, a)));
+        const sel = h('select', { 'aria-label': 'Account, line ' + (i + 1) }, h('option', { value: '' }, 'Account…'), inst.accounts.map((a) => h('option', { value: a, selected: a === l.account ? true : null }, a)));
         sel.addEventListener('change', () => { l.account = sel.value; upd(); onChange(get()); });
         const dr = h('button', { type: 'button', class: 'seg-btn' + (l.side === 'Dr' ? ' sel' : ''), 'aria-pressed': l.side === 'Dr' ? 'true' : 'false' }, 'Dr');
         const cr = h('button', { type: 'button', class: 'seg-btn' + (l.side === 'Cr' ? ' sel' : ''), 'aria-pressed': l.side === 'Cr' ? 'true' : 'false' }, 'Cr');
@@ -432,7 +432,7 @@
     const get = () => Array.from(flagged).sort((a, b) => a - b);
     function upd() { count.textContent = (inst.count ? 'Find ' + inst.count + ' error' + (inst.count === 1 ? '' : 's') + '. ' : 'Flag every error. ') + 'Flagged: ' + flagged.size + '.'; }
     const doc = h('div', { class: 'spot-doc' });
-    if (inst.title) doc.appendChild(h('div', { class: 'spot-title' }, inst.title));
+    if (inst.title) doc.appendChild(mdEl('div', 'spot-title', inst.title, true));
     inst.doc.forEach((d, k) => {
       const s = h('div', { class: 'seg', role: 'checkbox', 'aria-checked': 'false', tabindex: '0' }, mdEl('span', '', d.text, true));
       const tog = () => { if (locked) return; if (flagged.has(k)) flagged.delete(k); else flagged.add(k); s.classList.toggle('flag', flagged.has(k)); s.setAttribute('aria-checked', flagged.has(k) ? 'true' : 'false'); upd(); onChange(get()); };
@@ -447,7 +447,7 @@
         inst.doc.forEach((d, k) => {
           const s = segs[k], f = flagged.has(k); s.setAttribute('aria-disabled', 'true');
           if (d.error && f) s.classList.add('ok'); else if (d.error) s.classList.add('missed'); else if (f) s.classList.add('bad');
-          if (d.error) why.appendChild(h('li', null, h('strong', null, (f ? 'Found: ' : 'Missed: ')), mdEl('span', '', d.text, true), ' — ', mdEl('span', '', d.why || '', true)));
+          if (d.error) why.appendChild(h('li', null, h('strong', null, (f ? 'Found: ' : 'Missed: ')), mdEl('span', '', d.text, true), h('br'), mdEl('span', 'muted', d.why || '', true)));
         });
         c.appendChild(h('div', { class: 'key-line' }, h('strong', null, nErr + ' error' + (nErr === 1 ? '' : 's') + ' in the document'), why));
       },
