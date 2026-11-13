@@ -233,7 +233,7 @@ input:disabled, select:disabled, textarea:disabled { opacity: .8; }
 .match-list, .bucket-list { display: grid; gap: 8px; }
 .match-row, .bucket-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; border: 1px solid var(--hair); border-radius: var(--radius); padding: 10px 14px; background: var(--surface); }
 .match-left, .bucket-text { flex: 1 1 220px; } .match-left > p, .bucket-text > p { margin: 0; }
-.match-row select { flex: 1 1 220px; }
+.match-row .msel { flex: 1 1 220px; }
 .arrow { color: var(--tan); }
 .seg-group { display: inline-flex; flex-wrap: wrap; gap: 4px; }
 .seg-btn { font: inherit; font-size: .85rem; cursor: pointer; padding: 6px 14px; border: 1px solid var(--border-strong); background: transparent; color: var(--text); border-radius: 2px; }
@@ -633,3 +633,18 @@ body.is-demo { padding-bottom: 190px; }
 /* the module you came back from: a short pulse on its ring */
 .node.focus .ring-bg { stroke: var(--accent); animation: node-focus 1.2s ease-out 2; }
 @keyframes node-focus { 0% { stroke-width: 3; } 40% { stroke-width: 8; } 100% { stroke-width: 3; } }
+
+/* dropdown that can show maths (match exercises) */
+.msel { position: relative; min-width: 0; }
+.msel-btn { display: flex; align-items: center; gap: 8px; width: 100%; min-height: 38px; padding: 6px 10px; font: inherit; text-align: left; color: var(--text); background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius); cursor: pointer; }
+.msel-btn:hover:not(:disabled) { border-color: var(--accent); }
+.msel-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.msel-btn:disabled { cursor: default; opacity: .85; }
+.msel-val { flex: 1; min-width: 0; } .msel-val.placeholder { color: var(--muted); }
+.msel-caret { color: var(--muted); font-size: .8em; }
+.msel-list { position: absolute; z-index: 30; left: 0; right: 0; top: calc(100% + 2px); margin: 0; padding: 4px 0; list-style: none; max-height: 260px; overflow-y: auto; background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius); box-shadow: var(--shadow); }
+.msel.up .msel-list { top: auto; bottom: calc(100% + 2px); }
+.msel-list:focus { outline: none; }
+.msel-opt { padding: 7px 12px; cursor: pointer; }
+.msel-opt:hover, .msel-opt.active { background: var(--accent-soft); }
+.msel-opt[aria-selected="true"] { font-weight: 600; }

@@ -495,7 +495,8 @@
   function Writer() { const b = []; let acc = 0, nb = 0; return { u: (v, n) => { for (let i = n - 1; i >= 0; i--) { acc = (acc << 1) | ((v >>> i) & 1); nb++; if (nb === 8) { b.push(acc & 0xFF); acc = 0; nb = 0; } } }, done: () => { if (nb) { b.push((acc << (8 - nb)) & 0xFF); } return b; } }; }
   function Reader(b) { let pos = 0; return { u: (n) => { let v = 0; for (let i = 0; i < n; i++) { const byte = b[pos >> 3]; if (byte === undefined) throw new Error('short'); v = v * 2 + ((byte >> (7 - (pos & 7))) & 1); pos++; } return v; } }; }
   /* v2 "progress code": the same data, run-length coded so it stays short (about 30 characters for a new learner,
-     rarely over 60), then written as standard UUIDs (v3 wrapping below). Older v2 codes and v1 passwords (the 351-character form) still load.
+     rarely over 60), then written as an old-school password: Crockford base32, groups of 4, four groups a line.
+     Codes written as UUIDs (Nov 2026), older v2 codes and v1 passwords (the 351-character form) still load.
      [ver 8][xp][streak][freezes 2 bits][lastDay-20000][nUnits][(level 3 bits, run)...][nMods][alternating 0/1 runs...]
      [nLevels][bits][nGames][present bits][best per present game][crc16]; numbers are 4-bit groups + continuation bit */
   // fixed orders for the code: append new entries at the end only
@@ -524,19 +525,15 @@
     const D = st.daily || {}; vlq(w, D.d ? Math.max(0, D.d - 20000) : 0); vlq(w, D.n || 0); w.u(D.done ? 1 : 0, 1);
     vlq(w, STATS.length); for (const k of STATS) vlq(w, (st.stats && st.stats[k]) || 0);
     const bytes = w.done(), crc = crc32(bytes) & 0xFFFF; bytes.push(crc >>> 8, crc & 255);
-    // v3 wrapping: [length byte][v2 bytes], zero-padded to whole 15-byte blocks, each block written as a standard
-    // version-4 UUID (32 hex digits, 8-4-4-4-12, '4' and a variant digit in the usual places), space separated.
-    const all = [bytes.length].concat(bytes); while (all.length % 15) all.push(0);
-    const uu = [];
-    for (let i = 0; i < all.length; i += 15) {
-      const hx = all.slice(i, i + 15).map((x) => x.toString(16).padStart(2, '0')).join('');
-      const u = hx.slice(0, 12) + '4' + hx.slice(12, 15) + '89ab'[(i / 15) % 4] + hx.slice(15);
-      uu.push(u.slice(0, 8) + '-' + u.slice(8, 12) + '-' + u.slice(12, 16) + '-' + u.slice(16, 20) + '-' + u.slice(20));
-    }
-    return uu.join(' ');
+    // password form: Crockford base32 (no I, L, O, U), groups of 4, four groups a line
+    let bits = '', out = ''; for (const x of bytes) bits += x.toString(2).padStart(8, '0');
+    while (bits.length % 5) bits += '0';
+    for (let i = 0; i < bits.length; i += 5) out += B32[parseInt(bits.slice(i, i + 5), 2)];
+    return out.match(/.{1,4}/g).map((g, i, a) => g + (i === a.length - 1 ? '' : i % 4 === 3 ? '\n' : ' ')).join('');
   };
   // reads the UUID form; returns null when the text is not a run of UUIDs, so older codes fall through
   function uuidBytes(pw) {
+    if (!/[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/i.test(String(pw))) return null; // only codes written as UUIDs
     const s = String(pw).toLowerCase().replace(/o/g, '0').replace(/[il]/g, '1').replace(/[^0-9a-z]/g, '');
     if (!s.length || s.length % 32 || /[^0-9a-f]/.test(s)) return null;
     const bytes = [];
