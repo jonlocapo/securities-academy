@@ -1,0 +1,3464 @@
+{
+ "level": "L7",
+ "title": "Regulation & Market Theory",
+ "hours": 43,
+ "intro": "This level covers the EU rulebook in depth (MiFID II/MiFIR, MAR, PRIIPs, UCITS/AIFMD II, CSDR, EMIR, SFTR, SRD II, RIS) and compares it with the US, UK, Swiss and Asian regimes. It also covers term structure, portfolio theory, market microstructure and multivariable calculus.",
+ "modules": [
+  {
+   "id": "R1",
+   "title": "EU deep dive: the rulebook behind every EU securities workflow",
+   "track": "ops",
+   "hours": 10,
+   "prereqs": [
+    "C4",
+    "O3",
+    "T5"
+   ],
+   "boss_items": [
+    "suitability",
+    "trading restrictions",
+    "best execution / dealer execution across venues",
+    "brokerage & commissions",
+    "settlement & safekeeping (custodian role)",
+    "client accounts",
+    "limits by issuer/group",
+    "all corporate actions (SRD II)"
+   ],
+   "hook": "MiFID II/MiFIR, MAR, PRIIPs, UCITS and AIFMD II, CSDR, EMIR, SFTR, SRD II and RIS: for each rule, who it applies to, which workflow it affects and the main dates.",
+   "units": [
+    {
+     "id": "R1.1",
+     "title": "Dossier 1: MiFID II / MiFIR architecture and the 2024 review",
+     "minutes": 60,
+     "objectives": [
+      "Learner can explain the Level 1 / Level 2 / Level 3 structure and place MiFID II, MiFIR, Delegated Reg 2017/565 and ESMA Q&As in it",
+      "Learner can distinguish what a Directive (needs transposition) and a Regulation (directly applicable) change for a firm",
+      "Learner can list the main changes made by Directive (EU) 2024/790 and Regulation (EU) 2024/791 and their effect on firms and venues",
+      "Learner can identify which MiFID II service or activity a given business line falls under (Annex I Sections A/B)"
+     ],
+     "key_concepts": [
+      "Lamfalussy levels",
+      "Directive vs Regulation, transposition vs direct effect",
+      "Investment services and activities (Annex I A/B)",
+      "Ancillary services",
+      "Financial instruments (Annex I C)",
+      "Passporting and third-country regime",
+      "2024 review: consolidated tape, volume cap, PFOF ban, commodity position limits, research",
+      "Review dates: entry into force Mar 2024, bulk application by 29 Sep 2025"
+     ],
+     "worked_example": "Your bank receives client orders in Italian BTPs and routes them to a trading venue: map each step to Annex I (reception and transmission, execution of orders, dealing on own account) and decide which firm needs which licence.",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Match each legal text (MiFID II, MiFIR, Del. Reg 2017/565, ESMA Q&A, RTS) to its legal nature and binding force",
+       "params": "text set drawn from a pool of 10 instruments"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort business activities into Annex I Section A investment services, Section B ancillary services, or outside MiFID",
+       "params": "6-10 activities from a pool of 30 (e.g. safekeeping, portfolio management, FX for client purposes, investment research)"
+      },
+      {
+       "template": "timeline",
+       "task": "Place the milestones of the MiFID II/MiFIR review (proposal, trilogue, OJ publication, entry into force, transposition and application dates)",
+       "params": "random subset of 6 milestones; tolerance by month"
+      },
+      {
+       "template": "mcq",
+       "task": "Which of the listed 2024 review changes affects a systematic internaliser, a trading venue or a retail broker?",
+       "params": "change drawn from the list; actor varies"
+      },
+      {
+       "template": "cloze",
+       "task": "Complete a short summary of the Lamfalussy process using a word bank",
+       "params": "word bank with distractors"
+      }
+     ],
+     "callbacks": [
+      "T3.1",
+      "C4.1",
+      "T6.1"
+     ],
+     "sources": [
+      {
+       "id": "S183",
+       "ref": "Arts 1-4 (scope, definitions) and Annex I",
+       "use": "core"
+      },
+      {
+       "id": "S259",
+       "ref": "Arts 1-2 (scope, definitions) as amended by Reg 2024/791",
+       "use": "core"
+      },
+      {
+       "id": "S176",
+       "ref": "Recitals and amending articles of Dir 2024/790 and Reg 2024/791",
+       "use": "core"
+      },
+      {
+       "id": "S124",
+       "ref": "chapters on MiFID II scope and structure of EU securities law",
+       "use": "core"
+      },
+      {
+       "id": "S057",
+       "ref": "chapters on sources of EU capital markets law",
+       "use": "deeper"
+      },
+      {
+       "id": "S144",
+       "ref": "introduction and chapters on scope",
+       "use": "deeper"
+      },
+      {
+       "id": "S188",
+       "ref": "MiFID II/MiFIR sections of the Interactive Single Rulebook",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "R1.2",
+     "title": "Dossier 2: Conduct of business - classification, suitability, product governance, costs",
+     "minutes": 60,
+     "objectives": [
+      "Learner can apply the retail / professional / eligible counterparty tests and the opt-up / opt-down procedures",
+      "Learner can map suitability, appropriateness and execution-only to the service provided and the product type (complex vs non-complex)",
+      "Learner can explain the manufacturer / distributor duties in product governance and the target-market categories",
+      "Learner can state the MiFID II rules on inducements, research payment, ex-ante and ex-post costs and charges, and the PFOF ban"
+     ],
+     "key_concepts": [
+      "Client classification, Art 30 eligible counterparties, Annex II professional-on-request",
+      "Suitability report and 2023 ESMA suitability guidelines",
+      "Appropriateness test and warning",
+      "Execution-only for non-complex products",
+      "Product governance: manufacturer, distributor, negative target market, sustainability preferences",
+      "Inducements: quality-enhancement test",
+      "Research unbundling and the SME carve-out",
+      "Costs and charges disclosure, illustration of cumulative effect",
+      "Best execution policy, top-5 venue reporting after RTS 28 deletion",
+      "PFOF ban (Art 39a MiFIR), fully applicable since 30 Jun 2026"
+     ],
+     "worked_example": "A Milan client with EUR 400k portfolio asks to buy a EUR 50k autocallable ELN through an execution-only channel. Walk the decision: is the ELN complex, may the bank proceed execution-only, what warning and what costs disclosure apply?",
+     "exercises": [
+      {
+       "template": "bucket",
+       "task": "Classify products as complex / non-complex for execution-only purposes",
+       "params": "6-10 instruments from 25 (shares on regulated markets, UCITS, structured deposits, ELNs, bonds with embedded derivatives)"
+      },
+      {
+       "template": "order",
+       "task": "Put the suitability workflow in order (know your client, assess product, match, document, report, review)",
+       "params": "step set with one distractor"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the compliance error in a suitability report / order ticket",
+       "params": "3 seeded errors from a pool (outdated risk profile, missing costs, wrong target market)"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute total ex-ante costs in EUR and as a % of investment given product, service and transaction cost lines",
+       "params": "investment size 10k-500k; cost lines 0.1-2.5%"
+      },
+      {
+       "template": "multi",
+       "task": "Which payments from a product manufacturer to a distributor are acceptable inducements under the quality-enhancement test?",
+       "params": "payment type and service enhancement vary"
+      },
+      {
+       "template": "mcq",
+       "task": "Is this order-routing arrangement caught by the PFOF ban?",
+       "params": "scenario drawn from a pool of 8 incl. EU vs third-country broker flows"
+      }
+     ],
+     "callbacks": [
+      "C4.1",
+      "C4.2",
+      "C2.3",
+      "T6.2",
+      "T5.1"
+     ],
+     "sources": [
+      {
+       "id": "S183",
+       "ref": "Arts 24-30 and Annex II",
+       "use": "core"
+      },
+      {
+       "id": "S164",
+       "ref": "Arts 21-24, 25 and 45-50 (Delegated Reg 2017/565)",
+       "use": "core"
+      },
+      {
+       "id": "S066",
+       "ref": "full guideline",
+       "use": "core"
+      },
+      {
+       "id": "S065",
+       "ref": "full guideline",
+       "use": "core"
+      },
+      {
+       "id": "S067",
+       "ref": "full guideline",
+       "use": "core"
+      },
+      {
+       "id": "S175",
+       "ref": "inducements, research (Dir 2021/338)",
+       "use": "deeper"
+      },
+      {
+       "id": "S259",
+       "ref": "Art 39a on PFOF as amended by Reg 2024/791",
+       "use": "core"
+      },
+      {
+       "id": "S189",
+       "ref": "ESMA Q&As on investor protection",
+       "use": "reference"
+      },
+      {
+       "id": "S144",
+       "ref": "chapters on conduct rules and best execution",
+       "use": "deeper"
+      },
+      {
+       "id": "S235",
+       "ref": "client classification extract",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "R1.3",
+     "title": "Dossier 3: Market structure, transparency and reporting",
+     "minutes": 60,
+     "objectives": [
+      "Learner can distinguish regulated market, MTF, OTF, systematic internaliser and the roles of each in pre/post-trade transparency",
+      "Learner can apply the equity volume cap and the waivers (large-in-scale, reference price, negotiated trades) conceptually",
+      "Learner can describe the transaction-reporting and reference-data chain to the NCA, including what replaced RTS 27/28 reports",
+      "Learner can explain the consolidated-tape concept and the tick-size and algorithmic-trading provisions"
+     ],
+     "key_concepts": [
+      "Trading venue categories",
+      "SI regime",
+      "Pre- and post-trade transparency",
+      "Waivers and deferrals",
+      "Volume cap (single 7% cap after the review) vs old double volume cap",
+      "Consolidated tape providers: bonds first",
+      "Transaction reporting (Art 26 MiFIR) and LEI / client ID",
+      "RTS 27/28 execution reports deleted by Dir 2024/790",
+      "Tick-size regime",
+      "Algorithmic trading and DEA controls (Art 17 MiFID II)",
+      "Share-trading obligation"
+     ],
+     "worked_example": "A EUR 8m block in a Dutch large-cap is crossed on a broker crossing network: decide whether pre-trade waivers apply, whether post-trade publication can be deferred, and what the transaction report must contain (LEI, venue MIC, buyer/seller IDs).",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Match each venue / actor type to its defining features (multilateral, discretion, own-capital dealing)",
+       "params": "pool of 6 types x 6 features"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort trades into those subject to pre-trade transparency, eligible for a waiver, or deferral candidates",
+       "params": "trade size, instrument liquidity and venue vary"
+      },
+      {
+       "template": "timeline",
+       "task": "Order the lifecycle of a transaction report from execution to NCA receipt",
+       "params": "T+1 reporting day deadline; variants for firm vs venue reporting"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the missing or wrong field in an RTS 22-style transaction report extract",
+       "params": "fields drawn from pool of 12; 2 seeded errors"
+      },
+      {
+       "template": "mcq",
+       "task": "Which regime caused this venue to be classed as an OTF, and what follows for discretion?",
+       "params": "scenario pool of 8"
+      }
+     ],
+     "callbacks": [
+      "T3.2",
+      "T3.3",
+      "T3.5",
+      "T7.1",
+      "O1.1"
+     ],
+     "sources": [
+      {
+       "id": "S258",
+       "ref": "Arts 3-13 (equity and non-equity transparency), Art 26 reporting",
+       "use": "core"
+      },
+      {
+       "id": "S259",
+       "ref": "Arts 4-5 and 22a-22c as amended",
+       "use": "core"
+      },
+      {
+       "id": "S184",
+       "ref": "Arts 4, 17-20, 23 and 48-49 as amended",
+       "use": "core"
+      },
+      {
+       "id": "S296",
+       "ref": "ESMA Q&As market structures",
+       "use": "reference"
+      },
+      {
+       "id": "S297",
+       "ref": "ESMA Q&As transparency",
+       "use": "reference"
+      },
+      {
+       "id": "S298",
+       "ref": "ESMA Q&As data reporting",
+       "use": "reference"
+      },
+      {
+       "id": "S167",
+       "ref": "RTS 27/28 (historical)",
+       "use": "reference"
+      },
+      {
+       "id": "S124",
+       "ref": "chapters on market structure regulation",
+       "use": "deeper"
+      },
+      {
+       "id": "S144",
+       "ref": "chapters on trading venues and transparency",
+       "use": "deeper"
+      },
+      {
+       "id": "S176",
+       "ref": "transparency and consolidated-tape provisions",
+       "use": "core"
+      }
+     ]
+    },
+    {
+     "id": "R1.4",
+     "title": "Dossier 4: Market abuse and short selling",
+     "minutes": 60,
+     "objectives": [
+      "Learner can define inside information, insider dealing, unlawful disclosure and market manipulation under MAR",
+      "Learner can describe the issuer disclosure duty, delay conditions, insider lists, PDMR notifications and market soundings",
+      "Learner can apply the EU Short Selling Regulation: net short position notification, naked short ban, locate requirement",
+      "Learner can identify the operational controls a bank needs (STOR, watch/restricted lists, information barriers) and link them to MAR articles"
+     ],
+     "key_concepts": [
+      "Inside information (Art 7)",
+      "Insider dealing, unlawful disclosure, manipulation (Arts 8, 10, 12)",
+      "Safe harbours (market making, buy-back)",
+      "Disclosure and delay (Art 17)",
+      "Insider lists (Art 18)",
+      "PDMR transactions (Art 19)",
+      "Market soundings (Art 11)",
+      "Suspicious transaction and order reports (Art 16)",
+      "SSR: net short position disclosure thresholds, covered short sale rules",
+      "Sanctions and administrative measures"
+     ],
+     "worked_example": "Your private bank's equity desk gets an inquiry from a corporate client about a pending take-over. Decide who goes on the insider list, what the wall-crossing log must show, and whether the client may trade the stock meanwhile.",
+     "exercises": [
+      {
+       "template": "mcq",
+       "task": "Is this conversation inside information and is the recipient an insider?",
+       "params": "scenario pool of 10 (precise nature, non-public, price-sensitive, likelihood)"
+      },
+      {
+       "template": "order",
+       "task": "Order the market-sounding procedure steps",
+       "params": "step set with a distractor"
+      },
+      {
+       "template": "spot",
+       "task": "Find the market-abuse red flag in a client order history extract",
+       "params": "pool of patterns: layering, marking the close, front running"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the net short position as a % of issued share capital and decide which notification threshold applies",
+       "params": "position 0.05-1.2%; thresholds per SSR"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort behaviours into insider dealing, unlawful disclosure, manipulation, or permissible",
+       "params": "8 behaviours from 30"
+      }
+     ],
+     "callbacks": [
+      "C6.1",
+      "C6.2",
+      "C6.3",
+      "T2.1"
+     ],
+     "sources": [
+      {
+       "id": "S256",
+       "ref": "Arts 7-19",
+       "use": "core"
+      },
+      {
+       "id": "S257",
+       "ref": "Q&A topics: insider lists, market soundings, PDMR",
+       "use": "core"
+      },
+      {
+       "id": "S302",
+       "ref": "ESMA Q&A on MAR",
+       "use": "reference"
+      },
+      {
+       "id": "S253",
+       "ref": "Arts 5-15 net short position, covered short sales",
+       "use": "core"
+      },
+      {
+       "id": "S254",
+       "ref": "overview",
+       "use": "reference"
+      },
+      {
+       "id": "S304",
+       "ref": "ESMA Q&A on SSR",
+       "use": "reference"
+      },
+      {
+       "id": "S057",
+       "ref": "chapters on market abuse",
+       "use": "deeper"
+      },
+      {
+       "id": "S124",
+       "ref": "chapters on market abuse",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "R1.5",
+     "title": "Dossier 5: Retail disclosure - PRIIPs KID, Prospectus Regulation and the Retail Investment Strategy",
+     "minutes": 60,
+     "objectives": [
+      "Learner can describe the PRIIPs KID structure: SRI 1-7, performance scenarios, RIY / cost tables, RHP",
+      "Learner can explain who produces and who delivers the KID, and which products are in or out of scope",
+      "Learner can explain the transition of UCITS from the KIID to the PRIIPs KID and the main 2022/23 methodology changes",
+      "Learner can summarise the content and status (Nov 2026) of the Retail Investment Strategy: value for money, inducements and disclosure changes"
+     ],
+     "key_concepts": [
+      "PRIIP definition and scope",
+      "KID: summary risk indicator (MRM and CRM), performance scenarios, costs",
+      "RHP and recommended holding period",
+      "Manufacturer vs distributor KID duties",
+      "Prospectus Regulation exemptions and thresholds, Summary prospectus",
+      "UCITS KIID to PRIIPs KID, deadline 31 Dec 2025",
+      "RIS: provisional agreement Dec 2025, formal adoption still pending",
+      "Value-for-money benchmarking, inducement restrictions for non-advised sales (as proposed/agreed)"
+     ],
+     "worked_example": "An Italian ELN has a 5-year RHP and SRI 4. Read the KID: how are the performance scenarios built, what do the RIY figures say about entry, exit and ongoing costs, and what would change under the RIS draft?",
+     "exercises": [
+      {
+       "template": "table",
+       "task": "Complete a KID costs table (entry / exit / ongoing / transaction costs) in EUR and as RIY at different holding periods",
+       "params": "investment 10k, RHP 3-8 years, cost components 0.2-2%"
+      },
+      {
+       "template": "spot",
+       "task": "Spot errors in a KID extract (wrong SRI band, missing RHP, scenarios not matching product type)",
+       "params": "3 seeded errors from a pool"
+      },
+      {
+       "template": "mcq",
+       "task": "Is this instrument a PRIIP? Which entity prepares the KID?",
+       "params": "instrument pool of 20 (insurance, structured, UCITS, bonds, shares)"
+      },
+      {
+       "template": "match",
+       "task": "Match RIS proposals to the current-law rule they change",
+       "params": "5-6 proposals from a pool"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill in the status of the RIS (procedure steps, adoption, application date) based on the latest state of play",
+       "params": "uses S267 state as of Nov 2026"
+      }
+     ],
+     "callbacks": [
+      "P6.4",
+      "P6.5",
+      "C4.3",
+      "T6.3"
+     ],
+     "sources": [
+      {
+       "id": "S251",
+       "ref": "Arts 1-14 (KID), 5 (scope)",
+       "use": "core"
+      },
+      {
+       "id": "S252",
+       "ref": "Delegated Reg 2017/653 and its amending RTS",
+       "use": "core"
+      },
+      {
+       "id": "S245",
+       "ref": "Arts 1-7 and Annexes (exemptions, summary)",
+       "use": "deeper"
+      },
+      {
+       "id": "S303",
+       "ref": "ESMA Q&As Prospectus Regulation",
+       "use": "reference"
+      },
+      {
+       "id": "S267",
+       "ref": "provisional agreement and open points",
+       "use": "core"
+      },
+      {
+       "id": "S124",
+       "ref": "chapters on product disclosure",
+       "use": "deeper"
+      },
+      {
+       "id": "S192",
+       "ref": "PRIIPs commentary",
+       "use": "reference"
+      },
+      {
+       "id": "S194",
+       "ref": "EUSIPA map",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "R1.6",
+     "title": "Dossier 6: UCITS, AIFMD II and money market funds",
+     "minutes": 60,
+     "objectives": [
+      "Learner can summarise UCITS eligible assets, diversification limits (5/10/40), leverage and use of derivatives",
+      "Learner can describe the AIFMD framework and the main changes of AIFMD II (liquidity management tools, loan origination, delegation, reporting)",
+      "Learner can explain the depositary regime: safekeeping, oversight and liability under UCITS V / AIFMD",
+      "Learner can describe the MMF Regulation categories and the ETF-specific ESMA guidelines"
+     ],
+     "key_concepts": [
+      "UCITS passport and product rules",
+      "Art 52 limits 5/10/40",
+      "Management company vs investment company",
+      "Depositary duties and liability",
+      "AIFMD authorisation and marketing passport",
+      "AIFMD II (Dir 2024/927): LMT, loan origination, delegation, transposition by 16 Apr 2026",
+      "Liquidity management tools: swing pricing, anti-dilution levy, redemption gates, notice periods",
+      "MMFR types: CNAV, LVNAV, VNAV",
+      "ETF guidelines: labelling, index tracking, efficient portfolio management"
+     ],
+     "worked_example": "A Luxembourg UCITS holds 12% of NAV in one issuer's bonds and 8% in each of two others. Calculate the 40% test and decide whether the fund breaches; then decide which LMT would apply when redemptions reach 15% of NAV in a day.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Test a portfolio against the 5/10/40 rule and report headroom in % and EUR",
+       "params": "10-20 positions; issuer weights randomised; NAV 50m-2bn"
+      },
+      {
+       "template": "match",
+       "task": "Match each LMT to its mechanism and typical trigger",
+       "params": "6 tools x 6 mechanisms"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort funds into UCITS, AIF, MMF, ELTIF or other based on features",
+       "params": "feature lists from pool of 12 fund types"
+      },
+      {
+       "template": "mcq",
+       "task": "Who is liable to the investors for loss of a financial instrument held in custody: depositary, sub-custodian or management company?",
+       "params": "scenario pool incl. delegation and insolvency of sub-custodian"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the breach in a fund compliance report",
+       "params": "pool of common breaches: derivative exposure, single issuer, cash sub-limit"
+      }
+     ],
+     "callbacks": [
+      "P4.1",
+      "P4.3",
+      "C5.1",
+      "O4.5",
+      "A4.3"
+     ],
+     "sources": [
+      {
+       "id": "S179",
+       "ref": "Arts 50-57 (eligible assets, limits), Art 22-26 depositary",
+       "use": "core"
+      },
+      {
+       "id": "S181",
+       "ref": "Art 52",
+       "use": "core"
+      },
+      {
+       "id": "S182",
+       "ref": "AIFMD structure and Arts 21 (depositary)",
+       "use": "core"
+      },
+      {
+       "id": "S177",
+       "ref": "AIFMD II / LMT provisions",
+       "use": "core"
+      },
+      {
+       "id": "S289",
+       "ref": "Del. Reg 2016/438 UCITS V depositary",
+       "use": "deeper"
+      },
+      {
+       "id": "S290",
+       "ref": "Del. Reg 231/2013 Arts 83-102",
+       "use": "deeper"
+      },
+      {
+       "id": "S246",
+       "ref": "MMF Regulation structure",
+       "use": "deeper"
+      },
+      {
+       "id": "S187",
+       "ref": "ETF guidelines",
+       "use": "core"
+      },
+      {
+       "id": "S301",
+       "ref": "UCITS Q&A",
+       "use": "reference"
+      },
+      {
+       "id": "S300",
+       "ref": "AIFMD Q&A",
+       "use": "reference"
+      },
+      {
+       "id": "S180",
+       "ref": "combined UCITS/AIFMD reading",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "R1.7",
+     "title": "Dossier 7: CSDR, Refit and the move to T+1",
+     "minutes": 60,
+     "objectives": [
+      "Learner can summarise CSDR: CSD authorisation, settlement discipline, account segregation (Art 38), and the Refit changes",
+      "Learner can compute cash penalties and describe the status of mandatory buy-ins after Refit",
+      "Learner can explain the EU T+1 regime (Reg 2025/2075, 11 Oct 2027), its drivers and the main operational impacts",
+      "Learner can place T2S and the ISO 20022 securities messages in the EU post-trade picture"
+     ],
+     "key_concepts": [
+      "CSDR Reg 909/2014",
+      "Settlement discipline: matching, allocation, hold and release, partial settlement",
+      "Cash penalty rates by instrument type",
+      "Mandatory buy-in: re-scoped by Refit (last resort, activation mechanism)",
+      "Art 38 segregation: omnibus vs individual",
+      "Refit (Reg 2023/2845): cross-border CSD passport, internaliser reporting",
+      "T+1: Reg 2025/2075, 11 Oct 2027, operational chain",
+      "T2S, ECB governance, AMI-SeCo"
+     ],
+     "worked_example": "A EUR 3m corporate bond sale fails for 6 business days because the seller's inventory arrives late: compute the CSDR cash penalty, who pays, and what alert would have appeared in the CSD's matching report.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute the daily and total CSDR cash penalty for a failed trade",
+       "params": "value 0.5-20m EUR; instrument class; days failed 1-12; rate per class"
+      },
+      {
+       "template": "timeline",
+       "task": "Place the CSDR and T+1 milestones (Level 1, RTS 2018/1229, penalties 2022, Refit, T+1)",
+       "params": "random subset of 6 milestones"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort operational tasks into 'changes under T+1' or 'unchanged'",
+       "params": "tasks drawn from pool of 20 (allocation cut-off, FX funding, SSI, securities lending recalls)"
+      },
+      {
+       "template": "mcq",
+       "task": "Which Art 38 account structure is used here and what are the consequences on insolvency of the CSD participant?",
+       "params": "scenario pool of 6"
+      },
+      {
+       "template": "cloze",
+       "task": "Complete the table of the T+1 roadmap (who / what / when)",
+       "params": "from S190 roadmap items"
+      }
+     ],
+     "callbacks": [
+      "O3.3",
+      "O3.4",
+      "O3.5",
+      "O3.6",
+      "O4.2",
+      "O4.3",
+      "O5.1"
+     ],
+     "sources": [
+      {
+       "id": "S262",
+       "ref": "Arts 5-7 settlement discipline, 38 segregation",
+       "use": "core"
+      },
+      {
+       "id": "S248",
+       "ref": "amending provisions of Reg 2023/2845",
+       "use": "core"
+      },
+      {
+       "id": "S250",
+       "ref": "T+1 regulation text",
+       "use": "core"
+      },
+      {
+       "id": "S168",
+       "ref": "proposal and impact",
+       "use": "deeper"
+      },
+      {
+       "id": "S166",
+       "ref": "Del. Reg 2018/1229 (settlement discipline RTS)",
+       "use": "core"
+      },
+      {
+       "id": "S186",
+       "ref": "ESMA final report on settlement cycle",
+       "use": "core"
+      },
+      {
+       "id": "S190",
+       "ref": "T+1 high-level roadmap",
+       "use": "core"
+      },
+      {
+       "id": "S294",
+       "ref": "CSDR Q&A",
+       "use": "reference"
+      },
+      {
+       "id": "S286",
+       "ref": "T2S overview",
+       "use": "reference"
+      },
+      {
+       "id": "S021",
+       "ref": "chapters on EU settlement history",
+       "use": "deeper"
+      },
+      {
+       "id": "S169",
+       "ref": "Art 38 text",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "R1.8",
+     "title": "Dossier 8: EMIR, SFTR and SRD II",
+     "minutes": 60,
+     "objectives": [
+      "Learner can describe the EMIR obligations: clearing, risk mitigation, margin, reporting and the EMIR 3 changes",
+      "Learner can describe the SFTR transparency regime: SFT reporting, reuse disclosure and the data model",
+      "Learner can summarise SRD II's operational impact: shareholder identification, transmission chain, voting confirmations, engagement policy",
+      "Learner can match each regime to the lifecycle events and the party (CCP, TR, CSD, intermediary) that carries the obligation"
+     ],
+     "key_concepts": [
+      "EMIR clearing thresholds and categories (FC, NFC+, NFC-)",
+      "Bilateral margin RTS 2016/2251",
+      "Trade repository reporting (ISO 20022 XML, UTI, UPI)",
+      "EMIR 3: active account at EU CCPs, CCP margin transparency",
+      "SFTR scope: repo, securities lending, margin lending, buy/sell-back; reuse disclosure",
+      "SFTR reporting: UTI, collateral updates",
+      "SRD II: shareholder identification (Impl. Reg 2018/1212), transmission",
+      "Proxy advisors and say-on-pay"
+     ],
+     "worked_example": "A pension fund lends EUR 20m of Bunds against Italian BTPs through its custodian; list the SFTR report(s) due, the data elements that link loan and collateral, and the party that reports.",
+     "exercises": [
+      {
+       "template": "bucket",
+       "task": "Sort transactions into EMIR reportable, SFTR reportable, both or neither",
+       "params": "10 transactions from a pool of 30 (IRS, repo, TRS, securities loan, ETD)"
+      },
+      {
+       "template": "match",
+       "task": "Match each EMIR/SFTR/SRD II data element to its purpose",
+       "params": "elements pool of 15"
+      },
+      {
+       "template": "timeline",
+       "task": "Place the SRD II shareholder meeting cycle (record date, deadline, identification, confirmation)",
+       "params": "shareholder meeting date randomised"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute initial margin exposure and VM call on a netting set under a given CSA",
+       "params": "MTM change +/- 0.3-5m EUR; thresholds; MTA"
+      },
+      {
+       "template": "mcq",
+       "task": "Which party is responsible for reporting, and which for delegating, in this fund-bank-counterparty chain?",
+       "params": "scenario pool of 8"
+      }
+     ],
+     "callbacks": [
+      "O2.1",
+      "O2.3",
+      "O2.5",
+      "O6.1",
+      "O6.4",
+      "O8.5",
+      "K2.4"
+     ],
+     "sources": [
+      {
+       "id": "S261",
+       "ref": "Arts 4, 9, 11, 39 (EMIR)",
+       "use": "core"
+      },
+      {
+       "id": "S260",
+       "ref": "EMIR 3 amendments (Reg 2024/2987)",
+       "use": "core"
+      },
+      {
+       "id": "S163",
+       "ref": "Del. Reg 2016/2251 (bilateral margin)",
+       "use": "deeper"
+      },
+      {
+       "id": "S295",
+       "ref": "EMIR Q&A",
+       "use": "reference"
+      },
+      {
+       "id": "S244",
+       "ref": "Arts 4, 15 (SFTR)",
+       "use": "core"
+      },
+      {
+       "id": "S299",
+       "ref": "SFTR Q&A",
+       "use": "reference"
+      },
+      {
+       "id": "S172",
+       "ref": "Arts 3a-3e SRD II",
+       "use": "core"
+      },
+      {
+       "id": "S173",
+       "ref": "Impl. Reg 2018/1212 formats",
+       "use": "deeper"
+      },
+      {
+       "id": "S099",
+       "ref": "chapters on EU CCP regulation",
+       "use": "deeper"
+      },
+      {
+       "id": "S124",
+       "ref": "chapters on derivatives and securities finance regulation",
+       "use": "deeper"
+      }
+     ]
+    }
+   ],
+   "minigame": {
+    "name": "Gatekeeper",
+    "variant": "Regulation triage: each incoming scenario (order, report, fund breach, CSD fail) must be routed to the governing EU rule and the correct action"
+   },
+   "unit_test": "Mixed scenario test across R1.1-R1.8: identify the governing regulation, key article/date and required action for 15 short cases.",
+   "jurisdiction_notes": "EU-only module by design; national oddities (e.g. Italian FTT, German Depotgesetz, Luxembourg CSSF 24/856) are flagged as boxed asides, not separate units. US/UK/CH/SG/HK comparisons live in R2-R4."
+  },
+  {
+   "id": "R2",
+   "title": "United States: Acts, Reg NMS, Reg BI, customer protection",
+   "track": "ops",
+   "hours": 5,
+   "prereqs": [
+    "R1"
+   ],
+   "boss_items": [
+    "suitability",
+    "dealer execution across venues",
+    "trading restrictions",
+    "margin calls",
+    "transfers",
+    "settlement"
+   ],
+   "hook": "US securities Acts, Regulation NMS, Regulation BI, customer-protection rules and FINRA, and how they compare with the EU rules in R1.",
+   "units": [
+    {
+     "id": "R2.1",
+     "title": "The statutory frame: Securities Act 1933, Exchange Act 1934 and the regulators",
+     "minutes": 50,
+     "objectives": [
+      "Learner can explain the roles of SEC, FINRA, CFTC, Federal Reserve and state regulators",
+      "Learner can distinguish registration under the '33 Act (offerings) from the '34 Act (markets, intermediaries)",
+      "Learner can describe the main exemptions used in practice: Reg D, Rule 144A, Reg S",
+      "Learner can compare the US framework with the EU in a one-page table"
+     ],
+     "key_concepts": [
+      "'33 Act: registration, prospectus, exemptions",
+      "'34 Act: exchanges, broker-dealers, 10(b) and Rule 10b-5",
+      "SROs: FINRA and exchanges",
+      "Investment Company Act 1940 and Advisers Act 1940",
+      "Qualified institutional buyer, accredited investor",
+      "Reg S offshore offerings and the EU/US structured product angle"
+     ],
+     "worked_example": "A EUR-denominated note issued by your EU bank is sold to a US QIB: which exemption applies, what legends and transfer restrictions are needed, and how does that compare with an EU Prospectus Regulation exemption?",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Match regulator / SRO to its function",
+       "params": "pool of 8 bodies"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort offerings into registered, Reg D, Rule 144A, Reg S",
+       "params": "offering features vary"
+      },
+      {
+       "template": "mcq",
+       "task": "Which statute governs this activity?",
+       "params": "scenario pool of 10"
+      },
+      {
+       "template": "cloze",
+       "task": "Complete the comparison table US vs EU for prospectus requirements",
+       "params": "word bank"
+      }
+     ],
+     "callbacks": [
+      "R1.1",
+      "R1.5",
+      "P1.2"
+     ],
+     "sources": [
+      {
+       "id": "S151",
+       "ref": "chapters on '33 Act and '34 Act structure",
+       "use": "core"
+      },
+      {
+       "id": "S145",
+       "ref": "chapters on registration and exemptions",
+       "use": "core"
+      },
+      {
+       "id": "S046",
+       "ref": "chapters on broker-dealer regulatory framework",
+       "use": "core"
+      },
+      {
+       "id": "S238",
+       "ref": "IOSCO principles overview",
+       "use": "reference"
+      },
+      {
+       "id": "S209",
+       "ref": "FINRA Rulebook structure",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "R2.2",
+     "title": "Market structure: Reg NMS and the trade-through world",
+     "minutes": 50,
+     "objectives": [
+      "Learner can describe the four pillars of Reg NMS (Rules 610, 611, 612, 600 series) and the NBBO",
+      "Learner can apply the order protection rule and exceptions on a quote screenshot",
+      "Learner can read Rule 605 and 606 disclosures and understand what they reveal about execution quality and PFOF",
+      "Learner can compare the US PFOF regime with the EU ban"
+     ],
+     "key_concepts": [
+      "NBBO and protected quotations",
+      "Order protection rule (611)",
+      "Access fee cap (610) and tick sizes (612)",
+      "Rules 605/606 disclosures",
+      "SIP and exchange data feeds",
+      "Fragmentation, ATSs, dark pools, internalisers",
+      "Order competition rule: proposed but not adopted as of Nov 2026"
+     ],
+     "worked_example": "A broker sees an NBBO of 41.20 / 41.22 on NYSE while its internaliser quotes 41.23: can it internalise the buy at 41.22, and why or why not?",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute price improvement and total savings against the NBBO",
+       "params": "shares 100-10,000; NBBO tick levels 0.01 spreads"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the trade-through in a stylised tape",
+       "params": "tape of 8-12 prints; 1-2 violations"
+      },
+      {
+       "template": "match",
+       "task": "Match Reg NMS rule numbers to their effect",
+       "params": "pool of 8"
+      },
+      {
+       "template": "mcq",
+       "task": "Is this disclosure a Rule 605 or Rule 606 item?",
+       "params": "pool of 10 data items"
+      }
+     ],
+     "callbacks": [
+      "T3.1",
+      "T3.4",
+      "T5.1",
+      "T6.4",
+      "R1.3"
+     ],
+     "sources": [
+      {
+       "id": "S265",
+       "ref": "Rules 600-614 (esp. 605, 606, 610, 611, 612)",
+       "use": "core"
+      },
+      {
+       "id": "S145",
+       "ref": "chapters on market structure",
+       "use": "deeper"
+      },
+      {
+       "id": "S009",
+       "ref": "Dark Pools, chapters on fragmentation",
+       "use": "deeper"
+      },
+      {
+       "id": "S013",
+       "ref": "Flash Boys, background chapters",
+       "use": "reference"
+      },
+      {
+       "id": "S046",
+       "ref": "market regulation chapters",
+       "use": "core"
+      },
+      {
+       "id": "S209",
+       "ref": "FINRA Rulebook",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "R2.3",
+     "title": "Customer-facing conduct: Reg BI, FINRA 2111/2090 and 5310",
+     "minutes": 50,
+     "objectives": [
+      "Learner can state the four components of Reg BI (disclosure, care, conflicts, compliance) and its scope",
+      "Learner can explain when FINRA Rule 2111 still applies and how Rule 2090 (KYC) operates",
+      "Learner can describe FINRA 5310 best execution and 5320 prohibition on trading ahead of customer orders",
+      "Learner can compare Reg BI with MiFID II suitability on retail structured products"
+     ],
+     "key_concepts": [
+      "Reg BI 'best interest' standard",
+      "Form CRS",
+      "Care obligation: reasonable basis, customer-specific, quantitative",
+      "Conflict of interest mitigation",
+      "FINRA 2111 for non-retail",
+      "KYC (2090)",
+      "Best execution (5310)",
+      "Manning rule (5320)",
+      "Recordkeeping (4511)"
+     ],
+     "worked_example": "A rep proposes a complex note to a retail investor with a 4-year horizon: list which Reg BI obligations are triggered and which records must be kept.",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Match Reg BI obligations to examples",
+       "params": "4 obligations x 4-6 examples"
+      },
+      {
+       "template": "mcq",
+       "task": "Does this recommendation fall under Reg BI or 2111?",
+       "params": "scenario pool of 8"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the deficiency in a recommendation file",
+       "params": "pool of 6 file types"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort duties into Reg BI, 5310, 5320 or 2090",
+       "params": "10 duties from 25"
+      },
+      {
+       "template": "paper",
+       "task": "Optional: compare Reg BI and MiFID II suitability in 400 words",
+       "params": "rubric hidden until submit"
+      }
+     ],
+     "callbacks": [
+      "R1.2",
+      "C4.4",
+      "T5.2",
+      "C2.1"
+     ],
+     "sources": [
+      {
+       "id": "S271",
+       "ref": "Reg BI, Form CRS release",
+       "use": "core"
+      },
+      {
+       "id": "S273",
+       "ref": "Rule 15l-1",
+       "use": "core"
+      },
+      {
+       "id": "S317",
+       "ref": "FINRA 2111",
+       "use": "core"
+      },
+      {
+       "id": "S316",
+       "ref": "FINRA 2090",
+       "use": "core"
+      },
+      {
+       "id": "S208",
+       "ref": "FINRA 5310",
+       "use": "core"
+      },
+      {
+       "id": "S319",
+       "ref": "FINRA 5320",
+       "use": "core"
+      },
+      {
+       "id": "S318",
+       "ref": "FINRA 4511",
+       "use": "reference"
+      },
+      {
+       "id": "S315",
+       "ref": "FINRA 2010",
+       "use": "reference"
+      },
+      {
+       "id": "S046",
+       "ref": "chapters on customer protection and sales practices",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "R2.4",
+     "title": "Customer assets: Rule 15c3-3, net capital, SIPC and margin",
+     "minutes": 50,
+     "objectives": [
+      "Learner can explain the possession/control requirement and the customer reserve formula in plain terms",
+      "Learner can describe net capital (15c3-1) and SIPA / SIPC protection",
+      "Learner can map Regulation T and FINRA 4210 to the margin call workflows seen in K2",
+      "Learner can describe market-access controls under Rule 15c3-5"
+     ],
+     "key_concepts": [
+      "Fully-paid and excess margin securities",
+      "Customer reserve account computation",
+      "SIPC limits (USD 500k / 250k cash)",
+      "Reg T initial margin 50%",
+      "FINRA 4210 maintenance 25%",
+      "Rule 15c3-5 pre-trade risk controls"
+     ],
+     "worked_example": "A broker-dealer holds customer debits of USD 80m and credits of USD 95m: compute the reserve requirement in the simple formula and say what happens if it is short at the weekly computation.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute a simplified customer reserve requirement from credits and debits",
+       "params": "debits and credits 20-500m; haircut 3%"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute Reg T initial margin and the equity position after a price drop",
+       "params": "position 10k-500k; price drop 5-40%"
+      },
+      {
+       "template": "mcq",
+       "task": "Which of these are covered by SIPC?",
+       "params": "scenario pool of 10"
+      },
+      {
+       "template": "order",
+       "task": "Order the steps of a margin-call process under 4210",
+       "params": "step set"
+      },
+      {
+       "template": "match",
+       "task": "Match rules (15c3-1, 15c3-3, 15c3-5, Reg T) to their purpose",
+       "params": "pool of 6"
+      }
+     ],
+     "callbacks": [
+      "K2.1",
+      "K2.2",
+      "O4.4",
+      "A7.4"
+     ],
+     "sources": [
+      {
+       "id": "S273",
+       "ref": "Rule 15c3-3 and customer protection",
+       "use": "core"
+      },
+      {
+       "id": "S266",
+       "ref": "Reg T Sec. 220.1-220.8",
+       "use": "core"
+      },
+      {
+       "id": "S207",
+       "ref": "FINRA 4210",
+       "use": "core"
+      },
+      {
+       "id": "S325",
+       "ref": "Rule 15c3-5",
+       "use": "deeper"
+      },
+      {
+       "id": "S046",
+       "ref": "chapters on net capital and customer protection",
+       "use": "deeper"
+      },
+      {
+       "id": "S151",
+       "ref": "SIPA overview",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "R2.5",
+     "title": "Post-trade and FINRA in practice: T+1, ACATS, supervision",
+     "minutes": 50,
+     "objectives": [
+      "Learner can summarise the US T+1 transition (May 2024) and its operational changes",
+      "Learner can describe ACATS transfer steps and common rejection reasons",
+      "Learner can describe the clearing agency standards (Rule 17Ad-22) at a conceptual level",
+      "Learner can describe FINRA's supervisory and examination model"
+     ],
+     "key_concepts": [
+      "Rule 15c6-1 and 15c6-2 (affirmation by 9pm ET trade date)",
+      "DTCC / NSCC / DTC roles",
+      "ACATS Rule 11870 and NSCC Rule 50",
+      "Clearing agency standards",
+      "Treasury clearing mandate: compliance dates extended into Dec 2026 / Jun 2027 (check status)",
+      "FINRA supervision (3110), exams, enforcement"
+     ],
+     "worked_example": "A customer asks to move a USD 300k portfolio from a Swiss bank to a US broker via ACATS: explain why ACATS cannot be used for the Swiss leg and how the transfer actually flows.",
+     "exercises": [
+      {
+       "template": "timeline",
+       "task": "Place trade, allocation, affirmation, matching and settlement steps on T+1 clock",
+       "params": "market/time zone variants"
+      },
+      {
+       "template": "order",
+       "task": "Order the ACATS steps",
+       "params": "steps shuffled; one distractor"
+      },
+      {
+       "template": "mcq",
+       "task": "Why was this ACATS request rejected?",
+       "params": "reasons pool of 8"
+      },
+      {
+       "template": "match",
+       "task": "Match US post-trade entities to roles",
+       "params": "pool of 6"
+      }
+     ],
+     "callbacks": [
+      "O3.2",
+      "O5.2",
+      "R1.7",
+      "O2.2"
+     ],
+     "sources": [
+      {
+       "id": "S272",
+       "ref": "Release 34-96930",
+       "use": "core"
+      },
+      {
+       "id": "S206",
+       "ref": "FINRA Rule 11870",
+       "use": "core"
+      },
+      {
+       "id": "S237",
+       "ref": "NSCC Rule 50",
+       "use": "core"
+      },
+      {
+       "id": "S326",
+       "ref": "Rule 17Ad-22",
+       "use": "deeper"
+      },
+      {
+       "id": "S129",
+       "ref": "FINRA RN 23-06",
+       "use": "deeper"
+      },
+      {
+       "id": "S046",
+       "ref": "chapters on clearing and settlement",
+       "use": "deeper"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "End-of-module test on R2.1-R2.5: legal sources, Reg NMS mechanics, Reg BI scope, customer protection rule calculations, ACATS/T+1 flows.",
+   "jurisdiction_notes": "US-only module with explicit EU comparisons in each unit (PFOF, suitability vs Reg BI, T+1 timing, customer asset segregation). SG/HK/UK/CH not touched here."
+  },
+  {
+   "id": "R3",
+   "title": "United Kingdom and Switzerland",
+   "track": "ops",
+   "hours": 4,
+   "prereqs": [
+    "R1"
+   ],
+   "boss_items": [
+    "suitability",
+    "client accounts",
+    "custodian role (safekeeping)",
+    "Lombard lending",
+    "best execution"
+   ],
+   "hook": "The UK post-Brexit regime and the Swiss framework, and where each differs from the EU rulebook.",
+   "units": [
+    {
+     "id": "R3.1",
+     "title": "UK framework: FSMA, FCA Handbook and UK MiFIR",
+     "minutes": 50,
+     "objectives": [
+      "Learner can describe the UK's post-Brexit structure: FSMA 2023, FCA and PRA, onshored MiFID/MiFIR",
+      "Learner can name the main points where the UK rules differ from EU (research, transparency, CT, derivative trading obligation)",
+      "Learner can describe the HM Treasury MiFID reform path",
+      "Learner can describe UK T+1 plans (Oct 2027) alongside the EU"
+     ],
+     "key_concepts": [
+      "FSMA 2023 and the 'Smarter Regulatory Framework'",
+      "FCA Handbook: SYSC, COBS, MAR, CASS",
+      "UK MiFIR and the HMT reform plan",
+      "Equivalence and market access (third-country firms)",
+      "UK T+1 (Accelerated Settlement Taskforce)"
+     ],
+     "worked_example": "A UK-based fund manager buys German equities on an EU venue: map the UK and EU rules that touch the order (best ex, transaction reporting, research payment).",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Match the UK document (FSMA, FCA Handbook module, UK MiFIR) to its function",
+       "params": "pool of 8"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort rules into EU only, UK only, or both",
+       "params": "rule items from pool of 20"
+      },
+      {
+       "template": "timeline",
+       "task": "Place UK regulatory milestones (Brexit, onshoring, Edinburgh reforms, T+1)",
+       "params": "random subset of 5"
+      },
+      {
+       "template": "mcq",
+       "task": "Which regime applies to this cross-border service?",
+       "params": "scenario pool of 8"
+      }
+     ],
+     "callbacks": [
+      "R1.1",
+      "R1.3",
+      "R1.7"
+     ],
+     "sources": [
+      {
+       "id": "S059",
+       "ref": "chapters on FSMA and FCA",
+       "use": "core"
+      },
+      {
+       "id": "S313",
+       "ref": "PS17/14 COBS/SYSC changes",
+       "use": "core"
+      },
+      {
+       "id": "S324",
+       "ref": "HMT MiFID reform paper",
+       "use": "core"
+      },
+      {
+       "id": "S158",
+       "ref": "UK T+1 report",
+       "use": "core"
+      },
+      {
+       "id": "S201",
+       "ref": "FCA research unbundling review",
+       "use": "deeper"
+      },
+      {
+       "id": "S150",
+       "ref": "chapters on UK custody law",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "R3.2",
+     "title": "UK conduct and client assets: COBS, Consumer Duty, CASS",
+     "minutes": 50,
+     "objectives": [
+      "Learner can describe COBS suitability and appropriateness, and compare them with MiFID II",
+      "Learner can describe the four Consumer Duty outcomes and cross-cutting rules",
+      "Learner can explain the CASS custody and client money rules and the CASS resolution pack",
+      "Learner can apply CASS reconciliations to a simple example"
+     ],
+     "key_concepts": [
+      "COBS 9A suitability, COBS 10A appropriateness",
+      "Consumer Duty (PRIN 2A): products & services, price & value, consumer understanding, support",
+      "CASS 6 custody rules, CASS 7 client money",
+      "Reconciliation and resolution pack",
+      "Statutory trust for client money"
+     ],
+     "worked_example": "A UK firm holds GBP 5m of client money and the internal ledger shows GBP 5.02m: perform the CASS 7 reconciliation, identify the shortfall treatment and the notification duty.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute a client money requirement vs resource and the shortfall",
+       "params": "balances GBP 1-50m; deltas 0.1-5%"
+      },
+      {
+       "template": "mcq",
+       "task": "Which Consumer Duty outcome is breached?",
+       "params": "scenario pool of 8"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the CASS error in a reconciliation extract",
+       "params": "2 seeded errors"
+      },
+      {
+       "template": "match",
+       "task": "Match CASS chapters to the asset/client money topic",
+       "params": "pool of 6"
+      }
+     ],
+     "callbacks": [
+      "O4.4",
+      "C3.1",
+      "R1.2",
+      "A7.5"
+     ],
+     "sources": [
+      {
+       "id": "S197",
+       "ref": "PRIN 2A and PS22/9",
+       "use": "core"
+      },
+      {
+       "id": "S312",
+       "ref": "PS14/9 CASS",
+       "use": "core"
+      },
+      {
+       "id": "S313",
+       "ref": "COBS changes",
+       "use": "core"
+      },
+      {
+       "id": "S059",
+       "ref": "chapters on conduct and client assets",
+       "use": "deeper"
+      },
+      {
+       "id": "S150",
+       "ref": "chapters on custody and trust",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "R3.3",
+     "title": "Switzerland: FinSA, FinIA, FinMIA and the SBA guidelines",
+     "minutes": 50,
+     "objectives": [
+      "Learner can describe the roles of FinSA (conduct), FinIA (institutions) and FinMIA (infrastructure)",
+      "Learner can map FinSA client segmentation, suitability / appropriateness and information duties to the MiFID equivalents",
+      "Learner can explain the Swiss custody protection in a bank bankruptcy",
+      "Learner can describe the SBA portfolio-management guidelines"
+     ],
+     "key_concepts": [
+      "FinSA (1 Jan 2020): client segmentation, information, suitability, appropriateness, documentation",
+      "Basic information document (BIB / KIB)",
+      "FinIA: licence categories (portfolio manager, trustee, bank)",
+      "FinMIA: FMIs, clearing, derivative trading",
+      "Segregation of custody assets in bankruptcy; deposit protection (esisuisse)",
+      "SBA guidelines",
+      "Equivalence issues with the EU"
+     ],
+     "worked_example": "A Zurich client wants to buy an EU-issued structured note: check FinSA information duties, BIB requirement and the equivalence of an EU PRIIPs KID.",
+     "exercises": [
+      {
+       "template": "table",
+       "task": "Complete a comparison table FinSA vs MiFID II client segments",
+       "params": "rows: retail, professional, institutional"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort regulatory duties into FinSA, FinIA, FinMIA",
+       "params": "10 items from 25"
+      },
+      {
+       "template": "mcq",
+       "task": "Is the Swiss client eligible to be opted-out as professional?",
+       "params": "scenario pool"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the issue in a Swiss suitability file",
+       "params": "pool of 5 errors"
+      }
+     ],
+     "callbacks": [
+      "R1.2",
+      "C4.5",
+      "C2.4",
+      "K1.1"
+     ],
+     "sources": [
+      {
+       "id": "S203",
+       "ref": "FinSA and FinSO",
+       "use": "core"
+      },
+      {
+       "id": "S202",
+       "ref": "FinIA",
+       "use": "core"
+      },
+      {
+       "id": "S204",
+       "ref": "FinMIA",
+       "use": "core"
+      },
+      {
+       "id": "S284",
+       "ref": "consolidated overview",
+       "use": "core"
+      },
+      {
+       "id": "S097",
+       "ref": "chapters on FinSA/FinIA",
+       "use": "core"
+      },
+      {
+       "id": "S283",
+       "ref": "SBA guidelines",
+       "use": "core"
+      },
+      {
+       "id": "S241",
+       "ref": "Lenz & Staehelin chapter",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "R3.4",
+     "title": "Lombard practice and cross-border business in Switzerland and the UK",
+     "minutes": 50,
+     "objectives": [
+      "Learner can describe Swiss Lombard loan documentation and risk disclosure",
+      "Learner can explain how Swiss and UK rules interact with EU cross-border private banking",
+      "Learner can apply the Swiss Lombard framework to a worked LTV example",
+      "Learner can identify typical cross-border pitfalls (marketing, inbound services, reverse solicitation)"
+     ],
+     "key_concepts": [
+      "Lombard loan agreement and pledge",
+      "Lending values and haircuts in practice",
+      "Risk disclosure (Van Lanschot Kempen)",
+      "Reverse solicitation and inbound services (EU 3rd-country regime)",
+      "FINMA operational resilience circular"
+     ],
+     "worked_example": "A Geneva bank lends CHF 1.5m against a pledged portfolio of lending value CHF 2m: compute headroom and the effect of a 20% fall in the largest position.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute LTV, lending value and margin call trigger",
+       "params": "portfolio 1-10m; haircuts 10-50%"
+      },
+      {
+       "template": "mcq",
+       "task": "Is this EU client contact covered by reverse solicitation?",
+       "params": "scenario pool"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort items into pledge, loan, control and disclosure documents",
+       "params": "pool of 12"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill in the Lombard risk disclosure sentences",
+       "params": "word bank"
+      }
+     ],
+     "callbacks": [
+      "K1.1",
+      "K1.2",
+      "K1.3",
+      "R1.2"
+     ],
+     "sources": [
+      {
+       "id": "S026",
+       "ref": "client risk disclosure",
+       "use": "core"
+      },
+      {
+       "id": "S029",
+       "ref": "FINRA securities-backed lines, comparison",
+       "use": "deeper"
+      },
+      {
+       "id": "S205",
+       "ref": "FINMA Circular 2023/1",
+       "use": "reference"
+      },
+      {
+       "id": "S097",
+       "ref": "chapters on cross-border business",
+       "use": "deeper"
+      },
+      {
+       "id": "S284",
+       "ref": "overview",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "Short test on R3.1-R3.4: UK/CH legal sources, conduct rules, client asset protection and Lombard basics versus EU.",
+   "jurisdiction_notes": "UK and Switzerland each get two units; EU comparison made explicit in every unit. UK T+1 date and Swiss equivalence status to be re-verified."
+  },
+  {
+   "id": "R4",
+   "title": "Asia sidebars: Singapore and Hong Kong",
+   "track": "ops",
+   "hours": 2,
+   "prereqs": [
+    "R1"
+   ],
+   "boss_items": [
+    "suitability",
+    "client onboarding",
+    "client accounts"
+   ],
+   "hook": "Suitability and conduct rules in Singapore and Hong Kong, and the points that matter for a private bank booking centre there.",
+   "units": [
+    {
+     "id": "R4.1",
+     "title": "Singapore: SFA, FAA-N16 and fair dealing",
+     "minutes": 30,
+     "objectives": [
+      "Learner can describe the Customer Knowledge Assessment and Customer Account Review for specified investment products",
+      "Learner can map the MAS fair-dealing outcomes to MiFID conduct duties",
+      "Learner can identify accredited investor and institutional investor categories"
+     ],
+     "key_concepts": [
+      "Securities and Futures Act",
+      "FAA-N16 recommendations",
+      "CKA and CAR",
+      "Fair Dealing Guidelines: five outcomes",
+      "Accredited investor",
+      "SIPs and complex products"
+     ],
+     "worked_example": "A Singapore retail customer wants to buy a callable note: determine whether CKA is required, whether a recommendation is made, and which fair-dealing outcome applies.",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Match fair dealing outcomes to examples",
+       "params": "5 outcomes x 3 examples"
+      },
+      {
+       "template": "mcq",
+       "task": "Does this customer need a CKA?",
+       "params": "scenario pool of 8"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort investors into retail, accredited, institutional",
+       "params": "profile data varies"
+      }
+     ],
+     "callbacks": [
+      "R1.2",
+      "C4.6"
+     ],
+     "sources": [
+      {
+       "id": "S275",
+       "ref": "SFA and FAA-N16",
+       "use": "core"
+      },
+      {
+       "id": "S234",
+       "ref": "Fair Dealing Guidelines",
+       "use": "core"
+      }
+     ]
+    },
+    {
+     "id": "R4.2",
+     "title": "Hong Kong: SFO and the SFC Code of Conduct",
+     "minutes": 30,
+     "objectives": [
+      "Learner can describe SFC Code para 5.2 suitability and 5.5 complex product rules",
+      "Learner can describe professional investor classifications",
+      "Learner can compare HK with EU/Singapore on complex product safeguards"
+     ],
+     "key_concepts": [
+      "SFO",
+      "Code of Conduct para 5.2, 5.5",
+      "Professional investors and corporate PIs",
+      "Complex product circular 19EC15",
+      "Warnings and cooling-off for complex products"
+     ],
+     "worked_example": "A retail HK client buys a leveraged structured product: apply the SFC 5.5 conditions (knowledge, suitability, warning) and note the differences with a MiFID appropriateness warning.",
+     "exercises": [
+      {
+       "template": "table",
+       "task": "Compare HK / SG / EU safeguards for complex products",
+       "params": "table with 3 regimes x 4 features"
+      },
+      {
+       "template": "mcq",
+       "task": "Is this product 'complex' for SFC purposes?",
+       "params": "pool of 8"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the missing safeguard in a client file",
+       "params": "pool of 4 errors"
+      }
+     ],
+     "callbacks": [
+      "R1.2",
+      "R4.1"
+     ],
+     "sources": [
+      {
+       "id": "S277",
+       "ref": "Code of Conduct paras 5.2, 5.5",
+       "use": "core"
+      },
+      {
+       "id": "S278",
+       "ref": "SFC FAQs",
+       "use": "core"
+      }
+     ]
+    },
+    {
+     "id": "R4.3",
+     "title": "Asia cross-border: comparison capstone",
+     "minutes": 30,
+     "objectives": [
+      "Learner can produce a one-page comparison of EU, US, UK, CH, SG, HK suitability regimes",
+      "Learner can pick the stricter rule for a multi-booking-centre client",
+      "Learner can identify the jurisdictions whose rules would apply to a cross-border solicitation"
+     ],
+     "key_concepts": [
+      "Regime comparison",
+      "Strictest-of-N approach",
+      "Booking centre vs client domicile"
+     ],
+     "worked_example": "A client domiciled in Italy booked in Singapore wants a note issued in Luxembourg: list the applicable regimes and the strictest requirement.",
+     "exercises": [
+      {
+       "template": "table",
+       "task": "Fill a six-jurisdiction comparison matrix",
+       "params": "features: classification, test, warnings, documents"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort rules into stricter in EU, stricter in Asia, equal",
+       "params": "rule pairs vary"
+      },
+      {
+       "template": "paper",
+       "task": "Optional: write a 300-word cross-border note for a relationship manager",
+       "params": "rubric hidden until submit"
+      }
+     ],
+     "callbacks": [
+      "R1.2",
+      "R2.3",
+      "R3.3",
+      "R4.1",
+      "R4.2"
+     ],
+     "sources": [
+      {
+       "id": "S275",
+       "ref": "SFA",
+       "use": "reference"
+      },
+      {
+       "id": "S277",
+       "ref": "SFC Code",
+       "use": "reference"
+      },
+      {
+       "id": "S203",
+       "ref": "FinSA",
+       "use": "reference"
+      },
+      {
+       "id": "S183",
+       "ref": "MiFID II Art 25",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "5-question comparison test on Asian regimes versus EU.",
+   "jurisdiction_notes": "Sidebars only; Singapore and Hong Kong each in one unit with an EU comparison; third unit is a six-jurisdiction capstone."
+  },
+  {
+   "id": "F4",
+   "title": "Fixed income maths II: term structure, bootstrapping, spreads, FRNs",
+   "track": "theory",
+   "hours": 5,
+   "prereqs": [
+    "F3",
+    "Q6"
+   ],
+   "boss_items": [
+    "bonds"
+   ],
+   "hook": "Par yields, bootstrapping of zero rates, forward rates, credit and swap spreads, and floating-rate notes.",
+   "units": [
+    {
+     "id": "F4.1",
+     "title": "Spot rates, discount factors and forward rates",
+     "minutes": 50,
+     "objectives": [
+      "Learner can convert between discount factors, spot rates and forward rates",
+      "Learner can price a coupon bond as a sum of discounted cash flows with different spot rates",
+      "Learner can compute implied forward rates and explain the no-arbitrage argument"
+     ],
+     "key_concepts": [
+      "Discount factor Z(t)",
+      "Zero (spot) rate",
+      "Forward rate from no arbitrage",
+      "Annual vs continuous compounding",
+      "Bond price as portfolio of zeros",
+      "Yield-to-maturity as an average"
+     ],
+     "worked_example": "Spot rates 1y 2.0%, 2y 2.4%, 3y 2.7%: the 1y rate 2 years forward is (1.027^3 / 1.024^2) - 1, approx 3.3%. Check against the discount factor ratio.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute discount factors and the implied forward rate",
+       "params": "spot rates 0.5-4%; periods 1-5 years"
+      },
+      {
+       "template": "numeric",
+       "task": "Price a 4-year 3% annual bond with a given spot curve and compare with the price at the flat YTM",
+       "params": "coupon 1-5%; curve shape random"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill in the no-arbitrage argument for forwards",
+       "params": "word bank"
+      },
+      {
+       "template": "mcq",
+       "task": "Which curve shape does this set of forwards imply?",
+       "params": "pool of 6 curve sets"
+      }
+     ],
+     "callbacks": [
+      "F3.1",
+      "F3.2",
+      "Q4.3",
+      "P3.5"
+     ],
+     "sources": [
+      {
+       "id": "S061",
+       "ref": "Ch. 1-2 (prices, discount factors, spot and forward rates)",
+       "use": "core"
+      },
+      {
+       "id": "S045",
+       "ref": "chapters on bond pricing and the term structure",
+       "use": "core"
+      },
+      {
+       "id": "S075",
+       "ref": "Ch. 4 (term structure)",
+       "use": "deeper"
+      },
+      {
+       "id": "S015",
+       "ref": "chapter on bond prices and yields",
+       "use": "foundation"
+      }
+     ]
+    },
+    {
+     "id": "F4.2",
+     "title": "Bootstrapping a zero curve from par and swap rates",
+     "minutes": 50,
+     "objectives": [
+      "Learner can bootstrap spot rates from par yields step by step",
+      "Learner can interpret a swap curve and a par curve and tell them apart",
+      "Learner can describe the effect of the euro risk-free transition (EURIBOR, ESTR) on curve building at a conceptual level"
+     ],
+     "key_concepts": [
+      "Par yield",
+      "Bootstrapping algorithm",
+      "Interpolation (linear, log-discount)",
+      "Swap curve vs government curve",
+      "OIS curve and discounting (ESTR)"
+     ],
+     "worked_example": "Par yields 1y 2.0%, 2y 2.5%, 3y 2.9%: solve successively for Z(1), Z(2), Z(3) and verify that the 3y par bond prices to 100.",
+     "exercises": [
+      {
+       "template": "table",
+       "task": "Complete a bootstrapping table from par yields to discount factors and spot rates",
+       "params": "par yields 1-5y; annual coupons"
+      },
+      {
+       "template": "order",
+       "task": "Put the bootstrapping algorithm steps in order",
+       "params": "step set"
+      },
+      {
+       "template": "numeric",
+       "task": "Interpolate a missing spot rate",
+       "params": "bracketing maturities random"
+      },
+      {
+       "template": "mcq",
+       "task": "Which curve is appropriate to discount this cash flow?",
+       "params": "scenario pool"
+      }
+     ],
+     "callbacks": [
+      "F3.3",
+      "Q6.2",
+      "F4.1"
+     ],
+     "sources": [
+      {
+       "id": "S061",
+       "ref": "Ch. 2-3 (par rates, bootstrapping)",
+       "use": "core"
+      },
+      {
+       "id": "S093",
+       "ref": "chapters on the term structure and zero curves",
+       "use": "deeper"
+      },
+      {
+       "id": "S060",
+       "ref": "chapters on spot and forward rate curves",
+       "use": "deeper"
+      },
+      {
+       "id": "S156",
+       "ref": "ISDA 2021 definitions (reference rates)",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "F4.3",
+     "title": "Yield, return and the shape of the curve",
+     "minutes": 50,
+     "objectives": [
+      "Learner can explain the expectations, liquidity and preferred-habitat theories",
+      "Learner can compute holding-period return under curve shifts using duration",
+      "Learner can explain roll-down and carry"
+     ],
+     "key_concepts": [
+      "Expectations hypothesis",
+      "Term premium",
+      "Roll-down",
+      "Carry",
+      "Curve moves: level, slope, curvature",
+      "Matrices for curve moves (callback to Q6)"
+     ],
+     "worked_example": "A 5-year bond is held for 1 year with a flat curve versus an upward-sloping curve: compute carry and roll-down return.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute 1-year holding period return including carry and roll-down",
+       "params": "curve slope 0-1%; duration 3-8"
+      },
+      {
+       "template": "match",
+       "task": "Match term-structure theories to the claims they make",
+       "params": "3 theories x 4 claims"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort curve events into level, slope or curvature changes",
+       "params": "events pool of 10"
+      },
+      {
+       "template": "mcq",
+       "task": "Is this position benefiting from a steepening?",
+       "params": "position pool"
+      }
+     ],
+     "callbacks": [
+      "F3.2",
+      "F3.3",
+      "Q6.1"
+     ],
+     "sources": [
+      {
+       "id": "S061",
+       "ref": "Ch. 7-8 (returns, one factor)",
+       "use": "core"
+      },
+      {
+       "id": "S045",
+       "ref": "chapters on term-structure theories",
+       "use": "deeper"
+      },
+      {
+       "id": "S287",
+       "ref": "chapters on yield curve analysis",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "F4.4",
+     "title": "Spreads: G-spread, I-spread, Z-spread and credit spread",
+     "minutes": 50,
+     "objectives": [
+      "Learner can compute G-, I- and Z-spreads for a corporate bond",
+      "Learner can explain why Z-spread is preferred to nominal spread",
+      "Learner can connect spreads to default probability and recovery in a simple model"
+     ],
+     "key_concepts": [
+      "Nominal spread",
+      "I-spread vs swaps",
+      "Z-spread solving",
+      "OAS idea (callable bonds)",
+      "Credit spread from hazard rate: s ~ lambda * (1 - R)",
+      "Liquidity and CDS-bond basis"
+     ],
+     "worked_example": "A 5-year corporate bond yields 4.1% while the 5-year Bund yields 2.4% and the 5-year swap is 2.6%: G-spread 170bp, I-spread 150bp; solve Z-spread numerically by trial.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute G-spread, I-spread and a rough Z-spread",
+       "params": "bond yield 3-8%; benchmarks"
+      },
+      {
+       "template": "numeric",
+       "task": "Credit spread from hazard rate and recovery",
+       "params": "lambda 0.5-5%; recovery 20-60%"
+      },
+      {
+       "template": "mcq",
+       "task": "Which spread is most relevant for this comparison?",
+       "params": "pool of scenarios"
+      },
+      {
+       "template": "match",
+       "task": "Match spread names to definitions",
+       "params": "pool of 6"
+      }
+     ],
+     "callbacks": [
+      "P3.4",
+      "F3.3",
+      "F4.2",
+      "Q5.2"
+     ],
+     "sources": [
+      {
+       "id": "S061",
+       "ref": "chapters on spreads",
+       "use": "core"
+      },
+      {
+       "id": "S045",
+       "ref": "chapters on credit and spreads",
+       "use": "core"
+      },
+      {
+       "id": "S089",
+       "ref": "credit risk chapters",
+       "use": "deeper"
+      },
+      {
+       "id": "S149",
+       "ref": "convertible bond spreads",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "F4.5",
+     "title": "Floating-rate notes and discount margin",
+     "minutes": 50,
+     "objectives": [
+      "Learner can price a FRN at reset and between resets",
+      "Learner can compute the discount margin and the effective spread",
+      "Learner can describe benchmark replacement and fallback language (EURIBOR, ESTR) at a conceptual level"
+     ],
+     "key_concepts": [
+      "FRN coupon: reference rate + quoted margin",
+      "Reset dates and accrued interest",
+      "Price at par on reset",
+      "Discount margin",
+      "Caps, floors, inverse FRNs",
+      "Benchmark fallbacks"
+     ],
+     "worked_example": "A EUR FRN pays 3M EURIBOR + 80bp, last reset at 2.20%: compute next coupon, accrued after 30 days and the price when the market demands DM of 95bp.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute coupon, accrued and price for an FRN between resets",
+       "params": "reference rate 1-5%; margin 20-200bp; days 0-90"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the discount margin",
+       "params": "price 97-103"
+      },
+      {
+       "template": "timeline",
+       "task": "Place reset, fixing and payment dates for an FRN",
+       "params": "date generator with Target calendar"
+      },
+      {
+       "template": "mcq",
+       "task": "How does the FRN price move when the benchmark moves?",
+       "params": "scenario pool"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in an FRN term sheet",
+       "params": "2 seeded errors"
+      }
+     ],
+     "callbacks": [
+      "P3.2",
+      "P3.4",
+      "F4.1",
+      "P6.1"
+     ],
+     "sources": [
+      {
+       "id": "S061",
+       "ref": "chapters on floating-rate notes",
+       "use": "core"
+      },
+      {
+       "id": "S045",
+       "ref": "chapter on floating-rate securities",
+       "use": "core"
+      },
+      {
+       "id": "S220",
+       "ref": "ICMA conventions",
+       "use": "reference"
+      },
+      {
+       "id": "S156",
+       "ref": "ISDA 2021 definitions",
+       "use": "reference"
+      },
+      {
+       "id": "S287",
+       "ref": "chapters on FRNs",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "End-of-module test: discount factors, bootstrapping a 3-year curve, a spread calculation and an FRN price.",
+   "jurisdiction_notes": "EUR conventions first (annual 30/360 for Bunds, ACT/ACT for governments); EURIBOR / ESTR transition. US Treasuries (semi-annual) and SOFR noted as contrast only."
+  },
+  {
+   "id": "F5",
+   "title": "Portfolio theory and CAPM",
+   "track": "theory",
+   "hours": 6,
+   "prereqs": [
+    "F2",
+    "Q6"
+   ],
+   "boss_items": [
+    "funds"
+   ],
+   "hook": "Mean-variance portfolio construction, the efficient frontier, diversification, beta and the CAPM.",
+   "units": [
+    {
+     "id": "F5.1",
+     "title": "Mean-variance preferences and the two-asset portfolio",
+     "minutes": 50,
+     "objectives": [
+      "Learner can compute expected return and variance of a two-asset portfolio",
+      "Learner can explain diversification via correlation",
+      "Learner can find the minimum-variance weights in a two-asset case"
+     ],
+     "key_concepts": [
+      "Expected return, variance, covariance",
+      "Correlation and diversification",
+      "Minimum-variance portfolio (algebraic solution)",
+      "Utility and risk aversion",
+      "Risk-return trade-off"
+     ],
+     "worked_example": "Asset A 8% / 20%, asset B 4% / 8%, correlation 0.2: compute the 50/50 portfolio return and volatility and the min-variance weights.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Portfolio return and volatility of two assets",
+       "params": "returns 3-12%; vols 5-35%; correlation -0.5..0.9"
+      },
+      {
+       "template": "numeric",
+       "task": "Minimum-variance weights",
+       "params": "same ranges"
+      },
+      {
+       "template": "mcq",
+       "task": "Which correlation produces the greatest diversification?",
+       "params": "pool"
+      },
+      {
+       "template": "table",
+       "task": "Fill a table of portfolio (w, mu, sigma) along the frontier",
+       "params": "weights step 0.1"
+      }
+     ],
+     "callbacks": [
+      "F2.2",
+      "F2.3",
+      "Q2.2",
+      "Q6.4"
+     ],
+     "sources": [
+      {
+       "id": "S085",
+       "ref": "Markowitz 1952 (sections I-III)",
+       "use": "core"
+      },
+      {
+       "id": "S015",
+       "ref": "Ch. 6-7 (risk, return, diversification)",
+       "use": "core"
+      },
+      {
+       "id": "S075",
+       "ref": "Ch. 6 (mean-variance)",
+       "use": "deeper"
+      },
+      {
+       "id": "S079",
+       "ref": "Ch. 5-6",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "F5.2",
+     "title": "N assets, matrices and the efficient frontier",
+     "minutes": 50,
+     "objectives": [
+      "Learner can write portfolio variance as w'Sw",
+      "Learner can describe the efficient frontier and global minimum variance portfolio",
+      "Learner can compute a 3-asset portfolio variance from a covariance matrix"
+     ],
+     "key_concepts": [
+      "Covariance matrix",
+      "Quadratic form w'Sw",
+      "Efficient frontier",
+      "Global minimum variance portfolio",
+      "Constraints (long-only)",
+      "Estimation error"
+     ],
+     "worked_example": "Three assets with given sigma and correlation matrix: compute portfolio variance for w = (0.5, 0.3, 0.2).",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute portfolio variance via matrix multiplication",
+       "params": "3x3 covariance; weights"
+      },
+      {
+       "template": "table",
+       "task": "Complete the covariance matrix from volatilities and correlations",
+       "params": "random inputs"
+      },
+      {
+       "template": "mcq",
+       "task": "Which portfolio lies on the efficient frontier?",
+       "params": "points on a chart"
+      },
+      {
+       "template": "cloze",
+       "task": "Explain estimation error in mean-variance optimisation",
+       "params": "word bank"
+      }
+     ],
+     "callbacks": [
+      "Q6.2",
+      "Q6.3",
+      "Q6.5",
+      "F5.1"
+     ],
+     "sources": [
+      {
+       "id": "S015",
+       "ref": "Ch. 7 (optimal risky portfolios)",
+       "use": "core"
+      },
+      {
+       "id": "S079",
+       "ref": "Ch. 6-7",
+       "use": "core"
+      },
+      {
+       "id": "S075",
+       "ref": "Ch. 6",
+       "use": "deeper"
+      },
+      {
+       "id": "S133",
+       "ref": "portfolio construction chapters",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "F5.3",
+     "title": "Capital allocation, the tangency portfolio and the CML",
+     "minutes": 50,
+     "objectives": [
+      "Learner can find the tangency portfolio for two risky assets and a risk-free rate",
+      "Learner can draw the CML and compute the Sharpe ratio",
+      "Learner can explain the separation theorem"
+     ],
+     "key_concepts": [
+      "Risk-free asset",
+      "Sharpe ratio",
+      "Tangency portfolio",
+      "Capital market line",
+      "Separation theorem",
+      "Leverage and borrowing"
+     ],
+     "worked_example": "Risk-free 2%, tangent portfolio 9% / 16%: Sharpe = 0.4375; a client with 12% volatility target holds 75% of tangent, 25% cash.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Sharpe ratio and CML weights for a target volatility",
+       "params": "rf 0-4%; tangency 6-12% / 10-25%"
+      },
+      {
+       "template": "mcq",
+       "task": "Which point is optimal for an investor of risk aversion A?",
+       "params": "pool"
+      },
+      {
+       "template": "order",
+       "task": "Order steps to build an optimal portfolio",
+       "params": "step set"
+      },
+      {
+       "template": "match",
+       "task": "Match terms (CML, SML, tangency) to descriptions",
+       "params": "pool"
+      }
+     ],
+     "callbacks": [
+      "F2.4",
+      "F5.1",
+      "F5.2",
+      "A6.3"
+     ],
+     "sources": [
+      {
+       "id": "S015",
+       "ref": "Ch. 6-7",
+       "use": "core"
+      },
+      {
+       "id": "S075",
+       "ref": "Ch. 6",
+       "use": "core"
+      },
+      {
+       "id": "S085",
+       "ref": "Markowitz 1952",
+       "use": "reference"
+      },
+      {
+       "id": "S048",
+       "ref": "Sharpe 1964, sections 1-2",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "F5.4",
+     "title": "CAPM, beta and the security market line",
+     "minutes": 50,
+     "objectives": [
+      "Learner can compute beta as covariance over variance and estimate it from a regression",
+      "Learner can compute required return from CAPM and alpha from observed return",
+      "Learner can list CAPM assumptions and their practical failures"
+     ],
+     "key_concepts": [
+      "Systematic vs idiosyncratic risk",
+      "Beta",
+      "SML",
+      "Alpha",
+      "CAPM assumptions",
+      "Roll's critique (concept)",
+      "Cost of equity (link to corporate finance)"
+     ],
+     "worked_example": "Beta 1.2, rf 2%, equity risk premium 5.5%: required return 8.6%; if realised is 10%, alpha is 1.4%.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Required return and alpha",
+       "params": "beta 0.4-1.8; premium 4-7%"
+      },
+      {
+       "template": "numeric",
+       "task": "Beta from covariance and variance",
+       "params": "cov/var random"
+      },
+      {
+       "template": "mcq",
+       "task": "Which assumption fails here?",
+       "params": "pool"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort risks into systematic or idiosyncratic",
+       "params": "pool of 12"
+      }
+     ],
+     "callbacks": [
+      "F2.3",
+      "Q5.1",
+      "A5.3",
+      "A6.3"
+     ],
+     "sources": [
+      {
+       "id": "S048",
+       "ref": "Sharpe 1964",
+       "use": "core"
+      },
+      {
+       "id": "S015",
+       "ref": "Ch. 9 (CAPM)",
+       "use": "core"
+      },
+      {
+       "id": "S008",
+       "ref": "chapters on cost of capital",
+       "use": "deeper"
+      },
+      {
+       "id": "S075",
+       "ref": "Ch. 7",
+       "use": "deeper"
+      },
+      {
+       "id": "S079",
+       "ref": "Ch. 13-14",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "F5.5",
+     "title": "Factor models: APT, Fama-French, smart beta",
+     "minutes": 50,
+     "objectives": [
+      "Learner can explain APT and the single- and multi-factor models",
+      "Learner can interpret the Fama-French factors and their loadings",
+      "Learner can connect factor exposures to fund performance attribution"
+     ],
+     "key_concepts": [
+      "Single-index model",
+      "APT intuition",
+      "Fama-French 3 (and 5) factors",
+      "Momentum",
+      "Factor ETFs",
+      "Alpha vs factor premia"
+     ],
+     "worked_example": "A fund returns 9% with beta 1.0, SMB loading 0.3, HML loading 0.4: decompose into factor premia and alpha.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Factor return decomposition",
+       "params": "loadings and premia random"
+      },
+      {
+       "template": "match",
+       "task": "Match factors to economic stories",
+       "params": "pool"
+      },
+      {
+       "template": "mcq",
+       "task": "Which factor best explains this fund's excess return?",
+       "params": "pool"
+      },
+      {
+       "template": "table",
+       "task": "Complete a factor attribution table",
+       "params": "3-5 factors"
+      }
+     ],
+     "callbacks": [
+      "F5.4",
+      "A6.4",
+      "Q6.3"
+     ],
+     "sources": [
+      {
+       "id": "S051",
+       "ref": "Fama-French 1993",
+       "use": "core"
+      },
+      {
+       "id": "S042",
+       "ref": "chapters on factor investing",
+       "use": "core"
+      },
+      {
+       "id": "S015",
+       "ref": "Ch. 10",
+       "use": "core"
+      },
+      {
+       "id": "S107",
+       "ref": "chapters on active management",
+       "use": "deeper"
+      },
+      {
+       "id": "S112",
+       "ref": "chapters on factor models",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "F5.6",
+     "title": "Market efficiency and active management",
+     "minutes": 50,
+     "objectives": [
+      "Learner can distinguish weak, semi-strong and strong-form efficiency",
+      "Learner can interpret the empirical tests (event studies, anomalies)",
+      "Learner can connect efficiency to the case for passive / ETF investing and for active management"
+     ],
+     "key_concepts": [
+      "Fama 1970 taxonomy",
+      "Event studies",
+      "Anomalies",
+      "Grossman-Stiglitz paradox",
+      "Passive vs active",
+      "Fees and net alpha",
+      "Link to behavioural finance (F8)"
+     ],
+     "worked_example": "Given a stock's abnormal return around a dividend announcement: test using a market model and interpret.",
+     "exercises": [
+      {
+       "template": "mcq",
+       "task": "Which efficiency form is violated by this evidence?",
+       "params": "pool"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute cumulative abnormal return in an event window",
+       "params": "CAR random"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort anomalies into plausible risk-based or behavioural",
+       "params": "pool"
+      },
+      {
+       "template": "paper",
+       "task": "Optional: 400-word essay on efficiency and fees",
+       "params": "rubric hidden until submit"
+      }
+     ],
+     "callbacks": [
+      "P5.3",
+      "F5.4",
+      "A6.5"
+     ],
+     "sources": [
+      {
+       "id": "S055",
+       "ref": "Fama 1970",
+       "use": "core"
+      },
+      {
+       "id": "S015",
+       "ref": "Ch. 11",
+       "use": "core"
+      },
+      {
+       "id": "S007",
+       "ref": "chapters on costs",
+       "use": "deeper"
+      },
+      {
+       "id": "S106",
+       "ref": "Barberis-Thaler overview",
+       "use": "reference"
+      },
+      {
+       "id": "S148",
+       "ref": "chapters on market efficiency",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "Two-asset frontier calculation, Sharpe ratio, CAPM alpha and factor decomposition in 12 questions.",
+   "jurisdiction_notes": null
+  },
+  {
+   "id": "T8",
+   "title": "Market microstructure: spreads, liquidity, impact; Kyle and Glosten-Milgrom",
+   "track": "theory",
+   "hours": 6,
+   "prereqs": [
+    "T3",
+    "Q5"
+   ],
+   "boss_items": [
+    "dealer execution across venues",
+    "order & execution workflows"
+   ],
+   "hook": "Bid-ask spread components, liquidity measures, market impact, and the Kyle and Glosten-Milgrom models of informed trading.",
+   "units": [
+    {
+     "id": "T8.1",
+     "title": "Spreads and their components",
+     "minutes": 50,
+     "objectives": [
+      "Learner can compute quoted, effective and realised spreads",
+      "Learner can decompose the spread into order processing, inventory and adverse selection",
+      "Learner can estimate the spread from price changes with Roll's measure"
+     ],
+     "key_concepts": [
+      "Quoted, effective, realised spread",
+      "Order processing cost",
+      "Inventory cost",
+      "Adverse selection",
+      "Roll's model",
+      "Tick size and its role"
+     ],
+     "worked_example": "Midpoint 20.00, buy executes at 20.01, midpoint 5 minutes later is 20.005: effective spread 2 x 0.01 = 0.02 (10bp), realised spread 2 x 0.005 = 0.01 (5bp), the rest being price impact.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute quoted, effective and realised spreads",
+       "params": "prices and horizon random"
+      },
+      {
+       "template": "numeric",
+       "task": "Roll's spread estimate from serial covariance",
+       "params": "cov -0.0001..-0.01"
+      },
+      {
+       "template": "mcq",
+       "task": "Which cost component dominates here?",
+       "params": "pool"
+      },
+      {
+       "template": "match",
+       "task": "Match spread measures to definitions",
+       "params": "pool"
+      }
+     ],
+     "callbacks": [
+      "T3.1",
+      "T5.4",
+      "Q5.1"
+     ],
+     "sources": [
+      {
+       "id": "S101",
+       "ref": "chapters on spreads and bid-ask",
+       "use": "core"
+      },
+      {
+       "id": "S134",
+       "ref": "chapters on transaction costs",
+       "use": "core"
+      },
+      {
+       "id": "S123",
+       "ref": "chapters on the Roll model and spreads",
+       "use": "deeper"
+      },
+      {
+       "id": "S136",
+       "ref": "survey sections on spread components",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "T8.2",
+     "title": "Liquidity: depth, resilience and measures",
+     "minutes": 50,
+     "objectives": [
+      "Learner can compute depth, Amihud illiquidity and turnover measures",
+      "Learner can identify liquidity dimensions (tightness, depth, resilience, immediacy)",
+      "Learner can interpret liquidity under stress"
+     ],
+     "key_concepts": [
+      "Depth",
+      "Amihud",
+      "Resilience",
+      "Immediacy",
+      "Liquidity under stress",
+      "Liquidity and fund redemption (link to UCITS LMTs)"
+     ],
+     "worked_example": "Given volume and absolute return per day, compute the Amihud ratio for two stocks.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Amihud ratio for stocks",
+       "params": "returns and volume random"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort measures into dimensions of liquidity",
+       "params": "pool"
+      },
+      {
+       "template": "mcq",
+       "task": "Which stock is more liquid?",
+       "params": "pool"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill in the definition of resilience",
+       "params": "word bank"
+      }
+     ],
+     "callbacks": [
+      "T8.1",
+      "P5.4",
+      "R1.6"
+     ],
+     "sources": [
+      {
+       "id": "S134",
+       "ref": "chapters on liquidity measures",
+       "use": "core"
+      },
+      {
+       "id": "S123",
+       "ref": "chapters on liquidity",
+       "use": "deeper"
+      },
+      {
+       "id": "S154",
+       "ref": "chapters on liquidity and impact",
+       "use": "deeper"
+      },
+      {
+       "id": "S101",
+       "ref": "liquidity chapters",
+       "use": "core"
+      }
+     ]
+    },
+    {
+     "id": "T8.3",
+     "title": "Price impact and optimal execution",
+     "minutes": 50,
+     "objectives": [
+      "Learner can describe temporary and permanent impact",
+      "Learner can apply the square-root impact law",
+      "Learner can describe the Almgren-Chriss trade-off between risk and cost"
+     ],
+     "key_concepts": [
+      "Temporary vs permanent impact",
+      "Square-root law",
+      "Participation rate",
+      "VWAP, TWAP, implementation shortfall",
+      "Almgren-Chriss",
+      "Link to TCA (T5)"
+     ],
+     "worked_example": "A EUR 5m order in a stock with ADV EUR 50m and daily vol 2%: impact ~ Y*sigma*sqrt(Q/ADV) with Y=0.7: impact approx 0.7 x 2% x sqrt(0.1) = 44bp.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute square-root impact",
+       "params": "Q/ADV 0.01-0.3; sigma 1-4%"
+      },
+      {
+       "template": "numeric",
+       "task": "Implementation shortfall vs arrival",
+       "params": "prices random"
+      },
+      {
+       "template": "match",
+       "task": "Match algorithms to purposes",
+       "params": "pool"
+      },
+      {
+       "template": "mcq",
+       "task": "How should the schedule change when risk aversion rises?",
+       "params": "pool"
+      }
+     ],
+     "callbacks": [
+      "T5.2",
+      "T5.3",
+      "Q5.2",
+      "T8.2"
+     ],
+     "sources": [
+      {
+       "id": "S139",
+       "ref": "Almgren-Chriss 2000",
+       "use": "core"
+      },
+      {
+       "id": "S154",
+       "ref": "chapters on impact",
+       "use": "core"
+      },
+      {
+       "id": "S038",
+       "ref": "chapters on impact models",
+       "use": "deeper"
+      },
+      {
+       "id": "S108",
+       "ref": "chapters on execution",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "T8.4",
+     "title": "Inventory models and the market maker",
+     "minutes": 50,
+     "objectives": [
+      "Learner can describe how a dealer sets quotes with inventory",
+      "Learner can describe the Ho-Stoll style result that quotes shift with inventory",
+      "Learner can connect the model to RFQ and dealer desk workflows"
+     ],
+     "key_concepts": [
+      "Market maker's problem",
+      "Inventory risk",
+      "Quote skew",
+      "Hit rate and winner's curse",
+      "RFQ vs order book",
+      "Click or Call (Hendershott-Madhavan)"
+     ],
+     "worked_example": "A dealer long 10m bonds shifts both bid and ask down 2bp: compute expected spread capture and the inventory penalty.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute expected profit per round trip with skew",
+       "params": "spread 2-20bp; skew 0-5bp"
+      },
+      {
+       "template": "mcq",
+       "task": "How should a dealer with a long position adjust quotes?",
+       "params": "pool"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort events into inventory or information driven",
+       "params": "pool"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the issue in a dealer's RFQ log",
+       "params": "log extract"
+      }
+     ],
+     "callbacks": [
+      "T4.1",
+      "T4.2",
+      "T8.1"
+     ],
+     "sources": [
+      {
+       "id": "S135",
+       "ref": "chapters on inventory models",
+       "use": "core"
+      },
+      {
+       "id": "S101",
+       "ref": "chapters on dealers",
+       "use": "core"
+      },
+      {
+       "id": "S117",
+       "ref": "Hendershott-Madhavan 2015",
+       "use": "deeper"
+      },
+      {
+       "id": "S056",
+       "ref": "BIS Markets Committee electronic trading",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "T8.5",
+     "title": "Information models: Glosten-Milgrom",
+     "minutes": 50,
+     "objectives": [
+      "Learner can compute bid and ask in a sequential-trade model with informed and uninformed traders",
+      "Learner can explain how beliefs update after a buy or sell",
+      "Learner can derive that the spread increases with the share of informed traders"
+     ],
+     "key_concepts": [
+      "Informed vs noise traders",
+      "Bayesian updating",
+      "Zero-profit quotes",
+      "Bid-ask spread from adverse selection",
+      "Price convergence",
+      "Learning from order flow"
+     ],
+     "worked_example": "True value is 100 or 102 with equal prior, informed share 20%: P(buy | high) = 0.2 + 0.8 x 0.5 = 0.6 and P(buy | low) = 0.4, so ask = E[V | buy] = 101.2, bid = 100.8, spread 0.4.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute bid and ask in a GM model",
+       "params": "value gap 1-10; informed share 5-50%"
+      },
+      {
+       "template": "numeric",
+       "task": "Update belief after a sequence of trades",
+       "params": "sequence random"
+      },
+      {
+       "template": "mcq",
+       "task": "What happens to the spread if informed share doubles?",
+       "params": "pool"
+      },
+      {
+       "template": "order",
+       "task": "Put derivation steps in order",
+       "params": "step set"
+      }
+     ],
+     "callbacks": [
+      "Q5.1",
+      "Q2.4",
+      "T8.1"
+     ],
+     "sources": [
+      {
+       "id": "S114",
+       "ref": "Glosten-Milgrom 1985",
+       "use": "core"
+      },
+      {
+       "id": "S135",
+       "ref": "chapters on sequential trade",
+       "use": "core"
+      },
+      {
+       "id": "S136",
+       "ref": "survey sections on GM",
+       "use": "deeper"
+      },
+      {
+       "id": "S101",
+       "ref": "chapters on informed traders",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "T8.6",
+     "title": "Information models: Kyle (1985) and empirical microstructure",
+     "minutes": 50,
+     "objectives": [
+      "Learner can state the Kyle model setup and equilibrium (linear pricing rule, lambda)",
+      "Learner can interpret lambda as the price-impact coefficient",
+      "Learner can compare Kyle and Glosten-Milgrom and relate them to observed impact"
+     ],
+     "key_concepts": [
+      "Informed trader, noise traders, market maker",
+      "Linear equilibrium",
+      "Kyle's lambda",
+      "Market depth 1/lambda",
+      "Comparison with GM",
+      "Empirical estimation (Hasbrouck)"
+     ],
+     "worked_example": "With value std 2 and noise-trade std 10m shares, lambda = 0.5 x 2 / 10 = 0.1 per million shares, so 1m net order flow moves the price by 0.10.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute Kyle's lambda and the price impact of a given order flow",
+       "params": "variances random"
+      },
+      {
+       "template": "mcq",
+       "task": "Which model fits this market better and why?",
+       "params": "scenarios"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill in the Kyle equilibrium description",
+       "params": "word bank"
+      },
+      {
+       "template": "paper",
+       "task": "Optional: 400-word comparison of GM and Kyle",
+       "params": "rubric hidden until submit"
+      }
+     ],
+     "callbacks": [
+      "T8.5",
+      "Q5.3"
+     ],
+     "sources": [
+      {
+       "id": "S118",
+       "ref": "Kyle 1985",
+       "use": "core"
+      },
+      {
+       "id": "S135",
+       "ref": "chapters on strategic traders",
+       "use": "core"
+      },
+      {
+       "id": "S123",
+       "ref": "empirical chapters",
+       "use": "deeper"
+      },
+      {
+       "id": "S136",
+       "ref": "survey",
+       "use": "deeper"
+      }
+     ]
+    }
+   ],
+   "minigame": {
+    "name": "Order Book",
+    "variant": "Advanced: read spread, depth and imbalance; execute a parent order with minimal impact; infer informed flow from order-book pressure"
+   },
+   "unit_test": "Spreads, liquidity, impact and information-model calculations; 15 questions.",
+   "jurisdiction_notes": "Mentions MiFID tick-size regime and SI quoting only as institutional context; theory is jurisdiction-neutral."
+  },
+  {
+   "id": "Q7",
+   "title": "Multivariable calculus and optimisation",
+   "track": "theory",
+   "hours": 5,
+   "prereqs": [
+    "Q4",
+    "Q6"
+   ],
+   "boss_items": [],
+   "hook": "Partial derivatives, gradients, the multivariable chain rule and constrained optimisation with Lagrange multipliers, applied to portfolio value and risk factors.",
+   "units": [
+    {
+     "id": "Q7.1",
+     "title": "Functions of several variables and partial derivatives",
+     "minutes": 50,
+     "objectives": [
+      "Learner can compute partial derivatives of functions of two or three variables",
+      "Learner can interpret a partial derivative as a sensitivity (e.g. delta)",
+      "Learner can sketch level curves"
+     ],
+     "key_concepts": [
+      "Functions of several variables",
+      "Partial derivative",
+      "Level curves",
+      "Higher-order partials",
+      "Sensitivity interpretation"
+     ],
+     "worked_example": "V(S, sigma) = S^2 * sigma: dV/dS = 2*S*sigma and dV/dsigma = S^2; evaluate at S = 100, sigma = 0.2.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Evaluate a partial derivative at a point",
+       "params": "polynomial/exponential functions"
+      },
+      {
+       "template": "mcq",
+       "task": "Which partial derivative corresponds to this sensitivity?",
+       "params": "pool"
+      },
+      {
+       "template": "match",
+       "task": "Match functions to their partial derivatives",
+       "params": "pool"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill in the definition of a partial derivative",
+       "params": "word bank"
+      }
+     ],
+     "callbacks": [
+      "Q3.2",
+      "Q3.3",
+      "Q4.1"
+     ],
+     "sources": [
+      {
+       "id": "S080",
+       "ref": "Ch. 14 (partial derivatives)",
+       "use": "core"
+      },
+      {
+       "id": "S011",
+       "ref": "Ch. 11 (functions of many variables)",
+       "use": "core"
+      },
+      {
+       "id": "S020",
+       "ref": "Calc III partial derivatives",
+       "use": "deeper"
+      },
+      {
+       "id": "S077",
+       "ref": "Ch. 14",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "Q7.2",
+     "title": "Gradient, directional derivative and the chain rule",
+     "minutes": 50,
+     "objectives": [
+      "Learner can compute the gradient and the directional derivative",
+      "Learner can use the multivariable chain rule",
+      "Learner can interpret the gradient as steepest ascent"
+     ],
+     "key_concepts": [
+      "Gradient",
+      "Directional derivative",
+      "Chain rule with several variables",
+      "Total differential",
+      "Delta-vector of a portfolio"
+     ],
+     "worked_example": "f(x,y) = x^2 + 3xy: gradient at (1,2) = (8, 3); rate of change along u = (0.6, 0.8) = 7.2.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute gradient and directional derivative",
+       "params": "function random"
+      },
+      {
+       "template": "numeric",
+       "task": "Apply the chain rule",
+       "params": "composition random"
+      },
+      {
+       "template": "mcq",
+       "task": "Which direction gives the steepest rise?",
+       "params": "pool"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill in the total differential for a portfolio value",
+       "params": "word bank"
+      }
+     ],
+     "callbacks": [
+      "Q7.1",
+      "Q6.1",
+      "Q4.2"
+     ],
+     "sources": [
+      {
+       "id": "S080",
+       "ref": "Ch. 14.5-14.6",
+       "use": "core"
+      },
+      {
+       "id": "S011",
+       "ref": "Ch. 11",
+       "use": "core"
+      },
+      {
+       "id": "S020",
+       "ref": "Calc III gradient",
+       "use": "deeper"
+      },
+      {
+       "id": "S018",
+       "ref": "MIT 18.06 lectures for vector intuition",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "Q7.3",
+     "title": "Taylor expansion in several variables; Hessian",
+     "minutes": 50,
+     "objectives": [
+      "Learner can write the second-order Taylor expansion of a function of two variables",
+      "Learner can compute the Hessian and classify definiteness",
+      "Learner can connect delta-gamma approximations to the expansion"
+     ],
+     "key_concepts": [
+      "Multivariate Taylor",
+      "Hessian",
+      "Positive definite",
+      "Delta-gamma approximation",
+      "Convexity in several variables"
+     ],
+     "worked_example": "f(x,y) = x^2 + xy + y^2 has Hessian [[2,1],[1,2]], positive definite; at the minimum f is convex.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute a Hessian and its determinant",
+       "params": "2x2 random"
+      },
+      {
+       "template": "mcq",
+       "task": "Is the Hessian positive definite, negative definite, or indefinite?",
+       "params": "pool"
+      },
+      {
+       "template": "numeric",
+       "task": "Delta-gamma approximation of a price change",
+       "params": "delta, gamma random"
+      },
+      {
+       "template": "match",
+       "task": "Match Hessian signs to curvature",
+       "params": "pool"
+      }
+     ],
+     "callbacks": [
+      "Q4.4",
+      "Q6.2",
+      "F3.4",
+      "Q7.2"
+     ],
+     "sources": [
+      {
+       "id": "S080",
+       "ref": "Ch. 14.7",
+       "use": "core"
+      },
+      {
+       "id": "S011",
+       "ref": "Ch. 13",
+       "use": "core"
+      },
+      {
+       "id": "S077",
+       "ref": "Ch. 16",
+       "use": "deeper"
+      },
+      {
+       "id": "S073",
+       "ref": "chapters on positive definite matrices",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "Q7.4",
+     "title": "Unconstrained optimisation",
+     "minutes": 50,
+     "objectives": [
+      "Learner can find stationary points of functions of two variables",
+      "Learner can apply the second-order test to classify them",
+      "Learner can model a least-squares problem as an optimisation"
+     ],
+     "key_concepts": [
+      "First-order conditions",
+      "Second-order test",
+      "Saddle point",
+      "Least-squares",
+      "Global vs local optimum"
+     ],
+     "worked_example": "Minimise sum of squared residuals for y = a + b x on 5 points via normal equations.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Find and classify stationary points",
+       "params": "quadratic functions"
+      },
+      {
+       "template": "numeric",
+       "task": "Least-squares fit for a small dataset",
+       "params": "5 points"
+      },
+      {
+       "template": "mcq",
+       "task": "Which type of stationary point is this?",
+       "params": "pool"
+      },
+      {
+       "template": "order",
+       "task": "Put the optimisation steps in order",
+       "params": "step set"
+      }
+     ],
+     "callbacks": [
+      "Q7.3",
+      "Q6.4"
+     ],
+     "sources": [
+      {
+       "id": "S080",
+       "ref": "Ch. 14.7",
+       "use": "core"
+      },
+      {
+       "id": "S011",
+       "ref": "Ch. 13",
+       "use": "core"
+      },
+      {
+       "id": "S077",
+       "ref": "Ch. 17",
+       "use": "deeper"
+      },
+      {
+       "id": "S020",
+       "ref": "Calc III optimisation",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "Q7.5",
+     "title": "Lagrange multipliers and applications to portfolios",
+     "minutes": 50,
+     "objectives": [
+      "Learner can solve a constrained optimisation with one equality constraint using Lagrange multipliers",
+      "Learner can interpret the multiplier as a shadow price",
+      "Learner can apply the method to the minimum-variance portfolio and to utility maximisation"
+     ],
+     "key_concepts": [
+      "Lagrangian",
+      "Shadow price",
+      "Constraint qualification (informal)",
+      "Min-variance portfolio with budget constraint",
+      "Utility maximisation with budget",
+      "Inequality constraints (preview of KKT)"
+     ],
+     "worked_example": "Minimise w'Sw subject to w'1 = 1 for a 2-asset case; recover the algebraic F5.1 formula and interpret the multiplier.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Solve a Lagrange problem with two variables",
+       "params": "objective and constraint random"
+      },
+      {
+       "template": "numeric",
+       "task": "Min-variance portfolio for 3 assets via Lagrange",
+       "params": "covariance random"
+      },
+      {
+       "template": "mcq",
+       "task": "What does the multiplier measure?",
+       "params": "pool"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill in the Lagrangian conditions",
+       "params": "word bank"
+      }
+     ],
+     "callbacks": [
+      "F5.1",
+      "F5.2",
+      "F5.3",
+      "Q6.4",
+      "Q7.4"
+     ],
+     "sources": [
+      {
+       "id": "S080",
+       "ref": "Ch. 14.8 (Lagrange multipliers)",
+       "use": "core"
+      },
+      {
+       "id": "S011",
+       "ref": "Ch. 14",
+       "use": "core"
+      },
+      {
+       "id": "S077",
+       "ref": "Ch. 18",
+       "use": "deeper"
+      },
+      {
+       "id": "S075",
+       "ref": "Ch. 6 optimisation",
+       "use": "deeper"
+      },
+      {
+       "id": "S085",
+       "ref": "Markowitz 1952",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "Partial derivatives, gradient, Hessian classification and a Lagrange-multiplier portfolio problem.",
+   "jurisdiction_notes": null
+  }
+ ],
+ "checkpoint": "Level 7 boss quiz (40 min, ~35 questions): scenario triage across R1-R4 (which rule, which date, which action), plus calculation blocks from F4, F5, T8 and Q7. Mixed formats with 25% callbacks to L3-L6.",
+ "open_questions": [
+  "See syllabus/FACTS.md (originals in open-questions.txt)"
+ ]
+}

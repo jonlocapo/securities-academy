@@ -1,0 +1,307 @@
+id	tier	type	year	topics	title	authors	local
+S001	foundation	book	2018	MATH-PROB	A First Course in Probability	Ross, S.	
+S002	foundation	book	1993	MATH-PRECALC	Algebra	Gelfand, I. M.; Shen, A.	
+S003	foundation	web	2021	MATH-PRECALC	Algebra and Trigonometry 2e (OpenStax)	Abramson, J.; et al. (OpenStax)	
+S004	foundation	book	2016	PROD-EQUITY,PROD-BOND,PROD-FUND,PROD-DERIV,PROD-STRUCTURED	An Introduction to Global Financial Markets	Valdez, S.; Molyneux, P.	
+S005	foundation	guide		POST-CORPACTIONS,POST-CUSTODY,POST-SETTLEMENT	Asset Servicing: The Official Learning and Reference Manual	Bradford, A.; CISI	
+S006	foundation	book	1998	MATH-CALC	Calculus Made Easy	Thompson, S. P.; Gardner, M.	
+S007	foundation	book	2009	PROD-FUND,PROD-ETF,VAL-PERFORMANCE	Common Sense on Mutual Funds	Bogle, J.C.	
+S008	foundation	book	2023	FIN-CORPFIN,FIN-FOUNDATIONS,FIN-PORTFOLIO	Corporate Finance	Berk, J.; DeMarzo, P.	
+S009	foundation	book	2012	TRADE-VENUES,TRADE-MICROSTRUCTURE	Dark Pools: The Rise of the Machine Traders and the Rigging of the U.S. Stock Market	Patterson, S.	
+S010	foundation	web	2025	TRADE-ORDERFLOW,TRADE-BESTEX	EMS vs O/EMS vs OMS: Which Trading System Architecture Fits Your Desk?	Quod Financial	
+S011	foundation	book	2022	MATH-PRECALC,MATH-CALC,MATH-LINALG	Essential Mathematics for Economic Analysis	Sydsaeter, K.; Hammond, P.; Strom, A.; Carvajal, A.	
+S012	foundation	book	1996	MATH-STOCH,FIN-ASSETPRICING,PROD-DERIV,PROD-BOND	Financial Calculus: An Introduction to Derivative Pricing	Baxter, M.; Rennie, A.	
+S013	foundation	book	2014	TRADE-VENUES,TRADE-MICROSTRUCTURE,TRADE-ORDERFLOW	Flash Boys: A Wall Street Revolt	Lewis, M.	
+S014	foundation	book	2025	STAT-ECONOMETRICS	Introductory Econometrics: A Modern Approach	Wooldridge, J. M.	
+S015	foundation	book	2024	FIN-FOUNDATIONS,FIN-PORTFOLIO,FIN-ASSETPRICING,PROD-EQUITY,PROD-BOND,PROD-DERIV	Investments	Bodie, Z.; Kane, A.; Marcus, A.J.	
+S016	foundation	book	2022	POST-MESSAGING	ISO 20022 For Dummies, SWIFT 6th Limited Edition	SWIFT Standards Team	
+S017	foundation	course	2010	MATH-CALC	MIT OCW 18.01SC Single Variable Calculus (Fall 2010)	Jerison, D.; MIT	
+S018	foundation	course	2010	MATH-LINALG	MIT OCW 18.06 Linear Algebra (Spring 2010)	Strang, G.; MIT	
+S019	foundation	book	2012	PROD-DERIV	Options as a Strategic Investment	McMillan, L.G.	
+S020	foundation	web	2024	MATH-PRECALC,MATH-CALC	Paul's Online Math Notes (Algebra, Calculus I-III, Differential Equations)	Dawkins, P.	
+S021	foundation	book	2007	POST-SETTLEMENT,POST-CUSTODY,POST-CLEARING,REG-EU	Plumbers and Visionaries: Securities Settlement and Europe's Financial Market	Norman, P.	
+S022	foundation	web	2021	MATH-PRECALC	Precalculus 2e (OpenStax)	Abramson, J.; et al. (OpenStax)	
+S023	foundation	book	2023	MATH-PRECALC	Precalculus: Mathematics for Calculus	Stewart, J.; Redlin, L.; Watson, S.	
+S024	foundation	book	2025	FIN-CORPFIN,FIN-FOUNDATIONS	Principles of Corporate Finance (2025 Release)	Brealey, R.A.; Myers, S.C.; Allen, F.; Edmans, A.	
+S026	foundation	web	2023	CREDIT-LOMBARD,CLIENT-WEALTH,REG-CH	Risk of Lombard Loans (client risk disclosure)	Van Lanschot Kempen (Switzerland) Ltd	
+S027	foundation	book	2019	MATH-PRECALC	Schaum's Outline of Precalculus	Safier, F.	
+S028	foundation	book	2002	POST-CLEARING,POST-SETTLEMENT,POST-CUSTODY,POST-CONFIRMS,POST-TRANSFERS,POST-CORPACTIONS,ACC-COA,ACC-INCOME	Securities Operations: A Guide to Trade and Position Management	Simmons, M.	
+S029	foundation	guide	2024	CREDIT-LOMBARD,CREDIT-MARGIN,CLIENT-WEALTH	Securities-Backed Lines of Credit Explained (FINRA)	FINRA	
+S030	foundation	book	2018	PROD-EQUITY,PROD-BOND,PROD-FUND,PROD-DERIV	The Economist Guide to Financial Markets: Why They Exist and How They Work	Levinson, M.	
+S031	foundation	book	2025	CLIENT-WEALTH,CLIENT-ACCOUNTS	Wealth Management With a Difference	Rudin, A.; Rice, N.	
+S032	foundation	web	2024	PROD-DERIV,PROD-STRUCTURED	What are warrants and certificates? (Part 1)	Euronext	
+S034	core	guide	2015	PROD-ETF,PROD-FUND,TRADE-MICROSTRUCTURE	A Comprehensive Guide to Exchange-Traded Funds (ETFs)	Hill, J.M.; Nadig, D.; Hougan, M.	
+S035	core	web	2025	CLIENT-ACCOUNTS,POST-CUSTODY	Account segregation under CSDR Art. 38: Euronext Securities client segregation levels (omnibus, individual, end-investor)	Euronext Securities (CSD)	
+S036	core	book	2009	ACC-INCOME,ACC-GAINS,ACC-COA,VAL-NAV,VAL-PNL,ACC-FUND	Accounting for Investments, Volume 1: Equities, Futures and Options	Subramani, R.V.	
+S037	core	book	2010	TRADE-ORDERFLOW,TRADE-VENUES,TRADE-BESTEX,TRADE-MICROSTRUCTURE	Algorithmic Trading & DMA: An introduction to direct access trading strategies	Johnson, B.	
+S038	core	book	2020	TRADE-ORDERFLOW,TRADE-BESTEX,TRADE-MICROSTRUCTURE	Algorithmic Trading Methods: Applications using Advanced Statistics, Optimization, and Machine Learning Techniques	Kissell, R.	
+S039	core	book	2004	MATH-PROB,STAT-ECONOMETRICS	All of Statistics: A Concise Course in Statistical Inference	Wasserman, L.	
+S040	core	book	2020	PROD-ALTS	Alternative Investments: CAIA Level I	Chambers, D.R.; Anson, M.J.P.; Black, K.H.; Kazemi, H.	
+S041	core	book	2010	STAT-ECONOMETRICS,MATH-NUMERICAL	Analysis of Financial Time Series	Tsay, R. S.	
+S042	core	book	2014	FIN-PORTFOLIO,FIN-ASSETPRICING,VAL-PERFORMANCE,PROD-FUND	Asset Management: A Systematic Approach to Factor Investing	Ang, A.	
+S043	core	guide	2021	ACC-FUND,VAL-NAV,ACC-GAINS	Audit and Accounting Guide: Investment Companies	AICPA	
+S044	core	book	2018	CLIENT-SUITABILITY,CLIENT-WEALTH	Behavioral Finance for Private Banking: From the Art of Advice to the Science of Advice	Bachmann, K.; De Giorgi, E.G.; Hens, T.	
+S045	core	book	2021	PROD-BOND,FIN-FOUNDATIONS,CTRL-RISK	Bond Markets, Analysis, and Strategies	Fabozzi, F.J.; Fabozzi, F.A.	
+S046	core	book	2021	REG-US,TRADE-ORDERFLOW,CLIENT-SUITABILITY,CREDIT-MARGIN,POST-CUSTODY	Broker-Dealer Law and Regulation	Fanto, J.A.; Gross, J.I.; Poser, N.S.	
+S047	core	book	2020	MATH-CALC	Calculus (Single Variable)	Stewart, J.; Clegg, D.; Watson, S.	
+S048	core	paper	1964	FIN-ASSETPRICING,FIN-PORTFOLIO	Capital Asset Prices: A Theory of Market Equilibrium under Conditions of Risk	Sharpe, W.F.	
+S049	core	book	2019	POST-CLEARING,POST-SETTLEMENT,POST-CUSTODY,POST-CORPACTIONS,POST-SECLENDING	Clearing, Settlement and Custody	Loader, D.	
+S050	core	book	2019	CREDIT-COLLATERAL,CREDIT-MARGIN,POST-SECLENDING,CTRL-RISK	Collateral Management: A Guide to Mitigating Counterparty Risk	Simmons, M.	
+S051	core	paper	1993	FIN-ASSETPRICING,FIN-PORTFOLIO,PROD-EQUITY	Common Risk Factors in the Returns on Stocks and Bonds	Fama, E.F.; French, K.R.	
+S052	core	book	2006	POST-CORPACTIONS,POST-MESSAGING,PROD-EQUITY,PROD-BOND	Corporate Actions: A Guide to Securities Event Management	Simmons, M.; Dalgleish, E.	
+S053	core	paper	1956	FIN-CORPFIN,PROD-EQUITY	Distribution of Incomes of Corporations Among Dividends, Retained Earnings, and Taxes	Lintner, J.	
+S054	core	paper	1961	FIN-CORPFIN,PROD-EQUITY	Dividend Policy, Growth, and the Valuation of Shares	Miller, M.H.; Modigliani, F.	
+S055	core	paper	1970	FIN-ASSETPRICING,TRADE-MICROSTRUCTURE,PROD-EQUITY	Efficient Capital Markets: A Review of Theory and Empirical Work	Fama, E.F.	
+S056	core	paper	2016	TRADE-VENUES,PROD-BOND,TRADE-MICROSTRUCTURE	Electronic trading in fixed income markets	BIS Markets Committee	
+S057	core	book	2022	REG-EU,TRADE-VENUES,CTRL-RESTRICTIONS,PROD-EQUITY	European Capital Markets Law	Veil, R. (ed.)	
+S058	core	book	2015	POST-CLEARING,POST-SETTLEMENT,POST-CORPACTIONS,POST-CUSTODY,POST-CONFIRMS	Financial Markets Operations Management	Dickinson, K.	
+S059	core	book	2018	REG-UK,CLIENT-SUITABILITY,TRADE-BESTEX,CLIENT-WEALTH	Financial Services Law	Walker, G.; Purves, R.; Blair, M. (eds.)	
+S060	core	book	2010	PROD-BOND,PROD-DERIV	Fixed Income Securities and Derivatives Handbook: Analysis and Valuation	Choudhry, M.	
+S061	core	book	2022	PROD-BOND,FIN-FOUNDATIONS,FIN-ASSETPRICING,CTRL-RISK	Fixed Income Securities: Tools for Today's Markets	Tuckman, B.; Serrat, A.	
+S062	core	book	2019	PROD-EQUITY,PROD-BOND,PROD-FUND,PROD-DERIV,PROD-ETF	Foundations of Global Financial Markets and Institutions	Fabozzi, F.J.; Modigliani, F.; Jones, F.J.	
+S063	core	book	2007	POST-CUSTODY,POST-CLEARING,POST-SETTLEMENT,POST-CORPACTIONS	Global Custody and Clearing Services	McGill, R.; Patel, N.	
+S064	core	book	2006	CLIENT-WEALTH,CLIENT-ONBOARDING,CLIENT-ACCOUNTS	Global Private Banking and Wealth Management: The New Realities	Maude, D.	
+S065	core	guide	2022	CLIENT-SUITABILITY,CLIENT-ACCOUNTS,REG-EU	Guidelines on certain aspects of the MiFID II appropriateness and execution-only requirements (ESMA35-43-3006)	ESMA	
+S066	core	guide	2023	CLIENT-SUITABILITY,REG-EU	Guidelines on certain aspects of the MiFID II suitability requirements (ESMA35-43-3172)	ESMA	
+S067	core	guide	2023	CLIENT-SUITABILITY,CTRL-APPROVALS,REG-EU	Guidelines on MiFID II product governance requirements (ESMA35-43-3448)	ESMA	
+S068	core	book	2014	CLIENT-ONBOARDING,CTRL-RISK	Handbook of Anti-Money Laundering	Cox, D.	
+S069	core	book	2006	PROD-ALTS,PROD-FUND	Handbook of Hedge Funds	Lhabitant, F.-S.	
+S070	core	book	2013	TRADE-MICROSTRUCTURE,TRADE-VENUES,TRADE-ORDERFLOW	High-Frequency Trading: A Practical Guide to Algorithmic Strategies and Trading Systems	Aldridge, I.	
+S071	core	guide	2025	POST-SECLENDING,POST-SETTLEMENT,CREDIT-COLLATERAL	ICMA ERCC Guide to Best Practice in the European Repo Market	ICMA European Repo and Collateral Council (Comotto, R.)	
+S072	core	book	2018	ACC-IFRS9,ACC-INCOME,PROD-BOND,PROD-DERIV	IFRS 9: Understanding Financial Instruments and their Accounting	Kansal, S.K.	
+S073	core	book	2023	MATH-LINALG	Introduction to Linear Algebra	Strang, G.	
+S074	core	book	2019	MATH-PROB	Introduction to Probability	Blitzstein, J. K.; Hwang, J.	
+S075	core	book	2013	FIN-FOUNDATIONS,PROD-BOND,FIN-PORTFOLIO,PROD-DERIV,FIN-ASSETPRICING	Investment Science	Luenberger, D.G.	
+S076	core	book	2018	TRADE-MICROSTRUCTURE,TRADE-VENUES,TRADE-ORDERFLOW,TRADE-BESTEX	Market Microstructure in Practice	Lehalle, C.-A.; Laruelle, S. (eds.)	
+S077	core	book	1994	MATH-CALC,MATH-LINALG	Mathematics for Economists	Simon, C. P.; Blume, L.	
+S078	core	course	2013	MATH-STOCH,MATH-PROB,STAT-ECONOMETRICS,FIN-PORTFOLIO	MIT OCW 18.S096 Topics in Mathematics with Applications in Finance (Fall 2013)	Kempthorne, P.; Lee, C.; Strela, V.; MIT	
+S079	core	book	2014	FIN-PORTFOLIO,FIN-ASSETPRICING,VAL-PERFORMANCE,PROD-FUND	Modern Portfolio Theory and Investment Analysis	Elton, E.J.; Gruber, M.J.; Brown, S.J.; Goetzmann, W.N.	
+S080	core	book	2020	MATH-CALC	Multivariable Calculus	Stewart, J.; Clegg, D.; Watson, S.	
+S081	core	book	2022	CTRL-RISK,CTRL-APPROVALS	Operational Risk Management: A Complete Guide for Banking and Fintech	Girling, P.X.	
+S082	core	book	2014	PROD-DERIV,FIN-ASSETPRICING	Option Volatility and Pricing: Advanced Trading Strategies and Techniques	Natenberg, S.	
+S083	core	book	2021	PROD-DERIV,FIN-ASSETPRICING,CTRL-RISK,PROD-STRUCTURED	Options, Futures, and Other Derivatives	Hull, J.C.	
+S084	core	book	2007	MATH-NUMERICAL,FIN-ASSETPRICING,PROD-DERIV	Paul Wilmott Introduces Quantitative Finance	Wilmott, P.	
+S085	core	paper	1952	FIN-PORTFOLIO,FIN-FOUNDATIONS	Portfolio Selection	Markowitz, H.	
+S086	core	book	2023	VAL-PERFORMANCE,VAL-PNL,FIN-PORTFOLIO	Practical Portfolio Performance Measurement and Attribution	Bacon, C.R.	
+S087	core	book	2012	CLIENT-WEALTH,CLIENT-ACCOUNTS	Private Banking: Building a Culture of Excellence	Collardi, B.	
+S089	core	book	2023	CTRL-RISK,FIN-ASSETPRICING	Risk Management and Financial Institutions	Hull, J.C.	
+S090	core	book	2005	POST-SECLENDING,CREDIT-COLLATERAL,PROD-FUND	Securities Finance: Securities Lending and Repurchase Agreements	Fabozzi, F.J.; Mann, S.V. (eds.)	
+S091	core	book	2002	MATH-PROB,STAT-ECONOMETRICS	Statistical Inference	Casella, G.; Berger, R. L.	
+S092	core	book	2005	MATH-STOCH,MATH-PROB,FIN-ASSETPRICING	Stochastic Calculus for Finance I: The Binomial Asset Pricing Model	Shreve, S. E.	
+S093	core	book	2003	PROD-BOND,FIN-FOUNDATIONS	The Bond and Money Markets: Strategy, Trading, Analysis	Choudhry, M.	
+S094	core	book	2008	MATH-NUMERICAL,FIN-ASSETPRICING,PROD-DERIV,CTRL-RISK	The Concepts and Practice of Mathematical Finance	Joshi, M. S.	
+S095	core	book	2023	CTRL-RISK,CTRL-LIMITS	The Essentials of Risk Management	Crouhy, M.; Galai, D.; Mark, R.	
+S096	core	book	2011	CLIENT-WEALTH,FIN-PORTFOLIO,CLIENT-SUITABILITY	The New Wealth Management: The Financial Advisor's Guide to Managing and Investing Client Assets	Evensky, H.; Horan, S.M.; Robinson, T.R.	
+S097	core	book	2020	CLIENT-SUITABILITY,CLIENT-WEALTH,REG-CH,TRADE-BESTEX	The Practitioner's Guide to the New Swiss Financial Services Act and Financial Institutions Act	Lamprecht, A.; Matthieu, N.	
+S098	core	paper	1973	PROD-DERIV,FIN-ASSETPRICING,PROD-STRUCTURED	The Pricing of Options and Corporate Liabilities	Black, F.; Scholes, M.	
+S099	core	book	2011	POST-CLEARING,CTRL-RISK,CREDIT-MARGIN,REG-EU,REG-US	The Risk Controllers: Central Counterparty Clearing in Globalised Financial Markets	Norman, P.	
+S100	core	book	2015	TRADE-ORDERFLOW,POST-CONFIRMS,POST-SETTLEMENT,POST-CLEARING	The Trade Lifecycle: Behind the Scenes of the Trading Process	Baker, R.P.	
+S101	core	book	2002	TRADE-MICROSTRUCTURE,TRADE-ORDERFLOW,TRADE-VENUES,TRADE-COMMISSIONS	Trading and Exchanges: Market Microstructure for Practitioners	Harris, L.	
+S102	core	guide	2012	CLIENT-ONBOARDING,CLIENT-WEALTH	Wolfsberg Anti-Money Laundering Principles for Private Banking	The Wolfsberg Group	
+S103	core	guide	2019	CTRL-RESTRICTIONS,CLIENT-ONBOARDING	Wolfsberg Guidance on Sanctions Screening	The Wolfsberg Group	
+S104	advanced	book	2006	MATH-PROB	A First Look at Rigorous Probability Theory	Rosenthal, J.S.	
+S105	advanced	book	2018	CREDIT-COLLATERAL,CREDIT-MARGIN,PROD-DERIV	A Practical Guide to the 2016 ISDA Credit Support Annexes for Variation Margin under English and New York Law	Harding, P.C.; Harding, A.J.	
+S106	advanced	paper	2003	FIN-ASSETPRICING,FIN-PORTFOLIO,PROD-EQUITY	A Survey of Behavioral Finance (Chapter 18, Handbook of the Economics of Finance, Vol. 1B)	Barberis, N.; Thaler, R.	
+S107	advanced	book	1999	FIN-PORTFOLIO	Active Portfolio Management: A Quantitative Approach for Producing Superior Returns and Controlling Risk	Grinold, R.C.; Kahn, R.N.	
+S108	advanced	book	2015	TRADE-MICROSTRUCTURE,TRADE-ORDERFLOW	Algorithmic and High-Frequency Trading	Cartea, A.; Jaimungal, S.; Penalva, J.	
+S109	advanced	book	2007	CLIENT-ONBOARDING,REG-EU	Anti-Money Laundering: International Law and Practice	Muller, W.H.; Kalin, C.H.; Goldsworth, J.G. (eds.)	
+S110	advanced	book	2019	PROD-DERIV,PROD-BOND,FIN-ASSETPRICING,MATH-STOCH	Arbitrage Theory in Continuous Time	Bjork, T.	
+S111	advanced	book	2005	FIN-ASSETPRICING,FIN-PORTFOLIO,STAT-ECONOMETRICS	Asset Pricing (Revised Edition)	Cochrane, J.H.	
+S112	advanced	book	2017	FIN-ASSETPRICING,FIN-PORTFOLIO,PROD-DERIV	Asset Pricing and Portfolio Choice Theory	Back, K.E.	
+S113	advanced	paper	1982	STAT-ECONOMETRICS,CTRL-RISK	Autoregressive Conditional Heteroscedasticity with Estimates of the Variance of United Kingdom Inflation	Engle, R. F.	
+S114	advanced	paper	1985	TRADE-MICROSTRUCTURE	Bid, Ask and Transaction Prices in a Specialist Market with Heterogeneously Informed Traders	Glosten, L. R.; Milgrom, P. R.	
+S115	advanced	book	2008	MATH-CALC	Calculus	Spivak, M.	
+S116	advanced	book	2014	POST-CLEARING,CREDIT-MARGIN,CTRL-RISK,PROD-DERIV	Central Counterparties: Mandatory Central Clearing and Initial Margin Requirements for OTC Derivatives	Gregory, J.	
+S117	advanced	paper	2015	TRADE-VENUES,TRADE-MICROSTRUCTURE,TRADE-ORDERFLOW	Click or Call? Auction versus Search in the Over-the-Counter Market	Hendershott, T.; Madhavan, A.	
+S118	advanced	paper	1985	TRADE-MICROSTRUCTURE	Continuous Auctions and Insider Trading	Kyle, A. S.	
+S119	advanced	paper	1986	VAL-PERFORMANCE,FIN-PORTFOLIO	Determinants of Portfolio Performance	Brinson, G.P.; Hood, L.R.; Beebower, G.L.	
+S120	advanced	book	2001	FIN-ASSETPRICING,PROD-DERIV,PROD-BOND,MATH-STOCH	Dynamic Asset Pricing Theory	Duffie, D.	
+S121	advanced	book	1997	PROD-DERIV	Dynamic Hedging: Managing Vanilla and Exotic Options	Taleb, N.N.	
+S122	advanced	book	2000	STAT-ECONOMETRICS	Econometrics	Hayashi, F.	
+S123	advanced	book	2007	TRADE-MICROSTRUCTURE,STAT-ECONOMETRICS	Empirical Market Microstructure: The Institutions, Economics, and Econometrics of Securities Trading	Hasbrouck, J.	
+S124	advanced	book	2023	REG-EU,TRADE-VENUES,CLIENT-SUITABILITY,POST-SETTLEMENT,PROD-FUND	EU Securities and Financial Markets Regulation	Moloney, N.	
+S125	advanced	paper	2017	PROD-ETF,TRADE-MICROSTRUCTURE	Exchange-Traded Funds	Ben-David, I.; Franzoni, F.; Moussawi, R.	
+S126	advanced	book	2010	PROD-STRUCTURED,PROD-DERIV	Exotic Options and Hybrids: A Guide to Structuring, Pricing and Trading	Bouzoubaa, M.; Osseiran, A.	
+S127	advanced	book	2018	FIN-ASSETPRICING	Financial Decisions and Markets: A Course in Asset Pricing	Campbell, J.Y.	
+S128	advanced	book	2006	MATH-NUMERICAL,PROD-DERIV	Finite Difference Methods in Financial Engineering: A Partial Differential Equation Approach	Duffy, D. J.	
+S129	advanced	guide	2023	POST-TRANSFERS,CTRL-RISK,CLIENT-ONBOARDING	FINRA Regulatory Notice 23-06: Effective Practices to Address Fraudulent Transfers of Accounts Through ACATS	FINRA	
+S130	advanced	paper	1986	STAT-ECONOMETRICS,CTRL-RISK	Generalized Autoregressive Conditional Heteroskedasticity	Bollerslev, T.	
+S131	advanced	paper	2017	CREDIT-COLLATERAL,CREDIT-LOMBARD,CTRL-RISK	Haircutting Non-cash Collateral	Lou, W.	
+S132	advanced	book	2024	MATH-LINALG	Linear Algebra Done Right	Axler, S.	
+S133	advanced	book	2007	CLIENT-SUITABILITY,FIN-PORTFOLIO,CTRL-LIMITS,CLIENT-WEALTH	Managing Investment Portfolios: A Dynamic Process	Maginn, J.L.; Tuttle, D.L.; Pinto, J.E.; McLeavey, D.W.	
+S134	advanced	book	2024	TRADE-MICROSTRUCTURE,TRADE-VENUES,TRADE-BESTEX	Market Liquidity: Theory, Evidence, and Policy	Foucault, T.; Pagano, M.; Röell, A.	
+S135	advanced	book	1995	TRADE-MICROSTRUCTURE	Market Microstructure Theory	O'Hara, M.	
+S136	advanced	paper	2005	TRADE-MICROSTRUCTURE,TRADE-VENUES	Market Microstructure: A Survey of Microfoundations, Empirical Results, and Policy Implications	Biais, B.; Glosten, L.; Spatt, C.	
+S137	advanced	book	2003	MATH-NUMERICAL,FIN-ASSETPRICING,CTRL-RISK	Monte Carlo Methods in Financial Engineering	Glasserman, P.	
+S138	advanced	book	2007	CTRL-RISK,MATH-PROB	Operational Risk: A Guide to Basel II Capital Requirements, Models, and Analysis	Chernobai, A.S.; Rachev, S.T.; Fabozzi, F.J.	
+S139	advanced	paper	2000	TRADE-ORDERFLOW,TRADE-BESTEX,TRADE-MICROSTRUCTURE	Optimal Execution of Portfolio Transactions	Almgren, R.; Chriss, N.	
+S140	advanced	paper	2019	VAL-PERFORMANCE,VAL-PNL	Performance Attribution: History and Progress	Bacon, C.R.	
+S141	advanced	book	2009	VAL-PERFORMANCE,FIN-PORTFOLIO,FIN-ASSETPRICING	Portfolio Performance Measurement and Benchmarking	Christopherson, J.A.; Carino, D.R.; Ferson, W.E.	
+S142	advanced	book	1991	MATH-PROB,MATH-STOCH	Probability with Martingales	Williams, D.	
+S143	advanced	book	2019	MATH-PROB,MATH-STOCH	Probability: Theory and Examples	Durrett, R.	
+S144	advanced	book	2017	REG-EU,TRADE-VENUES,TRADE-BESTEX,CLIENT-SUITABILITY,TRADE-COMMISSIONS	Regulation of the EU Financial Markets: MiFID II and MiFIR	Busch, D.; Ferrarini, G. (eds.)	
+S145	advanced	book	2024	REG-US,PROD-EQUITY,CTRL-RESTRICTIONS	Securities Regulation: Cases and Materials	Coffee, J.C. Jr.; Sale, H.A.; Whitehead, C.K.	
+S146	advanced	book	2004	MATH-STOCH,MATH-PROB,FIN-ASSETPRICING,PROD-DERIV	Stochastic Calculus for Finance II: Continuous-Time Models	Shreve, S. E.	
+S147	advanced	book	2003	MATH-STOCH	Stochastic Differential Equations: An Introduction with Applications	Oksendal, B.	
+S148	advanced	book	1997	STAT-ECONOMETRICS,FIN-ASSETPRICING,TRADE-MICROSTRUCTURE,FIN-PORTFOLIO	The Econometrics of Financial Markets	Campbell, J. Y.; Lo, A. W.; MacKinlay, A. C.	
+S149	advanced	book	2011	PROD-BOND,PROD-DERIV,PROD-STRUCTURED	The Handbook of Convertible Bonds: Pricing, Strategies and Risk Management	De Spiegeleer, J.; Schoutens, W.	
+S150	advanced	book	2025	POST-CUSTODY,POST-SETTLEMENT,POST-SECLENDING,REG-UK,REG-EU	The Law of Global Custody: Legal Risk Management in Global Securities Investment and Collateral	Yates, M.; Montagu, G.	
+S151	advanced	book	2025	REG-US,PROD-EQUITY,CTRL-RESTRICTIONS	The Law of Securities Regulation	Hazen, T.L.	
+S152	advanced	book	2010	POST-SECLENDING,PROD-BOND,CREDIT-COLLATERAL,FIN-FOUNDATIONS	The Repo Handbook	Choudhry, M.	
+S153	advanced	book	1994	STAT-ECONOMETRICS	Time Series Analysis	Hamilton, J. D.	
+S154	advanced	book	2018	TRADE-MICROSTRUCTURE,TRADE-ORDERFLOW,TRADE-BESTEX	Trades, Quotes and Prices: Financial Markets Under the Microscope	Bouchaud, J.-P.; Bonart, J.; Donier, J.; Gould, M.	
+S155	advanced	book	2015	MATH-CALC,MATH-PROB	Understanding Analysis	Abbott, S.	
+S156	reference	standard	2021	PROD-DERIV,FIN-FOUNDATIONS	2021 ISDA Interest Rate Derivatives Definitions	ISDA	
+S157	reference	guide	2019	CTRL-RESTRICTIONS,CTRL-RISK	A Framework for OFAC Compliance Commitments	U.S. Treasury OFAC	
+S158	reference	guide	2025	POST-SETTLEMENT,REG-UK	Accelerated Settlement Taskforce Final Report (UK move to T+1)	UK Accelerated Settlement Taskforce	
+S160	reference	book	2025	ACC-IFRS9,ACC-COA	Applying IFRS Standards	Picker, R.; van der Tas, L.; Kolitz, D.; Livne, G.; Loftus, J.; Koning, M.; Service, C.	
+S161	reference	standard	2023	CREDIT-COLLATERAL,CREDIT-LOMBARD,CTRL-RISK	Basel Framework CRE22: Standardised approach - credit risk mitigation	Basel Committee on Banking Supervision	
+S162	reference	paper	1989	POST-SETTLEMENT,POST-CLEARING,POST-CUSTODY	Clearance and Settlement Systems in the World's Securities Markets (G30 nine recommendations)	Group of Thirty	
+S163	reference	regulation	2016	CREDIT-MARGIN,CREDIT-COLLATERAL,POST-CLEARING,REG-EU	Commission Delegated Regulation (EU) 2016/2251 (RTS on risk-mitigation techniques, incl. margin, for OTC derivatives not cleared by a CCP)	European Commission	
+S164	reference	regulation	2016	REG-EU,CLIENT-SUITABILITY,TRADE-BESTEX,TRADE-COMMISSIONS,POST-CONFIRMS	Commission Delegated Regulation (EU) 2017/565	European Commission	
+S165	reference	regulation	2016	TRADE-BESTEX,TRADE-COMMISSIONS,TRADE-ORDERFLOW,POST-CONFIRMS,REG-EU	Commission Delegated Regulation (EU) 2017/565 (MiFID II Organisational Regulation)	European Commission	
+S166	reference	regulation	2018	POST-SETTLEMENT,REG-EU	Commission Delegated Regulation (EU) 2018/1229 on settlement discipline (RTS)	European Commission	
+S167	reference	regulation	2016	TRADE-BESTEX,TRADE-VENUES	Commission Delegated Regulations (EU) 2017/575 (RTS 27) and 2017/576 (RTS 28) on execution quality reporting	European Commission	
+S168	reference	regulation	2025	POST-SETTLEMENT,REG-EU	Commission proposal to amend Regulation (EU) No 909/2014 as regards the settlement cycle (move to T+1 on 11 October 2027)	European Commission	
+S169	reference	regulation	2014	CLIENT-ACCOUNTS,POST-CUSTODY,REG-EU	CSDR Article 38: protection of participants' and their clients' securities (omnibus vs individual client segregation)	ESMA (Interactive Single Rulebook)	
+S170	reference	guide	2024	VAL-NAV,ACC-FUND,REG-NATIONAL,PROD-FUND	CSSF Circular 24/856 on NAV calculation errors, breaches of investment rules and other errors	CSSF (Luxembourg)	
+S171	reference	regulation	2016	CTRL-RESTRICTIONS,CTRL-APPROVALS,REG-EU	Delegated Regulation (EU) 2017/565, Articles 28-29: scope of personal transactions and personal transactions rules (MiFID II personal account dealing)	European Commission	
+S172	reference	regulation	2017	REG-EU,POST-CORPACTIONS,POST-CUSTODY,PROD-EQUITY	Directive (EU) 2017/828 (Shareholder Rights Directive II)	European Parliament and Council	
+S173	reference	regulation	2017	POST-CORPACTIONS,POST-CUSTODY,REG-EU	Directive (EU) 2017/828 (Shareholder Rights Directive II) and Implementing Regulation (EU) 2018/1212	European Parliament and Council; European Commission	
+S174	reference	regulation	2019	PROD-BOND,REG-EU	Directive (EU) 2019/2162 on the issue of covered bonds and covered bond public supervision	European Parliament and Council	
+S175	reference	regulation	2021	TRADE-COMMISSIONS	Directive (EU) 2021/338 (research unbundling carve-out) and Delegated Directive (EU) 2017/593 (inducements, safeguarding)	European Parliament and Council; European Commission	
+S176	reference	regulation	2024	REG-EU,TRADE-VENUES,TRADE-MICROSTRUCTURE,TRADE-COMMISSIONS	Directive (EU) 2024/790 and Regulation (EU) 2024/791 (MiFID II / MiFIR review)	European Parliament and Council	
+S177	reference	regulation	2024	VAL-NAV,PROD-FUND,REG-EU,ACC-FUND	Directive (EU) 2024/927 (AIFMD II / UCITS liquidity management tools) with ESMA Guidelines and Commission RTS on LMTs	European Parliament and Council; ESMA; European Commission	
+S178	reference	regulation	2025	ACC-TAX,REG-EU,POST-CUSTODY,ACC-INCOME	Directive (EU) 2025/50 on faster and safer relief of excess withholding taxes (FASTER)	Council of the European Union	
+S179	reference	regulation	2009	PROD-FUND,PROD-ETF,REG-EU	Directive 2009/65/EC (UCITS Directive)	European Parliament and Council	
+S180	reference	regulation	2009	REG-EU,PROD-FUND,PROD-ETF,PROD-ALTS	Directive 2009/65/EC (UCITS) with Directive 2011/61/EU (AIFMD) and AIFMD II (Directive (EU) 2024/927)	European Parliament and Council	
+S181	reference	regulation	2009	CTRL-LIMITS,PROD-FUND,REG-EU	Directive 2009/65/EC (UCITS), Article 52: investment limits (5/10/40 rule)	European Parliament and Council	
+S182	reference	regulation	2011	PROD-FUND,PROD-ALTS,REG-EU	Directive 2011/61/EU (AIFMD) as amended by Directive (EU) 2024/927 (AIFMD II)	European Parliament and Council	
+S183	reference	regulation	2014	REG-EU,TRADE-VENUES,CLIENT-SUITABILITY,TRADE-BESTEX,TRADE-COMMISSIONS	Directive 2014/65/EU (MiFID II)	European Parliament and Council	
+S184	reference	regulation	2014	TRADE-VENUES,TRADE-BESTEX,TRADE-COMMISSIONS,TRADE-ORDERFLOW	Directive 2014/65/EU (MiFID II) on markets in financial instruments, as amended by Directive (EU) 2024/790	European Parliament and Council	
+S185	reference	guide	2025	PROD-FUND,PROD-ETF,PROD-ALTS	EFAMA Fact Book (Trends in European Investment Funds)	EFAMA	
+S186	reference	paper	2024	POST-SETTLEMENT,REG-EU	ESMA Final Report: Assessment of the shortening of the settlement cycle in the EU	ESMA	
+S187	reference	regulation	2014	PROD-ETF,PROD-FUND,REG-EU	ESMA Guidelines on ETFs and other UCITS issues (ESMA/2014/937)	ESMA	
+S188	reference	guide	2026	REG-EU,TRADE-BESTEX,POST-SETTLEMENT,CLIENT-SUITABILITY	ESMA Interactive Single Rulebook and Q&As (MiFID II/MiFIR, CSDR, EMIR, SFTR, PRIIPs)	ESMA	online
+S189	reference	guide	2024	TRADE-BESTEX,TRADE-COMMISSIONS	ESMA Q&As on MiFID II and MiFIR investor protection and intermediaries topics	ESMA	
+S190	reference	guide	2025	POST-SETTLEMENT,REG-EU	EU T+1 Industry Committee High-Level Roadmap for the transition to T+1	EU T+1 Industry Committee (chair G. Sabatini); ESMA/EC/ECB governance	
+S192	reference	book	2026	REG-EU,CLIENT-SUITABILITY,TRADE-BESTEX,POST-SETTLEMENT	European Financial Services Law: Article-by-Article Commentary	Lehmann, M.; Kumpan, C. (eds.)	
+S193	reference	standard		PROD-STRUCTURED,PROD-DERIV	EUSIPA Derivative Map - classification of retail securitised derivatives (update page)	EUSIPA	
+S194	reference	standard	2024	PROD-STRUCTURED	EUSIPA Derivative Map (European Structured Investment Products classification)	EUSIPA	
+S196	reference	standard	2025	CLIENT-ONBOARDING,REG-EU	FATF Recommendations: International Standards on Combating Money Laundering and the Financing of Terrorism and Proliferation	FATF	
+S197	reference	regulation	2022	REG-UK,CLIENT-SUITABILITY,CLIENT-WEALTH	FCA Consumer Duty (PRIN 2A, PS22/9)	Financial Conduct Authority	
+S201	reference	paper	2019	TRADE-COMMISSIONS,REG-UK,TRADE-BESTEX	FCA review of MiFID II research unbundling rules (multi-firm review)	FCA	
+S202	reference	regulation	2018	REG-CH,CLIENT-WEALTH,CTRL-RISK	Federal Act on Financial Institutions (Financial Institutions Act, FinIA), SR 954.1	Swiss Federal Assembly	
+S203	reference	regulation	2018	REG-CH,CLIENT-SUITABILITY,CLIENT-ACCOUNTS	Federal Act on Financial Services (Financial Services Act, FinSA), SR 950.1, and Financial Services Ordinance (FinSO), SR 950.11	Swiss Federal Assembly	
+S204	reference	regulation	2015	REG-CH,POST-CLEARING,TRADE-VENUES,CTRL-RESTRICTIONS	Financial Market Infrastructure Act (FinMIA/FMIA), SR 958.1	Swiss Federal Assembly	
+S205	reference	regulation	2022	REG-CH,CTRL-RISK,CTRL-APPROVALS	FINMA Circular 2023/1 Operational risks and resilience – banks	FINMA	
+S206	reference	regulation	2023	POST-TRANSFERS,REG-US	FINRA Rule 11870 (Customer Account Transfer Contracts) and ACATS	FINRA	
+S207	reference	regulation	2025	CREDIT-MARGIN,CREDIT-COLLATERAL,REG-US	FINRA Rule 4210 (Margin Requirements) incl. portfolio margin 4210(g)	FINRA	
+S208	reference	regulation	2012	TRADE-BESTEX,TRADE-ORDERFLOW	FINRA Rule 5310 Best Execution and Interpositioning	FINRA	
+S209	reference	regulation	2026	REG-US,TRADE-ORDERFLOW,CLIENT-SUITABILITY,TRADE-COMMISSIONS	FINRA Rulebook	FINRA	
+S210	reference	standard	2024	TRADE-FIX,TRADE-ORDERFLOW,POST-MESSAGING	FIX Latest (FIX Online Specification) with FIXT 1.1 and FIX 4.4 session layers	FIX Trading Community	online
+S211	reference	standard	2018	TRADE-FIX,POST-MESSAGING	FIX Orchestra (machine-readable FIX rules of engagement) and FIXimate	FIX Trading Community	online
+S212	reference	standard	2025	TRADE-FIX,TRADE-ORDERFLOW	FIX Trading Community Best Practices and Guidelines	FIX Trading Community	online
+S214	reference	regulation	1995	REG-NATIONAL,POST-CUSTODY	German Depotgesetz (Securities Deposit Act)	German Federal Ministry of Justice	
+S215	reference	standard	2020	VAL-PERFORMANCE,REG-US	Global Investment Performance Standards (GIPS) 2020 - Standards for Firms / Asset Owners (with Handbook for Firms)	CFA Institute	
+S216	reference	standard	2011	CREDIT-COLLATERAL,POST-SECLENDING,PROD-BOND	Global Master Repurchase Agreement (GMRA 2011)	ICMA (with SIFMA for US variants)	
+S217	reference	standard	2018	POST-SECLENDING,CREDIT-COLLATERAL	Global Master Securities Lending Agreement (GMSLA 2010 title transfer; 2018 pledge)	ISLA	
+S219	reference	guide	2025	TRADE-VENUES,PROD-BOND,TRADE-BESTEX	ICMA European Secondary Market Data Reports and electronic trading papers	ICMA Secondary Market Practices Committee	
+S220	reference	guide	2022	PROD-BOND,FIN-FOUNDATIONS,POST-SETTLEMENT	ICMA Primary Market Handbook (Appendix A5: day count / accrued interest conventions) and ICMA Secondary Market Rules	ICMA (International Capital Market Association)	
+S221	reference	standard	2025	PROD-BOND,TRADE-VENUES	ICMA Primary Market Handbook and Secondary Market Rules and Recommendations	International Capital Market Association (ICMA)	
+S222	reference	standard	2011	VAL-NAV,ACC-IFRS9,ACC-FUND	IFRS 13 Fair Value Measurement	IFRS Foundation / IASB	
+S223	reference	standard	2005	ACC-IFRS9,CTRL-RISK	IFRS 7 Financial Instruments: Disclosures	IFRS Foundation / IASB	
+S224	reference	standard	2014	ACC-IFRS9,ACC-INCOME,ACC-GAINS	IFRS 9 Financial Instruments	IFRS Foundation / IASB	
+S225	reference	standard	2013	CTRL-APPROVALS,CTRL-RISK	Internal Control - Integrated Framework (2013)	COSO	
+S226	reference	guide	2025	ACC-GAINS,ACC-INCOME,ACC-TAX	IRS Publication 550: Investment Income and Expenses	Internal Revenue Service	
+S227	reference	guide	2025	ACC-GAINS,REG-US,ACC-TAX	IRS Publication 551: Basis of Assets (12/2025)	Internal Revenue Service	
+S228	reference	standard	2016	CREDIT-COLLATERAL,CREDIT-MARGIN,PROD-DERIV	ISDA 2016 Credit Support Annex for Variation Margin - Market Guidance	ISDA	
+S233	reference	standard	2015	POST-CORPACTIONS,POST-MESSAGING,REG-EU	Market Standards for Corporate Actions Processing (CAJWG, revised 2012, updated 2015)	Corporate Actions Joint Working Group (EBF/AFME/ICSDs)	
+S234	reference	guide	2024	REG-SG,CLIENT-SUITABILITY,CTRL-RISK	MAS Guidelines on Fair Dealing (FSG-G04): Board and Senior Management Responsibilities for Delivering Fair Dealing Outcomes to Customers	Monetary Authority of Singapore	
+S235	reference	regulation	2014	CLIENT-ACCOUNTS,CLIENT-SUITABILITY,REG-EU	MiFID II client classification: retail, professional and eligible counterparty (Directive 2014/65/EU Art. 4(1)(10)-(11), Art. 30, Annex II; Delegated Reg. (EU) 2017/565 Arts 45-46)	European Parliament and Council; European Commission	
+S236	reference	standard	2026	PROD-ETF,PROD-EQUITY,FIN-PORTFOLIO	MSCI Global Investable Market Indexes Methodology	MSCI Inc.	
+S237	reference	regulation	2025	POST-TRANSFERS,POST-CLEARING,REG-US	NSCC Rules and Procedures, Rule 50 (Automated Customer Account Transfer Service, ACATS)	NSCC (DTCC)	
+S238	reference	regulation	2017	REG-EU,REG-US	Objectives and Principles of Securities Regulation (IOSCO Principles)	IOSCO	
+S239	reference	standard	2025	ACC-TAX,CLIENT-ONBOARDING,REG-EU	OECD Consolidated Text of the Common Reporting Standard (2025)	OECD	
+S241	reference	guide	2023	CLIENT-WEALTH,CLIENT-ONBOARDING,REG-CH	Private Banking & Wealth Management 2023 (Getting the Deal Through, Lenz & Staehelin chapter)	Lenz & Staehelin	
+S242	reference	regulation	2022	ACC-TAX,REG-US,POST-CUSTODY	Qualified Intermediary Agreement (Rev. Proc. 2022-43) and FATCA overview	Internal Revenue Service	
+S243	reference	regulation	2015	REG-EU,POST-SECLENDING,CREDIT-COLLATERAL	Regulation (EU) 2015/2365 (SFTR)	European Parliament and Council	
+S244	reference	regulation	2015	POST-SECLENDING,REG-EU,CREDIT-COLLATERAL	Regulation (EU) 2015/2365 on transparency of securities financing transactions and of reuse (SFTR)	European Parliament and Council	
+S245	reference	regulation	2017	PROD-EQUITY,PROD-BOND,PROD-STRUCTURED,REG-EU	Regulation (EU) 2017/1129 (Prospectus Regulation)	European Parliament and Council	
+S246	reference	regulation	2017	PROD-FUND,REG-EU	Regulation (EU) 2017/1131 on money market funds	European Parliament and Council	
+S247	reference	regulation	2023	REG-EU,POST-SETTLEMENT	Regulation (EU) 2023/2845 (CSDR Refit)	European Parliament and Council	
+S248	reference	regulation	2023	POST-SETTLEMENT,REG-EU	Regulation (EU) 2023/2845 (CSDR Refit) amending Regulation (EU) No 909/2014	European Parliament and Council	
+S249	reference	regulation	2024	CLIENT-ONBOARDING,REG-EU	Regulation (EU) 2024/1624 on the prevention of the use of the financial system for money laundering or terrorist financing (AMLR)	European Parliament and Council	
+S250	reference	regulation	2025	REG-EU,POST-SETTLEMENT,POST-CLEARING	Regulation (EU) 2025/2075 (T+1 amendment to CSDR)	European Parliament and Council	
+S251	reference	regulation	2014	REG-EU,PROD-STRUCTURED,CLIENT-SUITABILITY,PROD-FUND	Regulation (EU) No 1286/2014 (PRIIPs)	European Parliament and Council	
+S252	reference	regulation	2014	PROD-STRUCTURED,PROD-FUND,REG-EU,CLIENT-SUITABILITY	Regulation (EU) No 1286/2014 (PRIIPs) and Delegated Regulation (EU) 2017/653 (KID)	European Parliament and Council; European Commission	
+S253	reference	regulation	2012	REG-EU,PROD-EQUITY,CTRL-RESTRICTIONS,POST-SECLENDING	Regulation (EU) No 236/2012 (Short Selling Regulation)	European Parliament and Council	
+S254	reference	regulation	2012	CTRL-RESTRICTIONS,PROD-EQUITY,POST-SECLENDING,REG-EU	Regulation (EU) No 236/2012 on short selling and certain aspects of credit default swaps (Short Selling Regulation)	European Parliament and Council	
+S255	reference	regulation	2013	CTRL-LIMITS,CTRL-RISK,CREDIT-LOMBARD,REG-EU	Regulation (EU) No 575/2013 (CRR), Part Four: Large exposures (Arts 387-403)	European Parliament and Council	
+S256	reference	regulation	2014	REG-EU,CTRL-RESTRICTIONS,TRADE-ORDERFLOW	Regulation (EU) No 596/2014 (MAR)	European Parliament and Council	
+S257	reference	regulation	2014	CTRL-RESTRICTIONS,REG-EU	Regulation (EU) No 596/2014 (MAR) with ESMA Q&A on MAR (insider lists, market soundings, PDMR transactions)	European Parliament and Council; ESMA	
+S258	reference	regulation	2014	REG-EU,TRADE-VENUES,TRADE-MICROSTRUCTURE,TRADE-BESTEX	Regulation (EU) No 600/2014 (MiFIR)	European Parliament and Council	
+S259	reference	regulation	2014	TRADE-VENUES,TRADE-COMMISSIONS,TRADE-MICROSTRUCTURE	Regulation (EU) No 600/2014 (MiFIR), as amended by Regulation (EU) 2024/791	European Parliament and Council	
+S260	reference	regulation	2012	REG-EU,POST-CLEARING,PROD-DERIV,CREDIT-MARGIN	Regulation (EU) No 648/2012 (EMIR) incl. EMIR 3 (Reg. (EU) 2024/2987)	European Parliament and Council	
+S261	reference	regulation	2012	POST-CLEARING,CREDIT-MARGIN,REG-EU	Regulation (EU) No 648/2012 (EMIR) on OTC derivatives, central counterparties and trade repositories	European Parliament and Council	
+S262	reference	regulation	2014	REG-EU,POST-SETTLEMENT,POST-CUSTODY,POST-CLEARING	Regulation (EU) No 909/2014 (CSDR)	European Parliament and Council	
+S263	reference	regulation	2014	POST-SETTLEMENT,POST-CUSTODY,REG-EU	Regulation (EU) No 909/2014 on improving securities settlement in the EU and on central securities depositories (CSDR)	European Parliament and Council	
+S265	reference	regulation	2005	TRADE-VENUES,TRADE-BESTEX,TRADE-COMMISSIONS,TRADE-ORDERFLOW	Regulation NMS (17 CFR 242.600-614), incl. Rules 605 and 606 (order execution and routing disclosure)	U.S. Securities and Exchange Commission	
+S266	reference	regulation	2024	CREDIT-MARGIN,REG-US	Regulation T: Credit by Brokers and Dealers (12 CFR Part 220)	Board of Governors of the Federal Reserve System	
+S267	reference	web	2026	REG-EU,CLIENT-SUITABILITY,TRADE-COMMISSIONS,PROD-STRUCTURED	Retail Investment Strategy (RIS) package: provisional agreement Dec 2025, formal adoption pending (procedures 2023/0167(COD) and 2023/0166(COD))	European Commission; Council; European Parliament	
+S270	reference	regulation	1977	POST-CONFIRMS,REG-US	Rule 10b-10 (17 CFR 240.10b-10): Confirmation of transactions	U.S. Securities and Exchange Commission	
+S271	reference	guide	2019	CLIENT-SUITABILITY,REG-US	SEC Regulation Best Interest, Form CRS and Related Interpretations (incl. Small Entity Compliance Guide)	U.S. SEC	
+S272	reference	regulation	2023	POST-SETTLEMENT,POST-CONFIRMS,REG-US	SEC Release 34-96930: Shortening the Securities Transaction Settlement Cycle (Rule 15c6-1, 15c6-2)	U.S. Securities and Exchange Commission	
+S273	reference	regulation	2019	REG-US,POST-CUSTODY,CLIENT-SUITABILITY,CREDIT-COLLATERAL	SEC Rule 15c3-3 (customer protection) and Regulation Best Interest (Rule 15l-1)	US Securities and Exchange Commission	
+S275	reference	regulation	2001	REG-SG,CLIENT-SUITABILITY	Securities and Futures Act 2001 (SFA) and MAS Notice FAA-N16 Recommendations on Investment Products	Monetary Authority of Singapore	
+S277	reference	regulation	2026	REG-HK,CLIENT-SUITABILITY	SFC Code of Conduct for Persons Licensed by or Registered with the SFC (para 5.2 suitability, 5.5 complex products)	Securities and Futures Commission of Hong Kong	
+S278	reference	guide	2019	REG-HK,CLIENT-SUITABILITY,PROD-STRUCTURED	SFC FAQs: Compliance with Suitability Obligations; FAQs on additional protective measures for complex products (circular 19EC15)	Securities and Futures Commission of Hong Kong	
+S280	reference	standard	2025	PROD-STRUCTURED,REG-CH	SSPA Swiss Derivative Map 2025	Swiss Structured Products Association (SSPA)	
+S281	reference	standard	2025	POST-TRANSFERS,REG-UK	STAR (Standards for Transfers, Accreditation and Reporting) - UK transfer standards	Criterion; TISA Exchange (TeX)	
+S282	reference	standard	2026	PROD-ETF,PROD-EQUITY	STOXX Index Methodology Guides (rulebooks)	STOXX Ltd.	
+S283	reference	guide	2020	REG-CH,CLIENT-WEALTH,CLIENT-SUITABILITY,CTRL-LIMITS	Swiss Bankers Association: Portfolio Management Guidelines (November 2020) and Guidelines on investment advice and portfolio management	Swiss Bankers Association	
+S284	reference	regulation	2018	REG-CH,CLIENT-SUITABILITY,POST-CLEARING,CTRL-RESTRICTIONS,CREDIT-LOMBARD	Swiss FinSA (SR 950.1), FinIA (SR 954.1), FMIA/FinMIA (SR 958.1) — consolidated overview entry	Swiss Federal Assembly / FINMA	
+S286	reference	web	2024	POST-SETTLEMENT,REG-EU	TARGET2-Securities (T2S): settlement of securities transactions	European Central Bank	
+S287	reference	book	2021	PROD-BOND,ACC-INCOME,FIN-FOUNDATIONS	The Handbook of Fixed Income Securities	Fabozzi, F.J.; Mann, S.V.; Fabozzi, F.A.	
+S288	reference	standard	2020	CTRL-APPROVALS,CTRL-RISK	The IIA's Three Lines Model: an update of the Three Lines of Defense	Institute of Internal Auditors	
+S289	reference	regulation	2016	POST-CUSTODY,PROD-FUND,REG-EU	Commission Delegated Regulation (EU) 2016/438 (UCITS V depositary obligations)	European Commission	
+S290	reference	regulation	2013	POST-CUSTODY,PROD-FUND,REG-EU	Commission Delegated Regulation (EU) No 231/2013 (AIFMD Level 2; Arts 83-102 depositary)	European Commission	
+S291	reference	regulation	2018	POST-CUSTODY,CLIENT-ACCOUNTS,REG-EU	Commission Delegated Regulations (EU) 2018/1618 and 2018/1619 (depositary asset segregation)	European Commission	
+S292	reference	guide	2018	POST-CUSTODY,PROD-FUND,REG-NATIONAL	CSSF Circular 16/644 (UCITS depositaries), as amended by CSSF 18/697	CSSF	
+S293	reference	guide	2018	POST-CUSTODY,PROD-FUND,REG-NATIONAL	CSSF Circular 18/697 (depositaries of AIFs and non-UCITS funds)	CSSF	
+S294	reference	guide		POST-SETTLEMENT,REG-EU	ESMA Q&As on CSDR implementation (ESMA70-708036281-2)	ESMA	
+S295	reference	guide		POST-CLEARING,REG-EU	ESMA Q&As on EMIR implementation (ESMA70-1861941480-52)	ESMA	
+S296	reference	guide		TRADE-VENUES,REG-EU	ESMA Q&As on MiFID II and MiFIR market structures topics (ESMA70-872942901-38)	ESMA	
+S297	reference	guide		TRADE-VENUES,REG-EU	ESMA Q&As on MiFID II and MiFIR transparency topics (ESMA70-872942901-35)	ESMA	
+S298	reference	guide		POST-CONFIRMS,REG-EU	ESMA Q&As on MiFIR data reporting (ESMA70-1861941480-56)	ESMA	
+S299	reference	guide		POST-SECLENDING,REG-EU	ESMA Q&As on SFTR data reporting (ESMA74-362-893)	ESMA	
+S300	reference	guide		PROD-FUND,REG-EU	ESMA Q&As on the application of the AIFMD (ESMA34-32-352)	ESMA	
+S301	reference	guide		PROD-FUND,REG-EU	ESMA Q&As on the application of the UCITS Directive (ESMA34-43-392)	ESMA	
+S302	reference	guide		CTRL-RESTRICTIONS,REG-EU	ESMA Q&As on the Market Abuse Regulation (ESMA70-145-111)	ESMA	
+S303	reference	guide		PROD-BOND,REG-EU	ESMA Q&As on the Prospectus Regulation (ESMA31-62-1258)	ESMA	
+S304	reference	guide		CTRL-RESTRICTIONS,REG-EU	ESMA Q&As on the Short Selling Regulation (ESMA70-145-408)	ESMA	
+S305	reference	paper	2018	POST-CORPACTIONS,POST-MESSAGING	AMI-SeCo CMH Task Force report on corporate actions (SMPG/EIG standards)	ECB AMI-SeCo	
+S306	reference	paper	2021	POST-MESSAGING,POST-SETTLEMENT	AMI-SeCo: Customisation of ISO 20022 securities messages	ECB AMI-SeCo	
+S307	reference	standard	2019	CTRL-LIMITS,REG-EU	EBA Guidelines on ICT and security risk management (EBA/GL/2019/04)	EBA	
+S308	reference	paper	2016	PROD-BOND	EBA Report on Covered Bonds: Recommendations on harmonisation of covered bond frameworks in the EU (EBA-Op-2016-23)	European Banking Authority	
+S309	reference	guide	2024	CREDIT-COLLATERAL,CREDIT-MARGIN	ECB explainer: Haircuts on collateral	European Central Bank	
+S310	reference	guide	2017	POST-CUSTODY,PROD-FUND,REG-EU	ESMA Opinion on asset segregation and application of depositary delegation rules to CSDs (ESMA34-45-277)	ESMA	
+S311	reference	guide	2019	CTRL-RESTRICTIONS,CTRL-APPROVALS,REG-UK	FCA Market Watch 62 (personal account dealing controls)	FCA	
+S312	reference	regulation	2014	REG-UK,POST-CUSTODY	FCA PS14/9 Enhancing the client assets regime (CASS)	FCA	
+S313	reference	regulation	2017	REG-UK,CLIENT-SUITABILITY,TRADE-BESTEX	FCA PS17/14 Markets in Financial Instruments Directive II Implementation (COBS and SYSC rule changes)	FCA	
+S314	reference	guide	2015	CTRL-LIMITS,CTRL-RESTRICTIONS,TRADE-ORDERFLOW	FINRA Regulatory Notice 15-09 Equity trading initiatives: supervision and control practices for algorithmic strategies	FINRA	
+S315	reference	regulation	2026	REG-US,TRADE-ORDERFLOW,CLIENT-SUITABILITY,TRADE-COMMISSIONS	FINRA Rulebook — FINRA Rule 2010	FINRA	
+S316	reference	regulation	2026	REG-US,TRADE-ORDERFLOW,CLIENT-SUITABILITY,TRADE-COMMISSIONS	FINRA Rulebook — FINRA Rule 2090	FINRA	
+S317	reference	regulation	2026	REG-US,TRADE-ORDERFLOW,CLIENT-SUITABILITY,TRADE-COMMISSIONS	FINRA Rulebook — FINRA Rule 2111	FINRA	
+S318	reference	regulation	2026	REG-US,TRADE-ORDERFLOW,CLIENT-SUITABILITY,TRADE-COMMISSIONS	FINRA Rulebook — FINRA Rule 4511	FINRA	
+S319	reference	regulation	2026	REG-US,TRADE-ORDERFLOW,CLIENT-SUITABILITY,TRADE-COMMISSIONS	FINRA Rulebook — FINRA Rule 5320	FINRA	
+S320	reference	regulation	2022	CREDIT-COLLATERAL,CREDIT-MARGIN,REG-EU	Guideline (EU) 2022/1432 amending Guideline (EU) 2016/65 on valuation haircuts (ECB/2022/18)	European Central Bank	
+S321	reference	guide	2012	PROD-EQUITY,POST-CUSTODY,POST-CORPACTIONS	Investor Bulletin: American Depositary Receipts	SEC Office of Investor Education and Advocacy	
+S322	reference	guide	2013	REG-NATIONAL,ACC-TAX,PROD-DERIV	Italian Financial Transaction Tax (IFTT) update	Borsa Italiana	
+S323	reference	guide	2026	ACC-IFRS9,ACC-GAINS,ACC-INCOME	KPMG Handbook: Investments (ASC 320, 321 and related)	KPMG US	
+S324	reference	paper	2024	REG-UK,TRADE-VENUES	Next steps for reforming the UK Markets in Financial Instruments Directive (MiFID)	HM Treasury	
+S325	reference	regulation	2010	CTRL-LIMITS,TRADE-ORDERFLOW,REG-US	SEC Release 34-63241 Risk Management Controls for Brokers or Dealers with Market Access (Rule 15c3-5)	SEC	
+S326	reference	regulation	2016	POST-CLEARING,POST-SETTLEMENT,REG-US	SEC Standards for Covered Clearing Agencies (Rule 17Ad-22, implements CPMI-IOSCO PFMI)	SEC	
+S327	reference	guide	2017	POST-MESSAGING,POST-CONFIRMS	SWIFT MyStandards overview: ISO 15022/20022 securities message usage guidelines	SWIFT	
+S328	reference	guide	2012	POST-SETTLEMENT,REG-EU	T2S Framework Agreement high level summary	ECB T2S Programme Office	
+S329	reference	standard	2015	POST-SETTLEMENT,POST-MESSAGING	T2S User Requirements Document	ECB	

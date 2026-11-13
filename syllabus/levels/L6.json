@@ -1,0 +1,4048 @@
+{
+ "level": "L6",
+ "title": "Wealth, Credit & Controls",
+ "hours": 46,
+ "intro": "This level covers client onboarding and classification, suitability and appropriateness, investment limits, trading restrictions and approvals. It also covers Lombard collateral valuation, margin calls, and the matrix maths used for portfolio risk.",
+ "modules": [
+  {
+   "id": "C2",
+   "title": "Onboarding & KYC/AML",
+   "track": "ops",
+   "hours": 6,
+   "prereqs": [
+    "C1"
+   ],
+   "boss_items": [
+    "client onboarding"
+   ],
+   "hook": "Customer due diligence, beneficial ownership, risk rating, sanctions and PEP screening, and the documented onboarding decision.",
+   "units": [
+    {
+     "id": "C2.1",
+     "title": "Why banks know their clients: the AML/CFT frame",
+     "minutes": 50,
+     "objectives": [
+      "Learner can name the three stages of money laundering and map them to securities-account behaviour",
+      "Learner can state the risk-based approach and the main EU/FATF building blocks"
+     ],
+     "key_concepts": [
+      "placement-layering-integration",
+      "terrorist financing",
+      "FATF Recommendations 10-12, 20",
+      "AMLD stack to AMLR 2024/1624 (applies 10 Jul 2027) and AMLA",
+      "three-line responsibility (MLRO)"
+     ],
+     "worked_example": "A new client wires EUR 2m from a third-country account and asks to buy a 3-month zero-coupon note, then to redeem it early to a different bank: walk the three stages and mark the red flags.",
+     "exercises": [
+      {
+       "template": "order",
+       "task": "Sequence the three laundering stages given a described account story",
+       "params": "story drawn from 8 securities-flavoured scenarios"
+      },
+      {
+       "template": "match",
+       "task": "Match FATF/EU instruments to their role (standard-setter, directive, regulation, supervisor)",
+       "params": "instrument set sampled from 8"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort 10 behaviours into placement / layering / integration / not suspicious",
+       "params": "behaviour pool of 30"
+      },
+      {
+       "template": "mcq",
+       "task": "Which transposition status applies on a given date (AMLD5 vs AMLR) ",
+       "params": "reference date varies 2026-2028"
+      }
+     ],
+     "callbacks": [
+      "C1.3"
+     ],
+     "sources": [
+      {
+       "id": "S196",
+       "ref": "Recs 1, 10, 20, 24-25",
+       "use": "core"
+      },
+      {
+       "id": "S249",
+       "ref": "Ch. I-II overview, applicability date",
+       "use": "core"
+      },
+      {
+       "id": "S068",
+       "ref": "Ch. 1-3",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "C2.2",
+     "title": "Customer due diligence (CDD): identify, verify, understand",
+     "minutes": 55,
+     "objectives": [
+      "Learner can list CDD elements for a natural person and a legal entity",
+      "Learner can identify the ultimate beneficial owner by applying the 25% + control test",
+      "Learner can state when CDD must be triggered"
+     ],
+     "key_concepts": [
+      "identification vs verification",
+      "beneficial owner (25% / control / senior managing official)",
+      "purpose and nature of relationship",
+      "CDD triggers (onboarding, occasional transaction, doubt, periodic refresh)",
+      "reliance and outsourcing",
+      "US CDD Rule parallel"
+     ],
+     "worked_example": "Alpha Holdings S.A. is 40% Beta Trust, 35% Mr Rossi, 25% public float: compute indirect ownership and name the UBOs and the documents to collect.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute indirect ownership percentages through a 2-3 layer chain",
+       "params": "layer count, percentages"
+      },
+      {
+       "template": "table",
+       "task": "Complete the CDD document checklist for a client type",
+       "params": "client type: individual, SPV, trust, listed co., fund"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the missing element in a KYC file summary",
+       "params": "file with 1-2 gaps from 12 patterns"
+      },
+      {
+       "template": "multi",
+       "task": "Select which events trigger refresh/re-verification",
+       "params": "event list varies"
+      }
+     ],
+     "callbacks": [
+      "C1.2",
+      "C2.1"
+     ],
+     "sources": [
+      {
+       "id": "S249",
+       "ref": "CDD chapter, beneficial-owner provisions",
+       "use": "core"
+      },
+      {
+       "id": "S196",
+       "ref": "Rec 10, 24",
+       "use": "core"
+      },
+      {
+       "id": "S102",
+       "ref": "Sections 1-2",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "C2.3",
+     "title": "Risk rating: simplified, standard and enhanced due diligence",
+     "minutes": 50,
+     "objectives": [
+      "Learner can score a client on geography, product, channel and client-type risk",
+      "Learner can choose SDD, CDD or EDD and the EDD measures that follow",
+      "Learner can explain the high-risk third countries mechanism"
+     ],
+     "key_concepts": [
+      "risk factors matrix",
+      "SDD conditions (narrower under AMLR)",
+      "EDD measures (senior approval, source of wealth, enhanced monitoring)",
+      "high-risk third-country list and FATF grey/black lists",
+      "risk-rating refresh cadence"
+     ],
+     "worked_example": "A Swiss-resident entrepreneur with a Panama company and discretionary mandate scores 14 on a 20-point grid: assign tier, pick EDD measures, set refresh at 12 months.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute weighted risk score from factor ratings and weights",
+       "params": "3-5 factors, weights sum 100"
+      },
+      {
+       "template": "mcq",
+       "task": "Pick the due-diligence tier for a given profile",
+       "params": "profile of 12 types"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort measures into standard vs enhanced",
+       "params": "measure pool of 20"
+      },
+      {
+       "template": "cloze",
+       "task": "Complete a risk-based-approach policy paragraph",
+       "params": "word bank"
+      }
+     ],
+     "callbacks": [
+      "C2.2"
+     ],
+     "sources": [
+      {
+       "id": "S102",
+       "ref": "Sections 3-4 (risk-based approach)",
+       "use": "core"
+      },
+      {
+       "id": "S196",
+       "ref": "Rec 1, 10, 19",
+       "use": "core"
+      },
+      {
+       "id": "S109",
+       "ref": "country risk chapter",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "C2.4",
+     "title": "PEPs, source of wealth and source of funds",
+     "minutes": 50,
+     "objectives": [
+      "Learner can define PEP, family member and close associate",
+      "Learner can distinguish source of wealth from source of funds and propose evidence for each",
+      "Learner can describe what senior-management approval and extended monitoring involve"
+     ],
+     "key_concepts": [
+      "domestic vs foreign PEP",
+      "12-month post-office cooling period (AMLR)",
+      "source of wealth evidence ladder",
+      "adverse media",
+      "private banking inherent PEP exposure"
+     ],
+     "worked_example": "A client is the brother-in-law of a sitting minister and wishes to fund a EUR 5m account from a business sale: define status, list SoW and SoF evidence, set approval path.",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Match PEP categories to person examples",
+       "params": "person pool of 20"
+      },
+      {
+       "template": "order",
+       "task": "Rank evidence by strength for a stated source of wealth",
+       "params": "source: inheritance, sale of business, salary, crypto, lottery"
+      },
+      {
+       "template": "multi",
+       "task": "Select valid SoF documents for a transfer",
+       "params": "transfer amount and origin vary"
+      },
+      {
+       "template": "mcq",
+       "task": "Is the person still treated as PEP at date X?",
+       "params": "leave-office date, status"
+      }
+     ],
+     "callbacks": [
+      "C2.3"
+     ],
+     "sources": [
+      {
+       "id": "S102",
+       "ref": "Sections on PEPs and private banking due diligence",
+       "use": "core"
+      },
+      {
+       "id": "S064",
+       "ref": "Ch. on client acceptance",
+       "use": "deeper"
+      },
+      {
+       "id": "S249",
+       "ref": "PEP provisions",
+       "use": "core"
+      }
+     ]
+    },
+    {
+     "id": "C2.5",
+     "title": "Sanctions screening and ongoing monitoring",
+     "minutes": 55,
+     "objectives": [
+      "Learner can explain list-based screening vs transaction monitoring",
+      "Learner can triage name-match alerts",
+      "Learner can describe EU, UN and OFAC regimes and the 50% ownership rules"
+     ],
+     "key_concepts": [
+      "EU consolidated list, UN, OFAC SDN, HMT",
+      "50% rule (OFAC aggregation; EU ownership/control test)",
+      "fuzzy matching and false positives",
+      "securities red flags: FoP transfers, third-party settlement, mirror trading, early redemptions",
+      "STR/SAR and tipping-off"
+     ],
+     "worked_example": "Screening hits 'Ivanov Petr' against a list entry: compare DOB, nationality and address, then decide discount, escalate or block.",
+     "exercises": [
+      {
+       "template": "spot",
+       "task": "Decide true/false match from a list entry vs client record",
+       "params": "entry and record with 2-4 attribute differences"
+      },
+      {
+       "template": "numeric",
+       "task": "Does aggregate sanctioned ownership reach 50%? (OFAC)",
+       "params": "3-5 owners with percentages"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort alerts into escalate / discount / request info",
+       "params": "alert pool of 24"
+      },
+      {
+       "template": "mcq",
+       "task": "What is the legal consequence of tipping-off in scenario X?",
+       "params": "scenario pool"
+      }
+     ],
+     "callbacks": [
+      "C2.4"
+     ],
+     "sources": [
+      {
+       "id": "S103",
+       "ref": "Sections 1-5",
+       "use": "core"
+      },
+      {
+       "id": "S157",
+       "ref": "Five components",
+       "use": "core"
+      },
+      {
+       "id": "S068",
+       "ref": "Ch. on monitoring and reporting",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "C2.6",
+     "title": "Client classification: retail, professional, eligible counterparty",
+     "minutes": 55,
+     "objectives": [
+      "Learner can classify a client under MiFID II Annex II",
+      "Learner can run opt-up and opt-down procedures and name lost protections",
+      "Learner can compare with US (accredited / QIB) and Swiss FinSA segments"
+     ],
+     "key_concepts": [
+      "per se professionals",
+      "large-undertaking test (EUR 20m / 40m / 2m, two of three)",
+      "elective professional: 500k portfolio, 10 trades per quarter, 1-year professional experience (two of three)",
+      "ECP status (Art 30)",
+      "protections lost on opt-down",
+      "FinSA segments retail / professional / institutional",
+      "US accredited investor"
+     ],
+     "worked_example": "A family office has EUR 15m balance sheet, EUR 50m turnover and EUR 1.5m own funds: test large-undertaking criteria, then the elective-professional route.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Evaluate 'two of three' tests for a company",
+       "params": "three metrics vary around thresholds"
+      },
+      {
+       "template": "mcq",
+       "task": "Assign the client category",
+       "params": "client profile of 15 types"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort protections into kept / lost on opt-down",
+       "params": "protection pool of 12"
+      },
+      {
+       "template": "match",
+       "task": "Map MiFID, FinSA and US categories to each other",
+       "params": "category sets"
+      },
+      {
+       "template": "paper",
+       "task": "Optional: write a 200-word memo on whether to grant professional status to a retail client",
+       "params": "client profile varies; XP only"
+      }
+     ],
+     "callbacks": [
+      "C1.1",
+      "C2.2"
+     ],
+     "sources": [
+      {
+       "id": "S235",
+       "ref": "Art 4(1)(10)-(11), Art 30, Annex II; Del. Reg 2017/565 Arts 45-46",
+       "use": "core"
+      },
+      {
+       "id": "S203",
+       "ref": "FinSA Arts 4-5",
+       "use": "core"
+      },
+      {
+       "id": "S066",
+       "ref": "section on client categorisation",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "C2.7",
+     "title": "LEI, tax residency (CRS/FATCA) and the onboarding file",
+     "minutes": 60,
+     "objectives": [
+      "Learner can state when an LEI is needed and what it contains",
+      "Learner can complete CRS/FATCA self-certification logic",
+      "Learner can assemble an end-to-end onboarding checklist"
+     ],
+     "key_concepts": [
+      "LEI (ISO 17442, 20 chars, annual renewal, GLEIF)",
+      "no LEI no trade for legal entities (MiFIR reporting)",
+      "natural-person identifier CONCAT (e.g. codice fiscale for Italians)",
+      "CRS self-certification and reportable accounts",
+      "FATCA W-8/W-9 and QI withholding",
+      "onboarding workflow and four-eyes sign-off"
+     ],
+     "worked_example": "Onboard a Luxembourg SPV: verify LEI validity and expiry, collect FATCA classification, flag the CRS controlling persons.",
+     "exercises": [
+      {
+       "template": "table",
+       "task": "Complete an onboarding checklist for a given client type with status per item",
+       "params": "client type varies"
+      },
+      {
+       "template": "order",
+       "task": "Sequence an onboarding workflow from application to account activation",
+       "params": "12 steps, subset shown"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in an LEI record or a CRS self-certification",
+       "params": "record variants"
+      },
+      {
+       "template": "mcq",
+       "task": "Is the entity reportable under CRS/FATCA?",
+       "params": "residence and classification vary"
+      }
+     ],
+     "callbacks": [
+      "C2.2",
+      "C2.6"
+     ],
+     "sources": [
+      {
+       "id": "S239",
+       "ref": "Section on due diligence, self-certification",
+       "use": "core"
+      },
+      {
+       "id": "S242",
+       "ref": "FATCA overview, QI agreement",
+       "use": "core"
+      },
+      {
+       "id": "S258",
+       "ref": "Art 26 transaction reporting identifiers (LEI/CONCAT)",
+       "use": "deeper"
+      },
+      {
+       "id": "S031",
+       "ref": "Ch. on onboarding",
+       "use": "deeper"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "Mixed test on UBO tracing, risk tiering, PEP/SoW evidence, sanctions triage and MiFID classification.",
+   "jurisdiction_notes": "EU first (AMLD to AMLR 2024/1624 from 10 Jul 2027, AMLA, MiFID II classification); US CDD Rule and accredited investors, Swiss CDB/FinSA categories, UK MLR, SG/HK AML noted in one paragraph each."
+  },
+  {
+   "id": "C3",
+   "title": "Account Structures & Mandates in Depth",
+   "track": "ops",
+   "hours": 4,
+   "prereqs": [
+    "C2",
+    "O4"
+   ],
+   "boss_items": [
+    "client accounts"
+   ],
+   "hook": "Trusts, holding companies, joint accounts, powers of attorney and discretionary mandates: who can instruct, who owns the assets, and what documents are required.",
+   "units": [
+    {
+     "id": "C3.1",
+     "title": "Individual, joint and minor accounts",
+     "minutes": 45,
+     "objectives": [
+      "Learner can compare joint account forms (and/or, joint-and-several, survivorship)",
+      "Learner can describe rules for minors, usufruct and guardianship",
+      "Learner can name how death or incapacity changes access"
+     ],
+     "key_concepts": [
+      "tenancy forms (joint, in common, survivorship)",
+      "disjoint vs joint signatory authority",
+      "minors and guardianship",
+      "usufruct / bare ownership (FR/IT oddity)",
+      "account freeze on death",
+      "tax and reporting per holder"
+     ],
+     "worked_example": "Two spouses hold EUR 400k of securities under a joint 'either-to-sign' account; one dies: who can instruct, what does the bank freeze, who gets the securities?",
+     "exercises": [
+      {
+       "template": "mcq",
+       "task": "Who can act under signing rule X?",
+       "params": "rule and scenario vary"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort scenarios by who bears reporting duty",
+       "params": "scenario pool 16"
+      },
+      {
+       "template": "match",
+       "task": "Match account form to legal consequence on death",
+       "params": "6 forms"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in an account-opening form for a minor",
+       "params": "form variants"
+      }
+     ],
+     "callbacks": [
+      "C1.1",
+      "C2.2"
+     ],
+     "sources": [
+      {
+       "id": "S031",
+       "ref": "Ch. on client accounts",
+       "use": "core"
+      },
+      {
+       "id": "S064",
+       "ref": "Ch. on client structures",
+       "use": "deeper"
+      },
+      {
+       "id": "S203",
+       "ref": "FinSA Art 4 client segments",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "C3.2",
+     "title": "Corporate, fund and institutional accounts",
+     "minutes": 45,
+     "objectives": [
+      "Learner can list corporate account documents and authorised signatories",
+      "Learner can explain authority limits and signing matrices",
+      "Learner can classify institutional account types"
+     ],
+     "key_concepts": [
+      "articles of association, board resolutions, specimen signatures",
+      "signing matrix (A/B signatories)",
+      "authority limits vs trading limits",
+      "pension fund, insurer, fund-of-funds accounts",
+      "LEI and MiFIR reporting for entities"
+     ],
+     "worked_example": "A GmbH has two managing directors with joint signing power up to EUR 1m: classify an EUR 1.5m order instructed by one director alone.",
+     "exercises": [
+      {
+       "template": "table",
+       "task": "Complete a signing matrix from a board resolution",
+       "params": "3-5 signatories"
+      },
+      {
+       "template": "mcq",
+       "task": "Is the instruction valid under the matrix?",
+       "params": "amount and signatories vary"
+      },
+      {
+       "template": "match",
+       "task": "Match institutional entity to typical account features",
+       "params": "entity set"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the authority gap in a mandate pack",
+       "params": "pack variants"
+      }
+     ],
+     "callbacks": [
+      "C3.1",
+      "C2.7"
+     ],
+     "sources": [
+      {
+       "id": "S064",
+       "ref": "Ch. on institutional/corporate private clients",
+       "use": "core"
+      },
+      {
+       "id": "S031",
+       "ref": "Ch. on structures",
+       "use": "deeper"
+      },
+      {
+       "id": "S235",
+       "ref": "Annex II",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "C3.3",
+     "title": "Trusts, foundations and holding vehicles",
+     "minutes": 50,
+     "objectives": [
+      "Learner can identify parties to a trust and their KYC roles",
+      "Learner can compare trust, foundation and personal investment company",
+      "Learner can explain why civil-law banks treat trusts carefully (Hague recognition)"
+     ],
+     "key_concepts": [
+      "settlor, trustee, protector, beneficiary",
+      "discretionary vs fixed trust",
+      "Liechtenstein / Swiss foundations (Stiftung)",
+      "Hague Trust Convention and local recognition",
+      "UBO register and trust reporting",
+      "who instructs the bank"
+     ],
+     "worked_example": "A discretionary trust with an offshore trustee opens a securities account: list every KYC party and decide who may instruct.",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Match party to role and KYC requirement",
+       "params": "party set"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort structures by tax and control features",
+       "params": "8 structures"
+      },
+      {
+       "template": "spot",
+       "task": "Spot whose authority is missing in a trust account pack",
+       "params": "pack variants"
+      },
+      {
+       "template": "mcq",
+       "task": "Who is the beneficial owner here?",
+       "params": "trust type varies"
+      }
+     ],
+     "callbacks": [
+      "C2.2",
+      "C3.2"
+     ],
+     "sources": [
+      {
+       "id": "S064",
+       "ref": "Ch. on trusts and structures",
+       "use": "core"
+      },
+      {
+       "id": "S241",
+       "ref": "Sections on structures and KYC",
+       "use": "deeper"
+      },
+      {
+       "id": "S102",
+       "ref": "Principles on beneficial ownership",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "C3.4",
+     "title": "Nominee, omnibus and segregated accounts",
+     "minutes": 50,
+     "objectives": [
+      "Learner can contrast omnibus and individually segregated accounts under CSDR Art 38",
+      "Learner can explain nominee/street-name holding and the beneficial-owner transparency issue",
+      "Learner can state what client-asset segregation protects in insolvency"
+     ],
+     "key_concepts": [
+      "CSDR Art 38 levels (omnibus, individual)",
+      "nominee / street name / Depotgesetz Sammelverwahrung",
+      "MiFID client asset safeguarding (Del. Dir 2017/593 Arts 2-7)",
+      "commingling and reuse restrictions",
+      "SRD II shareholder identification",
+      "UK CASS and US 15c3-3 comparison"
+     ],
+     "worked_example": "A private bank holds 600 different clients' ABC shares in one omnibus account at the CSD: reconcile the omnibus total, and say what happens to client 17's shares if the bank fails.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Reconcile omnibus balance to client sub-ledgers and find the break",
+       "params": "10 clients, 1 injected break"
+      },
+      {
+       "template": "match",
+       "task": "Match segregation model to protection and cost",
+       "params": "models: omnibus, individual, end-investor"
+      },
+      {
+       "template": "mcq",
+       "task": "Which legal basis applies in scenario X?",
+       "params": "scenario pool"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort statements into true / false for CSDR Art 38",
+       "params": "statement pool 14"
+      }
+     ],
+     "callbacks": [
+      "O4.3",
+      "C3.3"
+     ],
+     "sources": [
+      {
+       "id": "S169",
+       "ref": "Art 38",
+       "use": "core"
+      },
+      {
+       "id": "S035",
+       "ref": "entire page",
+       "use": "core"
+      },
+      {
+       "id": "S291",
+       "ref": "Arts 1-3",
+       "use": "deeper"
+      },
+      {
+       "id": "S214",
+       "ref": "Depotgesetz overview",
+       "use": "reference"
+      },
+      {
+       "id": "S273",
+       "ref": "Rule 15c3-3 customer protection",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "C3.5",
+     "title": "Powers of attorney and mandates in depth",
+     "minutes": 45,
+     "objectives": [
+      "Learner can distinguish limited, general and trading powers of attorney",
+      "Learner can draft investment-guideline parameters for a discretionary mandate",
+      "Learner can describe revocation, death and misuse safeguards"
+     ],
+     "key_concepts": [
+      "limited vs general PoA",
+      "third-party manager (EAM) accounts",
+      "discretionary mandate guidelines (strategy, risk band, bands, exclusions)",
+      "execution-only vs advisory vs discretionary revisited",
+      "revocation and expiry",
+      "Swiss SBA portfolio-management guidelines"
+     ],
+     "worked_example": "A client grants an external asset manager a trading-only PoA with no withdrawal right: list what the bank must still check on each order.",
+     "exercises": [
+      {
+       "template": "bucket",
+       "task": "Sort actions into permitted / not permitted under a PoA type",
+       "params": "action pool 20"
+      },
+      {
+       "template": "table",
+       "task": "Complete an investment-guideline sheet from a client profile",
+       "params": "profile varies"
+      },
+      {
+       "template": "order",
+       "task": "Sequence the steps to set up an EAM account",
+       "params": "10 steps"
+      },
+      {
+       "template": "mcq",
+       "task": "Is the PoA still valid in event X?",
+       "params": "event: death, incapacity, revocation, divorce"
+      }
+     ],
+     "callbacks": [
+      "C1.2",
+      "C3.4"
+     ],
+     "sources": [
+      {
+       "id": "S283",
+       "ref": "Guidelines on portfolio management",
+       "use": "core"
+      },
+      {
+       "id": "S097",
+       "ref": "Ch. on mandates and duties",
+       "use": "deeper"
+      },
+      {
+       "id": "S096",
+       "ref": "Ch. on investment policy statement",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "C3.6",
+     "title": "Account lifecycle: changes, refresh, dormancy and closure",
+     "minutes": 45,
+     "objectives": [
+      "Process a static-data or mandate change with authentication, four-eyes approval and effective date",
+      "Schedule periodic KYC refresh by risk rating and identify trigger events that force an earlier review",
+      "Handle dormant accounts: flagging, contact attempts, restrictions and escheat or unclaimed-asset rules",
+      "Close an account correctly: holdings transferred or sold, pending events and fees settled, final statement, archive",
+      "State the audit-trail and retention rules for account records"
+     ],
+     "key_concepts": [
+      "Static data: name, address, tax residency, signatories, powers of attorney, standing instructions",
+      "Four-eyes and customer authentication for changes",
+      "Periodic KYC refresh by risk rating (typical practice: high annually, standard every 1-3 years, low every 5 years) and trigger events",
+      "AMLR (EU) 2024/1624, applying from 10 Jul 2027: keep CDD data up to date",
+      "Dormant accounts and national unclaimed-asset regimes",
+      "Closure checklist: positions, cash, pending corporate actions, pending fees, final statement, tax reporting",
+      "Audit trail and retention: 5 years after the end of the relationship under AML rules; FINRA Rule 4511 six years"
+     ],
+     "worked_example": "A private client with a high risk rating is due for KYC refresh annually. The last review was 14 months ago and the client has just moved country, which is a trigger event. The bank requests new proof of address and tax residency and updates CRS data. After the client asks to close, the file shows 300 shares, a pending dividend on 15 May and a custody fee: the account stays open until the dividend pays and the position is transferred out or sold, the fee is settled, and the final statement is issued; records are retained 5 years from closure.",
+     "exercises": [
+      {
+       "template": "order",
+       "task": "Sequence the account closure steps",
+       "params": "8 steps; holdings and pending event variants"
+      },
+      {
+       "template": "mcq",
+       "task": "Which refresh date applies to this risk rating and trigger?",
+       "params": "risk rating, last review date, trigger event"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the missing step in a closure file",
+       "params": "file with open dividend, unpaid fee or missing final statement"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort changes into four-eyes required vs standard",
+       "params": "pool of 12 static-data changes"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the retention end date and next KYC review date",
+       "params": "closure date, retention years, risk rating"
+      }
+     ],
+     "callbacks": [
+      "C1.2",
+      "C2.2",
+      "C2.3",
+      "C2.7",
+      "C3.5"
+     ],
+     "sources": [
+      {
+       "id": "S249",
+       "ref": "AMLR: ongoing monitoring and record keeping",
+       "use": "core"
+      },
+      {
+       "id": "S196",
+       "ref": "FATF Recommendations: ongoing due diligence",
+       "use": "reference"
+      },
+      {
+       "id": "S164",
+       "ref": "Arts 72-76: record keeping",
+       "use": "reference"
+      },
+      {
+       "id": "S318",
+       "ref": "FINRA Rule 4511 books and records retention",
+       "use": "reference"
+      },
+      {
+       "id": "S063",
+       "ref": "custody account closure and pending events",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "Applied cases on signing authority, UBO in structures, segregation levels and PoA scope.",
+   "jurisdiction_notes": "EU: CSDR Art 38, MiFID safeguarding, civil-law trust recognition and usufruct oddities (FR/IT), German Depotgesetz; US street name and 15c3-3; UK CASS nominee; Swiss foundations and SBA guidelines."
+  },
+  {
+   "id": "C4",
+   "title": "Suitability & Appropriateness",
+   "track": "ops",
+   "hours": 6,
+   "prereqs": [
+    "C2",
+    "P6"
+   ],
+   "boss_items": [
+    "suitability"
+   ],
+   "hook": "MiFID II suitability and appropriateness tests, client classification, product complexity and target market, and the documented recommendation.",
+   "units": [
+    {
+     "id": "C4.1",
+     "title": "The investor-protection ladder",
+     "minutes": 45,
+     "objectives": [
+      "Learner can place each service (execution-only, advice, discretionary) on the protection ladder",
+      "Learner can state which test applies to which service and who owes it"
+     ],
+     "key_concepts": [
+      "suitability (advice, discretionary)",
+      "appropriateness (complex products, no advice)",
+      "execution-only conditions (non-complex, client initiative)",
+      "know your customer information",
+      "ESMA appropriateness and execution-only guidelines"
+     ],
+     "worked_example": "A client phones to buy a barrier reverse convertible with no advice: decide appropriateness test vs execution-only and what warning applies if knowledge is lacking.",
+     "exercises": [
+      {
+       "template": "mcq",
+       "task": "Which test applies to service/product combination X?",
+       "params": "service x product grid"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort 12 trades into suitability / appropriateness / execution-only",
+       "params": "trade pool of 30"
+      },
+      {
+       "template": "order",
+       "task": "Sequence the appropriateness workflow",
+       "params": "steps with warning branch"
+      },
+      {
+       "template": "cloze",
+       "task": "Complete the definition of a non-complex product",
+       "params": "word bank"
+      }
+     ],
+     "callbacks": [
+      "C1.2",
+      "P6.1"
+     ],
+     "sources": [
+      {
+       "id": "S065",
+       "ref": "Sections on appropriateness and execution-only",
+       "use": "core"
+      },
+      {
+       "id": "S183",
+       "ref": "Arts 24-25",
+       "use": "core"
+      },
+      {
+       "id": "S164",
+       "ref": "Arts 54-57",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "C4.2",
+     "title": "Suitability assessment: client information and profiling",
+     "minutes": 55,
+     "objectives": [
+      "Learner can list the five information areas of a suitability profile",
+      "Learner can compute loss-bearing capacity and map to risk bands",
+      "Learner can handle information reliability and updating"
+     ],
+     "key_concepts": [
+      "knowledge and experience",
+      "financial situation incl. loss-bearing capacity",
+      "risk tolerance vs risk capacity",
+      "investment objectives and time horizon",
+      "sustainability preferences (since Aug 2022)",
+      "ESMA 2023 guideline on questionnaires"
+     ],
+     "worked_example": "A 52-year-old with EUR 800k liquid assets, EUR 30k annual surplus and a 7-year horizon says 'moderate': compute a loss-bearing capacity and risk band, spot inconsistent answers.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute loss-bearing capacity as % of net liquid wealth",
+       "params": "income, assets, liabilities, horizon"
+      },
+      {
+       "template": "spot",
+       "task": "Spot contradictions in a completed questionnaire",
+       "params": "questionnaire variants"
+      },
+      {
+       "template": "mcq",
+       "task": "Select the risk band for a profile",
+       "params": "profile grid"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort client facts into the five information areas",
+       "params": "fact pool 20"
+      }
+     ],
+     "callbacks": [
+      "C4.1",
+      "C2.6"
+     ],
+     "sources": [
+      {
+       "id": "S066",
+       "ref": "Sections 5-6 on information collection",
+       "use": "core"
+      },
+      {
+       "id": "S096",
+       "ref": "Ch. on client profile",
+       "use": "deeper"
+      },
+      {
+       "id": "S044",
+       "ref": "Ch. on risk profiling",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "C4.3",
+     "title": "Suitability assessment: matching products and the suitability report",
+     "minutes": 55,
+     "objectives": [
+      "Learner can run the suitability test on a portfolio level",
+      "Learner can justify a switch under the costs-and-benefits requirement",
+      "Learner can write the suitability statement contents"
+     ],
+     "key_concepts": [
+      "portfolio-level suitability",
+      "diversification and concentration",
+      "cost-benefit test for switching",
+      "suitability report (Art 54(12) 2017/565)",
+      "ongoing suitability assessment",
+      "robo-advice"
+     ],
+     "worked_example": "Switching a client from a UCITS fund to an ELN that costs 1.2% more: test whether benefits justify costs and what must be in the report.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Break-even holding period for a switch given costs",
+       "params": "cost differential, expected benefit"
+      },
+      {
+       "template": "spot",
+       "task": "Spot unsuitable elements in a suitability report",
+       "params": "report variants"
+      },
+      {
+       "template": "mcq",
+       "task": "Is the recommendation suitable?",
+       "params": "client and product pairs"
+      },
+      {
+       "template": "order",
+       "task": "Order the steps from recommendation to report delivery",
+       "params": "steps"
+      },
+      {
+       "template": "paper",
+       "task": "Optional: write a suitability rationale for a given client/product",
+       "params": "case varies; XP only"
+      }
+     ],
+     "callbacks": [
+      "C4.2",
+      "F2.1"
+     ],
+     "sources": [
+      {
+       "id": "S066",
+       "ref": "Sections 7-9",
+       "use": "core"
+      },
+      {
+       "id": "S164",
+       "ref": "Art 54",
+       "use": "core"
+      },
+      {
+       "id": "S124",
+       "ref": "Ch. on conduct of business",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "C4.4",
+     "title": "Product governance and target markets",
+     "minutes": 55,
+     "objectives": [
+      "Learner can identify manufacturer vs distributor duties",
+      "Learner can derive a target market with five criteria and a negative target market",
+      "Learner can run a distributor check against the target market"
+     ],
+     "key_concepts": [
+      "manufacturer / distributor roles",
+      "five target-market criteria",
+      "negative target market",
+      "distribution strategy",
+      "periodic review",
+      "sales outside target market and sustainability items"
+     ],
+     "worked_example": "An issuer flags a capital-protected note for 'retail with basic knowledge, long horizon'; a client with a 1-year horizon asks for it: decide, document, escalate.",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Match target-market criteria to client attributes",
+       "params": "criteria x attributes"
+      },
+      {
+       "template": "mcq",
+       "task": "Is the sale within the target market?",
+       "params": "product/target market and client attributes"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort duties into manufacturer vs distributor",
+       "params": "duty pool 16"
+      },
+      {
+       "template": "spot",
+       "task": "Spot gaps in a manufacturer's target-market statement",
+       "params": "statement variants"
+      }
+     ],
+     "callbacks": [
+      "P6.4",
+      "C4.3"
+     ],
+     "sources": [
+      {
+       "id": "S067",
+       "ref": "Sections on manufacturers and distributors",
+       "use": "core"
+      },
+      {
+       "id": "S183",
+       "ref": "Arts 16(3), 24(2)",
+       "use": "core"
+      },
+      {
+       "id": "S252",
+       "ref": "KID",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "C4.5",
+     "title": "Complex products, costs and disclosures",
+     "minutes": 50,
+     "objectives": [
+      "Learner can state the MiFID complexity criteria",
+      "Learner can read ex-ante costs and charges and detect gaps",
+      "Learner can explain the effect of the Retail Investment Strategy (pending)"
+     ],
+     "key_concepts": [
+      "complex vs non-complex",
+      "PRIIPs KID and SRRI",
+      "ex-ante costs and charges disclosure",
+      "inducements and value for money (RIS, adoption pending Nov 2026)",
+      "complex-product warnings in SG/HK"
+     ],
+     "worked_example": "A KID shows RIY 1.8% but the bank also charges 0.5% custody: compose the total costs the client must see.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Total ex-ante cost in EUR and % over a holding period",
+       "params": "KID cost, custody, entry fee"
+      },
+      {
+       "template": "multi",
+       "task": "Select non-complex products from a list",
+       "params": "list sampled from 20"
+      },
+      {
+       "template": "spot",
+       "task": "Spot disclosure omissions on a cost summary",
+       "params": "summary variants"
+      },
+      {
+       "template": "mcq",
+       "task": "Which disclosure rule applies in scenario X?",
+       "params": "scenario pool"
+      }
+     ],
+     "callbacks": [
+      "T6.1",
+      "P6.4"
+     ],
+     "sources": [
+      {
+       "id": "S252",
+       "ref": "KID RTS",
+       "use": "core"
+      },
+      {
+       "id": "S267",
+       "ref": "summary of provisional agreement",
+       "use": "core"
+      },
+      {
+       "id": "S164",
+       "ref": "Art 50",
+       "use": "deeper"
+      },
+      {
+       "id": "S278",
+       "ref": "FAQs complex products",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "C4.6",
+     "title": "Reg BI, FinSA, UK and Asia comparison",
+     "minutes": 60,
+     "objectives": [
+      "Learner can compare the Reg BI four obligations with the MiFID suitability model",
+      "Learner can map FinSA, SFC and MAS client protection",
+      "Learner can pick the right regime in a cross-border scenario"
+     ],
+     "key_concepts": [
+      "Reg BI: disclosure, care, conflicts, compliance",
+      "Form CRS",
+      "FINRA 2111 and 2090 for non-retail",
+      "FinSA Arts 7-17, BIS (basic information sheet)",
+      "FCA Consumer Duty",
+      "SFC para 5.2, 5.5",
+      "MAS FAA-N16"
+     ],
+     "worked_example": "A Singapore client of a Swiss bank buys a Euro-denominated note: choose the governing rule set and list the conduct duties.",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Match regime to obligation",
+       "params": "regime x obligation"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort statements to Reg BI vs MiFID",
+       "params": "statement pool 16"
+      },
+      {
+       "template": "mcq",
+       "task": "Which regime governs the client?",
+       "params": "client/booking centre/product"
+      },
+      {
+       "template": "table",
+       "task": "Complete a comparison table",
+       "params": "rows vary by seed"
+      }
+     ],
+     "callbacks": [
+      "C4.1",
+      "C4.4"
+     ],
+     "sources": [
+      {
+       "id": "S271",
+       "ref": "Reg BI",
+       "use": "core"
+      },
+      {
+       "id": "S317",
+       "ref": "FINRA Rule 2111",
+       "use": "core"
+      },
+      {
+       "id": "S203",
+       "ref": "FinSA/FinSO",
+       "use": "core"
+      },
+      {
+       "id": "S197",
+       "ref": "PRIN 2A",
+       "use": "deeper"
+      },
+      {
+       "id": "S313",
+       "ref": "COBS 9",
+       "use": "reference"
+      },
+      {
+       "id": "S275",
+       "ref": "FAA-N16",
+       "use": "reference"
+      },
+      {
+       "id": "S277",
+       "ref": "para 5.2, 5.5",
+       "use": "reference"
+      },
+      {
+       "id": "S234",
+       "ref": "Fair Dealing guideline",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "C4.7",
+     "title": "Suitability in practice: reviews, complaints and remediation",
+     "minutes": 45,
+     "objectives": [
+      "Learner can identify typical findings in file reviews",
+      "Learner can compute remediation exposure",
+      "Learner can describe recordkeeping obligations"
+     ],
+     "key_concepts": [
+      "file review sampling",
+      "periodic review",
+      "complaints handling and record keeping (5 years)",
+      "remediation",
+      "audio recording"
+     ],
+     "worked_example": "A review samples 40 files and finds 6 outside tolerance: derive breach rate and the remediation action.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute breach rate and extrapolated exposure",
+       "params": "sample size, defects"
+      },
+      {
+       "template": "spot",
+       "task": "Spot findings in a sampled advisory file",
+       "params": "file variants"
+      },
+      {
+       "template": "order",
+       "task": "Order a remediation workflow",
+       "params": "steps"
+      },
+      {
+       "template": "mcq",
+       "task": "How long must record X be kept?",
+       "params": "record type"
+      }
+     ],
+     "callbacks": [
+      "C4.3",
+      "C4.6"
+     ],
+     "sources": [
+      {
+       "id": "S066",
+       "ref": "Section on arrangements",
+       "use": "core"
+      },
+      {
+       "id": "S318",
+       "ref": "Rule 4511",
+       "use": "reference"
+      },
+      {
+       "id": "S164",
+       "ref": "Arts 72-76",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": {
+    "name": "Gatekeeper",
+    "variant": "approve or reject advisory orders against client profile and target market, with explained reasons"
+   },
+   "unit_test": "Case set covering test selection, profiling, target-market checks, costs and cross-regime comparisons.",
+   "jurisdiction_notes": "EU deepest (MiFID II, ESMA guidelines, PRIIPs); US Reg BI/FINRA 2111/2090; UK COBS 9 and Consumer Duty; Swiss FinSA; SG FAA-N16 and HK SFC sidebars."
+  },
+  {
+   "id": "C5",
+   "title": "Investment Limits & Mandate Compliance",
+   "track": "ops",
+   "hours": 5,
+   "prereqs": [
+    "C4",
+    "P4"
+   ],
+   "boss_items": [
+    "limits by issuer/group"
+   ],
+   "hook": "Investment limits in mandates, concentration and rating restrictions, breach detection, and the escalation and remediation steps.",
+   "units": [
+    {
+     "id": "C5.1",
+     "title": "What an investment limit is: types and layers",
+     "minutes": 45,
+     "objectives": [
+      "Learner can classify limits by source: regulatory, mandate, internal policy",
+      "Learner can distinguish hard, soft and warning thresholds",
+      "Learner can set and test country, sector and rating limits (e.g. maximum share per country, maximum share per sector, minimum credit rating) against a portfolio"
+     ],
+     "key_concepts": [
+      "regulatory vs mandate vs house limits",
+      "hard / soft / warning",
+      "limit dimensions: issuer, group, sector, country, asset class, rating, liquidity",
+      "limit hierarchy",
+      "breach types: active vs passive"
+     ],
+     "worked_example": "A discretionary mandate caps single issuers at 10%; the house caps at 8%; the regulator caps funds at 10%: which binds?",
+     "exercises": [
+      {
+       "template": "bucket",
+       "task": "Sort limits by source",
+       "params": "pool of 20 limits"
+      },
+      {
+       "template": "mcq",
+       "task": "Which limit binds?",
+       "params": "three limit values vary"
+      },
+      {
+       "template": "match",
+       "task": "Match breach type to remedy",
+       "params": "types x remedies"
+      },
+      {
+       "template": "numeric",
+       "task": "Headroom in EUR before breach",
+       "params": "portfolio size, current weight, limit"
+      }
+     ],
+     "callbacks": [
+      "C4.3"
+     ],
+     "sources": [
+      {
+       "id": "S133",
+       "ref": "Ch. on constraints",
+       "use": "core"
+      },
+      {
+       "id": "S283",
+       "ref": "SBA guidelines on limits",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "C5.2",
+     "title": "Issuer and group limits and look-through",
+     "minutes": 55,
+     "objectives": [
+      "Learner can aggregate exposures to one issuer across instruments",
+      "Learner can identify group of connected issuers",
+      "Learner can handle look-through for funds and structured notes"
+     ],
+     "key_concepts": [
+      "issuer aggregation: equity, bond, deposit, OTC counterparty",
+      "connected-clients group",
+      "look-through to underlying (index vs single-name)",
+      "guaranteed notes and issuer vs underlying exposure",
+      "sovereign exemptions"
+     ],
+     "worked_example": "A portfolio holds a Bank X bond (4%), Bank X ELN (3%) and a fund with 2% in Bank X shares: aggregate and test a 8% limit.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Aggregate exposure to an issuer across holdings",
+       "params": "3-6 holdings, weights"
+      },
+      {
+       "template": "table",
+       "task": "Build exposure table by issuer",
+       "params": "holdings list"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the missed aggregation in a compliance report",
+       "params": "report variants"
+      },
+      {
+       "template": "mcq",
+       "task": "Are A and B one group?",
+       "params": "ownership chain"
+      }
+     ],
+     "callbacks": [
+      "C5.1",
+      "P6.3"
+     ],
+     "sources": [
+      {
+       "id": "S181",
+       "ref": "Art 52 and 54",
+       "use": "core"
+      },
+      {
+       "id": "S255",
+       "ref": "Arts 4(1)(39), 390-392",
+       "use": "deeper"
+      },
+      {
+       "id": "S095",
+       "ref": "Ch. on concentration risk",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "C5.3",
+     "title": "UCITS 5/10/40 and fund investment restrictions",
+     "minutes": 55,
+     "objectives": [
+      "Learner can apply the UCITS Art 52 limits",
+      "Learner can apply exceptions (sovereign, covered bonds) and group limits",
+      "Learner can compute global exposure for derivatives"
+     ],
+     "key_concepts": [
+      "10% single issuer; 5% threshold; 40% aggregate",
+      "20% group",
+      "35% sovereign exemption and 100%/six-issue rule",
+      "covered bond 25% (Art 52(4))",
+      "OTC counterparty 10%/5%",
+      "global exposure commitment vs VaR",
+      "US 40-Act diversification as parallel"
+     ],
+     "worked_example": "A UCITS holds nine positions above 5% totalling 47%: identify the breach and the fix.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Test a portfolio against 5/10/40",
+       "params": "10-15 holdings"
+      },
+      {
+       "template": "mcq",
+       "task": "Which exemption applies?",
+       "params": "security type"
+      },
+      {
+       "template": "spot",
+       "task": "Spot wrongly applied limit",
+       "params": "check sheet variants"
+      },
+      {
+       "template": "table",
+       "task": "Complete the limit-check table",
+       "params": "portfolio varies"
+      }
+     ],
+     "callbacks": [
+      "P4.1",
+      "C5.2"
+     ],
+     "sources": [
+      {
+       "id": "S181",
+       "ref": "Arts 50-57",
+       "use": "core"
+      },
+      {
+       "id": "S179",
+       "ref": "UCITS Directive",
+       "use": "reference"
+      },
+      {
+       "id": "S301",
+       "ref": "Q&A on limits",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "C5.4",
+     "title": "Bank-level large exposures (CRR) and Lombard concentration",
+     "minutes": 50,
+     "objectives": [
+      "Learner can compute a large exposure and test the 25% cap",
+      "Learner can explain connected-client groups and exemptions",
+      "Learner can link to Lombard concentration"
+     ],
+     "key_concepts": [
+      "10% reporting threshold, 25% limit of Tier 1",
+      "exposure value after credit risk mitigation",
+      "connected clients",
+      "exempted exposures",
+      "country of issuer"
+     ],
+     "worked_example": "Bank with Tier 1 of EUR 2bn lends EUR 600m to a group: test.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Large exposure % of Tier 1 and compliance",
+       "params": "exposure, Tier 1"
+      },
+      {
+       "template": "mcq",
+       "task": "Is the exposure reportable?",
+       "params": "size"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort exposures into exempt / not",
+       "params": "pool"
+      },
+      {
+       "template": "match",
+       "task": "Match CRR terms",
+       "params": "term set"
+      }
+     ],
+     "callbacks": [
+      "C5.2"
+     ],
+     "sources": [
+      {
+       "id": "S255",
+       "ref": "Arts 387-403",
+       "use": "core"
+      },
+      {
+       "id": "S161",
+       "ref": "CRE22",
+       "use": "reference"
+      },
+      {
+       "id": "S095",
+       "ref": "Ch. on credit concentration",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "C5.5",
+     "title": "Pre-trade vs post-trade compliance, breaches and cure",
+     "minutes": 55,
+     "objectives": [
+      "Learner can place checks pre-trade, intraday and post-trade",
+      "Learner can handle passive breaches and cure periods",
+      "Learner can document a breach and NAV-error link"
+     ],
+     "key_concepts": [
+      "pre-trade hard block",
+      "post-trade monitoring and alerts",
+      "passive breach treatment (Art 57)",
+      "CSSF 24/856 breach and compensation",
+      "breach register and escalation",
+      "15c3-5 market access controls"
+     ],
+     "worked_example": "A price move lifts a position from 9.6% to 10.3% overnight: classify, remediate and record.",
+     "exercises": [
+      {
+       "template": "order",
+       "task": "Sequence handling of a breach",
+       "params": "steps"
+      },
+      {
+       "template": "mcq",
+       "task": "Active or passive?",
+       "params": "trigger"
+      },
+      {
+       "template": "spot",
+       "task": "Spot flaws in a breach register entry",
+       "params": "entry variants"
+      },
+      {
+       "template": "numeric",
+       "task": "Compensation estimate from a breach",
+       "params": "size, price impact"
+      }
+     ],
+     "callbacks": [
+      "C5.3",
+      "A4.5"
+     ],
+     "sources": [
+      {
+       "id": "S170",
+       "ref": "Sections on breach",
+       "use": "core"
+      },
+      {
+       "id": "S325",
+       "ref": "Release 34-63241",
+       "use": "reference"
+      },
+      {
+       "id": "S181",
+       "ref": "Art 57",
+       "use": "core"
+      }
+     ]
+    },
+    {
+     "id": "C5.6",
+     "title": "Mandate compliance monitoring cycle and reporting",
+     "minutes": 40,
+     "objectives": [
+      "Learner can design a compliance dashboard",
+      "Learner can read exception reports"
+     ],
+     "key_concepts": [
+      "rule library",
+      "daily batch vs real time",
+      "exception reporting",
+      "client reporting of breaches",
+      "audit trail"
+     ],
+     "worked_example": "A nightly run over 300 mandates returns 14 exceptions: 9 are price-driven passive breaches, 3 are stale-rating data errors, 2 are genuine active breaches from a same-day trade; triage and assign owners.",
+     "exercises": [
+      {
+       "template": "bucket",
+       "task": "Triage exceptions",
+       "params": "exception pool"
+      },
+      {
+       "template": "table",
+       "task": "Build report from rule results",
+       "params": "rule results"
+      },
+      {
+       "template": "mcq",
+       "task": "Escalate?",
+       "params": "exception"
+      },
+      {
+       "template": "spot",
+       "task": "Find false positive",
+       "params": "report"
+      }
+     ],
+     "callbacks": [
+      "C5.5"
+     ],
+     "sources": [
+      {
+       "id": "S133",
+       "ref": "Ch. on monitoring",
+       "use": "core"
+      },
+      {
+       "id": "S283",
+       "ref": "guidelines",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": {
+    "name": "Gatekeeper",
+    "variant": "limit-check orders against issuer, group and UCITS rules"
+   },
+   "unit_test": "Limit calculations on issuer aggregation, UCITS 5/10/40, CRR large exposures and breach handling.",
+   "jurisdiction_notes": "EU: UCITS Art 52, CRR large exposures, CSSF 24/856; US 40-Act diversification and RIC tests; Swiss SBA guidelines."
+  },
+  {
+   "id": "C6",
+   "title": "Trading Restrictions",
+   "track": "ops",
+   "hours": 5,
+   "prereqs": [
+    "C2",
+    "T2"
+   ],
+   "boss_items": [
+    "trading restrictions"
+   ],
+   "hook": "Watch and restricted lists, insider information and MAR obligations, pre-trade blocking, and the handling of orders already in flight.",
+   "units": [
+    {
+     "id": "C6.1",
+     "title": "The restriction landscape",
+     "minutes": 40,
+     "objectives": [
+      "Learner can name the four sources of a trading restriction (law, firm policy, client instruction, instrument/market) and give one example each",
+      "Learner can distinguish restricted list, watch list and grey list by who sees it, what it blocks and when an instrument moves between them",
+      "Learner can decide block / hold-for-review / release for an order given the list status and the desk (advisory, trading, asset management)",
+      "Learner can run the restricted-list, watch-list and blocked-security check at order entry and decide block, hold or release, logging the attempt"
+     ],
+     "key_concepts": [
+      "legal, firm, client and instrument restrictions",
+      "restricted vs watch vs grey list",
+      "effect on order intake and no-tipping-off",
+      "lock-ups and selling restrictions (Reg S, 144A)",
+      "time and scope of a restriction",
+      "restriction log and compliance alert",
+      "blocked-security flag checked at order entry"
+     ],
+     "worked_example": "An order arrives for 20,000 shares of Alfa SpA (about EUR 310k at EUR 15.50), which sits on the restricted list because the bank advises on a pending bid: the order system blocks it, logs the attempt with timestamp and user, alerts compliance and gives the client a neutral message ('unable to accept'). The same order on the watch list would be accepted but flagged for surveillance.",
+     "exercises": [
+      {
+       "template": "bucket",
+       "task": "Sort 10 restrictions into law / firm policy / client / instrument",
+       "params": "restriction pool, bucket labels"
+      },
+      {
+       "template": "match",
+       "task": "Match each list (restricted, watch, grey) to its effect on order intake",
+       "params": "list names x effects, 3-5 pairs"
+      },
+      {
+       "template": "mcq",
+       "task": "Is the order allowed, held or blocked?",
+       "params": "list status, desk, client type, order size"
+      },
+      {
+       "template": "spot",
+       "task": "Find the error in a restriction notice (wrong scope, missing end date, discloses the reason)",
+       "params": "notice variant, 1 injected error"
+      },
+      {
+       "template": "cloze",
+       "task": "Complete a policy sentence on who can see the restricted list",
+       "params": "policy template, word bank"
+      }
+     ],
+     "callbacks": [
+      "T2.1"
+     ],
+     "sources": [
+      {
+       "id": "S057",
+       "ref": "Ch. on market abuse overview",
+       "use": "core"
+      },
+      {
+       "id": "S256",
+       "ref": "Recitals 1-2, Art. 1",
+       "use": "reference"
+      },
+      {
+       "id": "S284",
+       "ref": "FinSA/FMIA conduct overview, restriction-related provisions",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "C6.2",
+     "title": "Market abuse: inside information and MAR",
+     "minutes": 55,
+     "objectives": [
+      "Learner can test a fact pattern against the four limbs of inside information in MAR Art. 7 (precise, non-public, relates to issuer/instrument, price-sensitive)",
+      "Learner can classify an action as insider dealing (Art. 8), unlawful disclosure (Art. 10), manipulation (Art. 12) or legitimate behaviour (Art. 9)",
+      "Learner can order the steps of a market sounding under Art. 11, including the soundee's consent and records",
+      "Learner can compute the 30-day closed period for PDMR transactions from a results date"
+     ],
+     "key_concepts": [
+      "inside information, Art. 7",
+      "insider dealing Art. 8 and legitimate behaviour Art. 9",
+      "unlawful disclosure Art. 10 and market soundings Art. 11",
+      "market manipulation Art. 12",
+      "PDMR notification Art. 19: 3 business days, EUR 20,000 threshold, 30-day closed period",
+      "ESMA Q&A on MAR"
+     ],
+     "worked_example": "A treasury analyst hears on 3 March that Beta plc will launch a EUR 2bn bid at a 30% premium on 12 March: the fact is precise, non-public and price-sensitive, so trading Beta shares, advising others to do so or passing the news beyond need-to-know is prohibited. If Beta reports half-year results on 28 July, its PDMRs may not trade from 28 June to 28 July (30 calendar days before).",
+     "exercises": [
+      {
+       "template": "mcq",
+       "task": "Is this inside information?",
+       "params": "fact pattern: precision, public status, price relevance"
+      },
+      {
+       "template": "order",
+       "task": "Sequence a market sounding (script, consent, wall-cross, record, cleansing)",
+       "params": "steps list, sounding type"
+      },
+      {
+       "template": "bucket",
+       "task": "Permitted vs prohibited behaviour",
+       "params": "action pool of 8-10 actions"
+      },
+      {
+       "template": "timeline",
+       "task": "Place the 30-day closed period around an earnings date",
+       "params": "earnings date, PDMR trade dates"
+      },
+      {
+       "template": "numeric",
+       "task": "Does a PDMR trade need notification? Sum the year's trades against the threshold",
+       "params": "trade amounts, EUR 20,000 default vs national threshold"
+      }
+     ],
+     "callbacks": [
+      "C6.1"
+     ],
+     "sources": [
+      {
+       "id": "S256",
+       "ref": "Arts. 7-12, 14, 17, 19",
+       "use": "core"
+      },
+      {
+       "id": "S257",
+       "ref": "ESMA Q&A: soundings, PDMR transactions",
+       "use": "deeper"
+      },
+      {
+       "id": "S302",
+       "ref": "Q&A sections on inside information and soundings",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "C6.3",
+     "title": "Insider lists and information barriers",
+     "minutes": 50,
+     "objectives": [
+      "Learner can complete an insider list entry with the mandatory fields (identity, reason for inclusion, date and time of access, date of update)",
+      "Learner can state who must keep a list (issuers and persons acting on their behalf) and the 5-year retention period after drawing up or updating",
+      "Learner can sequence a wall-crossing and name the controls that follow it (restricted list, PA block, surveillance)"
+     ],
+     "key_concepts": [
+      "insider list Art. 18 and the Implementing Regulation format",
+      "insider list vs permanent insiders (Listing Act changes)",
+      "information barriers / Chinese walls, Art. 9",
+      "need-to-know and wall-crossing",
+      "5-year retention",
+      "surveillance and breach escalation"
+     ],
+     "worked_example": "A banker is wall-crossed at 09:10 on 14 May for a EUR 300m bond mandate: compliance records name, ID, reason ('financing of Gamma SA, mandate'), access date and time 14/05 09:10, adds the issuer to the restricted list and blocks the banker's personal-account trades in Gamma. The entry is kept for 5 years from the last update.",
+     "exercises": [
+      {
+       "template": "table",
+       "task": "Fill an insider list row for each wall-crossed person",
+       "params": "name, role, reason, access timestamp, date of update"
+      },
+      {
+       "template": "spot",
+       "task": "Find the gap in an insider list (missing time of access, no update date, undocumented departure)",
+       "params": "list with 1-2 injected gaps"
+      },
+      {
+       "template": "order",
+       "task": "Order the steps of a wall-crossing",
+       "params": "steps list, deal type"
+      },
+      {
+       "template": "mcq",
+       "task": "Is this person an insider requiring an entry?",
+       "params": "role (banker, IT admin, assistant, lawyer), access type"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the retention end date of an entry",
+       "params": "last update date, 5-year rule"
+      }
+     ],
+     "callbacks": [
+      "C6.2",
+      "C6.1"
+     ],
+     "sources": [
+      {
+       "id": "S256",
+       "ref": "Arts. 9, 18",
+       "use": "core"
+      },
+      {
+       "id": "S257",
+       "ref": "Q&A on insider lists",
+       "use": "deeper"
+      },
+      {
+       "id": "S302",
+       "ref": "Q&A on insider lists",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "C6.4",
+     "title": "Personal account dealing and conflicts",
+     "minutes": 50,
+     "objectives": [
+      "Learner can apply a PAD policy to a request: pre-clearance, holding period, blackout, restricted list check",
+      "Learner can identify reportable personal transactions (own account, connected persons; discretionary accounts excluded)",
+      "Learner can compute the earliest permitted sale date from a purchase date and holding period",
+      "Learner can recognise front running and conflict patterns in a trade log"
+     ],
+     "key_concepts": [
+      "MiFID II Art. 16(2) and Arts. 28-29 Del. Reg. 2017/565",
+      "pre-clearance and validity window",
+      "minimum holding period",
+      "blackout and restricted-list check",
+      "duty to report accounts and trades",
+      "front running",
+      "FCA Market Watch 62"
+     ],
+     "worked_example": "An employee wants to sell a stock bought 20 days ago while the policy needs a 30-day holding period: reject, record the request and wait until day 30. A separate EUR 4,000 sale in a stock on which the bank has an advisory mandate needs pre-clearance, valid for the same trading day only.",
+     "exercises": [
+      {
+       "template": "mcq",
+       "task": "Is the personal trade allowed?",
+       "params": "holding period, list status, amount, discretionary mandate"
+      },
+      {
+       "template": "timeline",
+       "task": "Place the pre-clearance window and holding period for a request",
+       "params": "request date, clearance validity, purchase date"
+      },
+      {
+       "template": "spot",
+       "task": "Find the violation in a PAD log (traded before clearance, ahead of a client order)",
+       "params": "log with timestamps and client orders"
+      },
+      {
+       "template": "bucket",
+       "task": "Reportable vs exempt personal transactions",
+       "params": "trade pool (UCITS fund, own shares, discretionary account, spouse account)"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the earliest sale date",
+       "params": "purchase date, holding period 30 / 60 calendar days"
+      }
+     ],
+     "callbacks": [
+      "C6.3",
+      "C6.2"
+     ],
+     "sources": [
+      {
+       "id": "S171",
+       "ref": "Arts. 28-29",
+       "use": "core"
+      },
+      {
+       "id": "S311",
+       "ref": "Market Watch 62",
+       "use": "deeper"
+      },
+      {
+       "id": "S183",
+       "ref": "Art. 16(2)",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "C6.5",
+     "title": "Short-selling rules",
+     "minutes": 50,
+     "objectives": [
+      "Learner can compute a net short position as a % of issued share capital and compare it with the notification and disclosure thresholds",
+      "Learner can state which SSR prohibition applies to shares (Art. 12), sovereign debt (Art. 13) and sovereign CDS (Art. 14)",
+      "Learner can decide whether a short sale is covered under the locate rules",
+      "Learner can contrast EU SSR with US Reg SHO rules 203, 204 and 201"
+     ],
+     "key_concepts": [
+      "net short position and issued share capital",
+      "notification to NCA at 0.2% (+0.1% steps) and public disclosure at 0.5% (+0.1% steps)",
+      "uncovered short sales Art. 12, sovereign Arts. 13-14",
+      "locate and arrangement to borrow",
+      "exemptions: market maker, primary dealer",
+      "Reg SHO 203 locate, 204 close-out, 201 alternative uptick rule",
+      "order marking: long, short, short exempt"
+     ],
+     "worked_example": "A fund is short 1.8m shares of a company with 720m shares in issue and holds no related long position: net short is 1.8/720 = 0.25%, above the 0.2% threshold for private notification to the regulator (by 15:30 on the next trading day) but below the 0.5% public-disclosure level. Adding 0.3m shares takes it to 0.2917%, so it only has to notify again on crossing the next 0.1% step (0.3%).",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Net short position as % of issued share capital",
+       "params": "short shares, long shares, delta-adjusted derivatives, issued shares"
+      },
+      {
+       "template": "mcq",
+       "task": "Notify, publish, or nothing?",
+       "params": "net short %, thresholds 0.2% / 0.5%"
+      },
+      {
+       "template": "bucket",
+       "task": "Covered or uncovered short sale?",
+       "params": "trade pool: located borrow, no arrangement, intraday, market-making"
+      },
+      {
+       "template": "match",
+       "task": "Match each rule to SSR or Reg SHO",
+       "params": "rule list x regimes"
+      },
+      {
+       "template": "timeline",
+       "task": "Place the notification deadline after a threshold breach",
+       "params": "breach date, 15:30 cut-off"
+      }
+     ],
+     "callbacks": [
+      "O6.1",
+      "C6.2"
+     ],
+     "sources": [
+      {
+       "id": "S253",
+       "ref": "Arts. 5-14",
+       "use": "core"
+      },
+      {
+       "id": "S304",
+       "ref": "Q&A on net short calculation",
+       "use": "deeper"
+      },
+      {
+       "id": "S254",
+       "ref": "Arts. 5-14",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "C6.6",
+     "title": "Sanctions as trading restrictions and dealing controls",
+     "minutes": 50,
+     "objectives": [
+      "Learner can run a sanctions pre-trade check: person, ownership/control, instrument, counterparty, CSD/custody",
+      "Learner can apply the EU ownership/control test and the OFAC 50% aggregate rule to a shareholding table",
+      "Learner can decide freeze, reject, hold for licence or accept for a given case",
+      "Learner can sequence the escalation and reporting of a sanctions hit"
+     ],
+     "key_concepts": [
+      "asset freeze vs transaction ban vs instrument restriction",
+      "EU ownership > 50% or control test",
+      "OFAC 50% rule (aggregate blocked-person ownership)",
+      "licences and wind-down exemptions",
+      "CSD and custodian blocks",
+      "screening alerts and false positives",
+      "reporting to authorities"
+     ],
+     "worked_example": "A client wants to sell bonds of a Russian issuer under EU restrictions: check that the instrument is not under a transaction ban, that neither client nor buyer is listed or owned/controlled by listed persons, whether the CSD can settle, and whether a licence or wind-down exemption exists before accepting. If Entity X is 30% owned by listed person A and 25% by listed person B, OFAC aggregates to 55% and treats X as blocked; the EU test would look at majority ownership or control by listed persons instead.",
+     "exercises": [
+      {
+       "template": "mcq",
+       "task": "Is the order allowed under sanctions?",
+       "params": "case: instrument, issuer, counterparty, jurisdiction"
+      },
+      {
+       "template": "numeric",
+       "task": "Aggregate blocked ownership under the OFAC 50% rule",
+       "params": "shareholder percentages, listed flags"
+      },
+      {
+       "template": "bucket",
+       "task": "Freeze, reject or proceed",
+       "params": "pool of entities and orders"
+      },
+      {
+       "template": "spot",
+       "task": "Find the missing check in a sanctions pack",
+       "params": "pack with missing UBO or CSD check"
+      },
+      {
+       "template": "order",
+       "task": "Escalation steps after a hit",
+       "params": "steps, jurisdiction"
+      }
+     ],
+     "callbacks": [
+      "C2.5",
+      "C6.1"
+     ],
+     "sources": [
+      {
+       "id": "S103",
+       "ref": "Sanctions screening guidance",
+       "use": "core"
+      },
+      {
+       "id": "S157",
+       "ref": "Framework: 5 components",
+       "use": "core"
+      },
+      {
+       "id": "S284",
+       "ref": "FinSA/FMIA overview, Swiss sanctions context",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": {
+    "name": "Gatekeeper",
+    "variant": "block or release orders under restricted lists, PAD and short-sale rules"
+   },
+   "unit_test": "Case-based test on MAR, insider lists, PAD, SSR and sanctions.",
+   "jurisdiction_notes": "EU MAR/SSR; US Reg SHO, Reg FD; UK Market Watch; Swiss FinMIA notes."
+  },
+  {
+   "id": "C7",
+   "title": "Approvals & Controls",
+   "track": "ops",
+   "hours": 4,
+   "prereqs": [
+    "C5",
+    "C6"
+   ],
+   "boss_items": [
+    "approvals"
+   ],
+   "hook": "Four-eyes approval, override procedures, audit trails, and the evidence an auditor expects for an exception.",
+   "units": [
+    {
+     "id": "C7.1",
+     "title": "Four-eyes and maker-checker",
+     "minutes": 45,
+     "objectives": [
+      "Learner can design a maker-checker flow for an order, a static-data change and a payment, naming maker, checker and the system block",
+      "Learner can detect a segregation-of-duties conflict in a user-rights table",
+      "Learner can decide which items need approval from a threshold table"
+     ],
+     "key_concepts": [
+      "maker-checker",
+      "four-eyes principle",
+      "segregation of duties (SoD)",
+      "approval thresholds",
+      "system-enforced vs procedural controls",
+      "COSO control activities"
+     ],
+     "worked_example": "A EUR 5m order from a junior trader exceeds the EUR 1m single-approver limit: the system routes it to a senior approver who cannot be the maker and blocks release until both IDs are logged. A user who can both create and release payments breaches SoD, so one right is removed or a compensating review is documented.",
+     "exercises": [
+      {
+       "template": "order",
+       "task": "Order the steps of a maker-checker flow",
+       "params": "process (order, payment, static data), steps"
+      },
+      {
+       "template": "mcq",
+       "task": "Is the approval valid?",
+       "params": "maker, approver, role, limit, same-user check"
+      },
+      {
+       "template": "spot",
+       "task": "Find the SoD violation in a user-rights log",
+       "params": "rights table with 1-2 conflicts"
+      },
+      {
+       "template": "bucket",
+       "task": "Which items need four-eyes approval?",
+       "params": "item pool, threshold EUR 250k / 1m"
+      },
+      {
+       "template": "numeric",
+       "task": "How many approvals are needed at each amount?",
+       "params": "order amount, tier table"
+      }
+     ],
+     "callbacks": [
+      "C5.1"
+     ],
+     "sources": [
+      {
+       "id": "S225",
+       "ref": "Control activities principles 10-12",
+       "use": "core"
+      },
+      {
+       "id": "S081",
+       "ref": "Ch. on controls",
+       "use": "core"
+      },
+      {
+       "id": "S288",
+       "ref": "Segregation of roles",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "C7.2",
+     "title": "Order-approval workflows and exceptions",
+     "minutes": 50,
+     "objectives": [
+      "Learner can read an approval matrix and route an order or exception to the correct approver",
+      "Learner can apply override limits and required evidence (written reason, copy to compliance, expiry)",
+      "Learner can judge an override log for weak reasons, stale approvals and repeat users",
+      "Learner can compute how far an exception exceeds a limit and which tier it falls into"
+     ],
+     "key_concepts": [
+      "approval matrix",
+      "override and exception log",
+      "SLA for approval",
+      "audit trail",
+      "pre-trade risk controls (Rule 15c3-5 as US benchmark)",
+      "periodic override review"
+     ],
+     "worked_example": "A client order breaches the 10% issuer limit by 0.4 points (10.4% of the portfolio): the head of desk may override up to 0.5 points with a written reason, compliance receives a copy, the override expires in 5 business days and is reviewed at month-end. A 0.7-point breach would go to the chief risk officer.",
+     "exercises": [
+      {
+       "template": "table",
+       "task": "Complete an approval matrix",
+       "params": "levels, amount bands, breach bands"
+      },
+      {
+       "template": "mcq",
+       "task": "Who approves this exception?",
+       "params": "breach size, limit type, client segment"
+      },
+      {
+       "template": "spot",
+       "task": "Find the weak override in a log (no reason, approver = requester, expired)",
+       "params": "log with 1-2 injected defects"
+      },
+      {
+       "template": "order",
+       "task": "Escalation of a limit breach",
+       "params": "steps, severity"
+      },
+      {
+       "template": "numeric",
+       "task": "Breach size in points and tier",
+       "params": "position value, portfolio value, limit %"
+      }
+     ],
+     "callbacks": [
+      "C7.1",
+      "C5.5",
+      "C6.4"
+     ],
+     "sources": [
+      {
+       "id": "S081",
+       "ref": "Ch. on workflows",
+       "use": "core"
+      },
+      {
+       "id": "S325",
+       "ref": "Rule 15c3-5 risk controls",
+       "use": "deeper"
+      },
+      {
+       "id": "S314",
+       "ref": "FINRA RN 15-09 controls",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "C7.3",
+     "title": "Three lines model and governance",
+     "minutes": 45,
+     "objectives": [
+      "Learner can assign duties to the first, second and third line from the IIA 2020 model",
+      "Learner can trace a control failure to the line that owns each part of the response",
+      "Learner can state reporting lines of risk, compliance and internal audit to the board"
+     ],
+     "key_concepts": [
+      "first line (owns risk and controls)",
+      "second line (framework, monitoring, challenge)",
+      "third line (independent assurance)",
+      "governing body and external assurance",
+      "IIA 2020 update of the three lines of defence",
+      "independence"
+     ],
+     "worked_example": "A mis-booked allocation goes unnoticed for three days: the trader and operations (line 1) own the daily reconciliation control, compliance and risk (line 2) own the framework and monitor KRIs, and internal audit (line 3) later reports on both to the board's audit committee.",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Match each duty to its line",
+       "params": "duties x lines, 8 pairs"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort tasks into line 1 / 2 / 3",
+       "params": "task pool"
+      },
+      {
+       "template": "mcq",
+       "task": "Who reports to the board in this case?",
+       "params": "scenario, failed control"
+      },
+      {
+       "template": "cloze",
+       "task": "Complete a description of the model",
+       "params": "sentence bank, word bank"
+      }
+     ],
+     "callbacks": [
+      "C7.1",
+      "C7.2"
+     ],
+     "sources": [
+      {
+       "id": "S288",
+       "ref": "entire",
+       "use": "core"
+      },
+      {
+       "id": "S225",
+       "ref": "Principles 1-5",
+       "use": "core"
+      },
+      {
+       "id": "S081",
+       "ref": "Ch. on governance",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "C7.4",
+     "title": "Operational risk, incidents and resilience",
+     "minutes": 50,
+     "objectives": [
+      "Learner can classify an event into the seven Basel operational-risk event types",
+      "Learner can compute gross loss, recoveries and net loss and flag reportable events",
+      "Learner can order the steps of incident handling and reporting",
+      "Learner can distinguish RCSA, KRI and loss data and say what each answers"
+     ],
+     "key_concepts": [
+      "Basel event types",
+      "gross vs net loss and recoveries",
+      "RCSA and KRIs",
+      "loss data collection",
+      "FINMA Circular 2023/1",
+      "DORA (Reg. (EU) 2022/2554) ICT incident reporting",
+      "EBA ICT guidelines"
+     ],
+     "worked_example": "A mis-booked allocation causes a EUR 120k gross loss and EUR 45k is recovered from the counterparty: net loss is EUR 75k, event type 'execution, delivery and process management', and it is entered in the loss database within the policy deadline. A 4-hour outage of the order system is an ICT incident reported under the bank's DORA classification.",
+     "exercises": [
+      {
+       "template": "bucket",
+       "task": "Assign events to Basel event types",
+       "params": "event pool of 8 events"
+      },
+      {
+       "template": "numeric",
+       "task": "Net loss and whether it exceeds the collection threshold",
+       "params": "gross loss, recoveries, threshold EUR 20k / 100k"
+      },
+      {
+       "template": "mcq",
+       "task": "Is this incident reportable and to whom?",
+       "params": "incident type, duration, client impact"
+      },
+      {
+       "template": "order",
+       "task": "Incident handling steps",
+       "params": "steps, ICT vs non-ICT"
+      },
+      {
+       "template": "match",
+       "task": "Match tool to question (RCSA, KRI, loss data)",
+       "params": "tools x questions"
+      }
+     ],
+     "callbacks": [
+      "C7.3",
+      "O3.5"
+     ],
+     "sources": [
+      {
+       "id": "S081",
+       "ref": "Ch. on frameworks",
+       "use": "core"
+      },
+      {
+       "id": "S205",
+       "ref": "Circular 2023/1",
+       "use": "core"
+      },
+      {
+       "id": "S138",
+       "ref": "Ch. 1-3",
+       "use": "deeper"
+      },
+      {
+       "id": "S307",
+       "ref": "ICT risk guidelines",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "C7.5",
+     "title": "Records, audit trail and evidence",
+     "minutes": 35,
+     "objectives": [
+      "Learner can state the record-keeping and retention rules for orders, communications and approvals",
+      "Learner can retrieve the evidence set for an approval from an audit trail",
+      "Learner can detect a gap in a trail (missing timestamp, user, reason)"
+     ],
+     "key_concepts": [
+      "MiFID II record-keeping: 5 years, up to 7 on request",
+      "recording of telephone and electronic communications",
+      "FINRA Rule 4511: 6 years where no period is set",
+      "audit trail fields",
+      "legal hold"
+     ],
+     "worked_example": "An auditor asks for evidence behind an order approved on 14 March: retrieve the ticket, approver ID, timestamp, the recorded call and the override reason, all still inside the 5-year retention (so available until at least 14 March five years later).",
+     "exercises": [
+      {
+       "template": "mcq",
+       "task": "How long must this record be kept?",
+       "params": "record type, jurisdiction, regulator request"
+      },
+      {
+       "template": "spot",
+       "task": "Find the gap in an audit trail",
+       "params": "trail with missing field"
+      },
+      {
+       "template": "order",
+       "task": "Evidence retrieval steps",
+       "params": "steps, record types"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the destruction date and check for legal hold",
+       "params": "creation date, retention years, hold flag"
+      }
+     ],
+     "callbacks": [
+      "C7.2",
+      "C7.4"
+     ],
+     "sources": [
+      {
+       "id": "S318",
+       "ref": "Rule 4511",
+       "use": "core"
+      },
+      {
+       "id": "S164",
+       "ref": "Arts. 72-76",
+       "use": "core"
+      },
+      {
+       "id": "S183",
+       "ref": "Art. 16(6)-(7)",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "C7.6",
+     "title": "New product approval and delegated authorities",
+     "minutes": 45,
+     "objectives": [
+      "Walk an instrument through a new product approval process: proposal, product committee, target market, risk assessment, operational readiness, sign-off",
+      "Read a delegation-of-authority matrix and decide which level may approve a trading limit, credit line, limit exception or fee exception",
+      "Check that a product's target market and distribution strategy follow the ESMA product governance guidelines for both manufacturer and distributor",
+      "Maintain the approval record and run the annual recertification, including expiry and withdrawal"
+     ],
+     "key_concepts": [
+      "New product approval: committee, sponsor, risk, compliance, legal, operations, tax, IT readiness",
+      "MiFID II product governance (Arts 16(3), 24(2)): manufacturer and distributor duties, target market, regular review",
+      "Delegation-of-authority matrix by amount and type: trading, credit, limit and fee exceptions (illustrative thresholds)",
+      "Approval conditions, pilot phase and restrictions",
+      "Approval record, evidence and recertification cycle",
+      "Escalation when authority is exceeded; no self-approval"
+     ],
+     "worked_example": "A bank wants to distribute a new EU structured note: the proposer files a product paper; risk rates it, operations confirms the system and settlement set-up is ready, and compliance sets the target market (retail with advice only, not execution-only). The committee approves for 12 months with a EUR 20m distribution cap. In the illustrative matrix a fee discount up to 10% is approved by the desk head, up to 30% by the business head, and above 30% by the business head plus Compliance. A 25% discount on a EUR 50,000 fee therefore needs the business head.",
+     "exercises": [
+      {
+       "template": "order",
+       "task": "Sequence the steps of the new product approval process",
+       "params": "8-10 steps, product type varies"
+      },
+      {
+       "template": "mcq",
+       "task": "Who may approve this exception under the matrix?",
+       "params": "type, amount, approver levels"
+      },
+      {
+       "template": "table",
+       "task": "Fill an approval record with target market, conditions, expiry",
+       "params": "product variant"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the missing control in an approval pack",
+       "params": "pack with missing target market, risk sign-off or operational readiness"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort requests into approved by desk, business head or committee",
+       "params": "pool of 15 requests"
+      }
+     ],
+     "callbacks": [
+      "C4.4",
+      "C5.1",
+      "C7.1",
+      "C7.2",
+      "C7.5"
+     ],
+     "sources": [
+      {
+       "id": "S067",
+       "ref": "ESMA product governance guidelines: manufacturer and distributor",
+       "use": "core"
+      },
+      {
+       "id": "S183",
+       "ref": "MiFID II Arts 16(3) and 24(2): product governance",
+       "use": "reference"
+      },
+      {
+       "id": "S081",
+       "ref": "approval governance and operational readiness",
+       "use": "reference"
+      },
+      {
+       "id": "S225",
+       "ref": "COSO control activities: authorisation",
+       "use": "reference"
+      },
+      {
+       "id": "S288",
+       "ref": "three lines model: ownership of approvals",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": {
+    "name": "Gatekeeper",
+    "variant": "four-eyes queue with mixed escalations and audit questions"
+   },
+   "unit_test": "Workflow design, three lines assignment and operational-risk classification.",
+   "jurisdiction_notes": "EU DORA and MiFID records; US 15c3-5; Swiss FINMA circular."
+  },
+  {
+   "id": "K1",
+   "title": "Lombard Lending",
+   "track": "ops",
+   "hours": 5,
+   "prereqs": [
+    "C3",
+    "A4"
+   ],
+   "boss_items": [
+    "secured/Lombard lending"
+   ],
+   "hook": "Lombard loans, lending values and haircuts by asset class, concentration treatment, and the credit decision on a pledged portfolio.",
+   "units": [
+    {
+     "id": "K1.1",
+     "title": "What a Lombard loan is",
+     "minutes": 45,
+     "objectives": [
+      "Learner can describe a Lombard loan: borrower, pledged portfolio, credit line, bank rights",
+      "Learner can compute LTV (loan / market value) and lending-value utilisation (loan / lending value)",
+      "Learner can compute headroom from a lending value",
+      "Learner can name three use cases and three client risks"
+     ],
+     "key_concepts": [
+      "Lombard loan / SBLOC",
+      "pledge over a custody account",
+      "LTV vs lending-value utilisation",
+      "lending value and headroom",
+      "use cases (liquidity, investing, tax-efficient funding)",
+      "client risk disclosure"
+     ],
+     "worked_example": "A client pledges a EUR 2m portfolio for a EUR 800k credit line: LTV is 800/2,000 = 40%. If the portfolio's lending value is 60% of market value (EUR 1.2m), headroom is 1,200 - 800 = EUR 400k and utilisation is 66.7%. The bank cannot lend more than the lending value, however low the LTV looks.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "LTV from loan and portfolio",
+       "params": "loan, market value"
+      },
+      {
+       "template": "numeric",
+       "task": "Headroom from lending value",
+       "params": "market value, average lending %, drawn amount"
+      },
+      {
+       "template": "mcq",
+       "task": "Identify the structure",
+       "params": "case: borrower, collateral, purpose"
+      },
+      {
+       "template": "match",
+       "task": "Match term to meaning (LTV, lending value, headroom, drawn, limit)",
+       "params": "term pairs"
+      },
+      {
+       "template": "cloze",
+       "task": "Complete the risk statement from the client disclosure",
+       "params": "disclosure sentence, word bank"
+      }
+     ],
+     "callbacks": [
+      "C3.1"
+     ],
+     "sources": [
+      {
+       "id": "S029",
+       "ref": "entire",
+       "use": "core"
+      },
+      {
+       "id": "S026",
+       "ref": "entire",
+       "use": "core"
+      },
+      {
+       "id": "S031",
+       "ref": "credit chapter",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "K1.2",
+     "title": "Lending values and haircuts by asset class",
+     "minutes": 55,
+     "objectives": [
+      "Learner can assign lending values to assets by class using a haircut table (lending value = 1 - haircut)",
+      "Learner can compute total lending value, headroom and utilisation for a mixed pool",
+      "Learner can decide whether an asset is eligible at all (0% lending value)",
+      "Learner can rank two assets by haircut and explain why (liquidity, volatility, issuer, FX)"
+     ],
+     "key_concepts": [
+      "lending value and haircut",
+      "asset classes: IG bonds, blue-chip equities, funds, structured products, unlisted",
+      "FX mismatch add-on",
+      "eligibility and 0% items",
+      "Basel CRE22 supervisory haircuts as benchmark",
+      "ECB haircut schedule"
+     ],
+     "worked_example": "Pool of EUR 500k: EUR 280k IG bonds at 70% = 196k; EUR 170k blue-chip equities at 50% = 85k; EUR 50k unlisted fund units at 0% = 0. Lending value 281k. With EUR 280k drawn, headroom is only EUR 1k and utilisation 99.6%: a small fall triggers a call. Reference for a benchmark: Basel CRE22 uses 15% for main-index equities and 0.5/2/4% for AAA-AA sovereigns by maturity bucket.",
+     "exercises": [
+      {
+       "template": "table",
+       "task": "Compute lending value per holding and total",
+       "params": "holdings with market value and haircut %"
+      },
+      {
+       "template": "numeric",
+       "task": "Headroom and utilisation",
+       "params": "lending value, drawn amount"
+      },
+      {
+       "template": "bucket",
+       "task": "Eligible vs ineligible assets",
+       "params": "asset pool: listed equity, unlisted fund, private equity stake, crypto, listed bond"
+      },
+      {
+       "template": "mcq",
+       "task": "Which asset has the higher haircut?",
+       "params": "pair of assets, currency"
+      },
+      {
+       "template": "numeric",
+       "task": "Collateral needed for a requested loan",
+       "params": "loan amount, blended lending %"
+      }
+     ],
+     "callbacks": [
+      "K1.1",
+      "A4.2"
+     ],
+     "sources": [
+      {
+       "id": "S161",
+       "ref": "CRE22 supervisory haircuts",
+       "use": "core"
+      },
+      {
+       "id": "S309",
+       "ref": "explainer",
+       "use": "core"
+      },
+      {
+       "id": "S320",
+       "ref": "Guideline schedule",
+       "use": "deeper"
+      },
+      {
+       "id": "S026",
+       "ref": "lending value section",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "K1.3",
+     "title": "Concentration, liquidity and stress",
+     "minutes": 50,
+     "objectives": [
+      "Learner can apply a concentration add-on to a single-name holding and recompute lending value",
+      "Learner can stress a pool by a market shock and compute stressed lending value and utilisation",
+      "Learner can spot wrong-way risk (pledged shares of the borrower's own company or a related issuer)",
+      "Learner can identify weaknesses in a lending policy document"
+     ],
+     "key_concepts": [
+      "single-name concentration add-on",
+      "liquidity (days to sell)",
+      "stress scenario and gap risk",
+      "wrong-way risk",
+      "CRR large exposures as the bank-side limit",
+      "scenario vs haircut"
+     ],
+     "worked_example": "A EUR 1m pool: EUR 600k in one blue-chip stock (50% lending value less a 15-point add-on = 35% -> 210k) and EUR 400k IG bonds at 70% (280k): lending value 490k. With a EUR 400k loan, utilisation is 81.6%. A -35% shock on the stock cuts it to 390k and its lending value to 136.5k; total lending value 416.5k, utilisation 96.0%, and LTV on the stressed market value (790k) is 50.6%.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Lending value after concentration add-on",
+       "params": "position weights, base %, add-on points, threshold"
+      },
+      {
+       "template": "numeric",
+       "task": "Stressed lending value and utilisation",
+       "params": "shock %, holdings, loan"
+      },
+      {
+       "template": "spot",
+       "task": "Find the weakness in a lending policy (no concentration rule, no stress, stale prices)",
+       "params": "policy excerpt, 1-2 injected weaknesses"
+      },
+      {
+       "template": "mcq",
+       "task": "Does the add-on apply?",
+       "params": "position weight, liquidity class, threshold"
+      },
+      {
+       "template": "bucket",
+       "task": "Identify wrong-way risk cases",
+       "params": "borrower/collateral pairs"
+      }
+     ],
+     "callbacks": [
+      "K1.2",
+      "C5.2"
+     ],
+     "sources": [
+      {
+       "id": "S131",
+       "ref": "entire",
+       "use": "core"
+      },
+      {
+       "id": "S095",
+       "ref": "Ch. on credit risk",
+       "use": "reference"
+      },
+      {
+       "id": "S255",
+       "ref": "Arts. 387-403 large exposures",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "K1.4",
+     "title": "Pledge and collateral agreements",
+     "minutes": 55,
+     "objectives": [
+      "Learner can identify the four core clauses of a pledge agreement (pledged assets, set-off, realisation right, notice)",
+      "Learner can distinguish pledge from title transfer and explain rehypothecation",
+      "Learner can order the enforcement steps and compute the net proceeds after costs",
+      "Learner can judge whether a given pledge is valid under a described case"
+     ],
+     "key_concepts": [
+      "pledge over custody account",
+      "scope and substitution of pledged assets",
+      "set-off and netting",
+      "rehypothecation / right of use",
+      "enforcement and notice period",
+      "EU Financial Collateral Directive 2002/47/EC",
+      "Swiss pledge practice"
+     ],
+     "worked_example": "On default with EUR 800k principal, EUR 12k accrued interest and EUR 3k costs, the bank sells pledged securities of EUR 900k market value at a 2% realisation shortfall (EUR 882k): after EUR 815k of claims, EUR 67k surplus goes back to the client. If the agreement requires 3 business days' notice before realisation, the sale cannot start earlier unless the agreement allows immediate sale.",
+     "exercises": [
+      {
+       "template": "spot",
+       "task": "Find the missing clause in a pledge agreement",
+       "params": "agreement variant, 4 core clauses"
+      },
+      {
+       "template": "match",
+       "task": "Match each right to its clause",
+       "params": "clauses x rights"
+      },
+      {
+       "template": "order",
+       "task": "Enforcement steps",
+       "params": "steps, notice required yes/no"
+      },
+      {
+       "template": "numeric",
+       "task": "Surplus or deficiency after realisation",
+       "params": "market value, shortfall %, claims"
+      },
+      {
+       "template": "mcq",
+       "task": "Is the pledge valid / enforceable?",
+       "params": "case: assets in other custodian, no notice, third-party pledgor"
+      }
+     ],
+     "callbacks": [
+      "C3.4",
+      "K1.1"
+     ],
+     "sources": [
+      {
+       "id": "S150",
+       "ref": "Ch. on collateral",
+       "use": "core"
+      },
+      {
+       "id": "S284",
+       "ref": "FinSA/FinIA overview",
+       "use": "reference"
+      },
+      {
+       "id": "S026",
+       "ref": "risk",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "K1.5",
+     "title": "Structured products as Lombard collateral",
+     "minutes": 45,
+     "objectives": [
+      "Learner can compute the lending value of a structured product from bid price and a haircut by product type",
+      "Learner can apply barrier-proximity and issuer-concentration rules",
+      "Learner can classify product features by main collateral risk (issuer, barrier, liquidity, early redemption)",
+      "Learner can find the error in a collateral sheet that values notes at nominal"
+     ],
+     "key_concepts": [
+      "issuer credit risk",
+      "barrier proximity",
+      "bid price and liquidity",
+      "buy-back by issuer",
+      "capital-protected vs barrier products",
+      "lending value"
+     ],
+     "worked_example": "A EUR 300k nominal barrier reverse convertible quoted at 96.0 bid has market value EUR 288k; its lending value is 30%, i.e. EUR 86.4k. When the underlying trades 5% above the barrier, policy cuts lending value to 0% for notes within 10% of the barrier: collateral falls by EUR 86.4k and a pool drawn near its limit is short by that amount.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Lending value of a note",
+       "params": "nominal, bid price, lending %"
+      },
+      {
+       "template": "numeric",
+       "task": "Lending value after barrier-proximity rule",
+       "params": "underlying vs barrier distance, 10% rule"
+      },
+      {
+       "template": "mcq",
+       "task": "Is the product eligible?",
+       "params": "product type, issuer rating, listing"
+      },
+      {
+       "template": "bucket",
+       "task": "Main risk of each feature",
+       "params": "feature pool: barrier, issuer, no market, autocall"
+      },
+      {
+       "template": "spot",
+       "task": "Find the error in a collateral sheet",
+       "params": "sheet with nominal valuation or issuer cap breach"
+      }
+     ],
+     "callbacks": [
+      "P6.4",
+      "K1.2"
+     ],
+     "sources": [
+      {
+       "id": "S026",
+       "ref": "entire",
+       "use": "core"
+      },
+      {
+       "id": "S131",
+       "ref": "entire",
+       "use": "deeper"
+      },
+      {
+       "id": "S194",
+       "ref": "categories",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "K1.6",
+     "title": "Pricing, covenants and reviews",
+     "minutes": 35,
+     "objectives": [
+      "Learner can compute interest and fees with an Act/360 day count",
+      "Learner can test a facility against covenants and review dates",
+      "Learner can compute a Basel CRE22 comprehensive-approach exposure after collateral (simplified)"
+     ],
+     "key_concepts": [
+      "EURIBOR plus margin",
+      "Act/360 day count",
+      "commitment fee on undrawn",
+      "covenants and annual review",
+      "collateral coverage ratio",
+      "regulatory capital: E* = max(0, E x (1+He) - C x (1-Hc-Hfx))"
+     ],
+     "worked_example": "A EUR 800k loan at 3M EURIBOR + 1.25% (total 4.0%) costs EUR 32,000 a year, or 800k x 4% x 92/360 = EUR 8,177.78 for a 92-day quarter. A EUR 1m limit with 0.50% commitment fee on the EUR 200k undrawn adds EUR 1,000 a year. A covenant requires collateral of at least 125% of the loan (EUR 1.0m). For capital: EUR 800k exposure vs EUR 1m equities with 15% haircut and 8% FX mismatch gives E* = 800 - 1,000 x (1 - 0.15 - 0.08) = EUR 30k (holding-period scaling ignored).",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Interest for a period",
+       "params": "principal, rate, days, Act/360"
+      },
+      {
+       "template": "numeric",
+       "task": "Commitment fee",
+       "params": "limit, drawn, fee %"
+      },
+      {
+       "template": "mcq",
+       "task": "Is the covenant met?",
+       "params": "collateral value, loan, ratio 125%"
+      },
+      {
+       "template": "spot",
+       "task": "Find the problem in a facility review file",
+       "params": "review file, 1-2 issues (overdue review, stale valuation)"
+      },
+      {
+       "template": "numeric",
+       "task": "Exposure after collateral (E*)",
+       "params": "exposure, collateral, Hc, Hfx"
+      }
+     ],
+     "callbacks": [
+      "K1.4",
+      "F1.2"
+     ],
+     "sources": [
+      {
+       "id": "S029",
+       "ref": "fees",
+       "use": "core"
+      },
+      {
+       "id": "S161",
+       "ref": "CRE22 comprehensive approach",
+       "use": "core"
+      },
+      {
+       "id": "S255",
+       "ref": "Arts. 387-403",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "K1.7",
+     "title": "Lombard credit approval and limit exceptions",
+     "minutes": 45,
+     "objectives": [
+      "Take a request from credit memo to limit set-up: purpose, collateral, lending value, requested limit, approval level",
+      "Decide which authority approves a temporary excess or a collateral exception from an authority table",
+      "Compute utilisation, headroom and shortfall against lending value and against the approved limit",
+      "List approval conditions, review dates and the follow-up when a condition is breached"
+     ],
+     "key_concepts": [
+      "Credit memo: client, purpose, collateral list, lending value, concentration, stress",
+      "Limit set-up in the credit system and linkage to collateral accounts",
+      "Credit committee and delegated credit authority by amount",
+      "Temporary excess vs permanent increase; maximum amount and duration",
+      "Collateral exceptions: concentrated position, illiquid asset, structured product at higher lending value",
+      "Conditions precedent, covenants and review cycle; lending values are illustrative bank practice"
+     ],
+     "worked_example": "A client pledges EUR 2.0m of diversified securities with an illustrative lending value of 60%, so EUR 1.2m. The approved limit is EUR 1.0m, fully drawn. The client asks for EUR 1.1m for 10 days: the EUR 100k temporary excess is 10% of the limit; an illustrative authority table lets the credit officer approve up to 10% for 30 days, and collateral still covers it (EUR 1.1m is below EUR 1.2m). A request to accept a single stock at 40% lending value instead of 20% is a collateral exception and goes to the credit committee.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Lending value, headroom and utilisation for a pledged portfolio",
+       "params": "portfolio value, lending value %, drawn amount"
+      },
+      {
+       "template": "mcq",
+       "task": "Who approves this temporary excess or collateral exception?",
+       "params": "amount, duration, exception type"
+      },
+      {
+       "template": "order",
+       "task": "Sequence the steps from credit memo to limit activation",
+       "params": "8 steps"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the missing condition or overdue review in a credit file",
+       "params": "file with seeded issue"
+      },
+      {
+       "template": "table",
+       "task": "Complete the approval log with exception, approver, expiry, cure",
+       "params": "3-5 exceptions"
+      }
+     ],
+     "callbacks": [
+      "K1.2",
+      "K1.3",
+      "K1.6",
+      "C5.4",
+      "C7.2",
+      "C7.6"
+     ],
+     "sources": [
+      {
+       "id": "S029",
+       "ref": "securities-backed credit and approval practice",
+       "use": "core"
+      },
+      {
+       "id": "S161",
+       "ref": "CRE22 collateral recognition",
+       "use": "reference"
+      },
+      {
+       "id": "S255",
+       "ref": "Arts. 387-403 large exposures",
+       "use": "reference"
+      },
+      {
+       "id": "S026",
+       "ref": "Lombard risk disclosure: margin and liquidation",
+       "use": "reference"
+      },
+      {
+       "id": "S131",
+       "ref": "haircutting non-cash collateral",
+       "use": "deeper"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "Lending value, LTV, haircut and pledge cases.",
+   "jurisdiction_notes": "Swiss practice first for Lombard; EU financial collateral rules; US SBLOC."
+  },
+  {
+   "id": "K2",
+   "title": "Margin & Margin Calls",
+   "track": "ops",
+   "hours": 5,
+   "prereqs": [
+    "K1",
+    "O6"
+   ],
+   "boss_items": [
+    "margin calls"
+   ],
+   "hook": "Margin thresholds, margin call calculation and notification, deadlines, forced liquidation, and the handling of a market gap.",
+   "units": [
+    {
+     "id": "K2.1",
+     "title": "Margin basics",
+     "minutes": 45,
+     "objectives": [
+      "Learner can define initial margin, maintenance margin and equity",
+      "Learner can compute equity, leverage and margin ratio after a price move",
+      "Learner can compute the price at which a maintenance call occurs",
+      "Learner can describe the effect of leverage on returns"
+     ],
+     "key_concepts": [
+      "initial and maintenance margin",
+      "equity = market value - loan",
+      "leverage = value / equity",
+      "margin ratio",
+      "margin call price",
+      "short position margin"
+     ],
+     "worked_example": "A client buys EUR 100k of shares with EUR 50k own cash and EUR 50k borrowed: equity 50k, leverage 2x. A 20% fall leaves market value 80k, equity 30k and margin ratio 37.5%, with a loss of 20k = -40% on equity. With a 25% maintenance ratio, a call occurs when loan / (1 - 25%) = 50/0.75 = EUR 66.7k, a 33.3% fall.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Equity and margin ratio",
+       "params": "market value, loan, move %"
+      },
+      {
+       "template": "numeric",
+       "task": "Margin call price",
+       "params": "loan, maintenance %"
+      },
+      {
+       "template": "numeric",
+       "task": "Return on equity at leverage",
+       "params": "leverage, asset move"
+      },
+      {
+       "template": "mcq",
+       "task": "Identify the term",
+       "params": "case"
+      },
+      {
+       "template": "match",
+       "task": "Match terms to definitions",
+       "params": "terms"
+      }
+     ],
+     "callbacks": [
+      "K1.1"
+     ],
+     "sources": [
+      {
+       "id": "S266",
+       "ref": "Reg T",
+       "use": "core"
+      },
+      {
+       "id": "S046",
+       "ref": "margin chapter",
+       "use": "core"
+      },
+      {
+       "id": "S029",
+       "ref": "margin explanation",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "K2.2",
+     "title": "Reg T and FINRA 4210",
+     "minutes": 55,
+     "objectives": [
+      "Learner can apply Reg T initial margin (50%) and FINRA 4210 maintenance (25% long, 30% short) to a position",
+      "Learner can compute Reg T excess equity and buying power",
+      "Learner can decide whether a call is due from a position table",
+      "Learner can compute margin for a short sale"
+     ],
+     "key_concepts": [
+      "Reg T 50% initial",
+      "FINRA 4210 25% maintenance long / 30% short",
+      "excess equity and SMA",
+      "buying power",
+      "house requirements",
+      "T+1 impact on payment periods"
+     ],
+     "worked_example": "A client buys USD 40,000 of stock with USD 20,000 cash; maintenance is 25%, so the stock can fall to about USD 26,700 before a call (loan 20,000 / 0.75). An account with market value USD 100k and loan USD 40k has equity 60k against the Reg T 50% requirement of 50k: excess 10k, buying power 20k. A USD 30,000 short needs 50% initial (15k on top of proceeds) and 30% maintenance (USD 9,000).",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Requirement and excess",
+       "params": "position, loan, long/short"
+      },
+      {
+       "template": "numeric",
+       "task": "Buying power",
+       "params": "market value, equity"
+      },
+      {
+       "template": "mcq",
+       "task": "Call due?",
+       "params": "price move, maintenance %, case"
+      },
+      {
+       "template": "table",
+       "task": "Calculate margin for several positions",
+       "params": "positions table"
+      },
+      {
+       "template": "numeric",
+       "task": "Short margin",
+       "params": "short value, initial, maintenance"
+      }
+     ],
+     "callbacks": [
+      "K2.1"
+     ],
+     "sources": [
+      {
+       "id": "S207",
+       "ref": "Rule 4210",
+       "use": "core"
+      },
+      {
+       "id": "S266",
+       "ref": "Reg T",
+       "use": "core"
+      },
+      {
+       "id": "S046",
+       "ref": "margin chapter",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "K2.3",
+     "title": "The margin call process",
+     "minutes": 50,
+     "objectives": [
+      "Learner can run the call process from breach to cure or liquidation, with deadlines",
+      "Learner can compute the shortfall and the cure amount by top-up and by sell-down",
+      "Learner can decide on liquidation timing for a case",
+      "Learner can place deadlines on a timeline from the margin agreement"
+     ],
+     "key_concepts": [
+      "breach detection at close",
+      "call notice and cure period",
+      "top-up vs repayment vs sell-down",
+      "forced liquidation",
+      "sell-down amount S = shortfall / (1 - lending %)",
+      "client communication and records"
+     ],
+     "worked_example": "After a 15% fall in the equities of the K1.2 pool (170k -> 144.5k), lending value is 196 + 72.25 = EUR 268.25k against a EUR 280k loan: shortfall EUR 11.75k. Cure options: pledge EUR 11.75k cash (100% lending value); repay EUR 11.75k; or sell EUR 23.5k of equity and repay the loan (S = 11.75 / (1 - 0.5)), after which loan 256.5k equals lending value 60.5k + 196k. If there is no response by the deadline (e.g. T+2 12:00) the bank can sell.",
+     "exercises": [
+      {
+       "template": "order",
+       "task": "Order the steps of a margin call",
+       "params": "steps, with or without cure"
+      },
+      {
+       "template": "numeric",
+       "task": "Shortfall after a market move",
+       "params": "holdings, lending %, shock, loan"
+      },
+      {
+       "template": "numeric",
+       "task": "Sell-down needed to cure",
+       "params": "shortfall, lending % of asset sold"
+      },
+      {
+       "template": "timeline",
+       "task": "Deadlines from a call",
+       "params": "call date/time, cure hours, weekends"
+      },
+      {
+       "template": "mcq",
+       "task": "Liquidate now or wait?",
+       "params": "shortfall %, client response, gap risk"
+      }
+     ],
+     "callbacks": [
+      "K2.2",
+      "K1.3"
+     ],
+     "sources": [
+      {
+       "id": "S207",
+       "ref": "Rule 4210",
+       "use": "core"
+      },
+      {
+       "id": "S029",
+       "ref": "margin calls",
+       "use": "core"
+      },
+      {
+       "id": "S026",
+       "ref": "pledge risk",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "K2.4",
+     "title": "Portfolio margin and risk-based",
+     "minutes": 50,
+     "objectives": [
+      "Learner can describe portfolio margin versus strategy-based margin",
+      "Learner can compute a portfolio-margin requirement as the worst loss over a scenario grid",
+      "Learner can state eligibility and risk limits of portfolio margin",
+      "Learner can name CCP-style risk-based margin (SPAN/TIMS, EMIR confidence levels)"
+     ],
+     "key_concepts": [
+      "portfolio margin FINRA 4210(g)",
+      "scenario grid and worst loss",
+      "hedged vs strategy-based requirement",
+      "eligibility and minimum equity",
+      "SPAN-like models",
+      "EMIR Art. 41 CCP margin coverage"
+     ],
+     "worked_example": "A client holds 5,000 shares at USD 100 and 50 protective put contracts (strike 90, bought at USD 4). Revalue at -15%, -10%, -5%, 0, +5%, +10% and +15% (intrinsic put values): P&L = 5,000 x (S - 100) + 5,000 x (max(90 - S, 0) - 4). Worst loss is -USD 70,000 at S = 85 (and at 90), so portfolio margin is USD 70,000, against USD 250,000 (50% of 500k) under Reg T.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Worst loss over a scenario grid",
+       "params": "position, put strike and premium, grid"
+      },
+      {
+       "template": "mcq",
+       "task": "Eligible for portfolio margin?",
+       "params": "account equity, product mix"
+      },
+      {
+       "template": "match",
+       "task": "Match methods to features",
+       "params": "methods x features"
+      },
+      {
+       "template": "numeric",
+       "task": "Margin saving vs strategy-based",
+       "params": "strategy-based requirement, scenario requirement"
+      }
+     ],
+     "callbacks": [
+      "K2.2"
+     ],
+     "sources": [
+      {
+       "id": "S207",
+       "ref": "4210(g)",
+       "use": "core"
+      },
+      {
+       "id": "S099",
+       "ref": "margin chapters",
+       "use": "core"
+      },
+      {
+       "id": "S260",
+       "ref": "Art. 41 EMIR",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "K2.5",
+     "title": "Collateral management and securities finance",
+     "minutes": 50,
+     "objectives": [
+      "Learner can compute variation margin transfers with threshold and minimum transfer amount",
+      "Learner can compute collateral required after haircuts",
+      "Learner can compute repo cash against a bond with a haircut and the repo interest",
+      "Learner can recognise a collateral dispute and its causes"
+     ],
+     "key_concepts": [
+      "variation vs initial margin",
+      "CSA threshold and MTA",
+      "eligible collateral and haircuts",
+      "GMRA repo and haircut",
+      "daily call cycle",
+      "EMIR margin RTS"
+     ],
+     "worked_example": "On a EUR 50m derivatives portfolio with daily VM, a EUR 1.2m mark-to-market move triggers a call for EUR 1.2m (no threshold, MTA EUR 500k exceeded) delivered the next morning; in government bonds with a 2% haircut the bank delivers 1.2 / 0.98 = EUR 1,224,490 market value. In a 7-day repo of EUR 10m bonds at a 2% haircut the cash lent is EUR 9.8m; at 2.5% Act/360 the interest is 9.8m x 2.5% x 7/360 = EUR 4,763.89.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Variation margin call",
+       "params": "MTM move, threshold, MTA"
+      },
+      {
+       "template": "numeric",
+       "task": "Collateral market value needed",
+       "params": "call amount, haircut"
+      },
+      {
+       "template": "mcq",
+       "task": "Is the asset eligible?",
+       "params": "asset, rating, currency, CSA terms"
+      },
+      {
+       "template": "table",
+       "task": "Collateral per position",
+       "params": "positions, haircuts"
+      },
+      {
+       "template": "numeric",
+       "task": "Repo cash and interest",
+       "params": "bond value, haircut, rate, days"
+      }
+     ],
+     "callbacks": [
+      "O6.2",
+      "K2.3"
+     ],
+     "sources": [
+      {
+       "id": "S050",
+       "ref": "entire",
+       "use": "core"
+      },
+      {
+       "id": "S105",
+       "ref": "VM chapter",
+       "use": "deeper"
+      },
+      {
+       "id": "S216",
+       "ref": "GMRA",
+       "use": "reference"
+      },
+      {
+       "id": "S228",
+       "ref": "guide",
+       "use": "reference"
+      },
+      {
+       "id": "S163",
+       "ref": "Del. Reg. 2016/2251",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "K2.6",
+     "title": "Margin Hotline: operating the desk",
+     "minutes": 40,
+     "objectives": [
+      "Learner can triage a morning margin queue by shortfall size, age and client response",
+      "Learner can assign liquidations using sell-down amounts",
+      "Learner can handle a price dispute and keep an audit trail",
+      "Learner can state when to escalate to credit and legal"
+     ],
+     "key_concepts": [
+      "triage by size and age",
+      "dispute management",
+      "escalation matrix",
+      "client communication",
+      "liquidation order and method"
+     ],
+     "worked_example": "Morning queue: A1 loan 300k, lending value 294k (6k short, 2.0%, responds); A2 loan 500k, 490k (10k, 2.0%, responds); A3 loan 1,200k, 1,020k (180k short, 15%, no response); A4 loan 400k, 380k (20k, 5%, 3rd day, no response); A5 loan 250k, 247.5k (2.5k, disputes a bond price). Total EUR 218.5k. Priority: A3 (sell EUR 360k of 50% equity, S = 180/0.5), A4 (sell 40k), A1/A2 cure by wire, A5 re-price from a second source.",
+     "exercises": [
+      {
+       "template": "bucket",
+       "task": "Triage accounts into act now / chase / monitor",
+       "params": "accounts: shortfall, age, response"
+      },
+      {
+       "template": "numeric",
+       "task": "Total shortfall and sell-down",
+       "params": "accounts, lending %"
+      },
+      {
+       "template": "mcq",
+       "task": "Next action for this account",
+       "params": "case"
+      },
+      {
+       "template": "order",
+       "task": "Escalation steps for non-response",
+       "params": "steps"
+      },
+      {
+       "template": "spot",
+       "task": "Find the problem in a margin call log",
+       "params": "log, with missed deadline or missing notice"
+      }
+     ],
+     "callbacks": [
+      "K2.3",
+      "K2.5"
+     ],
+     "sources": [
+      {
+       "id": "S050",
+       "ref": "entire",
+       "use": "core"
+      },
+      {
+       "id": "S163",
+       "ref": "RTS dispute resolution",
+       "use": "reference"
+      },
+      {
+       "id": "S105",
+       "ref": "dispute procedures",
+       "use": "deeper"
+      }
+     ]
+    }
+   ],
+   "minigame": {
+    "name": "Margin Hotline",
+    "variant": "price moves, LTV breach, call, cure or liquidate"
+   },
+   "unit_test": "Reg T, maintenance, call, cure and collateral cases.",
+   "jurisdiction_notes": "US Reg T and 4210 deepest; EU/Swiss Lombard practice; EMIR margin; UK."
+  },
+  {
+   "id": "Q6",
+   "title": "Linear Algebra",
+   "track": "theory",
+   "hours": 6,
+   "prereqs": [
+    "Q4",
+    "F2"
+   ],
+   "boss_items": [],
+   "hook": "Vectors, matrices, matrix products and inverses, and their use in portfolio variance and covariance across several assets.",
+   "units": [
+    {
+     "id": "Q6.1",
+     "title": "Vectors and portfolio weights",
+     "minutes": 50,
+     "objectives": [
+      "Learner can add vectors and multiply a vector by a scalar, including a leverage scale-up",
+      "Learner can compute a dot product to get portfolio return from weights and expected returns",
+      "Learner can convert EUR holdings to a weight vector that sums to 1",
+      "Learner can compute a vector's length (norm) and state when two vectors are orthogonal"
+     ],
+     "key_concepts": [
+      "vector as list of numbers",
+      "addition and scalar multiplication",
+      "dot product",
+      "weights sum to 1",
+      "norm",
+      "portfolio return = w . r"
+     ],
+     "worked_example": "Weights (0.5, 0.3, 0.2) and expected returns (6%, 4%, 10%): w . r = 0.03 + 0.012 + 0.02 = 6.2%. From EUR holdings (250k, 150k, 100k) the weights are holdings / 500k = (0.5, 0.3, 0.2). Scaling the weights by 1.5 gives (0.75, 0.45, 0.30), a 150% gross exposure financed by a 50% loan, and return 1.5 x 6.2% = 9.3% before interest.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Dot product of weights and returns",
+       "params": "3-4 weights, returns"
+      },
+      {
+       "template": "numeric",
+       "task": "Weights from EUR holdings",
+       "params": "holdings vector"
+      },
+      {
+       "template": "numeric",
+       "task": "Portfolio return after scaling by leverage",
+       "params": "leverage factor, vectors"
+      },
+      {
+       "template": "table",
+       "task": "Fill the product table w_i x r_i and total",
+       "params": "assets table"
+      },
+      {
+       "template": "mcq",
+       "task": "Which operation is valid?",
+       "params": "vector sizes, operation"
+      }
+     ],
+     "callbacks": [
+      "Q4.1",
+      "F2.1"
+     ],
+     "sources": [
+      {
+       "id": "S018",
+       "ref": "lectures 1-2",
+       "use": "core"
+      },
+      {
+       "id": "S073",
+       "ref": "Ch. 1",
+       "use": "core"
+      },
+      {
+       "id": "S011",
+       "ref": "Ch. 15",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "Q6.2",
+     "title": "Matrices and operations",
+     "minutes": 55,
+     "objectives": [
+      "Learner can multiply two 2x2 matrices and a 2x2 matrix by a 2x1 vector",
+      "Learner can state when a product is defined from the dimensions",
+      "Learner can transpose a vector or matrix and recognise a symmetric matrix",
+      "Learner can use the identity matrix"
+     ],
+     "key_concepts": [
+      "matrix",
+      "row-by-column product",
+      "dimension rule (m x n)(n x p)",
+      "transpose",
+      "symmetric",
+      "identity"
+     ],
+     "worked_example": "[[1,2],[3,4]] x [[0,1],[1,0]] = [[2,1],[4,3]] (multiplying by a swap matrix swaps columns). Covariance matrix [[0.04, 0.006],[0.006, 0.01]] times weights (0.5, 0.5) gives (0.023, 0.008), the first step of portfolio variance. A 2x1 times 2x1 product is undefined: the shapes do not match.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Entry of a 2x2 product",
+       "params": "matrix entries"
+      },
+      {
+       "template": "numeric",
+       "task": "Matrix-vector product",
+       "params": "matrix, vector"
+      },
+      {
+       "template": "mcq",
+       "task": "Is the product defined, and what shape?",
+       "params": "dimension pairs"
+      },
+      {
+       "template": "table",
+       "task": "Complete a transposed matrix",
+       "params": "matrix values"
+      },
+      {
+       "template": "mcq",
+       "task": "Which matrix is symmetric?",
+       "params": "matrix options"
+      }
+     ],
+     "callbacks": [
+      "Q6.1"
+     ],
+     "sources": [
+      {
+       "id": "S073",
+       "ref": "Ch. 2",
+       "use": "core"
+      },
+      {
+       "id": "S018",
+       "ref": "lectures 3-4",
+       "use": "core"
+      },
+      {
+       "id": "S077",
+       "ref": "matrix chapters",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "Q6.3",
+     "title": "Linear systems and inverses",
+     "minutes": 55,
+     "objectives": [
+      "Learner can solve a 2x2 system by elimination and by the inverse",
+      "Learner can compute a 2x2 determinant and decide whether the matrix is invertible",
+      "Learner can interpret a zero determinant as perfectly dependent assets",
+      "Learner can use a solved system to find hedge weights"
+     ],
+     "key_concepts": [
+      "elimination",
+      "2x2 inverse = (1/det)[[d,-b],[-c,a]]",
+      "determinant",
+      "singular matrix",
+      "linear dependence"
+     ],
+     "worked_example": "Solve w1 + w2 = 1 and 0.04 w1 + 0.01 w2 = 0.025: subtracting gives 0.03 w1 = 0.015 so w1 = w2 = 0.5. By inverse: det [[1,1],[0.04,0.01]] = 0.01 - 0.04 = -0.03 and w = (1/-0.03)[[0.01,-1],[-0.04,1]](1, 0.025) = (0.5, 0.5). A covariance matrix [[0.04, 0.02],[0.02, 0.01]] (correlation 1) has determinant 0.0004 - 0.0004 = 0, so it cannot be inverted.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Solution of a 2x2 system",
+       "params": "coefficients, right-hand side"
+      },
+      {
+       "template": "numeric",
+       "task": "Determinant of a 2x2 matrix",
+       "params": "entries"
+      },
+      {
+       "template": "mcq",
+       "task": "Is the matrix invertible?",
+       "params": "matrix, correlation = 1 case"
+      },
+      {
+       "template": "numeric",
+       "task": "Inverse entry",
+       "params": "2x2 matrix"
+      },
+      {
+       "template": "mcq",
+       "task": "What does det = 0 mean for two assets?",
+       "params": "case"
+      }
+     ],
+     "callbacks": [
+      "Q6.2"
+     ],
+     "sources": [
+      {
+       "id": "S073",
+       "ref": "Ch. 2-5",
+       "use": "core"
+      },
+      {
+       "id": "S018",
+       "ref": "lectures 2-5",
+       "use": "core"
+      },
+      {
+       "id": "S020",
+       "ref": "linear systems notes",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "Q6.4",
+     "title": "Covariance matrices",
+     "minutes": 55,
+     "objectives": [
+      "Learner can compute a covariance from volatilities and correlation, and the reverse",
+      "Learner can compute a sample covariance from a short return series",
+      "Learner can build a 2x2 and 3x3 covariance matrix",
+      "Learner can recognise an invalid covariance matrix (correlation outside [-1,1], negative variance)"
+     ],
+     "key_concepts": [
+      "variance and covariance",
+      "correlation = cov / (sigma1 sigma2)",
+      "covariance matrix is symmetric",
+      "positive semi-definite",
+      "sample vs population (n-1 vs n)"
+     ],
+     "worked_example": "Volatilities 20% and 10% with correlation 0.3: covariance 0.3 x 0.2 x 0.1 = 0.006; matrix [[0.04, 0.006],[0.006, 0.01]]. From returns X = (2, -1, 3, 0)% and Y = (1, 0, 2, 1)%: means 1 and 1, products of deviations (0, 2, 2, 0) sum 4, sample covariance 4 / 3 = 1.33 %^2. The matrix [[0.04, 0.05],[0.05, 0.01]] implies correlation 2.5, so it is invalid.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Covariance from volatilities and correlation",
+       "params": "sigma1, sigma2, rho"
+      },
+      {
+       "template": "numeric",
+       "task": "Correlation from a covariance matrix",
+       "params": "matrix entries"
+      },
+      {
+       "template": "numeric",
+       "task": "Sample covariance from a return series",
+       "params": "4-6 returns each"
+      },
+      {
+       "template": "table",
+       "task": "Build the covariance matrix",
+       "params": "vols, correlations (2 or 3 assets)"
+      },
+      {
+       "template": "mcq",
+       "task": "Is the matrix a valid covariance matrix?",
+       "params": "matrix entries"
+      }
+     ],
+     "callbacks": [
+      "Q2.2",
+      "F2.3",
+      "Q6.3"
+     ],
+     "sources": [
+      {
+       "id": "S079",
+       "ref": "Ch. 3-4",
+       "use": "core"
+      },
+      {
+       "id": "S015",
+       "ref": "Ch. 7",
+       "use": "deeper"
+      },
+      {
+       "id": "S039",
+       "ref": "covariance and correlation",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "Q6.5",
+     "title": "Portfolio variance as w'Σw",
+     "minutes": 55,
+     "objectives": [
+      "Learner can compute portfolio variance as w'Sigma w for 2 and 3 assets",
+      "Learner can compute the minimum-variance weights for two assets",
+      "Learner can compare portfolio volatility with the weighted average volatility",
+      "Learner can explain diversification as a consequence of correlation below 1"
+     ],
+     "key_concepts": [
+      "quadratic form w'Sigma w",
+      "min-variance weight w1 = (s2^2 - s12)/(s1^2 + s2^2 - 2 s12)",
+      "diversification benefit",
+      "correlation and risk"
+     ],
+     "worked_example": "With the Q6.4 assets at 50/50: variance = 0.25 x 0.04 + 0.25 x 0.01 + 2 x 0.25 x 0.006 = 0.0155, volatility 12.45%, against a weighted average of 15%. Minimum variance: w1 = (0.01 - 0.006)/(0.04 + 0.01 - 0.012) = 10.5% in the 20%-vol asset, 89.5% in the other, variance 0.00958 (vol 9.79%), below either asset alone.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Portfolio variance for two assets",
+       "params": "weights, vols, correlation"
+      },
+      {
+       "template": "numeric",
+       "task": "Min-variance weight",
+       "params": "two assets, covariance matrix"
+      },
+      {
+       "template": "numeric",
+       "task": "Portfolio volatility vs weighted average",
+       "params": "3 assets, matrix"
+      },
+      {
+       "template": "mcq",
+       "task": "Does diversification reduce risk?",
+       "params": "correlation values"
+      },
+      {
+       "template": "numeric",
+       "task": "Variance when correlation is 1 or -1",
+       "params": "weights, vols"
+      }
+     ],
+     "callbacks": [
+      "Q6.4"
+     ],
+     "sources": [
+      {
+       "id": "S085",
+       "ref": "entire",
+       "use": "core"
+      },
+      {
+       "id": "S079",
+       "ref": "Ch. 5",
+       "use": "core"
+      },
+      {
+       "id": "S075",
+       "ref": "Ch. 6",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "Q6.6",
+     "title": "Eigenvalues and principal components",
+     "minutes": 50,
+     "objectives": [
+      "Learner can find the eigenvalues of a 2x2 covariance matrix from trace and determinant",
+      "Learner can find the direction (eigenvector) of the largest eigenvalue",
+      "Learner can compute the share of variance explained by each component",
+      "Learner can interpret PCA factors of a yield curve (level, slope, curvature)"
+     ],
+     "key_concepts": [
+      "eigenvalue and eigenvector",
+      "characteristic equation",
+      "sum of eigenvalues = trace",
+      "product = determinant",
+      "PCA",
+      "level, slope and curvature factors"
+     ],
+     "worked_example": "For [[0.04, 0.006],[0.006, 0.01]]: trace 0.05, determinant 0.000364, eigenvalues (0.05 +/- sqrt(0.0025 - 0.001456))/2 = 0.04116 and 0.00884. The first component explains 0.04116 / 0.05 = 82.3% of variance with direction about (0.98, 0.19), mostly the 20%-vol asset. In yield-curve PCA the first three components typically explain the vast majority of variation (level, slope, curvature).",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Eigenvalues of a 2x2 matrix",
+       "params": "matrix entries"
+      },
+      {
+       "template": "numeric",
+       "task": "Variance explained by first component",
+       "params": "eigenvalues"
+      },
+      {
+       "template": "mcq",
+       "task": "Interpret the PCA component",
+       "params": "loadings pattern"
+      },
+      {
+       "template": "match",
+       "task": "Match factors to curve moves",
+       "params": "factors x moves"
+      },
+      {
+       "template": "numeric",
+       "task": "Check trace and determinant",
+       "params": "matrix, eigenvalues"
+      }
+     ],
+     "callbacks": [
+      "Q6.4",
+      "Q6.5"
+     ],
+     "sources": [
+      {
+       "id": "S073",
+       "ref": "Ch. 6",
+       "use": "core"
+      },
+      {
+       "id": "S132",
+       "ref": "Ch. 5",
+       "use": "deeper"
+      },
+      {
+       "id": "S061",
+       "ref": "term-structure factors",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "Q6.7",
+     "title": "Consolidation: risk of a Lombard pool",
+     "minutes": 40,
+     "objectives": [
+      "Learner can build a 3x3 covariance matrix and compute pool volatility with w'Sigma w",
+      "Learner can convert annual volatility to a 1-day 99% loss in EUR",
+      "Learner can compare the loss figure with weighted-average risk and with lending haircuts",
+      "Learner can explain why haircuts exceed 1-day VaR (liquidation period, stress, gaps)"
+     ],
+     "key_concepts": [
+      "3-asset pool variance",
+      "diversification benefit",
+      "VaR (z = 2.326 at 99%, sqrt(time) scaling)",
+      "haircut vs VaR",
+      "wrong-way and gap risk"
+     ],
+     "worked_example": "Pool EUR 1m: equities 40% (vol 20%), equity fund 20% (15%), IG bonds 40% (5%), correlations 0.8, 0.1, 0.2. Variance = 0.0121, vol 11.0%, below the 13% weighted average. 1-day 99% loss = 11.0% / sqrt(252) x 2.326 x 1m = EUR 16.1k (undiversified: EUR 19.1k); 10-day 51k. Haircuts of 50%, 40%, 30% give a EUR 400k cushion, far above VaR because they cover stressed gaps and a 20-day liquidation.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Pool variance and volatility",
+       "params": "weights, vols, correlations"
+      },
+      {
+       "template": "numeric",
+       "task": "1-day 99% loss in EUR",
+       "params": "pool value, annual vol, z"
+      },
+      {
+       "template": "table",
+       "task": "Compare VaR, undiversified risk and haircut cushion",
+       "params": "pool values, haircuts"
+      },
+      {
+       "template": "mcq",
+       "task": "Why do haircuts exceed VaR?",
+       "params": "case"
+      },
+      {
+       "template": "numeric",
+       "task": "Diversification benefit in EUR",
+       "params": "vols, weights, correlation"
+      }
+     ],
+     "callbacks": [
+      "Q6.5",
+      "K1.3"
+     ],
+     "sources": [
+      {
+       "id": "S079",
+       "ref": "Ch. 5",
+       "use": "core"
+      },
+      {
+       "id": "S131",
+       "ref": "entire",
+       "use": "deeper"
+      },
+      {
+       "id": "S089",
+       "ref": "VaR chapter",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "Computation tests on vectors, matrices, systems, covariance and portfolio variance.",
+   "jurisdiction_notes": null
+  }
+ ],
+ "checkpoint": "Boss quiz of 35 questions in 40 minutes mixing onboarding, suitability, limits, restrictions, approvals, Lombard LTV, margin and linear-algebra items. Includes 25% callbacks to L2-L5 units.",
+ "open_questions": [
+  "See syllabus/FACTS.md (originals in open-questions.txt)"
+ ]
+}

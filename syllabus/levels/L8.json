@@ -1,0 +1,2918 @@
+{
+ "level": "L8",
+ "title": "Quant & Graduate Theory",
+ "hours": 43,
+ "intro": "This level covers no-arbitrage pricing, the Greeks, risk-neutral valuation, Brownian motion and Ito's lemma, asset-pricing theory, financial econometrics and measure-theoretic probability. It also covers the choice and checking of numerical methods for exotic and structured products, without coding.",
+ "modules": [
+  {
+   "id": "F6",
+   "title": "Derivatives pricing & Greeks",
+   "track": "theory",
+   "hours": 8,
+   "prereqs": [
+    "P6",
+    "F5",
+    "Q5"
+   ],
+   "boss_items": [],
+   "hook": "Binomial trees, no-arbitrage pricing, Black-Scholes, put-call parity and the Greeks, applied to the pricing of a capital-protected note.",
+   "units": [
+    {
+     "id": "F6.1",
+     "title": "No-arbitrage and the forward price",
+     "minutes": 60,
+     "objectives": [
+      "Explain arbitrage and the law of one price in a worked example",
+      "Compute a forward price with cash-and-carry, including discrete dividends",
+      "Use put-call parity to price a put from a call and to spot a violation"
+     ],
+     "key_concepts": [
+      "arbitrage",
+      "law of one price",
+      "cost of carry",
+      "forward vs futures",
+      "put-call parity",
+      "model-free bounds on options"
+     ],
+     "worked_example": "Spot 100 EUR, 1y rate 3% cont., dividend 2 EUR in 6 months: F = (100 - 2e^-0.015)e^0.03; a quoted forward 3 EUR higher is an arbitrage you can construct leg by leg.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute the fair forward price for a stock with a known dividend",
+       "params": "spot, rate, dividend size and date, maturity"
+      },
+      {
+       "template": "order",
+       "task": "Sequence the legs of a cash-and-carry arbitrage when the forward is too rich",
+       "params": "forward mispriced up or down"
+      },
+      {
+       "template": "numeric",
+       "task": "Use put-call parity to find the European put price",
+       "params": "call price, strike, rate, maturity, dividend"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a dealer's option quote sheet that breaks a no-arbitrage bound",
+       "params": "which bound is broken: intrinsic, parity, monotonicity"
+      },
+      {
+       "template": "mcq",
+       "task": "Which position replicates a long forward?",
+       "params": "call/put/bond combinations"
+      }
+     ],
+     "callbacks": [
+      "F1.3",
+      "Q1.3",
+      "P6.2"
+     ],
+     "sources": [
+      {
+       "id": "S083",
+       "ref": "Ch. 5 (forward prices), Ch. 11 (properties of stock options)",
+       "use": "core"
+      },
+      {
+       "id": "S015",
+       "ref": "Ch. 21 (option markets) and Ch. 22 (no-arbitrage bounds)",
+       "use": "deeper"
+      },
+      {
+       "id": "S012",
+       "ref": "Ch. 1-2",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "F6.2",
+     "title": "One-period binomial model: replication and risk-neutral pricing",
+     "minutes": 60,
+     "objectives": [
+      "Replicate a call with stock and cash in a one-step tree and derive its price",
+      "Compute risk-neutral probabilities and show they are not real-world probabilities",
+      "Explain why the real-world up-probability does not enter the option price"
+     ],
+     "key_concepts": [
+      "replicating portfolio",
+      "delta as hedge ratio",
+      "risk-neutral probability q",
+      "state prices",
+      "discounted expectation"
+     ],
+     "worked_example": "S0 = 100, up to 120, down to 90, r = 2%, call strike 105: delta = 15/30 = 0.5, q = (102 - 90)/30 = 0.4, price = 15 x 0.4 / 1.02 = 5.88 EUR.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Solve for the delta and bond holding that replicate the payoff",
+       "params": "u, d, r, strike"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute q and the option price as discounted expectation; check against the replication cost",
+       "params": "u, d, r, strike, call/put"
+      },
+      {
+       "template": "mcq",
+       "task": "If the real-world probability of an up-move rises, what happens to the call price?",
+       "params": "stated probabilities, answer is always 'no change'"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill in the no-arbitrage condition on u, d and the gross rate",
+       "params": "u, d, R symbols"
+      },
+      {
+       "template": "spot",
+       "task": "Spot why a given tree admits arbitrage (d >= R or u <= R)",
+       "params": "tree parameters"
+      }
+     ],
+     "callbacks": [
+      "F6.1",
+      "Q5.2",
+      "F1.3"
+     ],
+     "sources": [
+      {
+       "id": "S092",
+       "ref": "Ch. 1 (one-period binomial model)",
+       "use": "core"
+      },
+      {
+       "id": "S012",
+       "ref": "Ch. 2",
+       "use": "deeper"
+      },
+      {
+       "id": "S083",
+       "ref": "Ch. 13 (binomial trees), first sections",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "F6.3",
+     "title": "Multi-period trees (CRR) and American options",
+     "minutes": 60,
+     "objectives": [
+      "Build a two- and three-step CRR tree and price a European option by backward induction",
+      "Decide early exercise node by node for an American put",
+      "Calibrate u, d to a volatility and explain why dividends change the early-exercise logic for calls"
+     ],
+     "key_concepts": [
+      "backward induction",
+      "CRR parameterisation u = e^{sigma sqrt(dt)}",
+      "recombining tree",
+      "early exercise boundary",
+      "American vs European"
+     ],
+     "worked_example": "Three-step tree, S0 = 50, sigma = 30%, T = 6m, r = 3%: u = 1.130; an American put at strike 55 is exercised early at the lowest nodes, so its value exceeds the European put by a small early-exercise premium.",
+     "exercises": [
+      {
+       "template": "table",
+       "task": "Complete a 3-step price tree and option-value tree",
+       "params": "S0, u, d, r, strike, call/put"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute u, d and q from volatility, rate and step length",
+       "params": "sigma, r, T, steps"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort nodes into 'exercise now' vs 'hold' for an American put",
+       "params": "tree values, strike"
+      },
+      {
+       "template": "mcq",
+       "task": "When is early exercise of an American call on a non-dividend stock optimal?",
+       "params": "dividend yes/no, timing before ex-date"
+      },
+      {
+       "template": "numeric",
+       "task": "Delta at each node: read the hedge ratio off the tree",
+       "params": "node values"
+      }
+     ],
+     "callbacks": [
+      "F6.2",
+      "F2.2",
+      "Q1.5"
+     ],
+     "sources": [
+      {
+       "id": "S092",
+       "ref": "Ch. 1-4 (binomial asset pricing, American derivatives)",
+       "use": "core"
+      },
+      {
+       "id": "S083",
+       "ref": "Ch. 13",
+       "use": "core"
+      },
+      {
+       "id": "S075",
+       "ref": "Ch. 12 (derivative securities, lattices)",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "F6.4",
+     "title": "From the tree to Black-Scholes: lognormal prices and the formula",
+     "minutes": 60,
+     "objectives": [
+      "Explain how a many-step tree converges to lognormal stock prices",
+      "Compute a European call and put with the Black-Scholes formula using N(d1), N(d2)",
+      "Interpret N(d2) as risk-neutral exercise probability and N(d1) as delta of the call"
+     ],
+     "key_concepts": [
+      "geometric Brownian motion (intuitively)",
+      "lognormal distribution",
+      "d1 and d2",
+      "risk-neutral drift r",
+      "forward-based BS form"
+     ],
+     "worked_example": "S = 100, K = 100, r = 2%, sigma = 25%, T = 1: d1 = 0.205, d2 = -0.045, call about 10.9 EUR; N(d2) about 0.48 is the risk-neutral probability of finishing in the money.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute d1, d2 and the call price",
+       "params": "S, K, r, sigma, T, dividend yield"
+      },
+      {
+       "template": "numeric",
+       "task": "Price the put via put-call parity and check against the direct formula",
+       "params": "same inputs"
+      },
+      {
+       "template": "mcq",
+       "task": "Which parameters of the stock process does the formula NOT depend on?",
+       "params": "expected return mu vs sigma"
+      },
+      {
+       "template": "match",
+       "task": "Match each term of the formula to its economic meaning",
+       "params": "terms: S N(d1), K e^{-rT} N(d2), d1, d2"
+      },
+      {
+       "template": "paper",
+       "task": "Write a half page explaining to a client why two analysts with different return forecasts agree on the same option price",
+       "params": "optional self-graded; rubric covers replication argument"
+      }
+     ],
+     "callbacks": [
+      "Q5.3",
+      "F6.3",
+      "Q4.2"
+     ],
+     "sources": [
+      {
+       "id": "S098",
+       "ref": "Sections 1-3 (original paper)",
+       "use": "core"
+      },
+      {
+       "id": "S083",
+       "ref": "Ch. 15 (Black-Scholes-Merton model)",
+       "use": "core"
+      },
+      {
+       "id": "S012",
+       "ref": "Ch. 3",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "F6.5",
+     "title": "The Black-Scholes PDE and risk-neutral valuation",
+     "minutes": 60,
+     "objectives": [
+      "State the Black-Scholes PDE and identify each term (theta, delta, gamma, financing)",
+      "Explain why the delta-hedged portfolio earns the risk-free rate",
+      "Describe, without full proof, how the PDE and the discounted-expectation formula are two views of the same price"
+     ],
+     "key_concepts": [
+      "delta-hedged portfolio",
+      "theta-gamma relationship",
+      "PDE vs expectation (Feynman-Kac idea)",
+      "market price of risk cancels",
+      "assumptions of BS and their failures"
+     ],
+     "worked_example": "For an at-the-money option with gamma 0.02 per EUR^2, sigma 25% and S = 100, theta is roughly -0.5 x 0.0625 x 10,000 x 0.02 = -6.25 EUR/year per option: time decay pays for gamma.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Use theta ~ -0.5 sigma^2 S^2 gamma (r = 0 case) to estimate daily decay from gamma",
+       "params": "sigma, S, gamma"
+      },
+      {
+       "template": "order",
+       "task": "Order the steps of the hedging argument that leads to the PDE",
+       "params": "list of 5 steps"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort assumptions into 'holds in practice' vs 'breaks': continuous trading, constant vol, no jumps, no costs",
+       "params": "assumption lists"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill in the PDE with theta, delta, gamma and r terms",
+       "params": "word bank"
+      },
+      {
+       "template": "mcq",
+       "task": "Which function solves the PDE with the payoff max(S-K,0) as terminal condition?",
+       "params": "four candidate expressions"
+      }
+     ],
+     "callbacks": [
+      "F6.4",
+      "Q7.1",
+      "Q4.3"
+     ],
+     "sources": [
+      {
+       "id": "S083",
+       "ref": "Ch. 15 (derivation of the differential equation), Appendix on Ito",
+       "use": "core"
+      },
+      {
+       "id": "S012",
+       "ref": "Ch. 4-5",
+       "use": "core"
+      },
+      {
+       "id": "S146",
+       "ref": "Ch. 4 (BS equation)",
+       "use": "deeper"
+      },
+      {
+       "id": "S084",
+       "ref": "Ch. 5-6",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "F6.6",
+     "title": "The Greeks: definitions, signs and shapes",
+     "minutes": 60,
+     "objectives": [
+      "Define delta, gamma, vega, theta, rho and sketch each versus spot for calls and puts",
+      "Compute Greeks of a position from per-option Greeks and quantity",
+      "Explain the delta-gamma-theta Taylor approximation of option P&L"
+     ],
+     "key_concepts": [
+      "delta/gamma/vega/theta/rho",
+      "dollar Greeks",
+      "second-order Greeks (vanna, volga) conceptually",
+      "Greeks as partial derivatives (Q7)",
+      "Taylor P&L"
+     ],
+     "worked_example": "Short 100 calls (multiplier 100): delta per call 0.55, gamma 0.03; a 2 EUR spot rise costs about 100 x 100 x (0.55 x 2 + 0.5 x 0.03 x 4) = 11,600 EUR before hedging.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute portfolio delta and gamma of a multi-option position",
+       "params": "quantities, multipliers, per-option Greeks"
+      },
+      {
+       "template": "numeric",
+       "task": "Estimate P&L of a spot move using delta-gamma Taylor",
+       "params": "move size, Greeks"
+      },
+      {
+       "template": "match",
+       "task": "Match each Greek to its chart shape (bell, S-curve, monotone)",
+       "params": "Greek vs moneyness/time"
+      },
+      {
+       "template": "mcq",
+       "task": "Which Greek of an at-the-money option is largest just before expiry?",
+       "params": "gamma, vega, theta, delta"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort positions as long gamma / short gamma",
+       "params": "long/short, call/put, structured-product payoffs"
+      }
+     ],
+     "callbacks": [
+      "Q3.2",
+      "Q7.1",
+      "Q4.3",
+      "F3.2"
+     ],
+     "sources": [
+      {
+       "id": "S083",
+       "ref": "Ch. 19 (The Greek letters)",
+       "use": "core"
+      },
+      {
+       "id": "S082",
+       "ref": "Ch. 6-7 (Greeks)",
+       "use": "deeper"
+      },
+      {
+       "id": "S121",
+       "ref": "Ch. 6-7",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "F6.7",
+     "title": "Greeks in practice: hedging P&L, implied volatility, smile and skew",
+     "minutes": 60,
+     "objectives": [
+      "Explain delta-hedging P&L as realised vs implied variance times gamma",
+      "Back out the direction of implied vol from quoted option prices (conceptually, no solver)",
+      "Describe the smile/skew and why equity skew is negative"
+     ],
+     "key_concepts": [
+      "discrete hedging error",
+      "gamma-theta trade-off",
+      "implied vs realised vol",
+      "volatility smile/skew/term structure",
+      "vega bucketing",
+      "rebalancing costs"
+     ],
+     "worked_example": "A desk delta-hedges a long 25%-implied option daily while stock realises 30%: gain about 0.5 x gamma x S^2 x (0.30^2 - 0.25^2)/252 per day, positive despite theta.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute daily hedged P&L from gamma, realised and implied variance",
+       "params": "gamma, S, vols"
+      },
+      {
+       "template": "mcq",
+       "task": "Skew steepens after a market drop: which strike's implied vol moves most?",
+       "params": "chart description"
+      },
+      {
+       "template": "table",
+       "task": "Complete a table of daily hedged P&L over 5 days given spot moves",
+       "params": "path of spot, gamma, theta"
+      },
+      {
+       "template": "match",
+       "task": "Match market phenomena to smile features (leverage effect, jump fear, supply/demand)",
+       "params": "phenomena list"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the inconsistency in a quoted vol surface (calendar or butterfly arbitrage)",
+       "params": "grid of implied vols"
+      }
+     ],
+     "callbacks": [
+      "F6.6",
+      "F2.2",
+      "T8.1"
+     ],
+     "sources": [
+      {
+       "id": "S082",
+       "ref": "Ch. 8-10 (volatility, smile)",
+       "use": "core"
+      },
+      {
+       "id": "S121",
+       "ref": "Ch. 4, 8 (dynamic hedging, smile)",
+       "use": "deeper"
+      },
+      {
+       "id": "S083",
+       "ref": "Ch. 20 (volatility smiles)",
+       "use": "core"
+      }
+     ]
+    },
+    {
+     "id": "F6.8",
+     "title": "Beyond vanilla: exotics, stochastic volatility and structured-product pricing",
+     "minutes": 60,
+     "objectives": [
+      "Decompose an EU capital-protected note into a zero-coupon bond plus options and price it",
+      "Explain barriers, digitals, autocallables and their Greeks, especially discontinuity risk",
+      "Contrast local vol, stochastic vol and jump models at the level of what each fixes"
+     ],
+     "key_concepts": [
+      "static replication",
+      "barrier shift and gap risk",
+      "digital replication by call spread",
+      "local vol (Dupire) / Heston / jumps",
+      "issuer funding spread vs option price",
+      "model risk"
+     ],
+     "worked_example": "3-year 100% capital-protected note, 3y zero at 2.9% costs 91.8; remaining 8.2 EUR buys the call, so participation = 8.2 / call price (e.g., 14.2) = about 58%.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Solve participation rate of a capital-protected note from rates and option cost",
+       "params": "maturity, rate, option price"
+      },
+      {
+       "template": "numeric",
+       "task": "Approximate a digital with a tight call spread and give its payoff and delta",
+       "params": "strike, spread width"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort features into 'hedgeable statically' vs 'needs dynamic hedging'",
+       "params": "payoff features"
+      },
+      {
+       "template": "mcq",
+       "task": "Why does an autocallable's delta jump near the barrier date, and what does the issuer do?",
+       "params": "barrier distance"
+      },
+      {
+       "template": "paper",
+       "task": "Optional: explain to a colleague how a model can price a note correctly at inception and still mis-hedge it",
+       "params": "rubric: vega, skew, gap risk"
+      }
+     ],
+     "callbacks": [
+      "P6.3",
+      "F6.6",
+      "F4.1"
+     ],
+     "sources": [
+      {
+       "id": "S126",
+       "ref": "Chs. on barrier and autocallable structures",
+       "use": "core"
+      },
+      {
+       "id": "S149",
+       "ref": "Ch. 1-3 (convertibles as option + bond)",
+       "use": "deeper"
+      },
+      {
+       "id": "S083",
+       "ref": "Ch. 26 (exotic options)",
+       "use": "core"
+      },
+      {
+       "id": "S194",
+       "ref": "classification of retail products",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": {
+    "name": "Dealer Desk",
+    "variant": "Delta-hedge a small option book as spot and vol move; track hedged P&L vs gamma/theta/vega"
+   },
+   "unit_test": "Replication, tree and BS pricing, put-call parity, Greeks of a position, structured-note decomposition.",
+   "jurisdiction_notes": "Price conventions are market-neutral; EU structured-product examples (EUSIPA types) first; US listed options and Swiss SSPA types mentioned in unit 8."
+  },
+  {
+   "id": "Q8",
+   "title": "Stochastic processes & Itô calculus",
+   "track": "theory",
+   "hours": 8,
+   "prereqs": [
+    "Q7",
+    "Q5"
+   ],
+   "boss_items": [],
+   "hook": "Random walks, Brownian motion, quadratic variation, Ito's lemma and the change to the risk-neutral measure.",
+   "units": [
+    {
+     "id": "Q8.1",
+     "title": "Random walks and the scaled walk",
+     "minutes": 60,
+     "objectives": [
+      "Compute mean, variance and distribution of a symmetric random walk after n steps",
+      "Explain scaling: why time step dt pairs with step size sqrt(dt)",
+      "Describe the central-limit view of the walk converging to a normal"
+     ],
+     "key_concepts": [
+      "random walk",
+      "independent increments",
+      "variance grows linearly in time",
+      "square-root-of-time rule",
+      "scaling limit"
+     ],
+     "worked_example": "Walk with step +/-1 per day for 100 days: sd = 10; scale step to sigma sqrt(dt) with sigma = 20% and dt = 1/252 and a year's sd becomes 20%.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute mean and sd of an n-step walk",
+       "params": "n, step size, probabilities"
+      },
+      {
+       "template": "numeric",
+       "task": "Rescale a daily vol to annual and vice versa",
+       "params": "daily/annual vol, trading days"
+      },
+      {
+       "template": "mcq",
+       "task": "Doubling the horizon multiplies the sd by what?",
+       "params": "factors with sqrt(2) as the right answer"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill in the scaling that keeps variance finite as dt -> 0",
+       "params": "word bank"
+      }
+     ],
+     "callbacks": [
+      "Q5.4",
+      "Q1.5",
+      "F2.2"
+     ],
+     "sources": [
+      {
+       "id": "S092",
+       "ref": "Ch. 3 (state prices and random walks)",
+       "use": "core"
+      },
+      {
+       "id": "S078",
+       "ref": "Lectures on random walks/Brownian motion",
+       "use": "deeper"
+      },
+      {
+       "id": "S074",
+       "ref": "Ch. on CLT",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "Q8.2",
+     "title": "Brownian motion: definition and properties",
+     "minutes": 60,
+     "objectives": [
+      "State the four defining properties of standard Brownian motion",
+      "Compute probabilities of events about W(t) using increments and the normal distribution",
+      "Explain why paths are continuous but nowhere differentiable, in words"
+     ],
+     "key_concepts": [
+      "W(0)=0",
+      "independent stationary Gaussian increments",
+      "continuity",
+      "covariance min(s,t)",
+      "reflection principle (idea)",
+      "drift and scale: mu t + sigma W(t)"
+     ],
+     "worked_example": "P(W(4) > 3) = P(Z > 1.5) = 6.7%; for X(t) = 0.05t + 0.2W(t) at t = 1, X is N(0.05, 0.04).",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Probability that W(t) exceeds a level",
+       "params": "t, level"
+      },
+      {
+       "template": "numeric",
+       "task": "Covariance and correlation of W(s) and W(t)",
+       "params": "s < t"
+      },
+      {
+       "template": "multi",
+       "task": "Select which processes are Brownian motion",
+       "params": "candidates incl. -W, W(2t), sqrt(c)W(t/c), |W|"
+      },
+      {
+       "template": "numeric",
+       "task": "Distribution of X(t) = mu t + sigma W(t) at a horizon",
+       "params": "mu, sigma, t"
+      }
+     ],
+     "callbacks": [
+      "Q5.3",
+      "Q8.1",
+      "Q2.3"
+     ],
+     "sources": [
+      {
+       "id": "S092",
+       "ref": "Ch. 3-4 (scaled random walk and Brownian motion)",
+       "use": "deeper"
+      },
+      {
+       "id": "S146",
+       "ref": "Ch. 3.1-3.3 (Brownian motion)",
+       "use": "core"
+      },
+      {
+       "id": "S147",
+       "ref": "Ch. 2",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "Q8.3",
+     "title": "Quadratic variation: why ordinary calculus fails",
+     "minutes": 60,
+     "objectives": [
+      "Compute the quadratic variation of a Brownian path and of a smooth path",
+      "Use the rule (dW)^2 = dt, dt dW = 0, (dt)^2 = 0 mechanically",
+      "Explain in a sentence why this produces the extra term in Itô's formula"
+     ],
+     "key_concepts": [
+      "variation vs quadratic variation",
+      "multiplication table of differentials",
+      "smooth paths have zero QV",
+      "Brownian QV = t",
+      "realised variance as QV"
+     ],
+     "worked_example": "Daily log returns with sd 1.26% across 252 days give realised QV 252 x 0.0126^2 = 0.040, i.e. annualised vol 20%: the sum of squares converges, the sum of absolute values grows with finer sampling.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Realised variance and vol from a series of 10 returns",
+       "params": "return series"
+      },
+      {
+       "template": "mcq",
+       "task": "Which process has non-zero quadratic variation?",
+       "params": "smooth, BM, BM + drift, jump with finite activity"
+      },
+      {
+       "template": "table",
+       "task": "Complete a differential multiplication table",
+       "params": "dt, dW, dW dW"
+      },
+      {
+       "template": "numeric",
+       "task": "Why QV is independent of drift: compute QV of mu t + sigma W",
+       "params": "mu, sigma, T"
+      }
+     ],
+     "callbacks": [
+      "Q8.2",
+      "Q3.2",
+      "F2.2"
+     ],
+     "sources": [
+      {
+       "id": "S146",
+       "ref": "Ch. 3.4 (quadratic variation)",
+       "use": "core"
+      },
+      {
+       "id": "S012",
+       "ref": "Ch. 3",
+       "use": "deeper"
+      },
+      {
+       "id": "S147",
+       "ref": "Ch. 3",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "Q8.4",
+     "title": "The Itô integral: building stochastic integrals",
+     "minutes": 60,
+     "objectives": [
+      "Describe the Itô integral as the limit of sums with left-endpoint evaluation",
+      "State mean-zero and Itô isometry and compute variance of simple integrals",
+      "Explain in words why the integral of W dW is (W^2 - t)/2 and not W^2/2"
+     ],
+     "key_concepts": [
+      "adapted integrands",
+      "left-endpoint rule",
+      "martingale property",
+      "Itô isometry",
+      "stochastic vs Riemann-Stieltjes",
+      "Stratonovich (mention only)"
+     ],
+     "worked_example": "The integral of W dW from 0 to T: the extra -T/2 is exactly the quadratic-variation correction; E[integral] = 0 consistent with E[W^2 - T] = 0.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute variance of the integral of c dW or of t dW with Itô isometry",
+       "params": "integrand, T"
+      },
+      {
+       "template": "mcq",
+       "task": "Why must the integrand be evaluated at the left endpoint?",
+       "params": "trading-strategy interpretation: cannot see the future"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill in properties: mean, isometry, martingale",
+       "params": "word bank"
+      },
+      {
+       "template": "numeric",
+       "task": "Expected value and variance of a discretised trading gain from holding delta_i over each step",
+       "params": "positions, step sd"
+      }
+     ],
+     "callbacks": [
+      "Q4.1",
+      "Q8.3",
+      "F6.5"
+     ],
+     "sources": [
+      {
+       "id": "S146",
+       "ref": "Ch. 4.1-4.3 (Itô integral)",
+       "use": "core"
+      },
+      {
+       "id": "S147",
+       "ref": "Ch. 3",
+       "use": "deeper"
+      },
+      {
+       "id": "S012",
+       "ref": "Ch. 3",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "Q8.5",
+     "title": "Itô's lemma: the chain rule for diffusions",
+     "minutes": 60,
+     "objectives": [
+      "Apply Itô's lemma to functions of W and of t and W",
+      "Derive the SDE of S^2, ln S and 1/S given dS = mu S dt + sigma S dW",
+      "Explain the -sigma^2/2 correction in the log"
+     ],
+     "key_concepts": [
+      "Itô's formula f_t dt + f_x dX + 1/2 f_xx (dX)^2",
+      "second-order term",
+      "drift change under nonlinear maps",
+      "Jensen link",
+      "partial derivatives (Q7)"
+     ],
+     "worked_example": "For f = ln S: d ln S = (mu - sigma^2/2)dt + sigma dW; with mu = 8% and sigma = 20% the median grows at 6%, not 8%.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute the drift of ln S, S^2 or sqrt(S) from mu and sigma",
+       "params": "mu, sigma, function"
+      },
+      {
+       "template": "order",
+       "task": "Order the mechanical steps of an Itô computation",
+       "params": "function f(t,x)"
+      },
+      {
+       "template": "table",
+       "task": "Tabulate f_t, f_x, f_xx then assemble drift and diffusion for f(S)",
+       "params": "function choice"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a derivation that uses ordinary chain rule",
+       "params": "dropped second-order term"
+      },
+      {
+       "template": "mcq",
+       "task": "Why is the median of S(T) below its mean?",
+       "params": "mu, sigma values"
+      }
+     ],
+     "callbacks": [
+      "Q7.1",
+      "Q4.3",
+      "Q3.3",
+      "Q8.3"
+     ],
+     "sources": [
+      {
+       "id": "S146",
+       "ref": "Ch. 4.4 (Itô-Doeblin formula)",
+       "use": "core"
+      },
+      {
+       "id": "S012",
+       "ref": "Ch. 3-4",
+       "use": "core"
+      },
+      {
+       "id": "S084",
+       "ref": "Ch. 4 (stochastic calculus basics)",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "Q8.6",
+     "title": "Geometric Brownian motion and solving SDEs",
+     "minutes": 60,
+     "objectives": [
+      "Solve the GBM SDE explicitly and read off moments and quantiles of S(T)",
+      "Simulate (conceptually) a path with the exact log-step",
+      "Compare arithmetic and geometric returns in a continuous-time setting"
+     ],
+     "key_concepts": [
+      "GBM",
+      "lognormal moments E[S] = S0 e^{mu T}",
+      "variance of S(T)",
+      "exact vs Euler discretisation",
+      "volatility drag"
+     ],
+     "worked_example": "S0 = 100, mu = 8%, sigma = 20%, T = 5: E[S] = 149.2, median = 100 e^{0.06x5} = 134.9, 5% quantile of the log-return distribution via z = -1.645.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Mean, median and 95% interval of S(T)",
+       "params": "S0, mu, sigma, T"
+      },
+      {
+       "template": "numeric",
+       "task": "Probability the stock ends above a threshold at T",
+       "params": "threshold, parameters"
+      },
+      {
+       "template": "numeric",
+       "task": "Volatility drag: difference between arithmetic and geometric average growth",
+       "params": "mu, sigma"
+      },
+      {
+       "template": "mcq",
+       "task": "Which discretisation preserves positivity of S?",
+       "params": "Euler vs log-Euler"
+      }
+     ],
+     "callbacks": [
+      "Q5.3",
+      "Q8.5",
+      "F2.1"
+     ],
+     "sources": [
+      {
+       "id": "S146",
+       "ref": "Ch. 4.4-4.5",
+       "use": "core"
+      },
+      {
+       "id": "S147",
+       "ref": "Ch. 5 (SDEs)",
+       "use": "deeper"
+      },
+      {
+       "id": "S110",
+       "ref": "Ch. 5",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "Q8.7",
+     "title": "Mean reversion and other SDEs: Ornstein-Uhlenbeck, CIR, Vasicek",
+     "minutes": 60,
+     "objectives": [
+      "Write and interpret OU / Vasicek / CIR dynamics and their long-run behaviour",
+      "Compute conditional mean and variance for an OU process",
+      "Link the PDE (Feynman-Kac) and expectation views conceptually"
+     ],
+     "key_concepts": [
+      "mean reversion speed and level",
+      "stationary distribution",
+      "non-negativity (CIR/Feller condition, mention)",
+      "short-rate models as inputs for F4",
+      "Feynman-Kac idea"
+     ],
+     "worked_example": "Vasicek with a = 0.5, b = 3%, sigma = 1%: after 2 years the expected rate from r0 = 1% is 3% - 2% e^{-1} = 2.26%, and the stationary sd is 1%/sqrt(1) = 1%.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Conditional mean at horizon t for OU/Vasicek",
+       "params": "a, b, sigma, r0, t"
+      },
+      {
+       "template": "numeric",
+       "task": "Stationary variance sigma^2 / 2a",
+       "params": "a, sigma"
+      },
+      {
+       "template": "match",
+       "task": "Match models to features: GBM, OU, CIR, jump-diffusion",
+       "params": "feature list"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort quantities into 'can go negative' vs 'cannot'",
+       "params": "model list"
+      }
+     ],
+     "callbacks": [
+      "F4.1",
+      "Q8.6",
+      "Q4.2"
+     ],
+     "sources": [
+      {
+       "id": "S146",
+       "ref": "Ch. 6 (connections with PDE) and Ch. 4",
+       "use": "core"
+      },
+      {
+       "id": "S147",
+       "ref": "Ch. 5, 8",
+       "use": "deeper"
+      },
+      {
+       "id": "S110",
+       "ref": "Ch. 24 (short rate models)",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "Q8.8",
+     "title": "Girsanov, risk-neutral measure and the martingale representation",
+     "minutes": 60,
+     "objectives": [
+      "State what changing measure does to drift and not to volatility",
+      "Derive the risk-neutral dynamics of a stock from the real-world ones",
+      "Explain the roles of Girsanov and martingale representation in completeness of Black-Scholes"
+     ],
+     "key_concepts": [
+      "Radon-Nikodym derivative (idea)",
+      "Girsanov drift shift",
+      "market price of risk theta = (mu - r)/sigma",
+      "discounted prices are martingales",
+      "completeness and hedge existence"
+     ],
+     "worked_example": "mu = 9%, r = 2%, sigma = 20%: theta = 0.35; under Q the stock drifts at r; same volatility, so vol is observable while mu is not needed for pricing.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Market price of risk and Sharpe ratio from mu, r, sigma",
+       "params": "mu, r, sigma"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill in the risk-neutral SDE",
+       "params": "word bank"
+      },
+      {
+       "template": "mcq",
+       "task": "What is invariant under change of measure?",
+       "params": "volatility, drift, paths, probabilities"
+      },
+      {
+       "template": "paper",
+       "task": "Optional: explain Girsanov to a trader in terms of re-weighting scenarios",
+       "params": "rubric: Radon-Nikodym, drift shift, vol unchanged"
+      }
+     ],
+     "callbacks": [
+      "F6.2",
+      "F6.5",
+      "Q8.6"
+     ],
+     "sources": [
+      {
+       "id": "S146",
+       "ref": "Ch. 5 (risk-neutral pricing, Girsanov)",
+       "use": "core"
+      },
+      {
+       "id": "S110",
+       "ref": "Ch. 11-12",
+       "use": "deeper"
+      },
+      {
+       "id": "S012",
+       "ref": "Ch. 3-4",
+       "use": "core"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "Brownian properties, quadratic variation, Itô's lemma computations, GBM/OU moments, Girsanov in words.",
+   "jurisdiction_notes": null
+  },
+  {
+   "id": "F7",
+   "title": "Asset pricing theory",
+   "track": "theory",
+   "hours": 7,
+   "prereqs": [
+    "F5",
+    "Q8"
+   ],
+   "boss_items": [],
+   "hook": "Stochastic discount factors, the consumption-based first-order condition, and the derivation of the CAPM and factor models from it.",
+   "units": [
+    {
+     "id": "F7.1",
+     "title": "Preferences, utility and risk aversion",
+     "minutes": 60,
+     "objectives": [
+      "Compute expected utility and certainty equivalent for a lottery under CRRA and CARA",
+      "Derive absolute and relative risk aversion for given utility functions",
+      "Link risk aversion to the required premium for a risky asset"
+     ],
+     "key_concepts": [
+      "expected utility",
+      "concavity",
+      "CRRA and CARA",
+      "Arrow-Pratt measures",
+      "certainty equivalent and risk premium",
+      "marginal utility"
+     ],
+     "worked_example": "Log utility, 50/50 gamble on wealth 80 or 120 EUR: EU = 0.5 ln 80 + 0.5 ln 120 = 4.5847, certainty equivalent 97.98 < 100, risk premium about 2.0 EUR.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Certainty equivalent of a gamble under power utility",
+       "params": "outcomes, probabilities, gamma"
+      },
+      {
+       "template": "numeric",
+       "task": "Relative risk aversion from derivatives u', u'' (calculus drill)",
+       "params": "utility form"
+      },
+      {
+       "template": "mcq",
+       "task": "Which preference ranking holds as gamma rises?",
+       "params": "gamma values"
+      },
+      {
+       "template": "match",
+       "task": "Match utility functions to CRRA/CARA/neither",
+       "params": "list"
+      }
+     ],
+     "callbacks": [
+      "F5.1",
+      "Q3.2",
+      "Q5.2"
+     ],
+     "sources": [
+      {
+       "id": "S111",
+       "ref": "Ch. 1.1-1.3 (utility)",
+       "use": "core"
+      },
+      {
+       "id": "S127",
+       "ref": "Ch. 1-2",
+       "use": "core"
+      },
+      {
+       "id": "S015",
+       "ref": "Ch. 6 (risk aversion)",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "F7.2",
+     "title": "The fundamental equation: stochastic discount factor",
+     "minutes": 60,
+     "objectives": [
+      "Derive price = E[m x] from a two-period investor problem",
+      "Use the SDF to price a bond, a stock and a zero-cost excess return",
+      "Decompose the risk premium into -cov(m, R)"
+     ],
+     "key_concepts": [
+      "m = beta u'(c_{t+1})/u'(c_t)",
+      "p = E(mx)",
+      "E(R^e) = -cov(m,R^e)/E(m)",
+      "risk-free rate 1/E(m)",
+      "idiosyncratic vs systematic risk"
+     ],
+     "worked_example": "m takes 1.1 in a bad state (p = 0.4) and 0.7 in a good state (p = 0.6); E[m] = 0.86 so Rf = 16.3%; a payoff paying 100 in the bad state only is worth 44 EUR.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Price a payoff given state probabilities and SDF values",
+       "params": "states, m, x"
+      },
+      {
+       "template": "numeric",
+       "task": "Risk premium from cov(m, R)",
+       "params": "m and R scenarios"
+      },
+      {
+       "template": "order",
+       "task": "Sequence the steps of the derivation from investor FOC to price",
+       "params": "five steps"
+      },
+      {
+       "template": "mcq",
+       "task": "Why is an asset positively correlated with consumption growth risky?",
+       "params": "scenario descriptions"
+      },
+      {
+       "template": "table",
+       "task": "Complete a state-price table: probability, m, payoff, contribution",
+       "params": "3 states"
+      }
+     ],
+     "callbacks": [
+      "F6.2",
+      "F5.3",
+      "Q5.2"
+     ],
+     "sources": [
+      {
+       "id": "S111",
+       "ref": "Ch. 1 (Consumption-based model and overview)",
+       "use": "core"
+      },
+      {
+       "id": "S127",
+       "ref": "Ch. 3-4",
+       "use": "core"
+      },
+      {
+       "id": "S112",
+       "ref": "Ch. 1-3",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "F7.3",
+     "title": "SDF, beta pricing and the Hansen-Jagannathan bound",
+     "minutes": 60,
+     "objectives": [
+      "Show that any beta-pricing model corresponds to an SDF linear in factors",
+      "Use the Hansen-Jagannathan bound to bound the SDF volatility from Sharpe ratios",
+      "Compare CAPM and mean-variance frontiers in SDF language"
+     ],
+     "key_concepts": [
+      "m = a + b'f",
+      "factor risk premia lambda",
+      "mean-variance frontier as minimal-variance SDF",
+      "HJ bound sigma(m)/E(m) >= Sharpe",
+      "Cauchy-Schwarz idea"
+     ],
+     "worked_example": "Equity Sharpe ratio 0.4: sigma(m)/E(m) must be at least 0.4. With CRRA = 2 and consumption growth vol 1.5%, sigma(m) is only about 3%, a large gap.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Minimum SDF volatility implied by a Sharpe ratio",
+       "params": "Sharpe, E(m)"
+      },
+      {
+       "template": "numeric",
+       "task": "Convert a CAPM beta and market premium into an SDF coefficient b",
+       "params": "beta, premium, rf"
+      },
+      {
+       "template": "mcq",
+       "task": "A model with higher sigma(m) than the bound implies what for prices?",
+       "params": "statements"
+      },
+      {
+       "template": "match",
+       "task": "Match each model (CAPM, CCAPM, APT) to its SDF form",
+       "params": "models and formulas"
+      }
+     ],
+     "callbacks": [
+      "F5.3",
+      "F5.4",
+      "F7.2",
+      "Q6.4"
+     ],
+     "sources": [
+      {
+       "id": "S111",
+       "ref": "Ch. 5-6 (beta representations, mean-variance frontier), Ch. 4.5 (HJ bound)",
+       "use": "core"
+      },
+      {
+       "id": "S127",
+       "ref": "Ch. 5-6",
+       "use": "core"
+      },
+      {
+       "id": "S048",
+       "ref": "Sharpe 1964",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "F7.4",
+     "title": "Consumption-based asset pricing and the equity premium puzzle",
+     "minutes": 60,
+     "objectives": [
+      "Compute equity premium implied by CRRA preferences and consumption growth",
+      "State the Mehra-Prescott puzzle and the risk-free rate puzzle",
+      "List the main directions out of the puzzles"
+     ],
+     "key_concepts": [
+      "CCAPM",
+      "equity premium ~ gamma cov(dc, R)",
+      "risk-free puzzle",
+      "high gamma implausibility",
+      "rare disasters",
+      "habit (preview)"
+     ],
+     "worked_example": "Historical premium 6%, consumption-growth vol 1.5%, correlation with stock 0.2, stock vol 16%: gamma = 6% / (0.2 x 1.5% x 16%) = 125, implausibly high.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute implied gamma from premium and covariance",
+       "params": "premium, vols, correlation"
+      },
+      {
+       "template": "mcq",
+       "task": "Why is the risk-free rate puzzle related to the equity premium puzzle?",
+       "params": "choices on discount factor"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort proposed resolutions: preferences / market frictions / beliefs / data",
+       "params": "list"
+      },
+      {
+       "template": "numeric",
+       "task": "Implied risk-free rate in a model with high gamma and growth",
+       "params": "beta, gamma, growth"
+      }
+     ],
+     "callbacks": [
+      "F7.3",
+      "F2.4",
+      "F5.2"
+     ],
+     "sources": [
+      {
+       "id": "S111",
+       "ref": "Ch. 21 (equity premium puzzle)",
+       "use": "core"
+      },
+      {
+       "id": "S127",
+       "ref": "Ch. 7-8",
+       "use": "core"
+      },
+      {
+       "id": "S148",
+       "ref": "Ch. 8 (intertemporal equilibrium)",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "F7.5",
+     "title": "Recursive preferences, habits and long-run risk",
+     "minutes": 60,
+     "objectives": [
+      "Distinguish risk aversion from elasticity of intertemporal substitution (Epstein-Zin)",
+      "Explain why habit makes marginal utility counter-cyclical and raises risk premia",
+      "Evaluate the empirical realism of each approach"
+     ],
+     "key_concepts": [
+      "Epstein-Zin",
+      "EIS vs gamma",
+      "habit formation",
+      "long-run risk",
+      "time-varying risk aversion",
+      "stochastic volatility of m"
+     ],
+     "worked_example": "With gamma = 10 and EIS = 1.5 the model can fit a premium of about 5-6% using persistent expected-growth shocks, unlike CRRA where gamma = 1/EIS.",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Match each mechanism to the puzzle it targets",
+       "params": "mechanisms, puzzles"
+      },
+      {
+       "template": "mcq",
+       "task": "In CRRA, how are EIS and gamma related?",
+       "params": "relationships"
+      },
+      {
+       "template": "numeric",
+       "task": "Surplus consumption ratio dynamics, one-step update",
+       "params": "habit parameter, consumption"
+      },
+      {
+       "template": "paper",
+       "task": "Optional: 300 words on which extension is most convincing and why",
+       "params": "rubric: mechanism, evidence, weakness"
+      }
+     ],
+     "callbacks": [
+      "F7.4",
+      "F5.5",
+      "Q1.3"
+     ],
+     "sources": [
+      {
+       "id": "S111",
+       "ref": "Ch. 21.2-21.3 (extensions)",
+       "use": "core"
+      },
+      {
+       "id": "S127",
+       "ref": "Ch. 6, 9",
+       "use": "core"
+      },
+      {
+       "id": "S112",
+       "ref": "Ch. 5-6",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "F7.6",
+     "title": "Factor models, APT and testing: Fama-French, Fama-MacBeth, GMM",
+     "minutes": 60,
+     "objectives": [
+      "Explain APT and the link between factor loadings and expected returns",
+      "Describe the two-pass Fama-MacBeth regression and what it estimates",
+      "Interpret GMM moment conditions E[m R^e] = 0 and pricing-error tests"
+     ],
+     "key_concepts": [
+      "APT",
+      "time-series vs cross-sectional regression",
+      "alpha as pricing error",
+      "Fama-MacBeth",
+      "GMM moment conditions",
+      "data snooping and factor zoo"
+     ],
+     "worked_example": "Three-factor regression of fund returns gives alpha = 0.25%/month, t = 1.1: significant only if t > 2; with 300 candidate factors some will clear t > 2 by chance.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Expected return from betas and factor premia",
+       "params": "betas, premia, rf"
+      },
+      {
+       "template": "numeric",
+       "task": "t-statistic of an alpha estimate",
+       "params": "estimate, standard error, N"
+      },
+      {
+       "template": "order",
+       "task": "Order the steps of Fama-MacBeth",
+       "params": "5 steps"
+      },
+      {
+       "template": "mcq",
+       "task": "Which test statistic uses moment conditions for pricing errors?",
+       "params": "Wald, J, DF, LM"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a back-tested factor claim",
+       "params": "multiple testing, look-ahead"
+      }
+     ],
+     "callbacks": [
+      "F5.4",
+      "F7.3"
+     ],
+     "sources": [
+      {
+       "id": "S051",
+       "ref": "Fama-French 1993",
+       "use": "core"
+      },
+      {
+       "id": "S111",
+       "ref": "Ch. 12-13 (GMM, Fama-MacBeth), Ch. 9",
+       "use": "core"
+      },
+      {
+       "id": "S042",
+       "ref": "Ch. 7-8 (factor investing)",
+       "use": "deeper"
+      },
+      {
+       "id": "S148",
+       "ref": "Ch. 6",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "F7.7",
+     "title": "Complete markets, state prices and the fundamental theorems",
+     "minutes": 60,
+     "objectives": [
+      "State the two fundamental theorems of asset pricing in finite-state markets",
+      "Find state prices by solving a linear system (Arrow securities)",
+      "Link SDF, risk-neutral measure and no-arbitrage through the same vector"
+     ],
+     "key_concepts": [
+      "Arrow-Debreu securities",
+      "FTAP I: no arbitrage <-> positive SDF/EMM",
+      "FTAP II: completeness <-> unique SDF",
+      "m = q/p",
+      "incomplete markets and bounds"
+     ],
+     "worked_example": "Two assets, three states: bond pays (1,1,1) at price 0.95, stock (80,100,130) at 97: a third security is needed to pin down state prices uniquely; incompleteness yields price intervals for a new payoff.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Solve for state prices from asset prices and payoffs",
+       "params": "payoff matrix, prices"
+      },
+      {
+       "template": "mcq",
+       "task": "Which condition guarantees uniqueness of the risk-neutral measure?",
+       "params": "completeness statements"
+      },
+      {
+       "template": "numeric",
+       "task": "Recover m from q and p",
+       "params": "q, p"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the arbitrage in a three-asset price table",
+       "params": "payoff matrix, prices"
+      },
+      {
+       "template": "match",
+       "task": "Match each statement to FTAP I or II",
+       "params": "statements"
+      }
+     ],
+     "callbacks": [
+      "F6.1",
+      "Q6.2",
+      "F7.2"
+     ],
+     "sources": [
+      {
+       "id": "S112",
+       "ref": "Ch. 1-2 (state prices, FTAP)",
+       "use": "core"
+      },
+      {
+       "id": "S120",
+       "ref": "Ch. 1-2",
+       "use": "deeper"
+      },
+      {
+       "id": "S111",
+       "ref": "Ch. 4",
+       "use": "core"
+      },
+      {
+       "id": "S092",
+       "ref": "Ch. 1",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "SDF, HJ bound, CCAPM puzzles, factor model tests, state prices and FTAP.",
+   "jurisdiction_notes": null
+  },
+  {
+   "id": "G1",
+   "title": "Financial econometrics",
+   "track": "theory",
+   "hours": 7,
+   "prereqs": [
+    "Q6",
+    "Q5"
+   ],
+   "boss_items": [],
+   "hook": "Time-series models, stationarity, volatility estimation (GARCH), regression pitfalls and the statistical testing of a backtest.",
+   "units": [
+    {
+     "id": "G1.1",
+     "title": "Linear regression: OLS, geometry and interpretation",
+     "minutes": 60,
+     "objectives": [
+      "Estimate OLS slope and intercept by hand for a small sample",
+      "Interpret coefficients, R-squared and residuals; link to projection (Q6)",
+      "State the Gauss-Markov assumptions and what each buys"
+     ],
+     "key_concepts": [
+      "OLS",
+      "normal equations b = (X'X)^{-1} X'y",
+      "projection geometry",
+      "R^2",
+      "unbiasedness",
+      "BLUE"
+     ],
+     "worked_example": "Fund returns vs market for 6 months give slope (beta) = 0.92 and alpha = 0.10%/month: a CAPM regression read off in 3 lines.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute beta and alpha from small data table",
+       "params": "6-12 pairs of returns"
+      },
+      {
+       "template": "numeric",
+       "task": "R^2 from SSR and SST",
+       "params": "sums of squares"
+      },
+      {
+       "template": "mcq",
+       "task": "Which assumption failing biases OLS?",
+       "params": "assumption list"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill in the matrix form of OLS",
+       "params": "word bank"
+      }
+     ],
+     "callbacks": [
+      "Q6.2",
+      "F5.3",
+      "Q2.1"
+     ],
+     "sources": [
+      {
+       "id": "S014",
+       "ref": "Ch. 2-3 (simple and multiple regression)",
+       "use": "core"
+      },
+      {
+       "id": "S148",
+       "ref": "Ch. 1-2 (introduction)",
+       "use": "reference"
+      },
+      {
+       "id": "S039",
+       "ref": "Ch. 13",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "G1.2",
+     "title": "Inference, heteroskedasticity and autocorrelation-robust errors",
+     "minutes": 60,
+     "objectives": [
+      "Test coefficient hypotheses with t- and F-statistics",
+      "Recognise heteroskedasticity and autocorrelation and explain what robust (White, Newey-West) standard errors fix",
+      "Compute a confidence interval and judge significance"
+     ],
+     "key_concepts": [
+      "standard errors",
+      "t- and F-tests",
+      "heteroskedasticity",
+      "serial correlation",
+      "HAC / Newey-West",
+      "multicollinearity"
+     ],
+     "worked_example": "Estimated beta 1.1, standard error 0.40: t = 2.75; with Newey-West the se becomes 0.65, t = 1.7, no longer significant at 5%.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "t-statistic and 95% CI",
+       "params": "estimate, se, df"
+      },
+      {
+       "template": "mcq",
+       "task": "What do HAC standard errors correct?",
+       "params": "options"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort diagnostics (Durbin-Watson, Breusch-Pagan, White) by problem",
+       "params": "list"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the misinterpretation of a regression table in a research note",
+       "params": "p-value, R^2, causality"
+      }
+     ],
+     "callbacks": [
+      "G1.1",
+      "Q2.4",
+      "F2.3"
+     ],
+     "sources": [
+      {
+       "id": "S014",
+       "ref": "Ch. 4, 8, 12",
+       "use": "core"
+      },
+      {
+       "id": "S122",
+       "ref": "Ch. 2 (large-sample theory)",
+       "use": "deeper"
+      },
+      {
+       "id": "S148",
+       "ref": "Ch. 1.5",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "G1.3",
+     "title": "Time series: stationarity, ARMA and forecasting",
+     "minutes": 60,
+     "objectives": [
+      "Test by reasoning whether an AR(1) is stationary and compute its moments",
+      "Interpret ACF/PACF pictures to choose AR vs MA",
+      "Produce multi-step AR(1) forecasts and show mean reversion"
+     ],
+     "key_concepts": [
+      "weak stationarity",
+      "AR(1), MA(1), ARMA",
+      "autocorrelation function",
+      "Wold decomposition (idea)",
+      "forecast horizon decay",
+      "information criteria AIC/BIC"
+     ],
+     "worked_example": "AR(1) with phi = 0.8, mean 2%: shock of +1% today forecasts +0.8% tomorrow, +0.51% in 3 days; unconditional variance = sigma^2/(1-0.64).",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "AR(1) k-step forecast and variance",
+       "params": "phi, mean, shock"
+      },
+      {
+       "template": "match",
+       "task": "Match ACF/PACF patterns to AR/MA orders",
+       "params": "plots as descriptions"
+      },
+      {
+       "template": "mcq",
+       "task": "Is a process with |phi| = 1.0 stationary?",
+       "params": "choices"
+      },
+      {
+       "template": "numeric",
+       "task": "Unconditional variance of an AR(1)",
+       "params": "phi, sigma"
+      }
+     ],
+     "callbacks": [
+      "Q2.3",
+      "Q1.5",
+      "Q5.2"
+     ],
+     "sources": [
+      {
+       "id": "S153",
+       "ref": "Ch. 1-3 (difference equations, stationary ARMA)",
+       "use": "core"
+      },
+      {
+       "id": "S041",
+       "ref": "Ch. 2",
+       "use": "core"
+      },
+      {
+       "id": "S148",
+       "ref": "Ch. 2",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "G1.4",
+     "title": "Unit roots, spurious regression and cointegration",
+     "minutes": 60,
+     "objectives": [
+      "Distinguish trend-stationary and unit-root processes and apply the Dickey-Fuller logic",
+      "Explain why regressing two independent random walks gives spurious results",
+      "Describe cointegration and its use in pairs / basis relationships"
+     ],
+     "key_concepts": [
+      "random walk with drift",
+      "Dickey-Fuller test",
+      "spurious regression",
+      "cointegration",
+      "error-correction",
+      "basis and ETF-NAV link"
+     ],
+     "worked_example": "Two independent random walks regressed on each other show R^2 = 0.6 and t = 12: spurious; but an ETF and its NAV differ by a stationary spread (P5 callback), so they are cointegrated.",
+     "exercises": [
+      {
+       "template": "mcq",
+       "task": "Which regression signature suggests spuriousness?",
+       "params": "high R^2, low DW"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort series as I(0) or I(1): returns, prices, spreads, rates",
+       "params": "list"
+      },
+      {
+       "template": "order",
+       "task": "Order the Engle-Granger two-step procedure",
+       "params": "steps"
+      },
+      {
+       "template": "numeric",
+       "task": "Dickey-Fuller t-statistic and decision at critical value -2.86",
+       "params": "estimate, se"
+      }
+     ],
+     "callbacks": [
+      "P5.4",
+      "G1.3",
+      "Q8.1"
+     ],
+     "sources": [
+      {
+       "id": "S153",
+       "ref": "Ch. 15-19 (unit roots, cointegration)",
+       "use": "core"
+      },
+      {
+       "id": "S041",
+       "ref": "Ch. 8",
+       "use": "deeper"
+      },
+      {
+       "id": "S148",
+       "ref": "Ch. 7",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "G1.5",
+     "title": "Volatility stylised facts and ARCH",
+     "minutes": 60,
+     "objectives": [
+      "List stylised facts of returns: fat tails, clustering, leverage effect",
+      "Compute conditional variance from an ARCH(1) recursion",
+      "Test (conceptually) for ARCH effects"
+     ],
+     "key_concepts": [
+      "volatility clustering",
+      "kurtosis",
+      "ARCH(1)",
+      "conditional vs unconditional variance",
+      "Engle's LM test",
+      "leverage effect"
+     ],
+     "worked_example": "ARCH(1) with omega = 0.00002, alpha = 0.3: after a -3% return the next-day variance is 0.00002 + 0.3 x 0.0009 = 0.00029, i.e., vol 1.70%.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "ARCH(1) conditional variance from last return",
+       "params": "omega, alpha, return"
+      },
+      {
+       "template": "numeric",
+       "task": "Unconditional variance omega/(1-alpha)",
+       "params": "omega, alpha"
+      },
+      {
+       "template": "mcq",
+       "task": "Which stylised fact does the normal distribution contradict?",
+       "params": "kurtosis"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort return facts into 'explained by ARCH' vs 'not explained'",
+       "params": "facts"
+      }
+     ],
+     "callbacks": [
+      "G1.3",
+      "F2.2",
+      "Q5.3"
+     ],
+     "sources": [
+      {
+       "id": "S113",
+       "ref": "Engle 1982, Sections 1-3",
+       "use": "core"
+      },
+      {
+       "id": "S041",
+       "ref": "Ch. 3",
+       "use": "core"
+      },
+      {
+       "id": "S148",
+       "ref": "Ch. 12",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "G1.6",
+     "title": "GARCH family, forecasting volatility and VaR",
+     "minutes": 60,
+     "objectives": [
+      "Run a GARCH(1,1) recursion and forecast variance over a horizon",
+      "Explain persistence, half-life and why GARCH mean-reverts to long-run variance",
+      "Compute parametric VaR from a conditional variance forecast and explain EGARCH/GJR asymmetry"
+     ],
+     "key_concepts": [
+      "GARCH(1,1)",
+      "persistence alpha+beta",
+      "half-life of shocks",
+      "GJR/EGARCH",
+      "multi-step variance forecasts",
+      "parametric VaR"
+     ],
+     "worked_example": "omega = 0.000002, alpha = 0.08, beta = 0.90: long-run variance 0.0001 (vol 1.0%/day); persistence 0.98, half-life ln 0.5/ln 0.98 = 34 days.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "One-step GARCH(1,1) variance update",
+       "params": "omega, alpha, beta, last return, last variance"
+      },
+      {
+       "template": "numeric",
+       "task": "Half-life of variance shocks",
+       "params": "alpha+beta"
+      },
+      {
+       "template": "numeric",
+       "task": "1-day 99% VaR on a portfolio from forecast vol",
+       "params": "position, sigma, z"
+      },
+      {
+       "template": "mcq",
+       "task": "What does alpha + beta = 1 imply (IGARCH)?",
+       "params": "options"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the problem in a VaR report that uses constant vol after a shock",
+       "params": "report excerpt"
+      }
+     ],
+     "callbacks": [
+      "G1.5",
+      "F2.2",
+      "Q8.7"
+     ],
+     "sources": [
+      {
+       "id": "S130",
+       "ref": "Bollerslev 1986",
+       "use": "core"
+      },
+      {
+       "id": "S041",
+       "ref": "Ch. 3",
+       "use": "core"
+      },
+      {
+       "id": "S089",
+       "ref": "Ch. on volatility estimation, VaR",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "G1.7",
+     "title": "Research design: events, overfitting, multiple testing and backtests",
+     "minutes": 60,
+     "objectives": [
+      "Design an event study and compute a cumulative abnormal return",
+      "Explain data snooping, look-ahead and survivorship bias with examples from fund and index data",
+      "Adjust significance for multiple tests (Bonferroni idea) and judge a backtest claim"
+     ],
+     "key_concepts": [
+      "event study",
+      "abnormal return",
+      "data snooping",
+      "out-of-sample testing",
+      "Bonferroni/FDR (idea)",
+      "survivorship bias in fund data"
+     ],
+     "worked_example": "A strategy picked as best of 40 variants shows t = 2.4; with Bonferroni the threshold for 5% overall is about t = 3.0, so the claim fails.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Cumulative abnormal return for a 5-day window",
+       "params": "returns, market model"
+      },
+      {
+       "template": "numeric",
+       "task": "Bonferroni-adjusted significance threshold",
+       "params": "number of tests, alpha"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the bias in a fund-performance table (dead funds missing)",
+       "params": "table"
+      },
+      {
+       "template": "paper",
+       "task": "Optional: critique a published-style backtest summary",
+       "params": "rubric: biases, costs, out-of-sample"
+      }
+     ],
+     "callbacks": [
+      "F7.6",
+      "A6.1",
+      "G1.2"
+     ],
+     "sources": [
+      {
+       "id": "S148",
+       "ref": "Ch. 4 (event-study methodology)",
+       "use": "core"
+      },
+      {
+       "id": "S107",
+       "ref": "Ch. 17",
+       "use": "deeper"
+      },
+      {
+       "id": "S042",
+       "ref": "Ch. 10",
+       "use": "reference"
+      },
+      {
+       "id": "S014",
+       "ref": "Ch. 17",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "OLS inference, ARMA, unit roots, GARCH, event-study and multiple-testing judgement.",
+   "jurisdiction_notes": null
+  },
+  {
+   "id": "G2",
+   "title": "Measure-theoretic probability & analysis bridge",
+   "track": "theory",
+   "hours": 6,
+   "prereqs": [
+    "Q8"
+   ],
+   "boss_items": [],
+   "hook": "Sigma-algebras, measures, the Lebesgue integral, and the convergence theorems used in stochastic-calculus proofs, introduced through finite examples.",
+   "units": [
+    {
+     "id": "G2.1",
+     "title": "Why measure theory: sets, sigma-algebras and probability spaces",
+     "minutes": 60,
+     "objectives": [
+      "Verify whether a collection of sets is a sigma-algebra",
+      "Describe a probability space and information as a sigma-algebra (filtration idea)",
+      "Explain why not every subset of [0,1] can be given a length"
+     ],
+     "key_concepts": [
+      "sigma-algebra",
+      "measure",
+      "probability space (Omega, F, P)",
+      "Borel sets",
+      "filtration as information over time",
+      "null sets"
+     ],
+     "worked_example": "Coin tossed twice: F_1 = information after toss 1 has 4 sets; F_2 is all 16 subsets; a filtration is the growing sequence.",
+     "exercises": [
+      {
+       "template": "mcq",
+       "task": "Which collections are sigma-algebras?",
+       "params": "list of set families"
+      },
+      {
+       "template": "numeric",
+       "task": "Count events in the sigma-algebra generated by a partition",
+       "params": "partition size"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill in the axioms of a probability measure",
+       "params": "word bank"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort events by F_0, F_1, F_2 measurability",
+       "params": "events in a 3-toss tree"
+      }
+     ],
+     "callbacks": [
+      "Q2.1",
+      "Q5.1",
+      "Q8.2"
+     ],
+     "sources": [
+      {
+       "id": "S104",
+       "ref": "Ch. 1-2",
+       "use": "core"
+      },
+      {
+       "id": "S143",
+       "ref": "Ch. 1.1",
+       "use": "deeper"
+      },
+      {
+       "id": "S155",
+       "ref": "Ch. 1-2 (analysis prerequisites)",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "G2.2",
+     "title": "Random variables, distributions and modes of convergence",
+     "minutes": 60,
+     "objectives": [
+      "Check measurability of a function and compute the law of a random variable",
+      "Distinguish almost-sure, in probability, in L^p and in distribution convergence",
+      "Give a counterexample separating two modes"
+     ],
+     "key_concepts": [
+      "measurable function",
+      "law/distribution",
+      "a.s. vs in probability vs L^2 vs weak convergence",
+      "Borel-Cantelli (idea)",
+      "convergence of Riemann sums vs Itô sums"
+     ],
+     "worked_example": "X_n = n on a set of probability 1/n and 0 elsewhere: X_n -> 0 in probability but E|X_n| = 1 does not go to 0.",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Match each convergence mode to its definition",
+       "params": "four modes"
+      },
+      {
+       "template": "mcq",
+       "task": "Which implication holds (a.s. => in probability, converse false)?",
+       "params": "pairs of modes"
+      },
+      {
+       "template": "numeric",
+       "task": "Check convergence in probability numerically for given P(|X_n|>eps)",
+       "params": "sequence"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the invalid step in a proof sketch that exchanges limit and expectation",
+       "params": "excerpt"
+      }
+     ],
+     "callbacks": [
+      "Q4.1",
+      "G2.1",
+      "Q5.4"
+     ],
+     "sources": [
+      {
+       "id": "S104",
+       "ref": "Ch. 3-5 (random variables, convergence)",
+       "use": "core"
+      },
+      {
+       "id": "S143",
+       "ref": "Ch. 1-2 (laws of large numbers)",
+       "use": "deeper"
+      },
+      {
+       "id": "S155",
+       "ref": "Ch. 2-3",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "G2.3",
+     "title": "Lebesgue integral, expectation and limit theorems",
+     "minutes": 60,
+     "objectives": [
+      "Describe the Lebesgue integral as expectation, via simple functions",
+      "State and apply monotone and dominated convergence",
+      "Explain when E[lim] = lim E[] fails"
+     ],
+     "key_concepts": [
+      "simple functions",
+      "Lebesgue vs Riemann integral",
+      "MCT",
+      "DCT",
+      "Fatou",
+      "L^p spaces"
+     ],
+     "worked_example": "X_n = n 1_{(0,1/n)} on [0,1]: pointwise limit 0 but E[X_n] = 1: no dominating integrable function, so DCT is not available.",
+     "exercises": [
+      {
+       "template": "mcq",
+       "task": "Which theorem justifies exchanging limit and integral here?",
+       "params": "scenarios"
+      },
+      {
+       "template": "numeric",
+       "task": "Expectation of a simple random variable",
+       "params": "values, probabilities"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill in the DCT hypothesis",
+       "params": "word bank"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the illegal interchange in a pricing derivation (option payoff limit)",
+       "params": "excerpt"
+      }
+     ],
+     "callbacks": [
+      "Q4.1",
+      "G2.2",
+      "Q5.2"
+     ],
+     "sources": [
+      {
+       "id": "S104",
+       "ref": "Ch. 6-9",
+       "use": "core"
+      },
+      {
+       "id": "S142",
+       "ref": "Ch. 5-6",
+       "use": "deeper"
+      },
+      {
+       "id": "S143",
+       "ref": "Ch. 1.4-1.5",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "G2.4",
+     "title": "Conditional expectation as a projection",
+     "minutes": 60,
+     "objectives": [
+      "Compute E[X | G] for a finite partition",
+      "State tower, 'taking out what is known' and Jensen properties",
+      "Interpret conditional expectation as least-squares best predictor given information"
+     ],
+     "key_concepts": [
+      "E[X|G]",
+      "tower property",
+      "linearity and pull-out",
+      "best predictor in L^2",
+      "link to regression (G1.1)",
+      "Jensen"
+     ],
+     "worked_example": "Three-toss tree: E[S_3 | F_1] computed node by node; also E[E[S_3|F_2]|F_1] equals the same, the tower rule in action.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "E[X | partition cell] on a finite space",
+       "params": "probabilities, values"
+      },
+      {
+       "template": "table",
+       "task": "Fill the conditional expectation tree for a 3-step process",
+       "params": "up/down parameters"
+      },
+      {
+       "template": "mcq",
+       "task": "Which identity is the tower property?",
+       "params": "options"
+      },
+      {
+       "template": "mcq",
+       "task": "Conditional expectation minimises which loss?",
+       "params": "square, absolute, 0-1"
+      }
+     ],
+     "callbacks": [
+      "G1.1",
+      "G2.3",
+      "F6.3",
+      "Q6.3"
+     ],
+     "sources": [
+      {
+       "id": "S142",
+       "ref": "Ch. 9 (conditional expectation)",
+       "use": "core"
+      },
+      {
+       "id": "S092",
+       "ref": "Ch. 2 (conditional expectation)",
+       "use": "core"
+      },
+      {
+       "id": "S104",
+       "ref": "Ch. 13",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "G2.5",
+     "title": "Martingales, stopping and convergence",
+     "minutes": 60,
+     "objectives": [
+      "Verify martingale property for a given process",
+      "Apply optional stopping to a gambler-ruin type problem",
+      "Link martingales to no-arbitrage pricing"
+     ],
+     "key_concepts": [
+      "martingale/sub/super",
+      "stopping time",
+      "optional stopping",
+      "Doob's inequality (statement)",
+      "martingale convergence (statement)",
+      "discounted price martingale"
+     ],
+     "worked_example": "Fair-coin walk starting at 3, stopped at 0 or 10: P(reaches 10) = 3/10 by optional stopping on a martingale S_n.",
+     "exercises": [
+      {
+       "template": "mcq",
+       "task": "Which processes are martingales?",
+       "params": "list: W, W^2, W^2 - t, e^{W - t/2}"
+      },
+      {
+       "template": "numeric",
+       "task": "Gambler's ruin probability by optional stopping",
+       "params": "start, barriers, p"
+      },
+      {
+       "template": "numeric",
+       "task": "Expected hitting time using W^2 - t",
+       "params": "barrier"
+      },
+      {
+       "template": "match",
+       "task": "Match discrete martingale facts to their finance interpretations",
+       "params": "pairs"
+      }
+     ],
+     "callbacks": [
+      "Q8.4",
+      "F6.2",
+      "G2.4"
+     ],
+     "sources": [
+      {
+       "id": "S142",
+       "ref": "Ch. 10-12",
+       "use": "core"
+      },
+      {
+       "id": "S092",
+       "ref": "Ch. 2.4-2.5",
+       "use": "core"
+      },
+      {
+       "id": "S143",
+       "ref": "Ch. 4",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "G2.6",
+     "title": "Radon-Nikodym, change of measure and a glance at rigorous stochastic calculus",
+     "minutes": 60,
+     "objectives": [
+      "Compute a likelihood ratio dQ/dP on a finite space and re-weight an expectation",
+      "State Girsanov in measure-theoretic form and explain why Q and P are equivalent",
+      "Outline how Itô integrals are defined in L^2 and why the theory needs filtrations"
+     ],
+     "key_concepts": [
+      "absolute continuity and equivalence",
+      "Radon-Nikodym derivative",
+      "change of numeraire (idea)",
+      "Girsanov",
+      "Itô integral as L^2 limit",
+      "path to Shreve II / Oksendal"
+     ],
+     "worked_example": "Binomial P(up) = 0.6, Q(up) = 0.4: Z = 4/6 on up, 6/4 on down; E_P[Z] = 1 and E_Q[X] = E_P[Z X].",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute Z on each outcome and verify E_P[Z] = 1",
+       "params": "P, Q"
+      },
+      {
+       "template": "numeric",
+       "task": "Price a payoff by re-weighting with Z",
+       "params": "payoff vector"
+      },
+      {
+       "template": "mcq",
+       "task": "When are two measures equivalent?",
+       "params": "definitions"
+      },
+      {
+       "template": "paper",
+       "task": "Optional: explain change of measure in a page to a quant analyst",
+       "params": "rubric: Radon-Nikodym, Girsanov, numeraire"
+      }
+     ],
+     "callbacks": [
+      "Q8.8",
+      "F7.7",
+      "G2.5"
+     ],
+     "sources": [
+      {
+       "id": "S104",
+       "ref": "Ch. 10-11 (Radon-Nikodym)",
+       "use": "core"
+      },
+      {
+       "id": "S146",
+       "ref": "Ch. 1.6, 5.2",
+       "use": "core"
+      },
+      {
+       "id": "S147",
+       "ref": "Ch. 4-8",
+       "use": "deeper"
+      },
+      {
+       "id": "S142",
+       "ref": "Ch. 14",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "Sigma-algebras, modes of convergence, MCT/DCT, conditional expectation, martingales, Radon-Nikodym.",
+   "jurisdiction_notes": null
+  },
+  {
+   "id": "G3",
+   "title": "Numerical methods (concepts, no coding)",
+   "track": "theory",
+   "hours": 4,
+   "prereqs": [
+    "F6"
+   ],
+   "boss_items": [],
+   "hook": "Monte Carlo, finite-difference and tree methods for path-dependent products: method selection, test design and the checking of model output.",
+   "units": [
+    {
+     "id": "G3.1",
+     "title": "Monte Carlo: the idea, its error and its limits",
+     "minutes": 60,
+     "objectives": [
+      "Describe the Monte Carlo estimator for a discounted expectation and its standard error",
+      "Compute the number of paths needed for a target accuracy",
+      "Explain the 1/sqrt(N) rate and when MC is preferred"
+     ],
+     "key_concepts": [
+      "sample mean estimator",
+      "standard error s/sqrt(N)",
+      "confidence interval",
+      "dimension-independence",
+      "path-dependence handling",
+      "bias vs variance"
+     ],
+     "worked_example": "Payoff sd 12 EUR, wanted standard error 0.01 EUR: N = (12/0.01)^2 = 1.44 million paths; halving the error needs four times more.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Required paths for a target standard error",
+       "params": "sd, error"
+      },
+      {
+       "template": "numeric",
+       "task": "Confidence interval for an MC price estimate",
+       "params": "mean, sd, N"
+      },
+      {
+       "template": "mcq",
+       "task": "Which product features favour Monte Carlo over trees/PDE?",
+       "params": "features: many underlyings, path dependence"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort problems into 'MC natural' vs 'PDE natural'",
+       "params": "list"
+      }
+     ],
+     "callbacks": [
+      "Q5.4",
+      "F6.4",
+      "Q8.6"
+     ],
+     "sources": [
+      {
+       "id": "S137",
+       "ref": "Ch. 1 (foundations) and Ch. 2",
+       "use": "core"
+      },
+      {
+       "id": "S094",
+       "ref": "Ch. on Monte Carlo",
+       "use": "core"
+      },
+      {
+       "id": "S084",
+       "ref": "Ch. 80 (Monte Carlo)",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "G3.2",
+     "title": "Variance reduction, Greeks by simulation and American options",
+     "minutes": 60,
+     "objectives": [
+      "Explain antithetic variates, control variates and importance sampling in words",
+      "Compare pathwise, likelihood-ratio and bump-and-revalue Greek estimators",
+      "Describe Longstaff-Schwartz regression for early exercise"
+     ],
+     "key_concepts": [
+      "antithetic and control variates",
+      "importance sampling",
+      "quasi-random (low-discrepancy) sequences",
+      "common random numbers",
+      "pathwise vs LR delta",
+      "least-squares Monte Carlo"
+     ],
+     "worked_example": "Pricing an arithmetic Asian with the geometric Asian (closed form) as control variate cuts variance by roughly 95% at same path count.",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Match each technique to its mechanism",
+       "params": "list"
+      },
+      {
+       "template": "numeric",
+       "task": "Variance reduction factor 1 - rho^2 with control variate",
+       "params": "rho"
+      },
+      {
+       "template": "mcq",
+       "task": "Why do bump-and-revalue Greeks of a digital explode in variance?",
+       "params": "options"
+      },
+      {
+       "template": "order",
+       "task": "Order the Longstaff-Schwartz backward steps",
+       "params": "steps"
+      }
+     ],
+     "callbacks": [
+      "G3.1",
+      "F6.6",
+      "G2.4"
+     ],
+     "sources": [
+      {
+       "id": "S137",
+       "ref": "Ch. 4 (variance reduction), Ch. 7 (Greeks), Ch. 8 (American)",
+       "use": "core"
+      },
+      {
+       "id": "S094",
+       "ref": "Ch. on Greeks and exotics",
+       "use": "core"
+      },
+      {
+       "id": "S084",
+       "ref": "Ch. on Monte Carlo",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "G3.3",
+     "title": "Finite differences for the Black-Scholes PDE",
+     "minutes": 60,
+     "objectives": [
+      "Describe a grid in (S, t) and the explicit, implicit and Crank-Nicolson schemes",
+      "Explain stability and why explicit schemes need small time steps",
+      "Set boundary and terminal conditions for calls, puts and barriers"
+     ],
+     "key_concepts": [
+      "grid and stencil",
+      "explicit/implicit/Crank-Nicolson",
+      "stability and CFL-type condition",
+      "boundary conditions",
+      "convergence order",
+      "early exercise as free-boundary problem (idea)"
+     ],
+     "worked_example": "Explicit scheme with dS = 1 and sigma = 25% at S = 100: stability needs dt <= dS^2/(sigma^2 S^2) = 0.0016 years, about 0.4 trading days; implicit has no such restriction.",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Match schemes to stability and accuracy properties",
+       "params": "three schemes"
+      },
+      {
+       "template": "numeric",
+       "task": "Maximum stable time step for explicit scheme",
+       "params": "sigma, S, dS"
+      },
+      {
+       "template": "bucket",
+       "task": "Place boundary conditions at S=0 and S large for call/put",
+       "params": "list"
+      },
+      {
+       "template": "mcq",
+       "task": "Why is Crank-Nicolson second-order accurate in time?",
+       "params": "statements"
+      }
+     ],
+     "callbacks": [
+      "F6.5",
+      "Q7.1",
+      "Q4.3"
+     ],
+     "sources": [
+      {
+       "id": "S128",
+       "ref": "Ch. 1-4 (FDM for BS)",
+       "use": "core"
+      },
+      {
+       "id": "S084",
+       "ref": "Ch. 77 (finite-difference methods)",
+       "use": "core"
+      },
+      {
+       "id": "S094",
+       "ref": "Ch. on PDE methods",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "G3.4",
+     "title": "Trees, method choice, convergence and model risk",
+     "minutes": 60,
+     "objectives": [
+      "Evaluate convergence of tree prices (oscillation) and why Richardson-style averaging helps",
+      "Choose method (closed form / tree / PDE / MC) for given products",
+      "Explain numerical vs model error and how to test an implementation conceptually"
+     ],
+     "key_concepts": [
+      "tree convergence and odd-even oscillation",
+      "method selection matrix",
+      "greeks stability",
+      "benchmarks and sanity checks",
+      "model risk reserves",
+      "no code: you specify, implementation is checked via tests"
+     ],
+     "worked_example": "Barrier note with 252-step tree vs closed form differ by 0.8 EUR because the barrier misaligns with nodes; moving to a tree aligned to the barrier cuts error to 0.05.",
+     "exercises": [
+      {
+       "template": "table",
+       "task": "Fill in the method choice matrix for six products",
+       "params": "autocallable, American put, Asian, basket, barrier, vanilla"
+      },
+      {
+       "template": "mcq",
+       "task": "Which sanity check detects a sign error in a Greek?",
+       "params": "options"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the misleading claim in a validation report",
+       "params": "report excerpt"
+      },
+      {
+       "template": "paper",
+       "task": "Optional: specify an acceptance test suite (no code) for a new pricer",
+       "params": "rubric: benchmarks, limits, convergence, Greeks"
+      }
+     ],
+     "callbacks": [
+      "G3.3",
+      "F6.8",
+      "P6.3"
+     ],
+     "sources": [
+      {
+       "id": "S094",
+       "ref": "Ch. on trees and implementation",
+       "use": "core"
+      },
+      {
+       "id": "S083",
+       "ref": "Ch. 21 (numerical procedures)",
+       "use": "core"
+      },
+      {
+       "id": "S137",
+       "ref": "Ch. 1",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "Method choice, error sizing for MC, finite-difference stability, convergence and validation logic.",
+   "jurisdiction_notes": null
+  },
+  {
+   "id": "F8",
+   "title": "Behavioural finance",
+   "track": "theory",
+   "hours": 3,
+   "prereqs": [
+    "F5"
+   ],
+   "boss_items": [],
+   "hook": "Prospect theory, loss aversion, mental accounting and other documented biases, and how an advisory process allows for them.",
+   "units": [
+    {
+     "id": "F8.1",
+     "title": "Prospect theory and the standard biases",
+     "minutes": 60,
+     "objectives": [
+      "Compute prospect value with value function and loss aversion",
+      "Explain probability weighting and why small probabilities are over-weighted",
+      "Identify overconfidence, anchoring and mental accounting in case descriptions"
+     ],
+     "key_concepts": [
+      "prospect theory",
+      "reference dependence",
+      "loss aversion lambda ~ 2.25",
+      "probability weighting",
+      "overconfidence",
+      "mental accounting"
+     ],
+     "worked_example": "Gain of 100 vs loss of 100 with 50/50 odds and lambda = 2: value = 0.5 x 100^0.88 - 0.5 x 2 x 100^0.88 < 0, so the bet is refused although expected value is 0.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Prospect value of a gamble",
+       "params": "outcomes, alpha, lambda"
+      },
+      {
+       "template": "match",
+       "task": "Match biases to case descriptions",
+       "params": "five biases, five cases"
+      },
+      {
+       "template": "mcq",
+       "task": "Which behaviour is predicted by loss aversion plus narrow framing?",
+       "params": "descriptions"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort behaviours as belief bias vs preference bias",
+       "params": "list"
+      }
+     ],
+     "callbacks": [
+      "F7.1",
+      "F2.1",
+      "F5.5"
+     ],
+     "sources": [
+      {
+       "id": "S106",
+       "ref": "Sections 1-3 of Barberis-Thaler",
+       "use": "core"
+      },
+      {
+       "id": "S044",
+       "ref": "Part I",
+       "use": "core"
+      }
+     ]
+    },
+    {
+     "id": "F8.2",
+     "title": "Limits to arbitrage, sentiment and market anomalies",
+     "minutes": 60,
+     "objectives": [
+      "Explain why mispricing can persist despite rational arbitrageurs",
+      "Describe momentum, value and post-earnings drift and competing explanations",
+      "Link anomalies to the efficient-market debate (F5.5)"
+     ],
+     "key_concepts": [
+      "limits to arbitrage",
+      "noise trader risk",
+      "short-sale costs",
+      "momentum/reversal",
+      "closed-end fund discount (P4/P5 link)",
+      "joint hypothesis problem"
+     ],
+     "worked_example": "Closed-end fund trades at a 12% discount to NAV for years: arbitrage needs to hold the fund long, short the portfolio, and bear noise-trader risk that discount widens.",
+     "exercises": [
+      {
+       "template": "bucket",
+       "task": "Sort anomalies by risk-based vs behavioural explanation",
+       "params": "list"
+      },
+      {
+       "template": "mcq",
+       "task": "Why can't arbitrageurs eliminate this mispricing?",
+       "params": "cases"
+      },
+      {
+       "template": "numeric",
+       "task": "Return to a convergence trade if discount closes vs widens",
+       "params": "discount path"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the weakness in an anomaly claim (transaction costs ignored)",
+       "params": "excerpt"
+      }
+     ],
+     "callbacks": [
+      "F5.5",
+      "P5.4",
+      "F8.1"
+     ],
+     "sources": [
+      {
+       "id": "S106",
+       "ref": "Sections 4-6",
+       "use": "core"
+      },
+      {
+       "id": "S055",
+       "ref": "Fama 1970",
+       "use": "core"
+      },
+      {
+       "id": "S042",
+       "ref": "Ch. 8-9",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "F8.3",
+     "title": "Behavioural finance in advice and product design",
+     "minutes": 60,
+     "objectives": [
+      "Map client biases to suitability and appropriateness tasks (C4)",
+      "Explain why capital-protected and autocallable notes appeal to some clients",
+      "Design a debiasing step in an advisory process"
+     ],
+     "key_concepts": [
+      "risk profiling and its noise",
+      "disposition effect",
+      "probability weighting and structured product demand",
+      "framing of KID risk indicators (SRI)",
+      "nudges and their limits"
+     ],
+     "worked_example": "A client who refuses to realise a loss on a position down 30% shows the disposition effect; a tax-loss swap into a similar ETF is the advice, but suitability must record the rationale.",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Match client behaviours to advisory countermeasures",
+       "params": "list"
+      },
+      {
+       "template": "mcq",
+       "task": "Which product features exploit probability weighting?",
+       "params": "features"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort process steps as informational vs behavioural interventions",
+       "params": "list"
+      },
+      {
+       "template": "paper",
+       "task": "Optional: 400-word memo on how behaviour should shape a suitability questionnaire",
+       "params": "rubric: bias, evidence, regulatory fit"
+      }
+     ],
+     "callbacks": [
+      "C4.2",
+      "P6.4",
+      "F8.1"
+     ],
+     "sources": [
+      {
+       "id": "S044",
+       "ref": "Part II-III (private banking application)",
+       "use": "core"
+      },
+      {
+       "id": "S106",
+       "ref": "Section 7",
+       "use": "deeper"
+      },
+      {
+       "id": "S096",
+       "ref": "Ch. on behavioural issues",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "Prospect value, limits to arbitrage, behavioural countermeasures in advice.",
+   "jurisdiction_notes": "Ties to suitability rules in C4 (MiFID II/ESMA, Reg BI, FinSA) by callback only."
+  }
+ ],
+ "checkpoint": "Boss quiz (40-45 min, about 30 items) mixing all seven modules: pricing and Greeks calculations, Ito computations, SDF and GARCH numerics, measure-theory concept checks and a method-selection case. Pass mark 75%; one optional paper (explain a pricing argument end to end) gives bonus XP only.",
+ "open_questions": [
+  "See syllabus/FACTS.md (originals in open-questions.txt)"
+ ]
+}

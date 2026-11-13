@@ -1,0 +1,9 @@
+# Reference library and source lists stay offline (copyrighted, author-only)
+library/
+sources/
+# local tooling
+.claude/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db

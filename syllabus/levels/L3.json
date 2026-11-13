@@ -1,0 +1,3147 @@
+{
+ "level": "L3",
+ "title": "Orders & Execution",
+ "hours": 39,
+ "intro": "This level covers the path of an order from instruction to execution across EU and US venues: order types, execution routes, best execution, costs, FIX messages and contract notes. It also covers integrals, Taylor approximations and the normal and lognormal distributions as applied to financial problems.",
+ "modules": [
+  {
+   "id": "T2",
+   "title": "Order types & lifecycle",
+   "track": "ops",
+   "hours": 6,
+   "prereqs": [
+    "T1"
+   ],
+   "boss_items": [
+    "order & execution workflows"
+   ],
+   "hook": "Market, limit, stop and other order types, time-in-force instructions, and the states an order passes through from entry to fill, cancel or expiry.",
+   "units": [
+    {
+     "id": "T2.1",
+     "title": "Anatomy of an order: market, limit, marketable limit",
+     "minutes": 50,
+     "objectives": [
+      "Learner can list the mandatory fields of an equity order and say which are optional",
+      "Learner can predict the fill of a market vs a limit order against a given book",
+      "Learner can explain why a marketable limit order is the retail default"
+     ],
+     "key_concepts": [
+      "side, instrument (ISIN + MIC), quantity, price, TIF",
+      "market vs limit",
+      "marketable limit / price protection",
+      "bid, ask, spread, touch",
+      "walking the book"
+     ],
+     "worked_example": "Book: ask 10.02 x 3,000; 10.03 x 5,000; 10.05 x 9,000. A market buy of 12,000 fills 3,000 @10.02, 5,000 @10.03 and 4,000 @10.05, VWAP 10.0342; a limit buy 12,000 @10.03 fills 8,000 and rests 4,000 on the bid.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute average fill price and total cost of a market order walking a 3-level book",
+       "params": "book depths, prices, order size"
+      },
+      {
+       "template": "mcq",
+       "task": "Pick the outcome of a limit order given a book snapshot",
+       "params": "limit price vs touch, side"
+      },
+      {
+       "template": "cloze",
+       "task": "Complete a description of an order ticket (side, MIC, limit, TIF)",
+       "params": "word bank of fields"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort order attributes into 'client instruction' vs 'system-assigned'",
+       "params": "set of 8 attributes"
+      }
+     ],
+     "callbacks": [
+      "T1.1",
+      "P2.1"
+     ],
+     "sources": [
+      {
+       "id": "S101",
+       "ref": "Ch. 4-5 (order types, order-driven markets)",
+       "use": "core"
+      },
+      {
+       "id": "S100",
+       "ref": "Ch. on order management",
+       "use": "core"
+      },
+      {
+       "id": "S030",
+       "ref": "Ch. on equity markets",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "T2.2",
+     "title": "Conditional and hidden-liquidity order types",
+     "minutes": 50,
+     "objectives": [
+      "Learner can distinguish stop, stop-limit and trailing-stop triggers and their risks",
+      "Learner can explain iceberg, pegged and minimum-quantity orders and when a PM would use each",
+      "Learner can choose an order type for a stated client goal"
+     ],
+     "key_concepts": [
+      "stop vs stop-limit",
+      "trailing stop",
+      "iceberg / reserve (display vs total)",
+      "pegged to mid / primary",
+      "minimum acceptable quantity",
+      "triggers and gap risk"
+     ],
+     "worked_example": "A client holds Eni at 14.80 and enters a sell stop at 14.20. The stock gaps to 13.90 at the open; the stop triggers and becomes a market order filled around 13.90, not 14.20 - the order type protects the trigger, not the price.",
+     "exercises": [
+      {
+       "template": "mcq",
+       "task": "Which order type fits this client goal (protect gains, hide size, track the mid)?",
+       "params": "goal scenarios"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute realised price of a triggered stop after a gap",
+       "params": "stop level, gap size, depth"
+      },
+      {
+       "template": "match",
+       "task": "Match order types to their trigger/visibility behaviour",
+       "params": "6 types"
+      },
+      {
+       "template": "timeline",
+       "task": "Place trigger, activation and fills for a trailing stop on a price path",
+       "params": "price path, trail amount"
+      }
+     ],
+     "callbacks": [
+      "T2.1"
+     ],
+     "sources": [
+      {
+       "id": "S101",
+       "ref": "Ch. 5-6 (order types and trading strategies)",
+       "use": "core"
+      },
+      {
+       "id": "S037",
+       "ref": "Ch. 2-3 (order types, DMA)",
+       "use": "core"
+      },
+      {
+       "id": "S265",
+       "ref": "Rule 600 definitions / Rule 611 order-type context",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "T2.3",
+     "title": "Time in force and order validity",
+     "minutes": 45,
+     "objectives": [
+      "Learner can apply DAY, GTC, GTD, IOC, FOK and auction-only validity rules to a scenario",
+      "Learner can explain how venue rules cap GTC lifetime and what happens at corporate actions",
+      "Learner can say which TIFs are market-wide vs broker-managed"
+     ],
+     "key_concepts": [
+      "DAY / GTD / GTC",
+      "IOC, FOK, all-or-none",
+      "at-the-open / at-the-close (auction-only)",
+      "venue-side vs OMS-managed validity",
+      "expiry and re-confirmation",
+      "CA adjustments to resting orders"
+     ],
+     "worked_example": "A GTC limit buy at 50.00 is placed on Friday. On Monday the stock goes ex-dividend by 1.20; many venues cancel or adjust resting orders, while some brokers re-price. The learner decides which behaviour the client agreement states.",
+     "exercises": [
+      {
+       "template": "mcq",
+       "task": "Which TIF produces a partial fill that is then cancelled (IOC) vs no fill at all (FOK)?",
+       "params": "book size vs order size"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill in expiry rules for DAY/GTD/GTC for a given venue",
+       "params": "venue, dates"
+      },
+      {
+       "template": "order",
+       "task": "Order the events of a GTD order across three trading days with an ex-date",
+       "params": "dates, quantities"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the invalid TIF/order-type combination on an order ticket",
+       "params": "ticket with injected error"
+      }
+     ],
+     "callbacks": [
+      "T2.1",
+      "T2.2",
+      "P2.3"
+     ],
+     "sources": [
+      {
+       "id": "S101",
+       "ref": "Ch. 5 (order validity and TIF)",
+       "use": "core"
+      },
+      {
+       "id": "S100",
+       "ref": "Ch. on order handling",
+       "use": "core"
+      },
+      {
+       "id": "S212",
+       "ref": "FIX guidelines: TimeInForce (59) usage",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "T2.4",
+     "title": "The order lifecycle and its states",
+     "minutes": 50,
+     "objectives": [
+      "Learner can trace an order from receipt to terminal state naming each state change",
+      "Learner can distinguish cancel, replace, reject, expire and done-for-day",
+      "Learner can reconcile order quantity with CumQty and LeavesQty"
+     ],
+     "key_concepts": [
+      "new / pending new / partially filled / filled",
+      "pending cancel, pending replace",
+      "rejected, expired, done for day",
+      "cum / leaves / average price",
+      "order vs execution vs trade",
+      "unsolicited cancels"
+     ],
+     "worked_example": "Order to sell 100,000 shares: fills of 20,000 @25.10, 35,000 @25.08 and 15,000 @25.12 leave 30,000; the PM replaces the limit and the replace is rejected because the order is mid-fill. CumQty 70,000, AvgPx 25.0943.",
+     "exercises": [
+      {
+       "template": "order",
+       "task": "Sequence the states of an order that is partially filled, amended, then cancelled",
+       "params": "scenario variants"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute CumQty, LeavesQty and average price after a series of fills",
+       "params": "fill sizes and prices"
+      },
+      {
+       "template": "mcq",
+       "task": "Name the resulting state after a cancel request races against a fill",
+       "params": "race scenarios"
+      },
+      {
+       "template": "table",
+       "task": "Complete an execution blotter row by row",
+       "params": "5-8 events"
+      }
+     ],
+     "callbacks": [
+      "T1.2",
+      "T2.3"
+     ],
+     "sources": [
+      {
+       "id": "S100",
+       "ref": "Ch. on trade lifecycle and order management",
+       "use": "core"
+      },
+      {
+       "id": "S028",
+       "ref": "Ch. on trade capture",
+       "use": "reference"
+      },
+      {
+       "id": "S212",
+       "ref": "FIX order state matrix",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "T2.5",
+     "title": "Care, DMA and algos; OMS, EMS and smart routing",
+     "minutes": 55,
+     "objectives": [
+      "Learner can explain the difference between care, DMA, sponsored access and algorithmic orders",
+      "Learner can draw the OMS-EMS-broker-venue chain and say where each control sits",
+      "Learner can match a trading objective to an algo family"
+     ],
+     "key_concepts": [
+      "care order vs DMA",
+      "OMS vs EMS vs O/EMS",
+      "smart order router",
+      "algo families: VWAP, TWAP, POV, IS, dark seekers",
+      "pre-trade risk checks",
+      "broker-held vs client-held market access"
+     ],
+     "worked_example": "A PM wants to sell 1.5m shares equal to 25% of ADV. She sends it 'care' to the desk who slice it with a POV 15% algo through the broker's SOR; a small tail goes DMA to a dark midpoint pool.",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Match workflow terms (care, DMA, algo, SOR) to their definitions",
+       "params": "6 terms"
+      },
+      {
+       "template": "order",
+       "task": "Order the system chain for a DMA order from PM to venue",
+       "params": "chain variants"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose the algo for a stated objective and urgency",
+       "params": "ADV %, urgency, volatility"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort controls into pre-trade, at-trade and post-trade",
+       "params": "10 controls"
+      }
+     ],
+     "callbacks": [
+      "T1.2",
+      "T2.4"
+     ],
+     "sources": [
+      {
+       "id": "S010",
+       "ref": "Whole article (OMS/EMS architectures)",
+       "use": "core"
+      },
+      {
+       "id": "S037",
+       "ref": "Ch. 1-4 (DMA, algos)",
+       "use": "core"
+      },
+      {
+       "id": "S325",
+       "ref": "Rule 15c3-5 overview",
+       "use": "reference"
+      },
+      {
+       "id": "S038",
+       "ref": "Ch. 1-2 (algo taxonomy)",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "T2.6",
+     "title": "Allocation, aggregation and block trades",
+     "minutes": 55,
+     "objectives": [
+      "Learner can allocate a filled block across accounts pro-rata and by average price",
+      "Learner can explain the fairness principle behind aggregation and allocation",
+      "Learner can distinguish a block, a large-in-scale order and a cross"
+     ],
+     "key_concepts": [
+      "bunching / aggregation",
+      "pro-rata vs rounding rules",
+      "average price allocation",
+      "pre-trade vs post-trade allocation",
+      "block, cross, LIS",
+      "allocation policy and fairness"
+     ],
+     "worked_example": "A PM buys 90,000 shares for three funds (A 50k, B 30k, C 10k) and the broker fills 81,000 at VWAP 12.304. Pro-rata gives A 45,000, B 27,000, C 9,000 all at 12.304; the policy says odd lots go to the largest fund.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Allocate a partial fill pro-rata with lot rounding and compute each account's cost",
+       "params": "fund sizes, fill, lot size"
+      },
+      {
+       "template": "table",
+       "task": "Complete an allocation sheet with average price and commission split",
+       "params": "3-6 accounts"
+      },
+      {
+       "template": "mcq",
+       "task": "Judge whether a post-trade reallocation breaches the allocation policy",
+       "params": "scenario variants"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the unfair allocation (cherry-picking) in a sheet",
+       "params": "allocation sheet with seeded bias"
+      }
+     ],
+     "callbacks": [
+      "T2.4",
+      "A1.4"
+     ],
+     "sources": [
+      {
+       "id": "S165",
+       "ref": "Arts 67-70 (client order handling, aggregation and allocation)",
+       "use": "core"
+      },
+      {
+       "id": "S100",
+       "ref": "Ch. on allocation",
+       "use": "core"
+      },
+      {
+       "id": "S058",
+       "ref": "Ch. on trade capture and allocation",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "T2.7",
+     "title": "Order handling duties, timestamps and record-keeping",
+     "minutes": 55,
+     "objectives": [
+      "Learner can list the MiFID II duties on handling client orders and the matching FINRA/SEC duties",
+      "Learner can state what must be recorded for each order and for how long",
+      "Learner can spot an order-handling breach in a case"
+     ],
+     "key_concepts": [
+      "prompt, fair, expeditious execution",
+      "limit orders held away (publication duty)",
+      "order record keeping (MiFIR Art 25; RTS 24)",
+      "clock synchronisation (RTS 25)",
+      "five-year retention",
+      "FINRA Rule 4511 / SEC 17a-4 comparison"
+     ],
+     "worked_example": "A limit order is received at 10:02:15.348 UTC and entered at 10:05:40 after manual rekeying; a regulator asks why the stamp differs from the client's call recording by three minutes - the learner identifies the record-keeping gap.",
+     "exercises": [
+      {
+       "template": "mcq",
+       "task": "Identify which duty a given conduct breaches",
+       "params": "case variants"
+      },
+      {
+       "template": "spot",
+       "task": "Spot missing fields in an order record (timestamp, client ID, decision-maker)",
+       "params": "record with seeded gaps"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill retention periods and clock tolerances",
+       "params": "word bank"
+      },
+      {
+       "template": "paper",
+       "task": "Optional: write a one-page order-handling policy for a small broker",
+       "params": "client segment, asset class"
+      }
+     ],
+     "callbacks": [
+      "T2.4",
+      "T2.6"
+     ],
+     "sources": [
+      {
+       "id": "S165",
+       "ref": "Arts 67-76 (order handling), Art 72-76 record keeping",
+       "use": "core"
+      },
+      {
+       "id": "S258",
+       "ref": "Art 25",
+       "use": "reference"
+      },
+      {
+       "id": "S318",
+       "ref": "FINRA Rule 4511",
+       "use": "reference"
+      },
+      {
+       "id": "S184",
+       "ref": "Art 16(6)-(7)",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": {
+    "name": "Order Book",
+    "variant": "Level 1: submit market/limit/stop orders against a live book, watch fills, partials and the spread"
+   },
+   "unit_test": "End-of-module test: order types, TIF, state transitions, partial-fill arithmetic, allocation and order-handling duties.",
+   "jurisdiction_notes": "EU first (MiFID II/MiFIR order handling); US comparison via Reg NMS/FINRA 4511 and Rule 15c3-5."
+  },
+  {
+   "id": "T3",
+   "title": "Venues & market structure",
+   "track": "ops",
+   "hours": 6,
+   "prereqs": [
+    "T2"
+   ],
+   "boss_items": [
+    "order & execution workflows",
+    "dealer execution across venues"
+   ],
+   "hook": "Regulated markets, MTFs, systematic internalisers and dark pools, the opening, continuous and closing phases, and how venue choice depends on order type and size.",
+   "units": [
+    {
+     "id": "T3.1",
+     "title": "The venue taxonomy: RM, MTF, OTF, SI, OTC",
+     "minutes": 50,
+     "objectives": [
+      "Learner can classify a venue by MiFID II category and state its key rules",
+      "Learner can say who may operate each venue type and what instruments it can list",
+      "Learner can map real EU venues to their category"
+     ],
+     "key_concepts": [
+      "regulated market",
+      "MTF, OTF (discretion; no equities)",
+      "systematic internaliser",
+      "organised vs OTC",
+      "primary vs secondary listing",
+      "trading venue vs execution venue"
+     ],
+     "worked_example": "Euronext Milan is a regulated market, Turquoise is an MTF, Tradeweb's EU bond venue is an MTF, a bank's broker-crossing network is an OTF only for non-equity, and a bank quoting bilaterally in Eni under SI rules is an SI.",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Match venue names to MiFID II categories",
+       "params": "10 real venues"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort features (discretion, firm quotes, listing, public order book) into venue types",
+       "params": "feature list"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose the correct execution venue definition for a scenario",
+       "params": "scenario variants"
+      }
+     ],
+     "callbacks": [
+      "T1.2",
+      "P2.2"
+     ],
+     "sources": [
+      {
+       "id": "S184",
+       "ref": "Art 4(1)(21)-(23), Arts 18-20, 31-32",
+       "use": "core"
+      },
+      {
+       "id": "S258",
+       "ref": "Arts 14-22 overview",
+       "use": "reference"
+      },
+      {
+       "id": "S057",
+       "ref": "Part on trading venues",
+       "use": "deeper"
+      },
+      {
+       "id": "S124",
+       "ref": "Ch. on trading venues",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "T3.2",
+     "title": "Order-driven markets: books, auctions and price-time priority",
+     "minutes": 55,
+     "objectives": [
+      "Learner can run an opening or closing auction and derive the uncrossing price",
+      "Learner can apply price-time priority and pro-rata matching to a stream of orders",
+      "Learner can explain volatility interruptions and circuit breakers"
+     ],
+     "key_concepts": [
+      "central limit order book",
+      "price-time vs pro-rata priority",
+      "auction uncrossing price (max volume, min imbalance)",
+      "opening, closing, intraday auctions",
+      "volatility interruption, limit-up/limit-down",
+      "tick size"
+     ],
+     "worked_example": "Pre-open orders: buys 4,000@10.05, 3,000@10.04, 5,000@10.02; sells 3,500@10.01, 4,000@10.03, 6,000@10.06. Max-volume price 10.03-10.04 -> 7,000 matches at the rule-determined price; the learner applies the tie-break.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute the auction uncrossing price and executed volume",
+       "params": "order lists, tick size"
+      },
+      {
+       "template": "order",
+       "task": "Sequence matches for a live book under price-time priority",
+       "params": "order stream"
+      },
+      {
+       "template": "table",
+       "task": "Fill a cumulative supply/demand table for an auction",
+       "params": "6-10 price levels"
+      },
+      {
+       "template": "mcq",
+       "task": "Predict venue behaviour on a price move that triggers a volatility pause",
+       "params": "reference price, band"
+      }
+     ],
+     "callbacks": [
+      "T2.1",
+      "T2.4"
+     ],
+     "sources": [
+      {
+       "id": "S101",
+       "ref": "Ch. 4-6, 8",
+       "use": "core"
+      },
+      {
+       "id": "S037",
+       "ref": "Ch. 2",
+       "use": "core"
+      },
+      {
+       "id": "S076",
+       "ref": "Chapters on auctions and order books",
+       "use": "deeper"
+      },
+      {
+       "id": "S134",
+       "ref": "Ch. on market design",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "T3.3",
+     "title": "Transparency: pre-trade, post-trade, waivers, caps",
+     "minutes": 55,
+     "objectives": [
+      "Learner can explain why transparency exists and the main waivers to pre-trade transparency",
+      "Learner can describe the post-MiFIR-review regime (volume cap, deferrals, tape)",
+      "Learner can decide whether a trade is eligible for a waiver"
+     ],
+     "key_concepts": [
+      "pre-trade transparency (Arts 3-4 MiFIR)",
+      "waivers: reference price, negotiated, order management, large-in-scale",
+      "double volume cap replaced by single volume cap (2024 review)",
+      "post-trade reporting and deferrals",
+      "APA, CTP",
+      "consolidated tape (bonds first)"
+     ],
+     "worked_example": "A 400,000 EUR block in a mid-cap trades via negotiated-trade waiver at the mid; it is reported post-trade within minutes while a large-in-scale deferral may delay publication of size.",
+     "exercises": [
+      {
+       "template": "mcq",
+       "task": "Decide whether an order is large-in-scale for a given ADT threshold",
+       "params": "ADT, order size"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort waiver types and their conditions",
+       "params": "conditions list"
+      },
+      {
+       "template": "timeline",
+       "task": "Place reporting events and deferral limits for a block trade",
+       "params": "trade time, deferral type"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the transparency breach in a venue rulebook excerpt",
+       "params": "excerpt with error"
+      }
+     ],
+     "callbacks": [
+      "T3.1"
+     ],
+     "sources": [
+      {
+       "id": "S259",
+       "ref": "Arts 3-4, 6-8, 11, 22a (consolidated tape) as amended",
+       "use": "core"
+      },
+      {
+       "id": "S176",
+       "ref": "MiFID II/MiFIR review summary",
+       "use": "core"
+      },
+      {
+       "id": "S297",
+       "ref": "ESMA transparency Q&As",
+       "use": "deeper"
+      },
+      {
+       "id": "S296",
+       "ref": "ESMA market structure Q&As",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "T3.4",
+     "title": "Dark trading, SIs and periodic auctions",
+     "minutes": 50,
+     "objectives": [
+      "Learner can explain how dark pools, midpoint crossing and periodic auctions differ",
+      "Learner can describe SI obligations and why SI internalisation matters for best execution",
+      "Learner can weigh information leakage vs price improvement"
+     ],
+     "key_concepts": [
+      "broker-dealer crossing / dark pool",
+      "midpoint execution",
+      "periodic auction",
+      "conditional orders",
+      "SI quoting obligations and exemptions",
+      "adverse selection and gaming"
+     ],
+     "worked_example": "A 200,000-share parent is sent first to a midpoint pool (rate of fill 4%), then to a periodic auction, and finally resting in the lit book; the learner compares expected impact for each leg.",
+     "exercises": [
+      {
+       "template": "mcq",
+       "task": "Pick the venue type for a trading objective (size, urgency, leakage)",
+       "params": "scenario variants"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute price improvement from a midpoint fill vs lit touch",
+       "params": "bid, ask, size"
+      },
+      {
+       "template": "match",
+       "task": "Match mechanisms (SI, periodic auction, midpoint, conditional) to descriptions",
+       "params": "8 items"
+      },
+      {
+       "template": "multi",
+       "task": "Select all true statements about SI duties",
+       "params": "statement bank"
+      }
+     ],
+     "callbacks": [
+      "T3.1",
+      "T3.3"
+     ],
+     "sources": [
+      {
+       "id": "S009",
+       "ref": "Chapters on dark pools (narrative)",
+       "use": "core"
+      },
+      {
+       "id": "S013",
+       "ref": "Chapters on HFT and venues (narrative)",
+       "use": "core"
+      },
+      {
+       "id": "S259",
+       "ref": "SI regime (Art 14-18 as amended)",
+       "use": "reference"
+      },
+      {
+       "id": "S076",
+       "ref": "Dark trading chapters",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "T3.5",
+     "title": "United States: Reg NMS and the NBBO world",
+     "minutes": 55,
+     "objectives": [
+      "Learner can explain NBBO, order protection and access rules",
+      "Learner can describe maker-taker pricing and its effects",
+      "Learner can compare EU and US routing duties"
+     ],
+     "key_concepts": [
+      "Reg NMS Rules 610, 611, 612, 605, 606",
+      "NBBO, SIP vs direct feeds",
+      "maker-taker and access-fee cap",
+      "trade-through",
+      "ATS vs exchange",
+      "odd lots / round lots reform",
+      "15c3-5 market access"
+     ],
+     "worked_example": "A marketable order for 500 shares is routed to the venue showing the best protected quote; if another exchange has a better protected quote at that moment, trading through it is prohibited unless an exception applies.",
+     "exercises": [
+      {
+       "template": "mcq",
+       "task": "Identify the NBBO and the venue the order must hit first",
+       "params": "quotes by venue"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute net cost after maker-taker fees/rebates",
+       "params": "fee schedule, shares"
+      },
+      {
+       "template": "order",
+       "task": "Sequence a routing decision under order protection",
+       "params": "quote stack"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort rules into EU vs US",
+       "params": "rule list"
+      }
+     ],
+     "callbacks": [
+      "T3.2"
+     ],
+     "sources": [
+      {
+       "id": "S265",
+       "ref": "Rules 600, 605, 606, 610, 611, 612",
+       "use": "core"
+      },
+      {
+       "id": "S046",
+       "ref": "Chs. on market structure",
+       "use": "core"
+      },
+      {
+       "id": "S076",
+       "ref": "Chapters on US market structure and fragmentation",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "T3.6",
+     "title": "Bonds and OTC: dealer markets and electronic platforms",
+     "minutes": 50,
+     "objectives": [
+      "Learner can explain why bonds are mostly OTC and dealer-based",
+      "Learner can compare voice, RFQ platforms and all-to-all venues",
+      "Learner can describe bond transparency and the EU consolidated tape for bonds"
+     ],
+     "key_concepts": [
+      "dealer vs order-driven",
+      "RFQ and request-for-stream",
+      "all-to-all",
+      "bond liquidity fragmentation (ISIN count)",
+      "post-trade bond transparency",
+      "consolidated tape for bonds"
+     ],
+     "worked_example": "A 5m EUR corporate bond block has ~3 quoting dealers; the investor sends an RFQ to 3 dealers on an MTF, receives 99.45, 99.42, 99.47 (clean) and hits the best offer - 5,000,000 x 99.42 plus accrued.",
+     "exercises": [
+      {
+       "template": "mcq",
+       "task": "Choose the protocol for a bond order of given size and liquidity",
+       "params": "size, rating, issue size"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute proceeds from the best of three dealer quotes incl. accrued",
+       "params": "quotes, accrued days"
+      },
+      {
+       "template": "match",
+       "task": "Match trading protocols to their descriptions",
+       "params": "6 items"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort instruments by dominant trading mechanism",
+       "params": "instrument list"
+      }
+     ],
+     "callbacks": [
+      "P3.4",
+      "P3.6",
+      "T3.1"
+     ],
+     "sources": [
+      {
+       "id": "S056",
+       "ref": "Whole paper (BIS electronic trading)",
+       "use": "core"
+      },
+      {
+       "id": "S219",
+       "ref": "Secondary market data and electronic trading papers",
+       "use": "reference"
+      },
+      {
+       "id": "S117",
+       "ref": "Whole paper (auction vs search)",
+       "use": "deeper"
+      },
+      {
+       "id": "S093",
+       "ref": "Chs. on bond trading",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "T3.7",
+     "title": "UK, Switzerland, Singapore, Hong Kong and a venue-chooser case",
+     "minutes": 45,
+     "objectives": [
+      "Learner can summarise the main structural differences of UK, CH, SG and HK markets",
+      "Learner can pick the right venue strategy for a cross-border order",
+      "Learner can compare tick-size and fee models"
+     ],
+     "key_concepts": [
+      "UK MiFIR divergence",
+      "SIX Swiss Exchange / FinMIA",
+      "SGX and HKEX specifics",
+      "tick-size regime comparison",
+      "venue fees and rebates",
+      "multi-venue strategy"
+     ],
+     "worked_example": "A 120,000-share order in a Swiss large-cap is split between SIX lit and a local midpoint pool; the learner compares expected cost with the EU split of the same sized order across Xetra and a Cboe dark book.",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Match regulatory regimes to key venue features",
+       "params": "6 items"
+      },
+      {
+       "template": "mcq",
+       "task": "Select the best venue mix for an order",
+       "params": "order size, liquidity"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the incorrect statement in a venue comparison table",
+       "params": "table with seeded error"
+      },
+      {
+       "template": "paper",
+       "task": "Optional: compose a venue selection memo for a cross-border order",
+       "params": "stock, size, urgency"
+      }
+     ],
+     "callbacks": [
+      "T3.1",
+      "T3.5"
+     ],
+     "sources": [
+      {
+       "id": "S324",
+       "ref": "HM Treasury UK MiFID reform paper",
+       "use": "core"
+      },
+      {
+       "id": "S204",
+       "ref": "FinMIA overview",
+       "use": "reference"
+      },
+      {
+       "id": "S203",
+       "ref": "FinSA venue-related provisions",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": {
+    "name": "Order Book",
+    "variant": "Level 2: auctions, volatility interruptions, iceberg and midpoint orders, multi-venue routing against a fragmented book"
+   },
+   "unit_test": "End-of-module test: venue categories, matching rules, auctions, transparency waivers, Reg NMS basics, and bond trading protocols.",
+   "jurisdiction_notes": "EU deepest (MiFID II/MiFIR venue regime, 2024 review); US via Reg NMS; UK/CH short sections; SG/HK sidebar only."
+  },
+  {
+   "id": "T4",
+   "title": "Dealer execution",
+   "track": "ops",
+   "hours": 4,
+   "prereqs": [
+    "T3",
+    "P3"
+   ],
+   "boss_items": [
+    "dealer execution across venues",
+    "order & execution workflows"
+   ],
+   "hook": "Request-for-quote trading, dealer quoting and risk management, the spread, and the decision whether to show a price on a given size.",
+   "units": [
+    {
+     "id": "T4.1",
+     "title": "Agency, principal and riskless principal",
+     "minutes": 45,
+     "objectives": [
+      "Learner can distinguish agency, principal and matched principal trades",
+      "Learner can state what capacity disclosure the client must see",
+      "Learner can compute a dealer's mark-up or spread on a riskless principal trade"
+     ],
+     "key_concepts": [
+      "agency vs principal",
+      "riskless/matched principal",
+      "capacity disclosure",
+      "mark-up, mark-down",
+      "conflicts of interest",
+      "own-account dealing"
+     ],
+     "worked_example": "Dealer buys 5m EUR of a bond at 99.30 from the market and sells it to the client at 99.45 immediately; the 0.15 mark-up is 7,500 EUR on 5m nominal, disclosed on the confirmation.",
+     "exercises": [
+      {
+       "template": "mcq",
+       "task": "Identify the capacity of the firm in a scenario",
+       "params": "scenario variants"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute mark-up in EUR and bps on a riskless principal trade",
+       "params": "bid, offer, nominal"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort duties into agency-only vs principal-only",
+       "params": "list of duties"
+      }
+     ],
+     "callbacks": [
+      "T2.5",
+      "P3.3"
+     ],
+     "sources": [
+      {
+       "id": "S101",
+       "ref": "Ch. 3 (dealers)",
+       "use": "core"
+      },
+      {
+       "id": "S209",
+       "ref": "FINRA Rule 2121 mark-up/markdown context",
+       "use": "reference"
+      },
+      {
+       "id": "S165",
+       "ref": "Arts 66-69 executions and capacity",
+       "use": "reference"
+      },
+      {
+       "id": "S270",
+       "ref": "Rule 10b-10 capacity disclosure",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "T4.2",
+     "title": "Market making and inventory",
+     "minutes": 50,
+     "objectives": [
+      "Learner can set bid/ask around a mid given inventory and risk limits",
+      "Learner can explain how skew and spread respond to inventory and information",
+      "Learner can compute P&L from spread capture vs inventory moves"
+     ],
+     "key_concepts": [
+      "quoting around mid",
+      "spread components",
+      "inventory skew",
+      "adverse selection",
+      "hit rate",
+      "market-maker obligations"
+     ],
+     "worked_example": "A market maker is long 40,000 shares against a 30,000 target; she skews quotes down by half a tick and widens the spread by 1 tick after a news flash.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute spread-capture P&L and mark-to-mid on a stream of trades",
+       "params": "trade list, mid path"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose the quote adjustment for a given inventory/information state",
+       "params": "inventory, volatility"
+      },
+      {
+       "template": "table",
+       "task": "Fill an inventory/position table after each fill",
+       "params": "6-10 trades"
+      },
+      {
+       "template": "multi",
+       "task": "Identify forces that widen quotes",
+       "params": "factor bank"
+      }
+     ],
+     "callbacks": [
+      "F2.1",
+      "T3.2"
+     ],
+     "sources": [
+      {
+       "id": "S101",
+       "ref": "Ch. 8-10",
+       "use": "core"
+      },
+      {
+       "id": "S114",
+       "ref": "Whole paper (Glosten-Milgrom)",
+       "use": "deeper"
+      },
+      {
+       "id": "S154",
+       "ref": "Ch. on market making",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "T4.3",
+     "title": "RFQ protocols and bilateral pricing",
+     "minutes": 50,
+     "objectives": [
+      "Learner can describe RFQ, RFQ-to-n, request-for-stream, all-to-all",
+      "Learner can calculate the win rate and cost of information leakage across dealers",
+      "Learner can choose the right number of dealers to query"
+     ],
+     "key_concepts": [
+      "RFQ workflow",
+      "number of dealers queried",
+      "quote validity",
+      "last look",
+      "hit/miss ratios",
+      "information leakage"
+     ],
+     "worked_example": "A client sends an RFQ to 5 dealers; 3 respond within the 30-second validity window; dealer A is best but is only filled if the price is still valid. Hit rate over 20 RFQs is 35%.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute hit rate and average winner-to-cover spread",
+       "params": "RFQ log"
+      },
+      {
+       "template": "order",
+       "task": "Sequence the stages of an RFQ from request to execution",
+       "params": "variants"
+      },
+      {
+       "template": "mcq",
+       "task": "Pick the optimal number of dealers given size and liquidity",
+       "params": "size, ADV"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the problem in an RFQ log (late quote accepted)",
+       "params": "log with seeded error"
+      }
+     ],
+     "callbacks": [
+      "T3.6"
+     ],
+     "sources": [
+      {
+       "id": "S117",
+       "ref": "Whole paper (Click or Call)",
+       "use": "core"
+      },
+      {
+       "id": "S056",
+       "ref": "Sections on RFQ and protocols",
+       "use": "core"
+      },
+      {
+       "id": "S219",
+       "ref": "Electronic trading papers",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "T4.4",
+     "title": "Bond trading workflows: voice vs electronic",
+     "minutes": 50,
+     "objectives": [
+      "Learner can trace a bond trade from inquiry to confirmation in voice and electronic workflows",
+      "Learner can convert between price and yield quotation for a quote",
+      "Learner can explain axes, runs and spread-to-benchmark quoting"
+     ],
+     "key_concepts": [
+      "inquiry to confirmation",
+      "axes and runs",
+      "spread to benchmark",
+      "clean vs dirty settlement amount",
+      "voice vs electronic trade capture",
+      "post-trade bond transparency"
+     ],
+     "worked_example": "Voice: client asks for 3m of a 5y bond; dealer quotes 99.60/99.70; the trade is hit at 99.70 and captured manually; electronic: the same trade arrives via an MTF and the confirmation is auto-matched.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute settlement amount incl. accrued from a clean price quote",
+       "params": "nominal, price, accrued"
+      },
+      {
+       "template": "order",
+       "task": "Sequence a voice trade vs an electronic RFQ trade",
+       "params": "variants"
+      },
+      {
+       "template": "match",
+       "task": "Match quote conventions (price, yield, spread) to instruments",
+       "params": "8 items"
+      },
+      {
+       "template": "spot",
+       "task": "Spot errors in a voice trade ticket",
+       "params": "ticket with seeded errors"
+      }
+     ],
+     "callbacks": [
+      "P3.4",
+      "P3.5",
+      "T2.4"
+     ],
+     "sources": [
+      {
+       "id": "S093",
+       "ref": "Chs. on trading",
+       "use": "core"
+      },
+      {
+       "id": "S045",
+       "ref": "Ch. on market structure and trading",
+       "use": "deeper"
+      },
+      {
+       "id": "S221",
+       "ref": "Secondary market rules and recommendations",
+       "use": "reference"
+      },
+      {
+       "id": "S219",
+       "ref": "Reports",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "T4.5",
+     "title": "Dealer execution across venues: SI, last look and conflicts",
+     "minutes": 45,
+     "objectives": [
+      "Learner can explain how a dealer decides between internalising and hedging in the market",
+      "Learner can identify conflicts (pre-hedging, last look, front-running) and the controls",
+      "Learner can apply best-execution duties to dealer quotes"
+     ],
+     "key_concepts": [
+      "SI vs lit hedging",
+      "pre-hedging",
+      "last look",
+      "conflict controls",
+      "client benefit vs dealer benefit",
+      "RFQ in structured products (learner context)"
+     ],
+     "worked_example": "Pre-hedging a 3m EUR client order ahead of an RFQ answer can reduce dealer risk but may harm the client if the market moves; ESMA warns it is permitted only when it serves the client and is disclosed.",
+     "exercises": [
+      {
+       "template": "mcq",
+       "task": "Classify a behaviour as legitimate hedging vs conflict",
+       "params": "scenario variants"
+      },
+      {
+       "template": "multi",
+       "task": "Select controls that mitigate pre-hedging conflicts",
+       "params": "control list"
+      },
+      {
+       "template": "paper",
+       "task": "Optional: write a short policy on pre-hedging for the desk",
+       "params": "asset class, client type"
+      }
+     ],
+     "callbacks": [
+      "T4.2",
+      "T4.3"
+     ],
+     "sources": [
+      {
+       "id": "S144",
+       "ref": "Chapters on best execution and conflicts",
+       "use": "core"
+      },
+      {
+       "id": "S101",
+       "ref": "Ch. on dealer markets",
+       "use": "reference"
+      },
+      {
+       "id": "S189",
+       "ref": "ESMA Q&As on best execution",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": {
+    "name": "Dealer Desk",
+    "variant": "Level 1: respond to a stream of RFQs, choose bid/offer and size, manage inventory and hit rate"
+   },
+   "unit_test": "End-of-module test: capacity, market-making P&L, RFQ protocols, bond quoting conventions, and dealer conflicts.",
+   "jurisdiction_notes": "EU practice first (MiFID II capacity and SI regimes); US via FINRA mark-up concepts and TRACE; no other jurisdictions."
+  },
+  {
+   "id": "T5",
+   "title": "Best execution & TCA",
+   "track": "ops",
+   "hours": 4,
+   "prereqs": [
+    "T3"
+   ],
+   "boss_items": [
+    "order & execution workflows",
+    "dealer execution across venues"
+   ],
+   "hook": "The best-execution factors under MiFID II, execution policy, and transaction cost analysis against arrival price, VWAP and other benchmarks.",
+   "units": [
+    {
+     "id": "T5.1",
+     "title": "The best-execution duty: MiFID II Art 27",
+     "minutes": 50,
+     "objectives": [
+      "Learner can state the duty, its sufficient steps standard and who owes it",
+      "Learner can list the execution factors and how retail 'total consideration' differs",
+      "Learner can say where the duty does not apply"
+     ],
+     "key_concepts": [
+      "Art 27 MiFID II",
+      "execution factors",
+      "total consideration for retail",
+      "specific client instructions",
+      "request-for-quote situations",
+      "client categories"
+     ],
+     "worked_example": "A retail client's 5,000-share order: venue A gives 12.00 with 0.50 EUR commission, venue B gives 11.99 with 0.20 EUR fee; total consideration (price x quantity plus costs) shows which venue is cheaper.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute total consideration across two venues for a retail order",
+       "params": "price, quantity, fees"
+      },
+      {
+       "template": "mcq",
+       "task": "Decide whether the duty applies in a given scenario",
+       "params": "scenario variants"
+      },
+      {
+       "template": "multi",
+       "task": "Select execution factors relevant to a given order",
+       "params": "factor list"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill the elements of the duty",
+       "params": "word bank"
+      }
+     ],
+     "callbacks": [
+      "T3.1",
+      "T2.7"
+     ],
+     "sources": [
+      {
+       "id": "S184",
+       "ref": "Art 27",
+       "use": "core"
+      },
+      {
+       "id": "S165",
+       "ref": "Arts 64-66",
+       "use": "core"
+      },
+      {
+       "id": "S144",
+       "ref": "Chapter on best execution",
+       "use": "deeper"
+      },
+      {
+       "id": "S189",
+       "ref": "ESMA best-ex Q&As",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "T5.2",
+     "title": "Execution policy, venue selection and monitoring",
+     "minutes": 45,
+     "objectives": [
+      "Learner can describe the contents of an execution policy and how it is disclosed",
+      "Learner can explain monitoring and review obligations",
+      "Learner can describe what replaced RTS 27/28 reporting after Directive 2024/790"
+     ],
+     "key_concepts": [
+      "execution policy",
+      "venue selection",
+      "monitoring and annual review",
+      "client disclosure and consent",
+      "RTS 27/28 deletion",
+      "top-5 venue publication status"
+     ],
+     "worked_example": "A firm's policy lists three venues for equities and an SI; the quarterly review finds that venue B's fill rate has dropped, so the policy committee proposes to demote it.",
+     "exercises": [
+      {
+       "template": "mcq",
+       "task": "Identify the policy element missing from a sample policy",
+       "params": "policy excerpt"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort obligations into 'still applies' vs 'removed by 2024/790'",
+       "params": "obligation list"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the problem in a policy and review minutes",
+       "params": "document with seeded gaps"
+      }
+     ],
+     "callbacks": [
+      "T5.1"
+     ],
+     "sources": [
+      {
+       "id": "S165",
+       "ref": "Arts 65-66",
+       "use": "core"
+      },
+      {
+       "id": "S167",
+       "ref": "RTS 27/28 - history only",
+       "use": "reference"
+      },
+      {
+       "id": "S176",
+       "ref": "Dir 2024/790 provisions deleting RTS 27/28",
+       "use": "core"
+      }
+     ]
+    },
+    {
+     "id": "T5.3",
+     "title": "US best execution and related rules",
+     "minutes": 45,
+     "objectives": [
+      "Learner can describe FINRA 5310's reasonable-diligence standard",
+      "Learner can compare it with MiFID II Art 27",
+      "Learner can explain Rule 605/606 disclosures"
+     ],
+     "key_concepts": [
+      "FINRA 5310",
+      "interpositioning",
+      "trading ahead (Rule 5320)",
+      "Rule 605 execution quality reports",
+      "Rule 606 routing reports",
+      "NBBO benchmark"
+     ],
+     "worked_example": "A retail broker routes 100% of equity flow to one wholesaler; Rule 606 discloses payments and the analyst compares execution quality with Rule 605 statistics.",
+     "exercises": [
+      {
+       "template": "mcq",
+       "task": "Pick the US rule that governs a stated fact pattern",
+       "params": "scenario variants"
+      },
+      {
+       "template": "table",
+       "task": "Fill a US vs EU best-execution comparison table",
+       "params": "criteria list"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute price improvement in bps from a 605-style sample",
+       "params": "fills with NBBO"
+      }
+     ],
+     "callbacks": [
+      "T3.5",
+      "T5.1"
+     ],
+     "sources": [
+      {
+       "id": "S208",
+       "ref": "FINRA 5310",
+       "use": "core"
+      },
+      {
+       "id": "S265",
+       "ref": "Rules 605, 606",
+       "use": "core"
+      },
+      {
+       "id": "S319",
+       "ref": "FINRA Rule 5320",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "T5.4",
+     "title": "Measuring cost: arrival, VWAP and implementation shortfall",
+     "minutes": 55,
+     "objectives": [
+      "Learner can compute slippage vs arrival, VWAP and close benchmarks",
+      "Learner can compute implementation shortfall with explicit and implicit costs",
+      "Learner can choose the right benchmark for an objective"
+     ],
+     "key_concepts": [
+      "arrival price",
+      "VWAP, TWAP",
+      "implementation shortfall",
+      "slippage in bps",
+      "explicit vs implicit costs",
+      "delay, impact, opportunity cost"
+     ],
+     "worked_example": "A PM decides to buy 100,000 at 20.00; the order arrives at 20.02, executes 80,000 at 20.08 average and 20,000 remain unfilled with the price at 20.20; IS = delay + impact + opportunity cost, computed in bps.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute slippage vs arrival and VWAP in bps",
+       "params": "fills, arrival, VWAP"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute implementation shortfall by component",
+       "params": "decision, arrival, fills, close"
+      },
+      {
+       "template": "mcq",
+       "task": "Pick the appropriate benchmark for a given objective",
+       "params": "objective list"
+      },
+      {
+       "template": "table",
+       "task": "Complete a TCA table for 5 orders",
+       "params": "order list"
+      }
+     ],
+     "callbacks": [
+      "F2.1",
+      "T2.4"
+     ],
+     "sources": [
+      {
+       "id": "S038",
+       "ref": "Chs. on TCA and IS",
+       "use": "core"
+      },
+      {
+       "id": "S139",
+       "ref": "Whole paper (Almgren-Chriss intro)",
+       "use": "deeper"
+      },
+      {
+       "id": "S154",
+       "ref": "Ch. on market impact",
+       "use": "deeper"
+      },
+      {
+       "id": "S101",
+       "ref": "Ch. on execution cost",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "T5.5",
+     "title": "TCA in practice and bond best execution",
+     "minutes": 45,
+     "objectives": [
+      "Learner can read a TCA report and identify outliers",
+      "Learner can explain evidence challenges for bonds and RFQ",
+      "Learner can document a best-ex review"
+     ],
+     "key_concepts": [
+      "TCA reports",
+      "peer comparison",
+      "market impact models (concept)",
+      "RFQ evidence and quotes",
+      "proving best-ex in bonds",
+      "documentation"
+     ],
+     "worked_example": "A broker report shows average slippage of 6 bps, but one order has 38 bps; the review finds it ran in a stressed auction with low liquidity and documents the outlier.",
+     "exercises": [
+      {
+       "template": "spot",
+       "task": "Spot the outlier orders in a TCA table and diagnose",
+       "params": "table with seeded outliers"
+      },
+      {
+       "template": "mcq",
+       "task": "Identify the right evidence for a bond best-ex review",
+       "params": "scenario variants"
+      },
+      {
+       "template": "paper",
+       "task": "Optional: write a short best-ex review memo for a given order",
+       "params": "order data"
+      }
+     ],
+     "callbacks": [
+      "T5.4",
+      "T4.3"
+     ],
+     "sources": [
+      {
+       "id": "S076",
+       "ref": "Chapters on execution quality",
+       "use": "deeper"
+      },
+      {
+       "id": "S219",
+       "ref": "Bond execution evidence",
+       "use": "reference"
+      },
+      {
+       "id": "S139",
+       "ref": "Whole paper",
+       "use": "deeper"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "End-of-module test: Art 27 duty, execution policy, US best-ex, slippage and implementation shortfall arithmetic.",
+   "jurisdiction_notes": "EU first (Art 27, post-2024 reporting changes); US via FINRA 5310 and Reg NMS 605/606; no others."
+  },
+  {
+   "id": "T6",
+   "title": "Brokerage, commissions & costs",
+   "track": "ops",
+   "hours": 4,
+   "prereqs": [
+    "T2"
+   ],
+   "boss_items": [
+    "brokerage & commissions"
+   ],
+   "hook": "Broker commission, exchange and clearing fees, stamp duty and financial transaction tax, and how to explain each line of a total trade cost.",
+   "units": [
+    {
+     "id": "T6.1",
+     "title": "Commission models and fee schedules",
+     "minutes": 45,
+     "objectives": [
+      "Learner can compute commissions under per-share, bps and tiered schedules",
+      "Learner can apply minimums and maximums",
+      "Learner can compare retail and institutional commission models"
+     ],
+     "key_concepts": [
+      "per-share vs percentage commission",
+      "tiered schedules",
+      "minimum ticket fee",
+      "institutional bps rates",
+      "commission sharing",
+      "soft dollars (background)"
+     ],
+     "worked_example": "A retail broker charges 0.10% with a 9.90 EUR minimum; a 5,000 EUR order pays 9.90 (minimum) while a 50,000 EUR order pays 50 EUR.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute commission under tiered fee schedule",
+       "params": "order value, tiers, minimum"
+      },
+      {
+       "template": "table",
+       "task": "Fill a fee table for five orders",
+       "params": "orders and schedules"
+      },
+      {
+       "template": "mcq",
+       "task": "Pick the cheapest broker for a given trading pattern",
+       "params": "schedules, annual volume"
+      }
+     ],
+     "callbacks": [
+      "T2.1"
+     ],
+     "sources": [
+      {
+       "id": "S101",
+       "ref": "Ch. on commissions and trading costs",
+       "use": "core"
+      },
+      {
+       "id": "S209",
+       "ref": "FINRA Rulebook fee-related rules",
+       "use": "reference"
+      },
+      {
+       "id": "S058",
+       "ref": "Ch. on brokerage",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "T6.2",
+     "title": "Venue, clearing, settlement fees and transaction taxes",
+     "minutes": 50,
+     "objectives": [
+      "Learner can list the cost layers between order and settlement",
+      "Learner can compute FTT / stamp duty on a trade",
+      "Learner can identify who bears which fee"
+     ],
+     "key_concepts": [
+      "exchange fees",
+      "clearing and settlement fees",
+      "custody transaction fees",
+      "financial transaction taxes (FR, IT, ES)",
+      "UK stamp duty",
+      "Swiss stamp duty"
+     ],
+     "worked_example": "A 100,000 EUR purchase of a French large-cap incurs a 0.4% FTT (400 EUR; rate since 1 Apr 2025), exchange fee 4 EUR, clearing fee 3 EUR and broker commission 25 EUR.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute total cost stack for a trade in different countries",
+       "params": "country, value"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort fees into payer: client, broker, venue",
+       "params": "fee list"
+      },
+      {
+       "template": "match",
+       "task": "Match FTT regimes to countries",
+       "params": "regimes list"
+      }
+     ],
+     "callbacks": [
+      "T6.1"
+     ],
+     "sources": [
+      {
+       "id": "S322",
+       "ref": "Italian FTT update",
+       "use": "core"
+      },
+      {
+       "id": "S058",
+       "ref": "Ch. on settlement costs",
+       "use": "reference"
+      },
+      {
+       "id": "S101",
+       "ref": "Ch. on trading costs",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "T6.3",
+     "title": "Ex-ante and ex-post costs & charges disclosure",
+     "minutes": 50,
+     "objectives": [
+      "Learner can list items in an ex-ante costs & charges disclosure",
+      "Learner can compute the cumulative effect of costs on return",
+      "Learner can identify when ex-post reporting is due"
+     ],
+     "key_concepts": [
+      "Art 24(4) MiFID II",
+      "Del. Reg 2017/565 Art 50",
+      "one-off, ongoing, transaction, incidental costs",
+      "illustration of cumulative effect",
+      "ex-post annual statement",
+      "aggregated vs itemised"
+     ],
+     "worked_example": "A 100,000 EUR fund holding: entry 1.0%, ongoing 1.4%, transaction 0.3% per year; over 5 years at 4% gross return the illustration shows an end value reduced by several thousand EUR.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute the illustration of cost effect on return",
+       "params": "amount, costs, gross return"
+      },
+      {
+       "template": "table",
+       "task": "Complete an ex-ante disclosure table",
+       "params": "cost lines"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the missing cost in a disclosure",
+       "params": "disclosure with seeded gaps"
+      }
+     ],
+     "callbacks": [
+      "T6.2",
+      "P4.4"
+     ],
+     "sources": [
+      {
+       "id": "S184",
+       "ref": "Art 24(4)",
+       "use": "core"
+      },
+      {
+       "id": "S165",
+       "ref": "Art 50",
+       "use": "core"
+      },
+      {
+       "id": "S252",
+       "ref": "KID costs section",
+       "use": "reference"
+      },
+      {
+       "id": "S189",
+       "ref": "ESMA Q&As on costs and charges",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "T6.4",
+     "title": "Inducements and research unbundling",
+     "minutes": 50,
+     "objectives": [
+      "Learner can explain the inducement rules and quality-enhancement test",
+      "Learner can describe the unbundling regime and the 2021 carve-out",
+      "Learner can spot a prohibited inducement"
+     ],
+     "key_concepts": [
+      "inducements Art 24(9)",
+      "Del. Directive 2017/593 Art 13",
+      "research unbundling",
+      "research budgets and CSAs",
+      "Dir 2021/338 carve-out",
+      "UK FCA review"
+     ],
+     "worked_example": "A fund manager pays 200,000 EUR/year from its own P&L for research; after the 2021 change, bundled payments for issuers with market cap under 1bn EUR are allowed again under conditions.",
+     "exercises": [
+      {
+       "template": "mcq",
+       "task": "Classify a benefit as permitted vs prohibited inducement",
+       "params": "scenario variants"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort items as 'research' vs 'minor non-monetary benefit'",
+       "params": "item list"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill the conditions for the SME research carve-out",
+       "params": "word bank"
+      }
+     ],
+     "callbacks": [
+      "T6.1"
+     ],
+     "sources": [
+      {
+       "id": "S175",
+       "ref": "Dir 2021/338 and Del. Dir 2017/593",
+       "use": "core"
+      },
+      {
+       "id": "S201",
+       "ref": "FCA multi-firm review",
+       "use": "deeper"
+      },
+      {
+       "id": "S184",
+       "ref": "Art 24(7)-(9)",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "T6.5",
+     "title": "Payment for order flow and venue economics",
+     "minutes": 45,
+     "objectives": [
+      "Learner can explain how PFOF works and why EU banned it",
+      "Learner can compare US PFOF with EU rules",
+      "Learner can describe maker-taker rebates and conflicts"
+     ],
+     "key_concepts": [
+      "PFOF",
+      "wholesalers",
+      "maker-taker",
+      "EU PFOF ban (Art 39a MiFIR, applies since 30 June 2026)",
+      "Rule 606",
+      "conflict of interest"
+     ],
+     "worked_example": "A US retail broker receives 0.15 cents per share from a wholesaler for each order; the EU bans investment firms from receiving such payments for retail order routing.",
+     "exercises": [
+      {
+       "template": "mcq",
+       "task": "Decide whether a payment arrangement is PFOF",
+       "params": "scenario variants"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute rebate revenue from retail flow",
+       "params": "shares, rate"
+      },
+      {
+       "template": "multi",
+       "task": "Select conflicts created by maker-taker pricing",
+       "params": "statement bank"
+      }
+     ],
+     "callbacks": [
+      "T3.5",
+      "T5.3"
+     ],
+     "sources": [
+      {
+       "id": "S259",
+       "ref": "PFOF ban provisions as amended",
+       "use": "core"
+      },
+      {
+       "id": "S265",
+       "ref": "Rule 606",
+       "use": "reference"
+      },
+      {
+       "id": "S176",
+       "ref": "Dir/Reg 2024/790-791 overview",
+       "use": "reference"
+      },
+      {
+       "id": "S267",
+       "ref": "RIS context",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "End-of-module test: commission calculations, cost stacks, costs & charges disclosures, inducements and PFOF.",
+   "jurisdiction_notes": "EU first (MiFID II disclosures, PFOF ban, FTT); US PFOF/606 mentioned; UK stamp duty/FCA review as sidebar."
+  },
+  {
+   "id": "T7",
+   "title": "Messaging",
+   "track": "ops",
+   "hours": 3,
+   "prereqs": [
+    "T2"
+   ],
+   "boss_items": [
+    "order & execution workflows"
+   ],
+   "hook": "The structure of FIX messages, the main tags and message types in an order flow, and how to trace an order through a raw log.",
+   "units": [
+    {
+     "id": "T7.1",
+     "title": "FIX anatomy: tags, header, body, trailer",
+     "minutes": 45,
+     "objectives": [
+      "Learner can read a FIX message and name header, body and trailer tags",
+      "Learner can explain session vs application layer",
+      "Learner can verify BodyLength and checksum logic"
+     ],
+     "key_concepts": [
+      "tag=value",
+      "SOH delimiter",
+      "BeginString, BodyLength, MsgType, CheckSum",
+      "session vs application layer",
+      "sequence numbers",
+      "versions"
+     ],
+     "worked_example": "Message: 8=FIX.4.4|9=...|35=D|49=BUYER|56=BROKER|11=ORD1|55=ENI|54=1|38=1000|40=2|44=14.50|10=...; the learner decodes it.",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Match common tags to their meaning",
+       "params": "tag list"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the FIX checksum for a short message",
+       "params": "message string"
+      },
+      {
+       "template": "mcq",
+       "task": "Decide whether a message is session or application level",
+       "params": "message types"
+      }
+     ],
+     "callbacks": [
+      "T2.4"
+     ],
+     "sources": [
+      {
+       "id": "S210",
+       "ref": "FIX Latest: message and field reference",
+       "use": "core"
+      },
+      {
+       "id": "S212",
+       "ref": "Best practices",
+       "use": "reference"
+      },
+      {
+       "id": "S037",
+       "ref": "Ch. on FIX",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "T7.2",
+     "title": "NewOrderSingle and ExecutionReport",
+     "minutes": 45,
+     "objectives": [
+      "Learner can build a NewOrderSingle for a described order",
+      "Learner can interpret ExecType and OrdStatus in ExecutionReports",
+      "Learner can read cancel/replace messages"
+     ],
+     "key_concepts": [
+      "35=D",
+      "35=8",
+      "ClOrdID, OrderID, ExecID",
+      "ExecType (150) and OrdStatus (39)",
+      "LastQty, LastPx, CumQty, LeavesQty, AvgPx",
+      "35=F and 35=G"
+     ],
+     "worked_example": "An order for 5,000 shares generates three ExecutionReports: New, Partial Fill 2,000 @9.98, Fill 3,000 @9.99; the learner computes CumQty and AvgPx.",
+     "exercises": [
+      {
+       "template": "cloze",
+       "task": "Fill missing tags of an order",
+       "params": "partial message"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute AvgPx and LeavesQty from reports",
+       "params": "fill sequence"
+      },
+      {
+       "template": "order",
+       "task": "Sequence execution reports for an order with a replace",
+       "params": "scenario variants"
+      },
+      {
+       "template": "mcq",
+       "task": "Pick the right ExecType for a situation",
+       "params": "scenario variants"
+      }
+     ],
+     "callbacks": [
+      "T2.4",
+      "T7.1"
+     ],
+     "sources": [
+      {
+       "id": "S210",
+       "ref": "Messages 35=D, 35=8, 35=F, 35=G",
+       "use": "core"
+      },
+      {
+       "id": "S211",
+       "ref": "FIX Orchestra overview",
+       "use": "reference"
+      },
+      {
+       "id": "S037",
+       "ref": "Ch. on FIX orders",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "T7.3",
+     "title": "Reading real-world FIX: rejections, sessions and gaps",
+     "minutes": 45,
+     "objectives": [
+      "Learner can diagnose a rejected order from a FIX log",
+      "Learner can recognise sequence gaps and resend requests",
+      "Learner can trace a ClOrdID chain through cancels and replaces"
+     ],
+     "key_concepts": [
+      "35=3 session reject vs 35=j business reject",
+      "35=A, 35=0, 35=2, 35=4",
+      "PossDup and PossResend",
+      "ClOrdID chain",
+      "OrigClOrdID",
+      "reject reasons"
+     ],
+     "worked_example": "The log shows a replace request with OrigClOrdID pointing to an already-filled order and a rejection with text 'Too late to cancel'; the learner explains the state.",
+     "exercises": [
+      {
+       "template": "spot",
+       "task": "Spot the error in a FIX log that explains the lost order",
+       "params": "log with seeded error"
+      },
+      {
+       "template": "order",
+       "task": "Reorder logon/heartbeat/resend messages after a gap",
+       "params": "sequence variants"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose the correct recovery action for a session gap",
+       "params": "scenario variants"
+      }
+     ],
+     "callbacks": [
+      "T7.2"
+     ],
+     "sources": [
+      {
+       "id": "S210",
+       "ref": "Session layer FIXT 1.1",
+       "use": "core"
+      },
+      {
+       "id": "S212",
+       "ref": "Best practices",
+       "use": "reference"
+      },
+      {
+       "id": "S211",
+       "ref": "FIXimate",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "T7.4",
+     "title": "SWIFT MT vs ISO 20022 for securities",
+     "minutes": 45,
+     "objectives": [
+      "Learner can compare MT and MX syntax for a trade/confirmation message",
+      "Learner can name the relevant ISO 20022 families for securities",
+      "Learner can explain the migration drivers"
+     ],
+     "key_concepts": [
+      "MT5xx",
+      "ISO 20022 families (sese, semt, seev, setr, secl)",
+      "SWIFT MyStandards",
+      "T2S ISO 20022 usage",
+      "market practice groups",
+      "data richness"
+     ],
+     "worked_example": "A settlement instruction expressed as MT540 and the same instruction as sese.023: the learner maps the key fields side by side.",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Match MT messages to their ISO 20022 counterparts",
+       "params": "message list"
+      },
+      {
+       "template": "table",
+       "task": "Map fields between MT and MX for one message",
+       "params": "field list"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose the right message type for a business case",
+       "params": "case variants"
+      }
+     ],
+     "callbacks": [
+      "T1.3"
+     ],
+     "sources": [
+      {
+       "id": "S016",
+       "ref": "Whole booklet",
+       "use": "core"
+      },
+      {
+       "id": "S327",
+       "ref": "MyStandards overview",
+       "use": "core"
+      },
+      {
+       "id": "S306",
+       "ref": "AMI-SeCo customisation",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "End-of-module test: FIX tag reading, execution report arithmetic, log diagnosis, MT vs ISO 20022 mapping.",
+   "jurisdiction_notes": "Global standards; EU T2S/ISO 20022 usage is mentioned; no jurisdiction notes otherwise."
+  },
+  {
+   "id": "O1",
+   "title": "Contract notes & confirmations",
+   "track": "ops",
+   "hours": 3,
+   "prereqs": [
+    "T2",
+    "A1"
+   ],
+   "boss_items": [
+    "contract notes"
+   ],
+   "hook": "The content of a contract note, required regulatory fields, the confirmation and affirmation cycle, and how to check and correct a disputed figure.",
+   "units": [
+    {
+     "id": "O1.1",
+     "title": "Anatomy of a contract note",
+     "minutes": 45,
+     "objectives": [
+      "Learner can list the mandatory contents of a contract note under MiFID II and Rule 10b-10",
+      "Learner can identify retail vs professional timing",
+      "Learner can find the capacity and venue information on a note"
+     ],
+     "key_concepts": [
+      "Del. Reg 2017/565 Art 59",
+      "SEC Rule 10b-10",
+      "price, quantity, total commission, venue",
+      "next business day deadline",
+      "aggregated and average price notes",
+      "capacity"
+     ],
+     "worked_example": "A contract note must show the trading venue, the price and quantity, total commission and charges; the client is notified at the latest the first business day after execution.",
+     "exercises": [
+      {
+       "template": "spot",
+       "task": "Spot the missing mandatory item on a contract note",
+       "params": "note with seeded gaps"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill timing and content requirements",
+       "params": "word bank"
+      },
+      {
+       "template": "match",
+       "task": "Match note fields to regulatory source",
+       "params": "field list"
+      }
+     ],
+     "callbacks": [
+      "T2.4",
+      "T6.1"
+     ],
+     "sources": [
+      {
+       "id": "S165",
+       "ref": "Art 59",
+       "use": "core"
+      },
+      {
+       "id": "S270",
+       "ref": "Rule 10b-10",
+       "use": "core"
+      },
+      {
+       "id": "S058",
+       "ref": "Ch. on confirmations",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O1.2",
+     "title": "Calculations on a contract note",
+     "minutes": 45,
+     "objectives": [
+      "Learner can compute net settlement amount for a buy and a sell",
+      "Learner can compute accrued interest on a bond contract note",
+      "Learner can reconcile trade date, value date and settlement"
+     ],
+     "key_concepts": [
+      "gross amount",
+      "commission, VAT, FTT",
+      "accrued interest",
+      "net amount",
+      "trade vs settlement date",
+      "FX conversion"
+     ],
+     "worked_example": "Buy 1,000 shares @25.10 = 25,100 gross, commission 25, FTT 100 (FR 0.4%), net debit 25,225; a bond sale with 62 days of accrued at 4% on 1m nominal adds 6,794.52 under act/365.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute net settlement amount including all fee lines",
+       "params": "price, quantity, fees"
+      },
+      {
+       "template": "table",
+       "task": "Complete a contract note calculation table",
+       "params": "5 lines"
+      },
+      {
+       "template": "timeline",
+       "task": "Place trade, value and settlement dates for market conventions",
+       "params": "market, trade date"
+      }
+     ],
+     "callbacks": [
+      "P3.5",
+      "T6.2"
+     ],
+     "sources": [
+      {
+       "id": "S028",
+       "ref": "Ch. on trade confirmation",
+       "use": "core"
+      },
+      {
+       "id": "S100",
+       "ref": "Ch. on trade documentation",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O1.3",
+     "title": "Confirmation, affirmation and trade matching",
+     "minutes": 45,
+     "objectives": [
+      "Learner can describe how trades are matched between parties",
+      "Learner can compare MT515/MT518 flows and modern matching platforms",
+      "Learner can diagnose a trade break"
+     ],
+     "key_concepts": [
+      "confirmation vs affirmation",
+      "MT515, MT518",
+      "matching platforms",
+      "trade breaks and common causes",
+      "ESMA reporting links",
+      "T+1 implications"
+     ],
+     "worked_example": "A broker-side confirmation says 25.10 and the client says 25.01; the mismatch is a keying transposition. Matching tolerance flags it for correction before settlement.",
+     "exercises": [
+      {
+       "template": "order",
+       "task": "Sequence the confirmation-affirmation flow",
+       "params": "variants"
+      },
+      {
+       "template": "mcq",
+       "task": "Identify the cause of a given trade break",
+       "params": "scenario variants"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the break between two confirmations",
+       "params": "pair with seeded errors"
+      }
+     ],
+     "callbacks": [
+      "O1.1",
+      "T7.4"
+     ],
+     "sources": [
+      {
+       "id": "S327",
+       "ref": "MyStandards MT515/518",
+       "use": "core"
+      },
+      {
+       "id": "S058",
+       "ref": "Ch. on confirmation/affirmation",
+       "use": "core"
+      },
+      {
+       "id": "S298",
+       "ref": "ESMA Q&As on MiFIR data reporting",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O1.4",
+     "title": "Booking from a contract note",
+     "minutes": 45,
+     "objectives": [
+      "Learner can book trade-date and settlement-date entries from a note",
+      "Learner can book fees and accrued interest correctly",
+      "Learner can identify booking errors on a note"
+     ],
+     "key_concepts": [
+      "trade-date vs settlement-date accounting",
+      "cash and securities ledgers",
+      "fees and taxes",
+      "accrued interest",
+      "reversal of errors",
+      "linked to A1"
+     ],
+     "worked_example": "A buy contract note books Dr Securities, Dr Fees, Cr Payable on trade date and Dr Payable, Cr Cash on settlement date.",
+     "exercises": [
+      {
+       "template": "journal",
+       "task": "Build the entries for a buy and a sell contract note",
+       "params": "amounts"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the mis-booked fee on a posting",
+       "params": "posting with seeded error"
+      },
+      {
+       "template": "table",
+       "task": "Complete a position/cash reconciliation after settlement",
+       "params": "trades"
+      }
+     ],
+     "callbacks": [
+      "A1.3",
+      "A1.4",
+      "O1.2"
+     ],
+     "sources": [
+      {
+       "id": "S028",
+       "ref": "Ch. on accounting entries",
+       "use": "core"
+      },
+      {
+       "id": "S036",
+       "ref": "Ch. on investment accounting",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O1.5",
+     "title": "Commission worked cases",
+     "minutes": 45,
+     "objectives": [
+      "Compute brokerage under ad valorem, tiered and minimum-charge schedules",
+      "Apply an FX mark-up to a cross-currency trade and show it as a separate cost line",
+      "Add the transaction taxes and fees to reach the net amount on a contract note",
+      "Detect a commission, tax or net-amount error on a contract note"
+     ],
+     "key_concepts": [
+      "Ad valorem commission as a percentage of notional",
+      "Tiered schedule: rate applies by band of notional",
+      "Minimum charge per trade",
+      "FX mark-up on the client rate vs market mid",
+      "Transaction taxes: French FTT 0.4% on in-scope French shares, Italian FTT 0.2% on regulated-market trades (see T6.2)",
+      "Net amount = notional +/- commission and fees +/- taxes (buy vs sell)"
+     ],
+     "worked_example": "A client buys 1,000 shares of a French listed company above EUR 1bn market cap at EUR 100.00: notional EUR 100,000. Tiered brokerage 0.30% on the first EUR 50,000 (150.00) and 0.15% on the rest (75.00) is EUR 225.00. French FTT 0.4% is EUR 400.00. Net debit EUR 100,625.00. For a small buy of 100 shares at EUR 12.00 (notional 1,200), 0.30% is 3.60, so the EUR 20 minimum applies. An FX-converted USD 10,000 purchase at mid 1.1000 with a 0.50% mark-up is quoted at 1.0945, costing EUR 9,136.59 vs EUR 9,090.91 at mid.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute tiered brokerage with minimum",
+       "params": "notional 1,000-500,000; two tiers; minimum"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the FX mark-up cost",
+       "params": "USD amount, mid rate, mark-up bp"
+      },
+      {
+       "template": "table",
+       "task": "Build the contract note cost lines to net amount",
+       "params": "trade side, brokerage, taxes"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the wrong commission or tax on a contract note",
+       "params": "note with seeded error"
+      },
+      {
+       "template": "mcq",
+       "task": "Which charge applies: minimum or ad valorem?",
+       "params": "notional, rate, minimum"
+      }
+     ],
+     "callbacks": [
+      "T6.1",
+      "T6.2",
+      "O1.2",
+      "O1.4"
+     ],
+     "sources": [
+      {
+       "id": "S028",
+       "ref": "contract note calculations",
+       "use": "core"
+      },
+      {
+       "id": "S100",
+       "ref": "trade lifecycle: charges and net amount",
+       "use": "core"
+      },
+      {
+       "id": "S058",
+       "ref": "fees on confirmations",
+       "use": "reference"
+      },
+      {
+       "id": "S101",
+       "ref": "commission models",
+       "use": "reference"
+      },
+      {
+       "id": "S165",
+       "ref": "Art. 59: costs on the confirmation",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "End-of-module test: contract-note content, net-amount calculation, matching and booking entries.",
+   "jurisdiction_notes": "EU (Art 59) and US (Rule 10b-10) side by side; no others."
+  },
+  {
+   "id": "Q4",
+   "title": "Calculus II",
+   "track": "theory",
+   "hours": 6,
+   "prereqs": [
+    "Q3"
+   ],
+   "boss_items": [],
+   "hook": "Definite integrals, the link between a rate and an accumulated amount, and Taylor expansions applied to the bond price-yield curve (convexity).",
+   "units": [
+    {
+     "id": "Q4.1",
+     "title": "Accumulation: area under a curve and Riemann sums",
+     "minutes": 50,
+     "objectives": [
+      "Learner can approximate an area using left, right and midpoint sums",
+      "Learner can interpret area as accumulated quantity",
+      "Learner can write a sum in sigma notation"
+     ],
+     "key_concepts": [
+      "Riemann sum",
+      "left/right/midpoint",
+      "sigma notation",
+      "limits of sums",
+      "accumulation",
+      "cash flow accumulation"
+     ],
+     "worked_example": "Cash flow rate f(t)=100 EUR/year for 4 years: area = 400; with f(t)=50+25t, the right Riemann sum with 4 intervals is 50+75+100+125 = 350.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute a Riemann sum for a given function",
+       "params": "function, intervals"
+      },
+      {
+       "template": "mcq",
+       "task": "Interpret the area in a context",
+       "params": "contexts"
+      },
+      {
+       "template": "table",
+       "task": "Fill a table of left and right sums as n grows",
+       "params": "n values"
+      }
+     ],
+     "callbacks": [
+      "Q3.1",
+      "Q1.5"
+     ],
+     "sources": [
+      {
+       "id": "S017",
+       "ref": "Unit 5 lectures",
+       "use": "core"
+      },
+      {
+       "id": "S006",
+       "ref": "Chs. on integration",
+       "use": "core"
+      },
+      {
+       "id": "S020",
+       "ref": "Calculus I integrals section",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "Q4.2",
+     "title": "Antiderivatives and the Fundamental Theorem",
+     "minutes": 50,
+     "objectives": [
+      "Learner can find simple antiderivatives",
+      "Learner can state the FTC and use it to evaluate definite integrals",
+      "Learner can check results by differentiating"
+     ],
+     "key_concepts": [
+      "antiderivative",
+      "indefinite integral",
+      "FTC part 1 and 2",
+      "constant of integration",
+      "check by derivative",
+      "definite integral"
+     ],
+     "worked_example": "F(x)=x^3/3 is an antiderivative of x^2, so the integral from 1 to 3 is 27/3 - 1/3 = 26/3.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Evaluate a definite integral with FTC",
+       "params": "function, limits"
+      },
+      {
+       "template": "mcq",
+       "task": "Pick the correct antiderivative",
+       "params": "functions"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill steps of an FTC computation",
+       "params": "word bank"
+      }
+     ],
+     "callbacks": [
+      "Q3.3"
+     ],
+     "sources": [
+      {
+       "id": "S017",
+       "ref": "Unit 5",
+       "use": "core"
+      },
+      {
+       "id": "S047",
+       "ref": "Ch. 5",
+       "use": "core"
+      },
+      {
+       "id": "S006",
+       "ref": "Chs. on integration",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "Q4.3",
+     "title": "Integration rules and drills",
+     "minutes": 55,
+     "objectives": [
+      "Learner can integrate powers, exponentials, 1/x and sums",
+      "Learner can apply simple u-substitution",
+      "Learner can integrate by recognising derivative patterns"
+     ],
+     "key_concepts": [
+      "power rule",
+      "exp and log integrals",
+      "linearity",
+      "u-substitution (light)",
+      "reverse chain rule",
+      "drill technique"
+     ],
+     "worked_example": "Integral of 3e^{2x} dx = (3/2)e^{2x} + C; integral of 1/(x+1) dx = ln|x+1| + C.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Evaluate definite integrals from a function bank",
+       "params": "function families"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose the substitution",
+       "params": "functions"
+      },
+      {
+       "template": "match",
+       "task": "Match integrands to antiderivatives",
+       "params": "10 pairs"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a worked integration",
+       "params": "worked line with error"
+      }
+     ],
+     "callbacks": [
+      "Q3.4",
+      "Q1.6"
+     ],
+     "sources": [
+      {
+       "id": "S020",
+       "ref": "Calculus I integrals",
+       "use": "core"
+      },
+      {
+       "id": "S047",
+       "ref": "Ch. 5-6",
+       "use": "core"
+      },
+      {
+       "id": "S011",
+       "ref": "Ch. on integration",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "Q4.4",
+     "title": "Integrals in finance: continuous cash flows and present value",
+     "minutes": 50,
+     "objectives": [
+      "Learner can compute total and present value of a continuous cash flow",
+      "Learner can connect integrals to annuity formulas",
+      "Learner can set up an integral from a word problem"
+     ],
+     "key_concepts": [
+      "continuous cash flow",
+      "present value by integral",
+      "continuous compounding",
+      "annuity as integral",
+      "expected value (preview)",
+      "units"
+     ],
+     "worked_example": "A stream paying 1,000 EUR/year for 5 years discounted continuously at 4% has PV = 1000 * (1 - e^{-0.2})/0.04 = 4,531.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute PV of a continuous stream",
+       "params": "rate, horizon, discount"
+      },
+      {
+       "template": "mcq",
+       "task": "Set up the integral for a stated problem",
+       "params": "problems"
+      },
+      {
+       "template": "table",
+       "task": "Compare discrete annuity PV to the continuous limit",
+       "params": "n values"
+      }
+     ],
+     "callbacks": [
+      "F1.4",
+      "Q4.3"
+     ],
+     "sources": [
+      {
+       "id": "S075",
+       "ref": "Ch. 2 (cash flows)",
+       "use": "core"
+      },
+      {
+       "id": "S011",
+       "ref": "Chs. on dynamic optimisation",
+       "use": "reference"
+      },
+      {
+       "id": "S015",
+       "ref": "Time value background",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "Q4.5",
+     "title": "Exponential and logarithmic growth",
+     "minutes": 50,
+     "objectives": [
+      "Learner can solve y'=ky and interpret k",
+      "Learner can compute doubling times",
+      "Learner can link continuous growth to log returns"
+     ],
+     "key_concepts": [
+      "y'=ky",
+      "exponential solution",
+      "doubling time",
+      "half-life",
+      "log returns",
+      "growth rates"
+     ],
+     "worked_example": "At 3% continuous growth, wealth doubles in ln2/0.03 = 23.1 years.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute doubling time and growth for a rate",
+       "params": "rate"
+      },
+      {
+       "template": "mcq",
+       "task": "Pick the equation for a growth description",
+       "params": "descriptions"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill the solution of y'=ky",
+       "params": "word bank"
+      }
+     ],
+     "callbacks": [
+      "Q1.7",
+      "F2.1"
+     ],
+     "sources": [
+      {
+       "id": "S017",
+       "ref": "Unit on exponential growth",
+       "use": "core"
+      },
+      {
+       "id": "S006",
+       "ref": "Chs. on logs",
+       "use": "reference"
+      },
+      {
+       "id": "S075",
+       "ref": "Ch. 2",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "Q4.6",
+     "title": "Taylor approximation",
+     "minutes": 55,
+     "objectives": [
+      "Learner can build first- and second-order Taylor polynomials",
+      "Learner can estimate values using them",
+      "Learner can estimate the error roughly"
+     ],
+     "key_concepts": [
+      "Taylor polynomial",
+      "linear approximation",
+      "quadratic approximation",
+      "remainder (informal)",
+      "e^x, ln(1+x)",
+      "preview of duration/convexity"
+     ],
+     "worked_example": "e^{0.05} ~ 1 + 0.05 + 0.00125 = 1.05125; compare with exact 1.051271.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute Taylor approximations to a function value",
+       "params": "function, x, order"
+      },
+      {
+       "template": "table",
+       "task": "Fill the error table for increasing order",
+       "params": "orders"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose the best order for a tolerance",
+       "params": "tolerances"
+      }
+     ],
+     "callbacks": [
+      "Q3.5"
+     ],
+     "sources": [
+      {
+       "id": "S047",
+       "ref": "Ch. on series",
+       "use": "core"
+      },
+      {
+       "id": "S017",
+       "ref": "Taylor lecture",
+       "use": "core"
+      },
+      {
+       "id": "S115",
+       "ref": "Ch. on Taylor",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "Q4.7",
+     "title": "Consolidation: derivatives and integrals together; bond price curve preview",
+     "minutes": 50,
+     "objectives": [
+      "Learner can combine derivatives and integrals in a problem",
+      "Learner can estimate price change from yield using first- and second-order terms",
+      "Learner can interpret the curve bend"
+     ],
+     "key_concepts": [
+      "derivative + integral",
+      "price-yield curve",
+      "duration (preview)",
+      "convexity (preview)",
+      "error of linear approximation"
+     ],
+     "worked_example": "A bond price P(y)=100e^{-5y}; linear approximation at y=4% estimates the move for +50bp; adding the second-order term reduces the error.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Estimate price change from a yield move with first/second order",
+       "params": "price function, move"
+      },
+      {
+       "template": "mcq",
+       "task": "Identify the property from a curve",
+       "params": "curve shapes"
+      },
+      {
+       "template": "paper",
+       "task": "Optional: explain why linear approximation under-estimates a price gain",
+       "params": "function"
+      }
+     ],
+     "callbacks": [
+      "Q4.6",
+      "P3.7"
+     ],
+     "sources": [
+      {
+       "id": "S061",
+       "ref": "Ch. on price sensitivity",
+       "use": "deeper"
+      },
+      {
+       "id": "S047",
+       "ref": "Ch. 5-6",
+       "use": "reference"
+      },
+      {
+       "id": "S075",
+       "ref": "Ch. 3",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "End-of-module test: integration technique, FTC, financial integral applications, growth and Taylor approximation.",
+   "jurisdiction_notes": null
+  },
+  {
+   "id": "Q5",
+   "title": "Probability II",
+   "track": "theory",
+   "hours": 3,
+   "prereqs": [
+    "Q2",
+    "Q3"
+   ],
+   "boss_items": [],
+   "hook": "Continuous distributions, the normal and lognormal models for returns, expectation and variance of sums, and covariance.",
+   "units": [
+    {
+     "id": "Q5.1",
+     "title": "Random variables, expectation, variance",
+     "minutes": 45,
+     "objectives": [
+      "Learner can compute expectation and variance for discrete and simple continuous variables",
+      "Learner can apply linearity rules",
+      "Learner can interpret CDF and PDF"
+     ],
+     "key_concepts": [
+      "random variable",
+      "PMF, PDF, CDF",
+      "expectation",
+      "variance",
+      "linearity",
+      "standard deviation"
+     ],
+     "worked_example": "Return X takes -5%, 0%, +8% with probabilities 0.2, 0.5, 0.3: E=1.4%, Var=22.24 (%-squared), sd about 4.7%",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute E and Var of a discrete variable",
+       "params": "values, probabilities"
+      },
+      {
+       "template": "mcq",
+       "task": "Pick the CDF/PDF relation",
+       "params": "scenarios"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute portfolio return mean and variance from linearity",
+       "params": "weights"
+      }
+     ],
+     "callbacks": [
+      "Q2.1",
+      "Q2.2",
+      "Q4.2"
+     ],
+     "sources": [
+      {
+       "id": "S001",
+       "ref": "Chs. 4-5",
+       "use": "core"
+      },
+      {
+       "id": "S074",
+       "ref": "Chs. 3-4",
+       "use": "core"
+      },
+      {
+       "id": "S020",
+       "ref": "Probability notes",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "Q5.2",
+     "title": "The normal distribution",
+     "minutes": 45,
+     "objectives": [
+      "Learner can standardise and use z-scores",
+      "Learner can compute normal probabilities from tables",
+      "Learner can apply the 68-95-99.7 rule"
+     ],
+     "key_concepts": [
+      "normal pdf",
+      "z-score",
+      "standard normal table",
+      "68-95-99.7",
+      "sums of normals",
+      "VaR preview"
+     ],
+     "worked_example": "Monthly return ~ N(0.8%, 4%): P(return < -5%) = P(Z < -1.45) ~ 7.4%.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute a normal tail probability",
+       "params": "mean, sd, threshold"
+      },
+      {
+       "template": "mcq",
+       "task": "Pick the interval for a given confidence",
+       "params": "levels"
+      },
+      {
+       "template": "numeric",
+       "task": "Find the quantile for a probability",
+       "params": "mean, sd, p"
+      }
+     ],
+     "callbacks": [
+      "Q5.1",
+      "F2.2"
+     ],
+     "sources": [
+      {
+       "id": "S001",
+       "ref": "Ch. 5",
+       "use": "core"
+      },
+      {
+       "id": "S074",
+       "ref": "Ch. 5",
+       "use": "core"
+      },
+      {
+       "id": "S015",
+       "ref": "Ch. on risk and return",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "Q5.3",
+     "title": "Lognormal prices",
+     "minutes": 45,
+     "objectives": [
+      "Learner can explain why prices are modelled as lognormal",
+      "Learner can compute the mean and median of a lognormal",
+      "Learner can convert between log and simple returns"
+     ],
+     "key_concepts": [
+      "log return",
+      "lognormal",
+      "E[e^X]",
+      "median vs mean",
+      "multiplicative growth",
+      "price paths"
+     ],
+     "worked_example": "If ln(S_T/S_0) ~ N(0.05, 0.2^2), median S_T/S_0 = e^{0.05} = 1.0513 and mean = e^{0.05+0.02}=1.0725.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute lognormal mean and median",
+       "params": "mu, sigma"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose the log vs simple return",
+       "params": "cases"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute probability a price ends below a threshold",
+       "params": "S0, K, mu, sigma"
+      }
+     ],
+     "callbacks": [
+      "Q4.5",
+      "Q5.2"
+     ],
+     "sources": [
+      {
+       "id": "S075",
+       "ref": "Ch. 7",
+       "use": "core"
+      },
+      {
+       "id": "S012",
+       "ref": "Ch. 2",
+       "use": "deeper"
+      },
+      {
+       "id": "S001",
+       "ref": "Ch. 5",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "Q5.4",
+     "title": "Law of large numbers and the CLT",
+     "minutes": 45,
+     "objectives": [
+      "Learner can state and use the CLT for sample means",
+      "Learner can compute standard error of an average return",
+      "Learner can explain where it fails (fat tails)"
+     ],
+     "key_concepts": [
+      "law of large numbers",
+      "CLT",
+      "standard error",
+      "sample mean",
+      "confidence interval",
+      "fat tails"
+     ],
+     "worked_example": "With 60 monthly returns, sd 4%, SE = 0.52%; a 95% CI for mean return is +-1.0%.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute SE and a confidence interval",
+       "params": "n, sd, mean"
+      },
+      {
+       "template": "mcq",
+       "task": "State when the CLT is reliable",
+       "params": "scenarios"
+      },
+      {
+       "template": "paper",
+       "task": "Optional: explain why Sharpe estimates are noisy",
+       "params": "n, sd"
+      }
+     ],
+     "callbacks": [
+      "Q2.4",
+      "Q5.2"
+     ],
+     "sources": [
+      {
+       "id": "S001",
+       "ref": "Ch. 8",
+       "use": "core"
+      },
+      {
+       "id": "S074",
+       "ref": "Ch. 10",
+       "use": "core"
+      },
+      {
+       "id": "S039",
+       "ref": "Ch. 5",
+       "use": "deeper"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "End-of-module test: random variables, normal and lognormal probabilities, LLN/CLT and standard errors.",
+   "jurisdiction_notes": null
+  }
+ ],
+ "checkpoint": "Level boss quiz (35-45 min) mixing all nine modules: an order-to-contract-note case (route, fills, cost, confirmation) plus calculus and probability items. Format: 25-30 mixed-template questions with 25% callbacks to L1-L2.",
+ "open_questions": [
+  "See syllabus/FACTS.md (originals in open-questions.txt)"
+ ]
+}

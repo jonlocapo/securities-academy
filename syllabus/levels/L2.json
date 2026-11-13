@@ -1,0 +1,2918 @@
+{
+ "level": "L2",
+ "title": "Instruments",
+ "hours": 38,
+ "intro": "This level covers shares, bonds, funds, ETFs and EU structured products as securities: their rights, cash flows, NAV and market price, booking and custody. It also covers returns, volatility, correlation, and duration as a derivative. The learner can describe and read the price of each instrument.",
+ "modules": [
+  {
+   "id": "P2",
+   "title": "Equities in depth",
+   "track": "ops",
+   "hours": 5,
+   "prereqs": [
+    "P1"
+   ],
+   "boss_items": [
+    "stocks"
+   ],
+   "hook": "Ordinary and preferred shares, share classes, listings, ADRs and depositary receipts, and the rights and dividend mechanics attached to each.",
+   "units": [
+    {
+     "id": "P2.1",
+     "title": "What a share really is",
+     "minutes": 45,
+     "objectives": [
+      "Learner can list the economic and legal rights attached to an ordinary share",
+      "Learner can distinguish ordinary, preference and non-voting shares by rights ranking",
+      "Learner can read an ISIN and a share's static data (nominal/no-par, currency, market of listing)"
+     ],
+     "key_concepts": [
+      "residual claim",
+      "limited liability",
+      "par value vs no-par shares",
+      "ordinary vs preference",
+      "bearer vs registered form",
+      "treasury shares",
+      "ISIN structure"
+     ],
+     "worked_example": "A company with 10m shares in issue buys back 1m: 9m carry votes and dividends, 1m treasury shares carry neither. Your 90,000 shares go from 0.90% to 1.00% of voting capital.",
+     "exercises": [
+      {
+       "template": "mcq",
+       "task": "Pick which right a preference share typically gives up in exchange for a priority claim",
+       "params": "rights bundles vary across 6 share types"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort rights (vote, dividend priority, pre-emption, liquidation priority, information) into ordinary / preference / treasury",
+       "params": "random subset of rights and share type"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute ownership % and voting % after a buyback with treasury shares",
+       "params": "shares in issue 2m-50m, buyback 1-8%, holding size"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the wrong field in a static-data sheet for a share (e.g. coupon field, maturity date, wrong ISIN country prefix)",
+       "params": "one injected error per sheet"
+      },
+      {
+       "template": "cloze",
+       "task": "Complete a sentence describing residual claim in insolvency",
+       "params": "word bank of 8 ranking terms"
+      }
+     ],
+     "callbacks": [
+      "P1.1",
+      "P1.5"
+     ],
+     "sources": [
+      {
+       "id": "S015",
+       "ref": "chapters on the investment environment and equity securities (share characteristics)",
+       "use": "core"
+      },
+      {
+       "id": "S062",
+       "ref": "chapter on common stock and market structure",
+       "use": "core"
+      },
+      {
+       "id": "S030",
+       "ref": "chapters on equities / how shares work",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "P2.2",
+     "title": "Share classes, voting structures and local oddities",
+     "minutes": 50,
+     "objectives": [
+      "Learner can explain why dual-class and multiple-vote structures exist and how they separate cash-flow and voting rights",
+      "Learner can identify a share class from a market naming convention (A/B, Vz, savings shares, double-voting)",
+      "Learner can state how a different share class changes custody and corporate-action handling (separate ISIN)"
+     ],
+     "key_concepts": [
+      "A/B shares (Nordics)",
+      "Vorzugsaktien (DE)",
+      "azioni di risparmio (IT)",
+      "double voting rights (FR)",
+      "multiple-vote share structures and Directive (EU) 2024/2810",
+      "separate ISIN per class",
+      "nominee and registered shares"
+     ],
+     "worked_example": "Two lines of the same issuer trade on the same exchange: ordinary at 24.80 and savings shares at 21.30. Same issuer, different ISINs, different dividend floor, different voting - the discount is the price of the missing vote.",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Match each national share-class label to its key feature",
+       "params": "pool of ~10 labels (A/B, Vz, risparmio, double vote, golden share...)"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the percentage discount of the non-voting class and the implied price of one vote",
+       "params": "two prices 5-60 EUR, vote share"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose why a corporate action on class B must be processed separately from class A",
+       "params": "different CA scenarios"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort 8 securities into: same ISIN as ordinary / own ISIN / not a share",
+       "params": "scenario list"
+      },
+      {
+       "template": "multi",
+       "task": "Select all statements that are true for treasury and non-voting shares",
+       "params": "random combination"
+      }
+     ],
+     "callbacks": [
+      "P2.1"
+     ],
+     "sources": [
+      {
+       "id": "S057",
+       "ref": "chapters on issuers' disclosure and listing (share structures in capital markets law)",
+       "use": "deeper"
+      },
+      {
+       "id": "S015",
+       "ref": "equity chapters (preferred stock)",
+       "use": "core"
+      },
+      {
+       "id": "S245",
+       "ref": "Arts 1-6 scope and exemptions (context for share offerings)",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "P2.3",
+     "title": "Dividends: policy, yield and payout",
+     "minutes": 50,
+     "objectives": [
+      "Learner can compute dividend yield, payout ratio and cum/ex price effect",
+      "Learner can explain interim vs final dividends and the dividend-smoothing habit of boards",
+      "Learner can describe the cash flow of a dividend from declaration to payment at a high level"
+     ],
+     "key_concepts": [
+      "declaration date",
+      "ex-date dropping the price",
+      "payout ratio",
+      "dividend yield",
+      "special dividend",
+      "scrip dividend (preview)",
+      "dividend-smoothing evidence (Lintner)",
+      "irrelevance proposition (Miller-Modigliani)"
+     ],
+     "worked_example": "Share at 40.00 EUR pays 1.60 EUR: yield 4.0%. On the ex-date it opens near 38.40 all else equal - you receive 1.60 cash instead of 1.60 of price.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute yield and payout ratio from price, DPS and EPS",
+       "params": "price 8-200, DPS 0.2-8, EPS"
+      },
+      {
+       "template": "numeric",
+       "task": "Expected ex-date price and cash received for a holding of N shares",
+       "params": "N 100-10,000, DPS, tax ignored"
+      },
+      {
+       "template": "timeline",
+       "task": "Place declaration, ex-date, record date, payment date on a timeline",
+       "params": "dates generated with T+2 spacing"
+      },
+      {
+       "template": "mcq",
+       "task": "Why the share price falls on ex-date in a no-tax world",
+       "params": "alternate wording variants"
+      },
+      {
+       "template": "paper",
+       "task": "Optional: explain to a client why a high yield is not automatically a good sign",
+       "params": "client persona varies"
+      }
+     ],
+     "callbacks": [
+      "F1.4",
+      "P2.1"
+     ],
+     "sources": [
+      {
+       "id": "S054",
+       "ref": "full paper: dividend irrelevance and valuation",
+       "use": "deeper"
+      },
+      {
+       "id": "S053",
+       "ref": "full paper: dividend smoothing",
+       "use": "deeper"
+      },
+      {
+       "id": "S008",
+       "ref": "chapters on payout policy",
+       "use": "core"
+      },
+      {
+       "id": "S052",
+       "ref": "chapter on cash dividends (preview of O7)",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "P2.4",
+     "title": "Issuing shares: IPOs, follow-ons and rights",
+     "minutes": 55,
+     "objectives": [
+      "Learner can describe how a company raises equity (IPO, SPO, accelerated bookbuild, rights issue) and who does what",
+      "Learner can compute market capitalisation and free float, and explain why free float matters for indices and liquidity",
+      "Learner can state when a prospectus is required and when exemptions apply in the EU"
+     ],
+     "key_concepts": [
+      "primary vs secondary market",
+      "bookbuilding",
+      "greenshoe",
+      "pre-emption rights",
+      "rights issue (preview of O8)",
+      "free float",
+      "Prospectus Regulation thresholds and exemptions"
+     ],
+     "worked_example": "A company with 100m shares at 20.00 EUR does a 1-for-5 rights issue at 16.00 EUR: 20m new shares raise 320m EUR. The learner computes the dilution but leaves the theoretical ex-rights price for O8.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute market cap, free float market cap, and proceeds of an issue",
+       "params": "shares 10m-800m, price, free-float 20-90%"
+      },
+      {
+       "template": "order",
+       "task": "Put the steps of an IPO in order (mandate to first day of trading)",
+       "params": "variants: IPO, SPO, ABB"
+      },
+      {
+       "template": "mcq",
+       "task": "Which offer needs an approved prospectus and which falls under an exemption",
+       "params": "amount, investor type, denomination"
+      },
+      {
+       "template": "numeric",
+       "task": "Dilution percentage for a holder who does not take up rights",
+       "params": "ratio 1:3 to 1:10, holding"
+      },
+      {
+       "template": "match",
+       "task": "Match each term (greenshoe, lock-up, bookbuilding...) to its role",
+       "params": "pool of 8 terms"
+      }
+     ],
+     "callbacks": [
+      "P1.4",
+      "F1.2"
+     ],
+     "sources": [
+      {
+       "id": "S245",
+       "ref": "Arts 1-7 (scope, exemptions, prospectus content overview)",
+       "use": "core"
+      },
+      {
+       "id": "S024",
+       "ref": "chapters on equity issuance and the IPO process",
+       "use": "deeper"
+      },
+      {
+       "id": "S303",
+       "ref": "ESMA Q&A on exemptions and thresholds",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "P2.5",
+     "title": "Listing venues and depositary receipts",
+     "minutes": 50,
+     "objectives": [
+      "Learner can distinguish regulated market, MTF and unlisted trading for a share",
+      "Learner can explain how an ADR/GDR is created, what the ratio means and who holds the underlying",
+      "Learner can compute the price relationship of a DR versus the local share including FX"
+     ],
+     "key_concepts": [
+      "regulated market vs MTF",
+      "admission to trading",
+      "market segments",
+      "ADR levels I-III, 144A/Reg S",
+      "depositary bank and custodian",
+      "DR ratio",
+      "FX and price parity",
+      "DR fees"
+     ],
+     "worked_example": "An ADR represents 2 ordinary shares. Local share at 30.00 EUR, EURUSD 1.08: parity price = 2 x 30.00 x 1.08 = 64.80 USD. If the ADR quotes 65.10, the gap is 0.46%.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute the ADR parity price and the premium/discount of the quoted ADR",
+       "params": "ratio 0.5-10, local price, FX rate, ADR quote"
+      },
+      {
+       "template": "order",
+       "task": "Order the steps of creating a new ADR from purchase of local shares",
+       "params": "variants: sponsored/unsponsored"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort venues into regulated market / MTF / OTC",
+       "params": "venue list"
+      },
+      {
+       "template": "mcq",
+       "task": "Who is the legal holder of the underlying shares in an ADR programme",
+       "params": "scenario texts"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill the chain: investor - broker - DTC - depositary - custodian - issuer",
+       "params": "word bank"
+      }
+     ],
+     "callbacks": [
+      "P1.4",
+      "P2.1"
+     ],
+     "sources": [
+      {
+       "id": "S321",
+       "ref": "full bulletin (ADR structure, levels and risks)",
+       "use": "core"
+      },
+      {
+       "id": "S062",
+       "ref": "chapter on global equity markets and depositary receipts",
+       "use": "deeper"
+      },
+      {
+       "id": "S004",
+       "ref": "chapters on equity markets",
+       "use": "foundation"
+      }
+     ]
+    },
+    {
+     "id": "P2.6",
+     "title": "Indices: how an index is built",
+     "minutes": 50,
+     "objectives": [
+      "Learner can compute a price index level using a divisor and update it after a constituent change",
+      "Learner can distinguish price, net total-return and gross total-return versions of the same index",
+      "Learner can explain cap-weighting, free-float adjustment and capping rules in broad market indices"
+     ],
+     "key_concepts": [
+      "index divisor",
+      "free-float market-cap weighting",
+      "price vs total return (net/gross)",
+      "rebalancing and reconstitution",
+      "capping",
+      "benchmark vs investable index",
+      "licensing and the link to P5 ETFs"
+     ],
+     "worked_example": "Three-stock cap-weighted index: caps 50bn, 30bn, 20bn with divisor 1,000,000,000 gives level 100. One firm is replaced with a 30bn stock; the divisor is adjusted so the level stays 100 immediately after.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute the index level and the new divisor after a replacement",
+       "params": "3-10 constituents, caps 1-80bn"
+      },
+      {
+       "template": "table",
+       "task": "Complete a table of weights after free-float adjustment and 10% cap",
+       "params": "6 constituents, float factors 0.3-1.0"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose which index version an ETF with dividends reinvested should track",
+       "params": "price/net TR/gross TR"
+      },
+      {
+       "template": "numeric",
+       "task": "Difference between price and total-return performance over N years",
+       "params": "yield 1-5%, years 1-10"
+      },
+      {
+       "template": "match",
+       "task": "Match index families to their provider and approach",
+       "params": "MSCI, STOXX, local blue-chips"
+      }
+     ],
+     "callbacks": [
+      "F1.5",
+      "Q1.4"
+     ],
+     "sources": [
+      {
+       "id": "S236",
+       "ref": "methodology chapters on index construction, free-float and rebalancing",
+       "use": "core"
+      },
+      {
+       "id": "S282",
+       "ref": "STOXX rulebook sections on calculation and capping",
+       "use": "core"
+      },
+      {
+       "id": "S015",
+       "ref": "chapter on equity indices",
+       "use": "deeper"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "Mixed test on share rights, dividends, issuance, ADR parity and index arithmetic.",
+   "jurisdiction_notes": "EU first (Prospectus Regulation, multiple-vote share structures directive, local share classes in DE/IT/FR/Nordics); US only via ADR structure (SEC bulletin); UK/CH/SG/HK not covered here."
+  },
+  {
+   "id": "P3",
+   "title": "Bonds in depth",
+   "track": "ops",
+   "hours": 7,
+   "prereqs": [
+    "P1",
+    "F1"
+   ],
+   "boss_items": [
+    "bonds"
+   ],
+   "hook": "Bond terms, price and accrued interest, the calculation of settlement amount from price and nominal, and the main bond types. The learner can reconcile a confirmation amount to its components.",
+   "units": [
+    {
+     "id": "P3.1",
+     "title": "Bond anatomy and who issues",
+     "minutes": 50,
+     "objectives": [
+      "Learner can name every term of a bond (issuer, nominal, coupon, maturity, currency, ranking)",
+      "Learner can classify issuers (sovereign, agency, supranational, corporate, financial, covered)",
+      "Learner can compute total cash flows of a simple bullet bond"
+     ],
+     "key_concepts": [
+      "nominal/par",
+      "bullet vs amortising",
+      "maturity and tenor",
+      "sovereigns and supranationals",
+      "senior vs subordinated",
+      "covered bonds (Directive 2019/2162)",
+      "denominations"
+     ],
+     "worked_example": "A 5-year, 3.00% annual bullet of 100,000 EUR nominal pays 3,000 each year and 103,000 in year 5; total cash received 115,000.",
+     "exercises": [
+      {
+       "template": "table",
+       "task": "Build the cash-flow table of a bullet bond",
+       "params": "nominal 10k-1m, coupon 1-6%, 3-10 years"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort 10 issuers into sovereign / agency / supranational / corporate / bank",
+       "params": "random issuers"
+      },
+      {
+       "template": "mcq",
+       "task": "Which feature makes a covered bond safer than senior unsecured",
+       "params": "variants on dual recourse"
+      },
+      {
+       "template": "cloze",
+       "task": "Complete a bond description from a term-sheet snippet",
+       "params": "snippets vary"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the inconsistency in a bond data sheet (maturity before issue, wrong currency, coupon on a zero)",
+       "params": "one error per sheet"
+      }
+     ],
+     "callbacks": [
+      "P1.2",
+      "F1.1"
+     ],
+     "sources": [
+      {
+       "id": "S045",
+       "ref": "chapters on features of debt securities and bond markets overview",
+       "use": "core"
+      },
+      {
+       "id": "S287",
+       "ref": "sections on bond features and types",
+       "use": "core"
+      },
+      {
+       "id": "S174",
+       "ref": "Arts 1-5 covered-bond framework (scope, dual recourse)",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "P3.2",
+     "title": "Coupon structures and embedded options",
+     "minutes": 55,
+     "objectives": [
+      "Learner can identify fixed, floating, zero, step-up and inflation-linked structures and compute a coupon for each",
+      "Learner can explain how callable, puttable and convertible features shift value between issuer and holder",
+      "Learner can describe perpetuals, AT1/CoCo-style subordinated notes at a high level"
+     ],
+     "key_concepts": [
+      "fixed/floating (reference rate + margin)",
+      "zero-coupon and discount",
+      "step-up",
+      "inflation-linked",
+      "callable/puttable",
+      "convertibles (concept)",
+      "subordinated/perpetual",
+      "reference rates (EURIBOR, SOFR, SONIA, SARON, term vs overnight)"
+     ],
+     "worked_example": "FRN pays 3-month EURIBOR + 0.60%. If EURIBOR fixes at 2.10% for a 91-day period on 1,000,000 EUR: coupon = 1,000,000 x 2.70% x 91/360 = 6,825.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute floating coupon for a period",
+       "params": "nominal, index fix, margin, day count, days"
+      },
+      {
+       "template": "match",
+       "task": "Match bond type to its main risk (reinvestment, extension, inflation, call, subordination)",
+       "params": "pool of 10 types"
+      },
+      {
+       "template": "mcq",
+       "task": "Who benefits when rates fall: callable vs non-callable bond holder",
+       "params": "rate move scenarios"
+      },
+      {
+       "template": "numeric",
+       "task": "Price of a zero-coupon bond from yield and tenor (annual compounding)",
+       "params": "yield 0-6%, tenor 1-15y"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort notes into fixed / floating / zero / structured",
+       "params": "short descriptions"
+      }
+     ],
+     "callbacks": [
+      "F1.3",
+      "P3.1"
+     ],
+     "sources": [
+      {
+       "id": "S045",
+       "ref": "chapters on bond features and embedded options",
+       "use": "core"
+      },
+      {
+       "id": "S287",
+       "ref": "sections on floating-rate and inflation-linked securities",
+       "use": "deeper"
+      },
+      {
+       "id": "S093",
+       "ref": "chapters on bond instruments",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "P3.3",
+     "title": "How a bond is born and held: issuance and form",
+     "minutes": 50,
+     "objectives": [
+      "Learner can describe primary issuance (syndication, auction, private placement) and the roles of lead manager, paying agent and fiscal agent",
+      "Learner can explain domestic vs international (Eurobond) issuance and the role of ICSDs",
+      "Learner can explain what a global note is and how an investor ends up with a book-entry position"
+     ],
+     "key_concepts": [
+      "syndicated issue vs auction",
+      "bookbuilding for bonds",
+      "ICMA primary market handbook",
+      "global note and common safekeeper",
+      "Eurobond vs domestic",
+      "ISIN, FISN and CFI",
+      "wholesale denomination exemption (100k EUR)"
+     ],
+     "worked_example": "A bank issues a 500m EUR 5-year Eurobond: one global note is lodged with an ICSD safekeeper, investors hold 1,000 EUR increments as book-entry credits at their custodians - nobody holds paper.",
+     "exercises": [
+      {
+       "template": "order",
+       "task": "Order the steps from mandate to first coupon for a syndicated bond",
+       "params": "variants: syndicated, auction, private placement"
+      },
+      {
+       "template": "match",
+       "task": "Match roles (lead manager, paying agent, calculation agent, trustee) to duties",
+       "params": "pool of 8 roles"
+      },
+      {
+       "template": "mcq",
+       "task": "Why the 100k denomination matters for prospectus and retail access",
+       "params": "amounts vary"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill the holding chain from issuer to end-investor",
+       "params": "word bank"
+      },
+      {
+       "template": "spot",
+       "task": "Spot errors in a Eurobond summary sheet",
+       "params": "injected error"
+      }
+     ],
+     "callbacks": [
+      "P1.4",
+      "T1.1"
+     ],
+     "sources": [
+      {
+       "id": "S221",
+       "ref": "primary market handbook sections on syndicated issuance and roles",
+       "use": "core"
+      },
+      {
+       "id": "S220",
+       "ref": "overview chapter",
+       "use": "reference"
+      },
+      {
+       "id": "S004",
+       "ref": "chapters on bond markets",
+       "use": "foundation"
+      },
+      {
+       "id": "S245",
+       "ref": "Art. 1 and Art. 3 (prospectus thresholds) and wholesale exemption",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "P3.4",
+     "title": "Day counts: how interest is measured",
+     "minutes": 55,
+     "objectives": [
+      "Learner can compute day-count fractions under ACT/ACT, 30E/360, ACT/360 and ACT/365F",
+      "Learner can pick the day count that fits a given market (EUR govvies, Eurobonds, money market, FRNs)",
+      "Learner can explain why identical coupons yield different cash amounts under different conventions"
+     ],
+     "key_concepts": [
+      "ACT/ACT (ICMA)",
+      "30E/360 (Eurobond basis)",
+      "30/360 US",
+      "ACT/360",
+      "ACT/365F",
+      "month-end rules",
+      "business-day conventions (following, modified following)"
+     ],
+     "worked_example": "4% on 1,000,000 EUR from 15 Jan to 31 Jul: ACT/360 = 197 days gives 21,888.89; 30E/360 = 195 days gives 21,666.67. Same coupon rate, 222 EUR apart.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute the day-count fraction between two dates under a given convention",
+       "params": "random dates, 4 conventions"
+      },
+      {
+       "template": "numeric",
+       "task": "Interest cash amount for a given nominal, rate and convention",
+       "params": "nominal 100k-5m, rate 1-6%"
+      },
+      {
+       "template": "match",
+       "task": "Match each market instrument to its standard day count",
+       "params": "pool of 10 instruments"
+      },
+      {
+       "template": "timeline",
+       "task": "Mark coupon dates after business-day adjustment on a calendar",
+       "params": "TARGET holidays, weekend rolls"
+      },
+      {
+       "template": "mcq",
+       "task": "Which of two bonds accrues more over a window and why",
+       "params": "pairs of conventions"
+      }
+     ],
+     "callbacks": [
+      "F1.1",
+      "Q1.1"
+     ],
+     "sources": [
+      {
+       "id": "S220",
+       "ref": "Appendix A5 day-count and accrued-interest conventions",
+       "use": "core"
+      },
+      {
+       "id": "S221",
+       "ref": "Secondary market rules, section on accrued interest",
+       "use": "core"
+      },
+      {
+       "id": "S045",
+       "ref": "section on accrued interest and conventions",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "P3.5",
+     "title": "Accrued interest, clean and dirty price",
+     "minutes": 60,
+     "objectives": [
+      "Learner can compute accrued interest for a settlement date and nominal amount",
+      "Learner can convert clean price to dirty price and total settlement consideration",
+      "Learner can explain why bonds quote clean and what ex-coupon periods do to the cash"
+     ],
+     "key_concepts": [
+      "clean vs dirty (full) price",
+      "accrued interest",
+      "settlement date vs trade date",
+      "ex-coupon periods",
+      "price in % of nominal",
+      "consideration = nominal x dirty price",
+      "pull-to-par"
+     ],
+     "worked_example": "Bund, 2.50% annual, ACT/ACT, last coupon 15 Feb, settlement 15 Jun: 120 days gives 0.8219 per 100. Clean 98.50 so dirty 99.3219; on 100,000 EUR nominal the buyer pays 99,321.92 EUR.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute accrued interest and dirty price from clean price and dates",
+       "params": "coupon 1-6%, dates, convention, clean 90-110"
+      },
+      {
+       "template": "numeric",
+       "task": "Total settlement amount for a given nominal",
+       "params": "nominal 10k-5m"
+      },
+      {
+       "template": "journal",
+       "task": "Book the purchase on the client ledger: cost of bond, accrued interest paid, cash",
+       "params": "amounts from the unit's numeric template"
+      },
+      {
+       "template": "table",
+       "task": "Show clean/dirty price across the days of a coupon period (sawtooth)",
+       "params": "coupon, 6 sample dates"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a confirmation extract where accrued was added twice or on the wrong day count",
+       "params": "injected error"
+      }
+     ],
+     "callbacks": [
+      "P3.4",
+      "A1.2",
+      "A1.3"
+     ],
+     "sources": [
+      {
+       "id": "S220",
+       "ref": "Appendix A5 and sections on accrued interest",
+       "use": "core"
+      },
+      {
+       "id": "S045",
+       "ref": "bond pricing chapter (full price, accrued interest)",
+       "use": "core"
+      },
+      {
+       "id": "S093",
+       "ref": "sections on accrued interest and settlement",
+       "use": "deeper"
+      },
+      {
+       "id": "S058",
+       "ref": "settlement chapters (confirmation amounts)",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "P3.6",
+     "title": "Yields and the price-yield seesaw",
+     "minutes": 60,
+     "objectives": [
+      "Learner can compute price from yield and approximate yield from price for a plain bond",
+      "Learner can explain why prices fall when yields rise and compare current yield, YTM and spot rates",
+      "Learner can recognise when YTM is misleading (callable, reinvestment, default risk)"
+     ],
+     "key_concepts": [
+      "present value of a bond",
+      "current yield",
+      "yield to maturity as an IRR",
+      "price-yield relationship",
+      "premium/discount/par",
+      "yield to call and yield to worst (concept)",
+      "G-spread preview"
+     ],
+     "worked_example": "3-year 4% annual bond priced at 98.00 has a YTM of about 4.73%; at a 5% yield the same bond is worth 97.28, at 4% it is 100.00.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute price from yield for an N-year annual-coupon bond",
+       "params": "coupon 1-6%, yield 0-8%, N 2-10"
+      },
+      {
+       "template": "numeric",
+       "task": "Current yield and a first YTM estimate from price",
+       "params": "price 85-115, coupon, years"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose the direction of price change for a given yield move and its approximate size",
+       "params": "yield move 25-200bp"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort bonds into premium / par / discount from coupon vs yield",
+       "params": "bond list"
+      },
+      {
+       "template": "paper",
+       "task": "Optional: explain to a retail client why their bond fund lost value when rates rose",
+       "params": "client persona varies"
+      }
+     ],
+     "callbacks": [
+      "F1.3",
+      "F1.4",
+      "Q1.3",
+      "P3.5"
+     ],
+     "sources": [
+      {
+       "id": "S045",
+       "ref": "chapters on bond pricing and yield measures",
+       "use": "core"
+      },
+      {
+       "id": "S061",
+       "ref": "chapters on prices, discounting and yield-to-maturity",
+       "use": "deeper"
+      },
+      {
+       "id": "S075",
+       "ref": "chapter on fixed-income securities (yield, price relationship)",
+       "use": "deeper"
+      },
+      {
+       "id": "S015",
+       "ref": "chapter on bond prices and yields",
+       "use": "foundation"
+      }
+     ]
+    },
+    {
+     "id": "P3.7",
+     "title": "Market conventions you meet in the back office",
+     "minutes": 50,
+     "objectives": [
+      "Learner can read standard quoting and settlement conventions for EUR govvies and corporate bonds",
+      "Learner can explain minimum denomination and tradeable increments and their effect on tradeable amounts",
+      "Learner can identify odd first coupons and ex-coupon quirks on a term sheet"
+     ],
+     "key_concepts": [
+      "quote in % of par",
+      "settlement T+2 in EUR bond markets (T+1 from Oct 2027 for CSDR settlement)",
+      "minimum denomination and increment",
+      "short and long first coupon",
+      "record date and ex-coupon in Eurobonds vs domestic",
+      "local oddities (Italian BTP semi-annual, Bund annual, Gilt ex-div)"
+     ],
+     "worked_example": "Corporate Eurobond: minimum 100,000 and increments of 1,000. A client wanting 150,500 EUR nominal cannot get it; 150,000 or 151,000 can be bought.",
+     "exercises": [
+      {
+       "template": "mcq",
+       "task": "Choose the executable nominal amounts given min denomination and increment",
+       "params": "min 1k-200k, inc 1k-100k"
+      },
+      {
+       "template": "match",
+       "task": "Match markets to coupon frequency and day count",
+       "params": "BTP, Bund, OAT, Gilt, UST, Eurobond"
+      },
+      {
+       "template": "timeline",
+       "task": "Place trade date, ex-coupon date, record date and coupon date for a trade near coupon",
+       "params": "dates generated"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute accrued for a trade in the ex-coupon period (can be negative in some markets)",
+       "params": "ex-coupon days, coupon"
+      },
+      {
+       "template": "spot",
+       "task": "Spot error in a bond order ticket (wrong increment, wrong quote unit)",
+       "params": "injected error"
+      }
+     ],
+     "callbacks": [
+      "P3.5",
+      "T1.2"
+     ],
+     "sources": [
+      {
+       "id": "S221",
+       "ref": "Secondary Market Rules and Recommendations, sections on settlement and ex-coupon",
+       "use": "core"
+      },
+      {
+       "id": "S219",
+       "ref": "ICMA European secondary market reports (market structure overview)",
+       "use": "deeper"
+      },
+      {
+       "id": "S058",
+       "ref": "chapters on bond settlement conventions",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "P3.8",
+     "title": "Credit, ranking and what happens if the issuer fails",
+     "minutes": 40,
+     "objectives": [
+      "Learner can describe the capital structure ladder from senior secured to equity",
+      "Learner can explain the role of ratings and spreads in pricing credit risk",
+      "Learner can name the principle of bail-in and MREL at a conceptual level"
+     ],
+     "key_concepts": [
+      "seniority ladder",
+      "senior preferred vs non-preferred",
+      "ratings and spread",
+      "default and recovery",
+      "BRRD bail-in (concept)",
+      "covered-bond dual recourse"
+     ],
+     "worked_example": "Senior bank debt trades at +90bp over the benchmark; subordinated at +250bp. The extra 160bp is the market price of sitting lower in the waterfall.",
+     "exercises": [
+      {
+       "template": "order",
+       "task": "Rank claims in the waterfall (covered, senior, non-preferred, T2, AT1, equity)",
+       "params": "random subset of 5 claims"
+      },
+      {
+       "template": "numeric",
+       "task": "Price effect of a spread widening on a 5-year bond using a simple duration shortcut",
+       "params": "spread move, duration given"
+      },
+      {
+       "template": "mcq",
+       "task": "Which holder is first to take losses in a bail-in",
+       "params": "scenario variants"
+      },
+      {
+       "template": "match",
+       "task": "Match rating bands to investment grade / high yield",
+       "params": "rating list"
+      }
+     ],
+     "callbacks": [
+      "P3.1",
+      "P3.6"
+     ],
+     "sources": [
+      {
+       "id": "S045",
+       "ref": "chapter on credit risk and ratings",
+       "use": "core"
+      },
+      {
+       "id": "S308",
+       "ref": "EBA report sections on covered bond framework",
+       "use": "reference"
+      },
+      {
+       "id": "S089",
+       "ref": "chapter on credit risk",
+       "use": "deeper"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "Cash-flow table, day counts, accrued/dirty price, price-yield and issuance chain.",
+   "jurisdiction_notes": "EU conventions first (ICMA, TARGET calendar, EUR govvies); US 30/360 and UST ACT/ACT and UK gilts mentioned in the day-count and conventions units; Swiss SARON and Asian conventions not covered."
+  },
+  {
+   "id": "P4",
+   "title": "Funds",
+   "track": "ops",
+   "hours": 6,
+   "prereqs": [
+    "P1",
+    "F1"
+   ],
+   "boss_items": [
+    "funds",
+    "NAV vs market price"
+   ],
+   "hook": "Fund structures, NAV calculation and dealing cut-offs, subscription and redemption processing, and the role of the transfer agent.",
+   "units": [
+    {
+     "id": "P4.1",
+     "title": "The fund landscape: UCITS, AIFs and legal forms",
+     "minutes": 60,
+     "objectives": [
+      "Learner can distinguish UCITS from AIFs and open-ended from closed-ended funds",
+      "Learner can name the main legal forms (SICAV, FCP, ICAV, unit trust, contractual fund) and where each lives (LU, IE, FR, DE)",
+      "Learner can list the key actors: management company, depositary, administrator, transfer agent, distributor"
+     ],
+     "key_concepts": [
+      "UCITS passport",
+      "AIFMD",
+      "open-ended vs closed-ended",
+      "SICAV/FCP/ICAV",
+      "management company vs self-managed",
+      "depositary and administrator",
+      "EFAMA domicile statistics",
+      "ETFs and MMFs as UCITS categories"
+     ],
+     "worked_example": "A Luxembourg SICAV UCITS, managed by an Irish ManCo, with a Luxembourg depositary - sold across 10 EU countries through the UCITS passport.",
+     "exercises": [
+      {
+       "template": "bucket",
+       "task": "Sort 10 vehicles into UCITS / AIF / not a fund",
+       "params": "vehicle descriptions"
+      },
+      {
+       "template": "match",
+       "task": "Match each actor to its main duty (safekeeping, valuation, order handling, portfolio management)",
+       "params": "pool of 8 actors"
+      },
+      {
+       "template": "mcq",
+       "task": "Why a retail-marketed fund with leverage and illiquid assets cannot be a UCITS",
+       "params": "scenario texts"
+      },
+      {
+       "template": "multi",
+       "task": "Select all functions that cannot be delegated away entirely",
+       "params": "random mix"
+      },
+      {
+       "template": "cloze",
+       "task": "Complete the fund structure diagram labels",
+       "params": "word bank"
+      }
+     ],
+     "callbacks": [
+      "P1.3",
+      "C1.2"
+     ],
+     "sources": [
+      {
+       "id": "S179",
+       "ref": "Arts 1-5 and Chapter V eligible assets overview",
+       "use": "core"
+      },
+      {
+       "id": "S182",
+       "ref": "Arts 1-6 AIFMD scope and management",
+       "use": "core"
+      },
+      {
+       "id": "S185",
+       "ref": "EFAMA fact book, market structure sections",
+       "use": "reference"
+      },
+      {
+       "id": "S007",
+       "ref": "chapters on fund types",
+       "use": "foundation"
+      }
+     ]
+    },
+    {
+     "id": "P4.2",
+     "title": "Share classes and fee structures",
+     "minutes": 55,
+     "objectives": [
+      "Learner can read a share-class code (accumulating/distributing, currency, hedged, institutional) and know what changes",
+      "Learner can compute the effect of TER and performance fee on a holding over time",
+      "Learner can explain why the same fund has several ISINs and prices"
+     ],
+     "key_concepts": [
+      "accumulation vs distribution",
+      "currency-hedged classes",
+      "institutional vs retail classes",
+      "ongoing charges (TER/OCF)",
+      "management vs performance fee",
+      "retrocession and distribution fees",
+      "ISIN per share class"
+     ],
+     "worked_example": "Fund with 1.60% TER and 6% gross return: net 4.4%. Over 20 years of 6% gross, 10,000 EUR grows to 32,071 EUR gross but only 23,660 EUR net of a 1.60% TER.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Net value after N years given gross return and TER",
+       "params": "return 2-10%, TER 0.1-2.5%, years 1-30"
+      },
+      {
+       "template": "match",
+       "task": "Match share-class suffix to meaning",
+       "params": "pool of 10 suffixes (A, I, Acc, Dis, H, EUR...)"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose which share class an institutional client above a threshold should use",
+       "params": "ticket sizes"
+      },
+      {
+       "template": "numeric",
+       "task": "Performance fee with high-water mark",
+       "params": "returns path of 4 years, hurdle, fee 10-20%"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort charges into: borne by fund / paid by investor / paid by manager to distributor",
+       "params": "charge list"
+      }
+     ],
+     "callbacks": [
+      "P1.3",
+      "F1.2",
+      "Q1.2"
+     ],
+     "sources": [
+      {
+       "id": "S007",
+       "ref": "chapters on costs and fees",
+       "use": "core"
+      },
+      {
+       "id": "S034",
+       "ref": "chapters on fees and costs",
+       "use": "reference"
+      },
+      {
+       "id": "S185",
+       "ref": "EFAMA fact book, cost sections",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "P4.3",
+     "title": "Subscribing and redeeming: dealing days, cut-offs and forward pricing",
+     "minutes": 60,
+     "objectives": [
+      "Learner can determine which NAV an order receives from the time it reaches the transfer agent",
+      "Learner can compute units issued / cash received for subscriptions and redemptions",
+      "Learner can follow the settlement cycle of fund orders and why it differs from exchange-traded securities"
+     ],
+     "key_concepts": [
+      "dealing day / valuation point",
+      "cut-off time",
+      "forward pricing",
+      "notice periods",
+      "subscription in cash vs amount vs units",
+      "settlement lag (T+2/T+3)",
+      "anti-dilution levy (preview)"
+     ],
+     "worked_example": "Order of 50,000 EUR received at 11:40 CET before the 12:00 cut-off is dealt at that day's NAV of 125.85 later struck, giving 397.3063 units. The same order at 12:05 is dealt at the next day's NAV.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Units issued for a subscription at a given NAV",
+       "params": "amount 1k-1m, NAV 5-500"
+      },
+      {
+       "template": "timeline",
+       "task": "Place order receipt, cut-off, valuation point, NAV strike, settlement on a timeline",
+       "params": "cut-off 10:00-17:00, T+2/T+3"
+      },
+      {
+       "template": "mcq",
+       "task": "Which dealing day applies to a late order",
+       "params": "order times and cut-offs vary"
+      },
+      {
+       "template": "numeric",
+       "task": "Redemption proceeds net of redemption fee",
+       "params": "units, NAV, fee 0-1%"
+      },
+      {
+       "template": "order",
+       "task": "Put order-handling steps in order from distributor to transfer agent",
+       "params": "variants: platform, direct"
+      }
+     ],
+     "callbacks": [
+      "T1.2",
+      "P4.2"
+     ],
+     "sources": [
+      {
+       "id": "S179",
+       "ref": "Arts 84-86 redemption and issue (suspension and pricing)",
+       "use": "core"
+      },
+      {
+       "id": "S301",
+       "ref": "ESMA Q&A on UCITS (dealing)",
+       "use": "reference"
+      },
+      {
+       "id": "S007",
+       "ref": "chapters on buying and selling funds",
+       "use": "foundation"
+      },
+      {
+       "id": "S016",
+       "ref": "ISO 20022 securities settlement messages (fund orders, overview)",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "P4.4",
+     "title": "NAV mechanics: assets minus liabilities per unit",
+     "minutes": 60,
+     "objectives": [
+      "Learner can compute NAV per unit from portfolio value, cash, accruals and liabilities",
+      "Learner can explain why NAV is struck after the cut-off using closing prices",
+      "Learner can describe how swing pricing and fair-value adjustments protect remaining investors"
+     ],
+     "key_concepts": [
+      "total net assets",
+      "accrued income and expenses",
+      "pricing sources and valuation point",
+      "NAV per unit",
+      "swing pricing / dilution levy",
+      "NAV errors and tolerance thresholds (CSSF 24/856, preview of A4)",
+      "fund accounting basics"
+     ],
+     "worked_example": "Securities 250.0m + cash 1.2m + accrued dividends 0.8m - fees and payables 0.3m = 251.7m net assets; 2,000,000 units gives NAV 125.85.",
+     "exercises": [
+      {
+       "template": "table",
+       "task": "Complete a NAV sheet from components",
+       "params": "10 line items, units 0.5m-20m"
+      },
+      {
+       "template": "numeric",
+       "task": "NAV per unit after a day's market move and flows",
+       "params": "fund size, return, flow"
+      },
+      {
+       "template": "numeric",
+       "task": "Swung NAV for net subscriptions above the swing threshold",
+       "params": "swing factor 0.1-1%, net flow %"
+      },
+      {
+       "template": "mcq",
+       "task": "Which items belong in net assets and which not",
+       "params": "item lists"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a daily NAV report (units, accrual or price date)",
+       "params": "injected error"
+      }
+     ],
+     "callbacks": [
+      "A1.3",
+      "P4.3"
+     ],
+     "sources": [
+      {
+       "id": "S043",
+       "ref": "chapters on NAV and fund accounting",
+       "use": "core"
+      },
+      {
+       "id": "S170",
+       "ref": "CSSF 24/856 overview of NAV error thresholds",
+       "use": "reference"
+      },
+      {
+       "id": "S177",
+       "ref": "swing pricing and liquidity tools in AIFMD II / UCITS",
+       "use": "reference"
+      },
+      {
+       "id": "S007",
+       "ref": "chapters on pricing and NAV",
+       "use": "foundation"
+      }
+     ]
+    },
+    {
+     "id": "P4.5",
+     "title": "Transfer agency, registers and fund distribution",
+     "minutes": 55,
+     "objectives": [
+      "Learner can explain what the register of unitholders is and who maintains it",
+      "Learner can compare direct, platform (omnibus) and nominee holdings of fund units",
+      "Learner can follow a fund order through distributor, platform and transfer agent"
+     ],
+     "key_concepts": [
+      "register of unitholders",
+      "transfer agent",
+      "nominee/omnibus fund holding",
+      "fund platform",
+      "order routing and netting",
+      "ISO 20022 sese fund messages",
+      "retrocessions flow (preview of C4)"
+     ],
+     "worked_example": "A client buys 20 funds from 12 managers on one platform; the platform nets orders per fund per day into a single order to each transfer agent, and appears on each register as one omnibus holder.",
+     "exercises": [
+      {
+       "template": "order",
+       "task": "Order the steps of a fund subscription through a platform",
+       "params": "variants: direct, platform, nominee"
+      },
+      {
+       "template": "bucket",
+       "task": "Classify holdings as direct / nominee / omnibus",
+       "params": "scenario cards"
+      },
+      {
+       "template": "mcq",
+       "task": "Who is the legal owner on the register in an omnibus structure",
+       "params": "scenario variants"
+      },
+      {
+       "template": "match",
+       "task": "Match fund message types to their purpose",
+       "params": "pool of 6 message types"
+      },
+      {
+       "template": "numeric",
+       "task": "Net 8 client orders into the order sent to the transfer agent",
+       "params": "order sizes, buys and sells"
+      }
+     ],
+     "callbacks": [
+      "C1.1",
+      "P4.3"
+     ],
+     "sources": [
+      {
+       "id": "S028",
+       "ref": "chapters on funds and transfer agency",
+       "use": "core"
+      },
+      {
+       "id": "S016",
+       "ref": "ISO 20022 introduction, securities messages",
+       "use": "reference"
+      },
+      {
+       "id": "S058",
+       "ref": "chapters on fund operations",
+       "use": "deeper"
+      },
+      {
+       "id": "S289",
+       "ref": "UCITS V depositary obligations, overview",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "P4.6",
+     "title": "Liquidity, gates, money market funds and fund risk",
+     "minutes": 70,
+     "objectives": [
+      "Learner can describe liquidity-management tools (gates, notice periods, side pockets, swing pricing) and when they apply",
+      "Learner can explain how a money market fund differs from other UCITS",
+      "Learner can compute the effect of a gate on redemption orders"
+     ],
+     "key_concepts": [
+      "liquidity mismatch",
+      "gates and suspension",
+      "redemption notice periods",
+      "side pockets",
+      "AIFMD II / UCITS liquidity management tools",
+      "MMF Regulation 2017/1131 types",
+      "stress testing"
+     ],
+     "worked_example": "Fund NAV 400m, gate at 10% of NAV per dealing day, redemption orders 60m: orders are scaled to 40m, each investor receives 66.7% of the request and the remainder rolls forward.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Pro-rata redemption after a gate",
+       "params": "NAV 100m-2bn, gate 5-20%, requests"
+      },
+      {
+       "template": "match",
+       "task": "Match liquidity tool to its effect",
+       "params": "pool of 7 tools"
+      },
+      {
+       "template": "mcq",
+       "task": "Which MMF type can use a constant NAV",
+       "params": "MMF types and rules"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort funds into those where redemption suspension is plausible vs unlikely",
+       "params": "fund descriptions"
+      },
+      {
+       "template": "paper",
+       "task": "Optional: explain to an investor why their fund suspended redemptions",
+       "params": "scenario varies"
+      }
+     ],
+     "callbacks": [
+      "P4.4",
+      "P4.3"
+     ],
+     "sources": [
+      {
+       "id": "S246",
+       "ref": "MMF types and key requirements",
+       "use": "core"
+      },
+      {
+       "id": "S177",
+       "ref": "AIFMD II liquidity management tools and RTS",
+       "use": "core"
+      },
+      {
+       "id": "S300",
+       "ref": "AIFMD Q&A (liquidity tools)",
+       "use": "reference"
+      },
+      {
+       "id": "S180",
+       "ref": "comparison overview UCITS and AIFMD",
+       "use": "deeper"
+      }
+     ]
+    }
+   ],
+   "minigame": {
+    "name": "NAV Strike",
+    "variant": "intro variant: assemble a simple NAV from components before the cut-off, no pricing exceptions yet"
+   },
+   "unit_test": "Mixed test on structures, share classes, dealing cut-offs, NAV arithmetic and liquidity tools.",
+   "jurisdiction_notes": "EU first (UCITS, AIFMD, MMFR, Luxembourg/Irish practice, CSSF 24/856); US 1940-Act fund and 4pm NAV cut-off mentioned in one sidebar; UK/CH/SG/HK not covered."
+  },
+  {
+   "id": "P5",
+   "title": "ETFs",
+   "track": "ops",
+   "hours": 4,
+   "prereqs": [
+    "P4"
+   ],
+   "boss_items": [
+    "NAV vs market price",
+    "funds"
+   ],
+   "hook": "How ETFs are built and traded, creation and redemption, tracking difference and tracking error, and the costs that separate an ETF return from its index return.",
+   "units": [
+    {
+     "id": "P5.1",
+     "title": "ETF anatomy: replication, structure and costs",
+     "minutes": 60,
+     "objectives": [
+      "Learner can distinguish physical full replication, sampling and synthetic replication",
+      "Learner can read an ETF factsheet (index, TER, tracking difference, domicile, distribution)",
+      "Learner can compute tracking difference and explain tracking error"
+     ],
+     "key_concepts": [
+      "UCITS ETF",
+      "full replication vs sampling vs swap-based",
+      "securities lending income",
+      "TER and tracking difference",
+      "tracking error",
+      "ESMA 2014/937 guidelines",
+      "ETF labelling and share classes"
+     ],
+     "worked_example": "Index returns 8.20% in the year; the ETF returns 7.95% net of a 0.20% TER. Tracking difference is -0.25%, partly offset by lending income of 0.05%.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute tracking difference from fund and index returns",
+       "params": "returns -10% to 25%, TER"
+      },
+      {
+       "template": "match",
+       "task": "Match replication method to its main risk",
+       "params": "pool of 6 items"
+      },
+      {
+       "template": "mcq",
+       "task": "Which ETF type has counterparty risk",
+       "params": "factsheet snippets"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the inconsistent fact in an ETF factsheet",
+       "params": "injected error"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort cost items into inside TER / outside TER",
+       "params": "item list"
+      }
+     ],
+     "callbacks": [
+      "P4.1",
+      "P4.2",
+      "P2.6"
+     ],
+     "sources": [
+      {
+       "id": "S034",
+       "ref": "chapters on ETF structure and replication",
+       "use": "core"
+      },
+      {
+       "id": "S187",
+       "ref": "sections on index-tracking, efficient portfolio management and securities lending",
+       "use": "core"
+      },
+      {
+       "id": "S125",
+       "ref": "paper: ETF market overview",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "P5.2",
+     "title": "Creation and redemption: the plumbing",
+     "minutes": 60,
+     "objectives": [
+      "Learner can explain how authorised participants create and redeem ETF shares",
+      "Learner can compare in-kind and cash creation and their effects on tracking and tax",
+      "Learner can compute the value of a creation basket and the cash component"
+     ],
+     "key_concepts": [
+      "authorised participant",
+      "creation unit",
+      "basket and cash component",
+      "in-kind vs cash",
+      "primary market settlement",
+      "fund shares vs secondary market line",
+      "ETF flow through the CSD"
+     ],
+     "worked_example": "Creation unit 100,000 ETF shares, NAV 52.40: basket value 5,240,000 EUR delivered as 50 stocks plus a cash component of 8,000 EUR; the AP receives 100,000 new ETF shares.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Value of a creation basket and cash component",
+       "params": "unit size 50k-500k, NAV, basket weights"
+      },
+      {
+       "template": "order",
+       "task": "Order the steps of a creation and a redemption",
+       "params": "creation vs redemption"
+      },
+      {
+       "template": "mcq",
+       "task": "Who can transact in the primary market and why",
+       "params": "scenario texts"
+      },
+      {
+       "template": "table",
+       "task": "Complete a basket table of securities and quantities",
+       "params": "6-10 stocks"
+      },
+      {
+       "template": "timeline",
+       "task": "Place the arbitrage trade and primary settlement on a day timeline",
+       "params": "T+2 cycle"
+      }
+     ],
+     "callbacks": [
+      "P5.1",
+      "T1.2"
+     ],
+     "sources": [
+      {
+       "id": "S034",
+       "ref": "chapters on creation and redemption",
+       "use": "core"
+      },
+      {
+       "id": "S125",
+       "ref": "section on AP arbitrage",
+       "use": "deeper"
+      },
+      {
+       "id": "S004",
+       "ref": "chapters on funds and ETFs",
+       "use": "foundation"
+      }
+     ]
+    },
+    {
+     "id": "P5.3",
+     "title": "Primary vs secondary: how ETFs actually trade",
+     "minutes": 60,
+     "objectives": [
+      "Learner can distinguish trading ETF shares on exchange and OTC from creating them",
+      "Learner can explain the role of market makers and why ETF liquidity depends on the basket's liquidity",
+      "Learner can compute the cost of crossing the spread and market impact on a block"
+     ],
+     "key_concepts": [
+      "on-exchange vs OTC/RFQ",
+      "market maker quoting",
+      "spread and liquidity of the underlying",
+      "block trading via creation",
+      "multiple listings",
+      "closing auction",
+      "authorised participant inventory"
+     ],
+     "worked_example": "ETF quotes 52.45 / 52.47: crossing costs 0.02 per share, i.e. 0.019% of price; a 2m EUR block may rather go via RFQ to a market maker and be hedged via creation.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Spread cost in bps and EUR for a trade",
+       "params": "bid/ask 5-200, size"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose the execution route for a very large ETF order",
+       "params": "order size vs ADV"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort liquidity sources: on-screen / RFQ / creation-redemption",
+       "params": "scenario cards"
+      },
+      {
+       "template": "match",
+       "task": "Match the roles (market maker, AP, issuer) to actions",
+       "params": "pool of 8"
+      },
+      {
+       "template": "numeric",
+       "task": "Estimate liquidity from underlying volume instead of ETF volume",
+       "params": "volumes"
+      }
+     ],
+     "callbacks": [
+      "P5.2",
+      "T1.1"
+     ],
+     "sources": [
+      {
+       "id": "S034",
+       "ref": "chapters on liquidity and trading",
+       "use": "core"
+      },
+      {
+       "id": "S101",
+       "ref": "chapters on market makers and spreads",
+       "use": "reference"
+      },
+      {
+       "id": "S125",
+       "ref": "paper sections on secondary-market liquidity",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "P5.4",
+     "title": "NAV, iNAV and premiums/discounts",
+     "minutes": 60,
+     "objectives": [
+      "Learner can compute premium/discount of market price to NAV and to iNAV",
+      "Learner can explain what keeps ETF price near NAV and when the arbitrage band widens",
+      "Learner can explain why NAV and last price may be off-sync (stale prices, time zones)"
+     ],
+     "key_concepts": [
+      "NAV vs market price",
+      "iNAV / indicative NAV",
+      "premium/discount",
+      "arbitrage band",
+      "stale pricing for foreign-hours markets",
+      "stress episodes (March 2020 bond ETFs)",
+      "ETF mispricing and best execution"
+     ],
+     "worked_example": "ETF NAV 52.40, iNAV 52.46, mid price 52.46: premium to NAV +0.115%, zero to iNAV. For a bond ETF in stress the premium to NAV may turn into a -4% discount because underlying prices are stale.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Premium/discount to NAV and iNAV",
+       "params": "NAV 10-200, price shifts"
+      },
+      {
+       "template": "mcq",
+       "task": "Explain why a discount appears while the underlying market is closed",
+       "params": "scenario variants"
+      },
+      {
+       "template": "table",
+       "task": "Complete a day of intraday NAV/iNAV/price observations",
+       "params": "6 time points"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a statement that confuses market price and NAV",
+       "params": "injected error"
+      },
+      {
+       "template": "paper",
+       "task": "Optional: write a brief explaining a persistent 2% discount to a private client",
+       "params": "scenario varies"
+      }
+     ],
+     "callbacks": [
+      "P4.4",
+      "P5.3"
+     ],
+     "sources": [
+      {
+       "id": "S034",
+       "ref": "chapters on pricing, NAV and iNAV",
+       "use": "core"
+      },
+      {
+       "id": "S125",
+       "ref": "paper sections on pricing deviations",
+       "use": "deeper"
+      },
+      {
+       "id": "S187",
+       "ref": "guideline on ETF information disclosure (iNAV)",
+       "use": "reference"
+      },
+      {
+       "id": "S007",
+       "ref": "chapter on ETF pricing",
+       "use": "foundation"
+      }
+     ]
+    }
+   ],
+   "minigame": {
+    "name": "NAV Strike",
+    "variant": "ETF variant: compare iNAV, NAV and quotes to decide whether to trade, create or wait"
+   },
+   "unit_test": "ETF structure, creation maths, spread cost and premium/discount.",
+   "jurisdiction_notes": "UCITS ETF (EU) first; US in-kind creation and 40-Act ETFs mentioned as a contrast; no UK/CH/SG/HK content."
+  },
+  {
+   "id": "P6",
+   "title": "Derivatives & structured products as securities (EU bridge)",
+   "track": "ops",
+   "hours": 5,
+   "prereqs": [
+    "P2",
+    "P3"
+   ],
+   "boss_items": [],
+   "hook": "Structured notes and derivatives as securities records: ISIN, paying agent, CSD holding, statement price and KID. The learner can identify each data point for a product.",
+   "units": [
+    {
+     "id": "P6.1",
+     "title": "From payoff map to security map (EUSIPA bridge)",
+     "minutes": 60,
+     "objectives": [
+      "Learner can place any retail structured product on the EUSIPA map and name its securities form (note, certificate, warrant)",
+      "Learner can state which legal form determines custody, tax and distribution rules",
+      "Learner can distinguish a capital-protected note from a certificate or a warrant from the securities side"
+     ],
+     "key_concepts": [
+      "EUSIPA Derivative Map categories",
+      "debt-security form vs certificate vs warrant",
+      "issuer credit risk",
+      "capital protection vs yield enhancement vs participation vs leverage",
+      "OTC vs listed",
+      "SSPA map"
+     ],
+     "worked_example": "Learner already knows reverse convertibles and bonus certificates as payoffs. This unit re-reads them as securities: a reverse convertible note is a debt instrument with an ISIN, issuer risk and a coupon; a bonus certificate is a certificate on a basket.",
+     "exercises": [
+      {
+       "template": "bucket",
+       "task": "Sort 10 products into EUSIPA categories",
+       "params": "product descriptions"
+      },
+      {
+       "template": "match",
+       "task": "Match each product to its securities form and typical venue",
+       "params": "pool of 8"
+      },
+      {
+       "template": "mcq",
+       "task": "Which feature of a warrant differs from a certificate from a custody viewpoint",
+       "params": "scenario variants"
+      },
+      {
+       "template": "multi",
+       "task": "Select the risks that still apply to a capital-protected note",
+       "params": "random mix"
+      },
+      {
+       "template": "spot",
+       "task": "Spot a mislabelled product category in a product sheet",
+       "params": "injected error"
+      }
+     ],
+     "callbacks": [
+      "P1.2",
+      "P3.1",
+      "P3.2",
+      "P2.1"
+     ],
+     "sources": [
+      {
+       "id": "S194",
+       "ref": "EUSIPA Derivative Map 2024, categories and definitions",
+       "use": "core"
+      },
+      {
+       "id": "S193",
+       "ref": "update page, classification notes",
+       "use": "reference"
+      },
+      {
+       "id": "S032",
+       "ref": "Euronext explainer on warrants and certificates",
+       "use": "core"
+      },
+      {
+       "id": "S280",
+       "ref": "SSPA Swiss Derivative Map 2025 (contrast)",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "P6.2",
+     "title": "Issuance programmes, prospectuses and listing",
+     "minutes": 60,
+     "objectives": [
+      "Learner can explain the base prospectus + final terms structure and who approves what",
+      "Learner can describe the issuer chain (bank issuer vs SPV with guarantor) and where the credit sits",
+      "Learner can trace how a certificate gets an ISIN, a listing and CSD eligibility"
+     ],
+     "key_concepts": [
+      "issuance programme and base prospectus",
+      "final terms",
+      "issuer / guarantor / calculation agent / paying agent",
+      "ISIN allocation",
+      "admission to trading (SeDeX, EuroTLX, Frankfurt/Stuttgart, SIX, Euronext)",
+      "private placement vs public offer",
+      "100k denomination exemption"
+     ],
+     "worked_example": "A bank issues 5,000 bonus certificates under a base prospectus: final terms are filed the day before the offer, the ISIN is allocated, the certificates are listed on a certificates segment and credited to the CSD.",
+     "exercises": [
+      {
+       "template": "order",
+       "task": "Order the steps from term sheet to first day of trading",
+       "params": "variants: public offer, private placement"
+      },
+      {
+       "template": "match",
+       "task": "Match roles to duties (issuer, calculation agent, paying agent, market maker)",
+       "params": "pool of 8"
+      },
+      {
+       "template": "mcq",
+       "task": "What changes if the product is sold only to professional clients and 100k denomination",
+       "params": "scenario variants"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a final-terms excerpt (maturity, currency, ISIN check)",
+       "params": "injected error"
+      },
+      {
+       "template": "cloze",
+       "task": "Complete the document hierarchy (programme, base prospectus, supplement, final terms)",
+       "params": "word bank"
+      }
+     ],
+     "callbacks": [
+      "P3.3",
+      "P2.5"
+     ],
+     "sources": [
+      {
+       "id": "S245",
+       "ref": "Arts 6-8 and 17, base prospectus and final terms concepts",
+       "use": "core"
+      },
+      {
+       "id": "S032",
+       "ref": "Euronext explainer, listing sections",
+       "use": "core"
+      },
+      {
+       "id": "S126",
+       "ref": "chapters on structuring and issuance workflow",
+       "use": "deeper"
+      },
+      {
+       "id": "S303",
+       "ref": "ESMA Q&A on the Prospectus Regulation",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "P6.3",
+     "title": "Booking and custody of a structured note",
+     "minutes": 60,
+     "objectives": [
+      "Learner can describe how a certificate/ELN position appears in custody, in units or in nominal, and how it settles",
+      "Learner can map the structure's events (coupon, autocall, barrier breach, redemption) onto corporate action event types",
+      "Learner can book the purchase and early redemption of a note on a client ledger"
+     ],
+     "key_concepts": [
+      "quotation in units vs % of nominal",
+      "DVP settlement through CSD / ICSD",
+      "issuer paying agent",
+      "autocall as a mandatory early redemption",
+      "conditional coupon as an uncertain event",
+      "physical delivery at maturity",
+      "Italian FTT on derivatives (oddity)"
+     ],
+     "worked_example": "A 10,000 EUR autocallable at 100%: on the observation date the underlying is above the trigger, the note redeems early at 100 + 7.5% coupon; the CSD credits 10,750 EUR and removes the position. The corporate-action desk sees it as a mandatory full call.",
+     "exercises": [
+      {
+       "template": "journal",
+       "task": "Book the purchase and early redemption of an autocallable on the client ledger",
+       "params": "nominal 10k-250k, coupon 4-12%"
+      },
+      {
+       "template": "timeline",
+       "task": "Place observation, notification, payment and removal dates for an autocall",
+       "params": "dates generated"
+      },
+      {
+       "template": "match",
+       "task": "Map structure events to corporate action event types (mandatory vs voluntary vs informational)",
+       "params": "pool of 8 events"
+      },
+      {
+       "template": "mcq",
+       "task": "How a physical-delivery redemption appears in the custody account",
+       "params": "scenario variants"
+      },
+      {
+       "template": "spot",
+       "task": "Spot errors in a custody statement line for a structured note",
+       "params": "injected error"
+      }
+     ],
+     "callbacks": [
+      "A1.3",
+      "A1.4",
+      "P3.5",
+      "T1.3"
+     ],
+     "sources": [
+      {
+       "id": "S052",
+       "ref": "chapters on redemption and early-redemption events (preview of O7)",
+       "use": "reference"
+      },
+      {
+       "id": "S049",
+       "ref": "chapters on settlement and custody of securities",
+       "use": "core"
+      },
+      {
+       "id": "S063",
+       "ref": "chapters on holdings and book entry",
+       "use": "deeper"
+      },
+      {
+       "id": "S322",
+       "ref": "Italian FTT update (national oddity)",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "P6.4",
+     "title": "How a certificate is priced and valued on a statement",
+     "minutes": 60,
+     "objectives": [
+      "Learner can decompose a note into bond floor + option(s) at concept level and relate it to an indicative value",
+      "Learner can explain issuer fair value, secondary-market bid/ask and the embedded margin at issue",
+      "Learner can explain how the position is carried on a client statement and in IFRS 9 terms (FVTPL)"
+     ],
+     "key_concepts": [
+      "bond floor + embedded option",
+      "issue price vs fair value (embedded costs)",
+      "market-maker bid/ask and spread",
+      "issuer credit spread in the price",
+      "mark-to-model vs mark-to-market",
+      "IFRS 9 classification of structured notes",
+      "day-1 differences"
+     ],
+     "worked_example": "Capital-protected note issued at 100: bond floor 92.5 + options 6.3 + structuring margin 1.2. After a month the issuer bid is 99.1 although the underlying is flat, because the margin is not recovered on sale.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Split issue price into bond floor, option and margin",
+       "params": "issue price 95-105, floor from yield and maturity"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the loss if sold back on day 2 at bid vs issue price",
+       "params": "bid/ask in %"
+      },
+      {
+       "template": "mcq",
+       "task": "Why valuation of a note differs between issuer, market-maker and client statement",
+       "params": "scenario variants"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort price drivers into market / credit / time / volatility",
+       "params": "driver list"
+      },
+      {
+       "template": "paper",
+       "task": "Optional: explain to a client why the note is worth 98 on the statement the day after purchase at 100",
+       "params": "client persona varies"
+      }
+     ],
+     "callbacks": [
+      "P3.6"
+     ],
+     "sources": [
+      {
+       "id": "S083",
+       "ref": "chapters on exotic options and structured product decomposition",
+       "use": "core"
+      },
+      {
+       "id": "S126",
+       "ref": "chapters on structuring and pricing logic",
+       "use": "deeper"
+      },
+      {
+       "id": "S224",
+       "ref": "IFRS 9 classification and measurement sections",
+       "use": "reference"
+      },
+      {
+       "id": "S072",
+       "ref": "chapters on classification of structured notes",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "P6.5",
+     "title": "PRIIPs KID, target market and appropriateness",
+     "minutes": 60,
+     "objectives": [
+      "Learner can read a PRIIPs KID and extract SRI, RHP, costs and performance scenarios",
+      "Learner can explain how the KID, target market and appropriateness fit together for a distributor",
+      "Learner can decide whether a structured note is 'complex' for MiFID purposes in a simple scenario"
+     ],
+     "key_concepts": [
+      "PRIIPs Regulation Arts 5-8",
+      "Del. Reg. 2017/653 (SRI, RIY, scenarios)",
+      "recommended holding period",
+      "target market and distribution strategy",
+      "appropriateness vs execution-only (ESMA guidelines)",
+      "complex vs non-complex",
+      "Retail Investment Strategy status (not adopted as of Nov 2026)"
+     ],
+     "worked_example": "KID shows SRI 4 of 7, RHP 5 years, total costs RIY 1.6%, scenarios 82/96/107/121 on 100 invested. The distributor checks: target market retail with advice; execution-only is not allowed because the product is complex.",
+     "exercises": [
+      {
+       "template": "spot",
+       "task": "Spot the inconsistency in a KID (SRI vs volatility, RHP vs maturity, cost totals)",
+       "params": "injected error"
+      },
+      {
+       "template": "mcq",
+       "task": "Is the product complex? Is execution-only allowed? Decide",
+       "params": "product features vary"
+      },
+      {
+       "template": "table",
+       "task": "Complete a costs table (entry, exit, ongoing, transaction) into RIY",
+       "params": "cost lines"
+      },
+      {
+       "template": "match",
+       "task": "Match KID sections to what they answer",
+       "params": "pool of 8 sections"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort clients into those inside and outside the target market",
+       "params": "profiles"
+      }
+     ],
+     "callbacks": [
+      "C1.2",
+      "P6.4"
+     ],
+     "sources": [
+      {
+       "id": "S252",
+       "ref": "Arts 5-8 and 2017/653 Annexes",
+       "use": "core"
+      },
+      {
+       "id": "S251",
+       "ref": "PRIIPs Regulation recitals and scope",
+       "use": "reference"
+      },
+      {
+       "id": "S065",
+       "ref": "appropriateness and execution-only guidelines",
+       "use": "core"
+      },
+      {
+       "id": "S067",
+       "ref": "product governance guidelines, target market",
+       "use": "core"
+      },
+      {
+       "id": "S267",
+       "ref": "RIS provisional agreement status",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": {
+    "name": "Dealer Desk",
+    "variant": "secondary-market bid/ask on a certificate: set a quote around fair value and issuer credit, manage inventory"
+   },
+   "unit_test": "Securities form, issuance documents, booking/custody events, price decomposition and KID reading.",
+   "jurisdiction_notes": "EU first (EUSIPA, PRIIPs, MiFID product governance); Italian FTT as a national oddity; SSPA map (CH) and Asian complex-product rules only mentioned."
+  },
+  {
+   "id": "F2",
+   "title": "Returns & risk",
+   "track": "theory",
+   "hours": 4,
+   "prereqs": [
+    "F1",
+    "Q2"
+   ],
+   "boss_items": [],
+   "hook": "Arithmetic and geometric average return, volatility, drawdown and the Sharpe ratio, and how two investments with the same average return can carry different risk.",
+   "units": [
+    {
+     "id": "F2.1",
+     "title": "Returns: arithmetic, log and multi-period",
+     "minutes": 60,
+     "objectives": [
+      "Learner can compute simple, log and annualised returns and convert between them",
+      "Learner can explain why averaging arithmetic returns overstates multi-period growth",
+      "Learner can compute the geometric mean of a return series"
+     ],
+     "key_concepts": [
+      "simple return",
+      "log return and additivity",
+      "geometric vs arithmetic mean",
+      "annualisation",
+      "volatility drag (preview)"
+     ],
+     "worked_example": "+50% then -50%: arithmetic average 0%, but 100 -> 150 -> 75, i.e. -25%. Log returns +0.405 and -0.693 sum to -0.288, exp = 0.75.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Convert a return series to log returns and compute total growth",
+       "params": "4-6 returns -30% to +40%"
+      },
+      {
+       "template": "numeric",
+       "task": "Geometric mean and annualised return from N-year growth",
+       "params": "N 2-10"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose which mean to use for growth vs expected next-year return",
+       "params": "scenario variants"
+      },
+      {
+       "template": "table",
+       "task": "Complete a table of arithmetic, log and cumulative returns",
+       "params": "6 periods"
+      },
+      {
+       "template": "cloze",
+       "task": "Complete statements on why log returns add across time",
+       "params": "word bank"
+      }
+     ],
+     "callbacks": [
+      "F1.5",
+      "Q1.3",
+      "Q1.4"
+     ],
+     "sources": [
+      {
+       "id": "S015",
+       "ref": "chapters on risk and return, rates of return",
+       "use": "core"
+      },
+      {
+       "id": "S075",
+       "ref": "chapter on investment returns",
+       "use": "deeper"
+      },
+      {
+       "id": "S008",
+       "ref": "chapters on returns",
+       "use": "foundation"
+      }
+     ]
+    },
+    {
+     "id": "F2.2",
+     "title": "Volatility: measuring dispersion",
+     "minutes": 60,
+     "objectives": [
+      "Learner can compute sample variance and standard deviation of a return series",
+      "Learner can annualise volatility using the square-root-of-time rule and state its assumptions",
+      "Learner can read volatility as a probability range for returns"
+     ],
+     "key_concepts": [
+      "variance and standard deviation",
+      "sample vs population",
+      "annualisation by sqrt(T)",
+      "normal approximation and 68/95 rule",
+      "fat tails (preview)",
+      "implied vs realised volatility (concept)"
+     ],
+     "worked_example": "Daily returns with standard deviation 1.2%: annualised 1.2% x sqrt(252) = 19.05%; a one-sigma year ranges roughly -19% to +19% around the mean.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute sample volatility from a short series",
+       "params": "5-8 returns"
+      },
+      {
+       "template": "numeric",
+       "task": "Annualise daily/weekly/monthly volatility",
+       "params": "period vol 0.3-6%, frequency"
+      },
+      {
+       "template": "mcq",
+       "task": "Interpret a 1-sigma move for a given portfolio",
+       "params": "vol, horizon"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort assets by expected volatility rank (cash, bonds, equities, small caps, crypto)",
+       "params": "asset lists"
+      },
+      {
+       "template": "numeric",
+       "task": "Probability estimate using the 68/95 rule for a return threshold",
+       "params": "mean, vol, threshold"
+      }
+     ],
+     "callbacks": [
+      "Q2.2",
+      "Q2.3",
+      "F2.1"
+     ],
+     "sources": [
+      {
+       "id": "S015",
+       "ref": "chapters on risk and risk aversion",
+       "use": "core"
+      },
+      {
+       "id": "S001",
+       "ref": "chapters on variance and normal distribution",
+       "use": "deeper"
+      },
+      {
+       "id": "S074",
+       "ref": "chapters on variance and standard deviation",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "F2.3",
+     "title": "Covariance and correlation",
+     "minutes": 60,
+     "objectives": [
+      "Learner can compute covariance and correlation of two return series",
+      "Learner can read a correlation matrix and flag misleading readings",
+      "Learner can explain why correlations rise in stress"
+     ],
+     "key_concepts": [
+      "covariance",
+      "correlation coefficient range [-1,1]",
+      "scatter plot intuition",
+      "correlation vs causation",
+      "correlation instability in crises",
+      "link to basket products (preview)"
+     ],
+     "worked_example": "Two stocks with volatilities 20% and 30% and covariance 0.018 have correlation 0.018/(0.20 x 0.30) = 0.30.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Correlation from covariance and volatilities",
+       "params": "vol 5-50%, cov"
+      },
+      {
+       "template": "numeric",
+       "task": "Covariance from a small paired series",
+       "params": "5 paired returns"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose the scatter plot that fits a given correlation",
+       "params": "values -0.9 to 0.9"
+      },
+      {
+       "template": "match",
+       "task": "Match asset pairs to expected correlation sign and size",
+       "params": "pool of 8 pairs"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the invalid correlation matrix (value above 1 or not symmetric)",
+       "params": "injected error"
+      }
+     ],
+     "callbacks": [
+      "Q2.2",
+      "F2.2"
+     ],
+     "sources": [
+      {
+       "id": "S015",
+       "ref": "chapter on diversification",
+       "use": "core"
+      },
+      {
+       "id": "S074",
+       "ref": "chapter on joint distributions and covariance",
+       "use": "deeper"
+      },
+      {
+       "id": "S079",
+       "ref": "chapters on correlation and portfolio risk",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "F2.4",
+     "title": "Diversification and the first risk-adjusted measure",
+     "minutes": 60,
+     "objectives": [
+      "Learner can compute the variance of a two-asset portfolio",
+      "Learner can explain systematic vs idiosyncratic risk and why diversification removes only the latter",
+      "Learner can compute a Sharpe ratio and use it to compare two portfolios"
+     ],
+     "key_concepts": [
+      "two-asset portfolio variance",
+      "diversification benefit",
+      "systematic vs idiosyncratic risk",
+      "Sharpe ratio",
+      "concentration risk (link to C5)"
+     ],
+     "worked_example": "50/50 portfolio of assets with vol 20% and 30%, correlation 0.3: variance 0.0415, vol 20.4% (less than the 25% average vol).",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Two-asset portfolio volatility",
+       "params": "weights, vols, correlation -0.5 to 0.9"
+      },
+      {
+       "template": "numeric",
+       "task": "Sharpe ratio comparison",
+       "params": "return, rf, vol"
+      },
+      {
+       "template": "mcq",
+       "task": "What happens to risk as holdings grow from 1 to 30 stocks",
+       "params": "variants"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort risk sources into systematic vs idiosyncratic",
+       "params": "risk list"
+      },
+      {
+       "template": "paper",
+       "task": "Optional: explain to a private-banking client why holding 10 tech stocks is not diversification",
+       "params": "persona varies"
+      }
+     ],
+     "callbacks": [
+      "F2.3",
+      "P6.4"
+     ],
+     "sources": [
+      {
+       "id": "S085",
+       "ref": "full paper: portfolio selection",
+       "use": "deeper"
+      },
+      {
+       "id": "S015",
+       "ref": "chapters on diversification and Sharpe",
+       "use": "core"
+      },
+      {
+       "id": "S079",
+       "ref": "chapters on portfolio risk",
+       "use": "deeper"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "Return calculations, volatility annualisation, correlation and two-asset diversification.",
+   "jurisdiction_notes": null
+  },
+  {
+   "id": "Q3",
+   "title": "Calculus I, gently",
+   "track": "theory",
+   "hours": 7,
+   "prereqs": [
+    "Q1"
+   ],
+   "boss_items": [],
+   "hook": "Derivatives, the slope of a curve, and the chain rule, applied to the sensitivity of a bond price to yield (DV01).",
+   "units": [
+    {
+     "id": "Q3.1",
+     "title": "Rate of change and slopes",
+     "minutes": 60,
+     "objectives": [
+      "Learner can compute the average rate of change of a function over an interval",
+      "Learner can interpret a slope as units of y per unit of x in a finance context",
+      "Learner can read a secant line from a graph"
+     ],
+     "key_concepts": [
+      "function as input/output",
+      "average rate of change",
+      "secant slope",
+      "units of slope",
+      "price vs yield graph (preview)"
+     ],
+     "worked_example": "Bond price at 3.0% yield is 97.40, at 3.5% is 95.30: slope = (95.30 - 97.40)/0.5 = -4.20 price points per 1% of yield.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Average rate of change between two points",
+       "params": "f linear/quadratic/exponential, x1 x2"
+      },
+      {
+       "template": "mcq",
+       "task": "Interpret a slope in words",
+       "params": "finance contexts"
+      },
+      {
+       "template": "numeric",
+       "task": "Secant slope of a bond price curve",
+       "params": "two yields, two prices"
+      },
+      {
+       "template": "match",
+       "task": "Match graph shapes to slope behaviour",
+       "params": "pool of 6 shapes"
+      }
+     ],
+     "callbacks": [
+      "Q1.1",
+      "Q1.3",
+      "P3.6"
+     ],
+     "sources": [
+      {
+       "id": "S006",
+       "ref": "chapters on small differences and the idea of rate",
+       "use": "foundation"
+      },
+      {
+       "id": "S020",
+       "ref": "Calculus I: rates of change",
+       "use": "core"
+      },
+      {
+       "id": "S017",
+       "ref": "lectures on rates of change and derivatives",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "Q3.2",
+     "title": "Limits, gently",
+     "minutes": 60,
+     "objectives": [
+      "Learner can estimate a limit numerically with a table of values",
+      "Learner can evaluate simple limits by algebra",
+      "Learner can recognise continuity and a jump"
+     ],
+     "key_concepts": [
+      "limit as approach",
+      "one-sided limits",
+      "limit laws",
+      "removable discontinuity",
+      "limit at infinity",
+      "interest compounding limit e (preview)"
+     ],
+     "worked_example": "As the compounding frequency n in (1+1/n)^n grows from 1 to 365, the value moves from 2 to 2.7146 and tends to e = 2.7183.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Estimate a limit from a table of values",
+       "params": "functions with removable gaps"
+      },
+      {
+       "template": "numeric",
+       "task": "Algebraic limit by factoring",
+       "params": "rational functions"
+      },
+      {
+       "template": "mcq",
+       "task": "Is the function continuous at the point",
+       "params": "graph variants"
+      },
+      {
+       "template": "table",
+       "task": "Compute (1+r/n)^n for increasing n and see convergence",
+       "params": "r 2-10%, n list"
+      }
+     ],
+     "callbacks": [
+      "Q1.3",
+      "Q3.1",
+      "F1.2"
+     ],
+     "sources": [
+      {
+       "id": "S020",
+       "ref": "Calculus I: limits chapter",
+       "use": "core"
+      },
+      {
+       "id": "S047",
+       "ref": "limits chapter",
+       "use": "deeper"
+      },
+      {
+       "id": "S006",
+       "ref": "chapters on limits as they appear informally",
+       "use": "foundation"
+      }
+     ]
+    },
+    {
+     "id": "Q3.3",
+     "title": "The derivative: definition and tangent line",
+     "minutes": 60,
+     "objectives": [
+      "Learner can state the derivative as the limit of the difference quotient",
+      "Learner can compute a derivative from the definition for simple functions",
+      "Learner can write the equation of a tangent line"
+     ],
+     "key_concepts": [
+      "difference quotient",
+      "derivative as slope of tangent",
+      "notation f'(x) and dy/dx",
+      "tangent line",
+      "differentiability"
+     ],
+     "worked_example": "f(x)=x^2: difference quotient ((x+h)^2-x^2)/h = 2x+h gives f'(x)=2x. At x=3 the tangent has slope 6.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Derivative from definition at a point",
+       "params": "f in x^2, x^3, 1/x"
+      },
+      {
+       "template": "numeric",
+       "task": "Tangent line equation at a point",
+       "params": "f and point"
+      },
+      {
+       "template": "mcq",
+       "task": "Read the derivative sign from a graph",
+       "params": "increasing/decreasing"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill the steps of the limit definition",
+       "params": "word bank"
+      }
+     ],
+     "callbacks": [
+      "Q3.1",
+      "Q3.2"
+     ],
+     "sources": [
+      {
+       "id": "S020",
+       "ref": "Calculus I: definition of the derivative",
+       "use": "core"
+      },
+      {
+       "id": "S017",
+       "ref": "lectures on the derivative",
+       "use": "deeper"
+      },
+      {
+       "id": "S011",
+       "ref": "chapter on single-variable calculus",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "Q3.4",
+     "title": "Derivative rules: power, sum, product, quotient",
+     "minutes": 60,
+     "objectives": [
+      "Learner can differentiate polynomials, products and quotients using the rules",
+      "Learner can combine rules to differentiate a rational expression",
+      "Learner can check a derivative numerically"
+     ],
+     "key_concepts": [
+      "power rule",
+      "constant multiple and sum",
+      "product rule",
+      "quotient rule",
+      "numerical sanity check"
+     ],
+     "worked_example": "d/dx [x^3 + 2x] = 3x^2 + 2. Product: d/dx [x * (1+x)^2] needs the product rule.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Differentiate and evaluate a polynomial at a point",
+       "params": "degree 2-5"
+      },
+      {
+       "template": "numeric",
+       "task": "Product rule at a point",
+       "params": "two factors"
+      },
+      {
+       "template": "numeric",
+       "task": "Quotient rule at a point",
+       "params": "ratio of linear and quadratic"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the wrong step in a worked derivative",
+       "params": "injected error"
+      },
+      {
+       "template": "match",
+       "task": "Match function to its derivative",
+       "params": "pool of 8"
+      }
+     ],
+     "callbacks": [
+      "Q3.3"
+     ],
+     "sources": [
+      {
+       "id": "S020",
+       "ref": "Calculus I: differentiation formulas",
+       "use": "core"
+      },
+      {
+       "id": "S006",
+       "ref": "chapters on rules of differentiation",
+       "use": "foundation"
+      },
+      {
+       "id": "S047",
+       "ref": "differentiation rules",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "Q3.5",
+     "title": "Chain rule, exponentials and logarithms",
+     "minutes": 60,
+     "objectives": [
+      "Learner can apply the chain rule to composed functions",
+      "Learner can differentiate e^x, a^x and ln x",
+      "Learner can differentiate discount-factor functions"
+     ],
+     "key_concepts": [
+      "chain rule",
+      "derivative of e^x and ln x",
+      "derivative of (1+y)^(-T)",
+      "continuous compounding derivative",
+      "logarithmic differentiation (concept)"
+     ],
+     "worked_example": "d/dy of 100(1+y)^(-5) = -500(1+y)^(-6); at y=3%: -418.7 per unit of yield, i.e. about -4.19 price points per 1% move.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Chain rule at a point",
+       "params": "outer and inner function"
+      },
+      {
+       "template": "numeric",
+       "task": "Derivative of a zero-coupon price with respect to yield",
+       "params": "T 1-15, y 1-6%"
+      },
+      {
+       "template": "numeric",
+       "task": "Derivative of e^(rT) with respect to r",
+       "params": "r, T"
+      },
+      {
+       "template": "mcq",
+       "task": "Which rule is needed for this expression",
+       "params": "expression list"
+      },
+      {
+       "template": "match",
+       "task": "Match function to derivative",
+       "params": "exp/log forms"
+      }
+     ],
+     "callbacks": [
+      "Q1.3",
+      "Q1.4",
+      "Q3.4",
+      "F1.2"
+     ],
+     "sources": [
+      {
+       "id": "S020",
+       "ref": "Calculus I: chain rule; exponential and log derivatives",
+       "use": "core"
+      },
+      {
+       "id": "S006",
+       "ref": "chapters on exponentials and logs",
+       "use": "foundation"
+      },
+      {
+       "id": "S017",
+       "ref": "lectures on exponential and log derivatives",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "Q3.6",
+     "title": "Using derivatives: maxima, minima and linear approximation",
+     "minutes": 60,
+     "objectives": [
+      "Learner can find stationary points and classify them with the second derivative",
+      "Learner can use the tangent-line approximation to estimate small changes",
+      "Learner can set up and solve a simple optimisation problem"
+     ],
+     "key_concepts": [
+      "stationary points",
+      "second derivative test",
+      "linear approximation f(x+h) ~ f(x)+f'(x)h",
+      "marginal analysis",
+      "optimisation word problems"
+     ],
+     "worked_example": "Profit P(q)=-q^2+40q-100: P'(q)=-2q+40=0 gives q=20, second derivative -2 < 0 so a maximum with profit 300.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Maximise or minimise a quadratic",
+       "params": "coefficients"
+      },
+      {
+       "template": "numeric",
+       "task": "Linear approximation of sqrt or ln near a point",
+       "params": "point and step"
+      },
+      {
+       "template": "mcq",
+       "task": "Classify the stationary point from f' and f''",
+       "params": "f values"
+      },
+      {
+       "template": "numeric",
+       "task": "Optimise a simple cost function",
+       "params": "cost parameters"
+      }
+     ],
+     "callbacks": [
+      "Q3.3",
+      "Q3.4",
+      "Q3.5"
+     ],
+     "sources": [
+      {
+       "id": "S020",
+       "ref": "Calculus I: applications of derivatives",
+       "use": "core"
+      },
+      {
+       "id": "S047",
+       "ref": "applications chapter",
+       "use": "deeper"
+      },
+      {
+       "id": "S011",
+       "ref": "chapters on optimisation",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "Q3.7",
+     "title": "Preview: duration as a derivative",
+     "minutes": 60,
+     "objectives": [
+      "Learner can compute modified duration for a zero-coupon bond as -(1/P) dP/dy",
+      "Learner can estimate the price change for a small yield move with linear approximation",
+      "Learner can compute DV01 and explain why the approximation fails for large moves (convexity preview)"
+     ],
+     "key_concepts": [
+      "dP/dy",
+      "modified duration",
+      "DV01",
+      "price change estimate dP ~ -D x P x dy",
+      "limits of linear approximation",
+      "link to F3 and Q4"
+     ],
+     "worked_example": "5-year zero at 3% yield: price 86.26, modified duration 5/1.03 = 4.854. For +10bp: -4.854 x 0.001 x 86.26 = -0.419 price points.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Modified duration of a zero-coupon bond",
+       "params": "T 1-20, y 0-6%"
+      },
+      {
+       "template": "numeric",
+       "task": "Price change estimate for a small yield move",
+       "params": "yield shift 5-100bp"
+      },
+      {
+       "template": "numeric",
+       "task": "DV01 of a nominal position",
+       "params": "nominal, price, duration"
+      },
+      {
+       "template": "mcq",
+       "task": "Compare two bonds by duration to find the more rate-sensitive",
+       "params": "bond pairs"
+      },
+      {
+       "template": "paper",
+       "task": "Optional: explain to a client why a 10-year bond is far more rate-sensitive than a 2-year bond",
+       "params": "persona varies"
+      }
+     ],
+     "callbacks": [
+      "Q3.5",
+      "P3.6"
+     ],
+     "sources": [
+      {
+       "id": "S061",
+       "ref": "chapters on duration and price sensitivity",
+       "use": "core"
+      },
+      {
+       "id": "S045",
+       "ref": "chapter on price volatility of bonds",
+       "use": "core"
+      },
+      {
+       "id": "S075",
+       "ref": "chapter on duration",
+       "use": "deeper"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "Limits, derivative from definition, rules, chain rule, optimisation and duration as a derivative.",
+   "jurisdiction_notes": null
+  }
+ ],
+ "checkpoint": "Boss quiz of 35-40 minutes mixing share rights and dividends, bond accrued/dirty price and yield, fund NAV and cut-off logic, ETF premium/discount, structured-note booking and KID reading, plus small return-risk and derivative calculations. About 25% are callbacks to L1 units (P1, F1, A1, Q1, Q2).",
+ "open_questions": [
+  "See syllabus/FACTS.md (originals in open-questions.txt)"
+ ]
+}

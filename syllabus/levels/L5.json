@@ -1,0 +1,4147 @@
+{
+ "level": "L5",
+ "title": "Asset Servicing & Accounting",
+ "hours": 42,
+ "intro": "This level covers voluntary corporate actions from notice to posting (rights, tenders, exchange offers, scrip, proxy votes and claims), income and gain accounting, fund NAV, P&L explain and performance measurement. It ends with the bank-side journal entries under IFRS 9.",
+ "modules": [
+  {
+   "id": "O8",
+   "title": "Corporate actions II: voluntary & elective",
+   "track": "ops",
+   "hours": 8,
+   "prereqs": [
+    "O7"
+   ],
+   "boss_items": [
+    "all corporate actions",
+    "custodian role (settlement, safekeeping)",
+    "client accounts"
+   ],
+   "hook": "Rights issues, tender and exchange offers, scrip dividends, proxy votes and claims: notice, election deadlines at each layer, default options, and posting.",
+   "units": [
+    {
+     "id": "O8.1",
+     "title": "Voluntary, mandatory and mandatory-with-options: the CA map",
+     "minutes": 48,
+     "objectives": [
+      "Classify any event as mandatory, mandatory with choice, or voluntary using CAEV/CAMV logic",
+      "Trace the information and instruction chain from issuer to end investor and back",
+      "Explain default options and why silence is itself a decision"
+     ],
+     "key_concepts": [
+      "CAEV event type vs CAMV mechanism",
+      "Mandatory / MCHO / voluntary",
+      "Announcement-to-payment lifecycle",
+      "Layered deadlines (market, CSD, custodian, client)",
+      "Default option and no-response consequences",
+      "Event ownership and golden copy"
+     ],
+     "worked_example": "A Dutch listed company announces a dividend payable in cash or in new shares: the CAMV is mandatory-with-choice, default cash. A client who ignores the notice gets cash; a second client holding the same shares via an omnibus account at a UK broker may face a different default.",
+     "exercises": [
+      {
+       "template": "bucket",
+       "task": "Sort 14 event names (cash dividend, rights issue, tender offer, bonus issue, scrip dividend, redemption, put option, etc.) into mandatory / mandatory-with-options / voluntary",
+       "params": "event list drawn from a pool of ~30 events"
+      },
+      {
+       "template": "match",
+       "task": "Match each event to its default option when the holder does not respond",
+       "params": "event + market variant"
+      },
+      {
+       "template": "timeline",
+       "task": "Place issuer announcement, ex-date, record date, market deadline, custodian cut-off, client deadline and pay date on one timeline",
+       "params": "issuer-supplied dates; time zones vary"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose the correct consequence of a missed deadline for a voluntary event with no default (the position is simply unaffected) versus one with a default",
+       "params": "scenario text varies"
+      },
+      {
+       "template": "order",
+       "task": "Put the voluntary-event lifecycle steps in order, from event capture to entitlement posting",
+       "params": "6-8 steps drawn from a pool (6-8 steps)"
+      }
+     ],
+     "callbacks": [
+      "O7.1",
+      "O7.8",
+      "P2.2"
+     ],
+     "sources": [
+      {
+       "id": "S052",
+       "ref": "chapters introducing event types and the voluntary/mandatory classification",
+       "use": "core"
+      },
+      {
+       "id": "S005",
+       "ref": "Corporate actions chapters",
+       "use": "core"
+      },
+      {
+       "id": "S233",
+       "ref": "market standards: event classification and default-option principles",
+       "use": "core"
+      },
+      {
+       "id": "S058",
+       "ref": "Corporate actions chapter",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O8.2",
+     "title": "Rights issues I: mechanics, subscription ratio and TERP",
+     "minutes": 48,
+     "objectives": [
+      "Explain why issuers use rights issues and how nil-paid rights are created and traded",
+      "Compute the subscription ratio, theoretical ex-rights price (TERP) and the theoretical value of one right",
+      "Distinguish pre-emption rights, renounceable and non-renounceable offers"
+     ],
+     "key_concepts": [
+      "Pre-emption rights",
+      "Subscription ratio and subscription price",
+      "Discount to cum-rights price",
+      "TERP and value of a right",
+      "Nil-paid rights, trading period, ex-rights date",
+      "Dilution and underwriting"
+     ],
+     "worked_example": "Cum-rights price EUR 10.00; offer 1 new share at EUR 6.00 for every 4 held. TERP = (4 x 10.00 + 1 x 6.00) / 5 = EUR 9.20; theoretical value of a right = 10.00 - 9.20 = EUR 0.80. A holder of 400 shares is entitled to 100 new shares at EUR 600 total.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute TERP from cum price, subscription price and ratio",
+       "params": "price 3-60 EUR, ratios 1:1 to 1:10, discount 10-40%"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the value of one right and the value of a client's whole entitlement",
+       "params": "holding 50-5,000 shares"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the new share capital and dilution percentage after full take-up",
+       "params": "shares outstanding 20m-800m"
+      },
+      {
+       "template": "mcq",
+       "task": "Identify which statement about ex-rights day price behaviour is correct (price gaps down by roughly the right's value)",
+       "params": "numeric scenario"
+      },
+      {
+       "template": "spot",
+       "task": "Find the error in a rights-issue announcement summary (wrong ratio, wrong ex-date vs record date order)",
+       "params": "synthetic announcement with one planted fault"
+      }
+     ],
+     "callbacks": [
+      "O7.4",
+      "O7.8",
+      "F1.3"
+     ],
+     "sources": [
+      {
+       "id": "S052",
+       "ref": "rights issue chapter",
+       "use": "core"
+      },
+      {
+       "id": "S008",
+       "ref": "equity issuance and rights offers (seasoned equity offerings)",
+       "use": "deeper"
+      },
+      {
+       "id": "S024",
+       "ref": "equity issues and rights offers",
+       "use": "deeper"
+      },
+      {
+       "id": "S245",
+       "ref": "prospectus requirement for offers/admission, overview",
+       "use": "reference"
+      },
+      {
+       "id": "S057",
+       "ref": "capital raising and pre-emption, EU law overview",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O8.3",
+     "title": "Rights issues II: client options, over-subscription and fractions",
+     "minutes": 48,
+     "objectives": [
+      "Calculate the cash outcome of each client option: exercise all, sell all, partial exercise, lapse",
+      "Handle fractions, odd lots and over-subscription (excess application) correctly",
+      "Explain what happens to unexercised rights at expiry in EU markets"
+     ],
+     "key_concepts": [
+      "Exercise / sell nil-paid / partial / take no action",
+      "Funding the subscription and cash blocking",
+      "Excess application and allocation",
+      "Fractional entitlements and cash-in-lieu",
+      "Lapse and sale of unexercised rights for the holder's account (market practice differs)",
+      "Rights as a separate ISIN"
+     ],
+     "worked_example": "Client holds 1,030 shares, ratio 1:4, subscription EUR 6.00. Entitlement = 257.5 rights. She can exercise 257 rights (EUR 1,542), sell 257 rights at EUR 0.80 = EUR 205.60, or split. The half right is a fraction handled per local market rule.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute total cash required, shares received, and fraction remaining for a given holding",
+       "params": "holding, ratio, price vary"
+      },
+      {
+       "template": "numeric",
+       "task": "Compare outcome A (exercise) vs B (sell rights) vs C (do nothing) in value terms using TERP",
+       "params": "ex-rights price drawn at random around TERP"
+      },
+      {
+       "template": "table",
+       "task": "Complete an entitlement table for 6 clients with different holdings and elections",
+       "params": "6 rows, 3 elections"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose the correct treatment of unexercised rights in a market where unexercised rights are sold by the issuer or its agent after expiry",
+       "params": "market variant"
+      },
+      {
+       "template": "order",
+       "task": "Sequence the steps from entitlement posting to delivery of new shares, including cash block and release",
+       "params": "6-8 steps drawn from a pool (7 steps)"
+      }
+     ],
+     "callbacks": [
+      "O8.2",
+      "O4.3",
+      "C1.3"
+     ],
+     "sources": [
+      {
+       "id": "S052",
+       "ref": "rights issue and instruction handling",
+       "use": "core"
+      },
+      {
+       "id": "S063",
+       "ref": "corporate actions services chapter",
+       "use": "deeper"
+      },
+      {
+       "id": "S233",
+       "ref": "market standards: rights and fractions",
+       "use": "core"
+      },
+      {
+       "id": "S028",
+       "ref": "corporate actions chapter",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O8.4",
+     "title": "Tender offers, buy-backs and Dutch auctions",
+     "minutes": 48,
+     "objectives": [
+      "Describe the lifecycle of a cash tender offer for equity and for bonds",
+      "Compute proration and accepted/unaccepted positions under oversubscription",
+      "Explain blocking, withdrawal rights and the early-tender premium"
+     ],
+     "key_concepts": [
+      "Tender offer vs takeover bid vs buy-back",
+      "Offer price, premium, minimum and maximum acceptance",
+      "Proration",
+      "Fixed-price vs modified Dutch auction",
+      "Securities blocking and withdrawal period",
+      "Early tender premium for bonds",
+      "Odd-lot priority"
+     ],
+     "worked_example": "Issuer will buy back up to 30m shares at EUR 12.50; holders tender 75m. Proration = 40%. A client who tenders 1,000 shares sells 400 for EUR 5,000 and the remaining 600 are unblocked at results date.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute proration factor and cash proceeds for a client tender",
+       "params": "offer size 10-50m, tendered 15-120m, price 5-80 EUR"
+      },
+      {
+       "template": "numeric",
+       "task": "Bond tender: compute total consideration with early tender premium and accrued interest",
+       "params": "price 98-104, premium 20-50 per 1,000, accrued days 10-170"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill in the missing words describing a Dutch auction tender (clearing price, lowest acceptable bid, pro rata at the clearing price)",
+       "params": "word bank, 4-6 blanks (word bank)"
+      },
+      {
+       "template": "timeline",
+       "task": "Place launch, early-tender deadline, withdrawal deadline, expiration, results and settlement on a timeline",
+       "params": "dates generated"
+      },
+      {
+       "template": "mcq",
+       "task": "What happens to a client's blocked position if the client withdraws before the withdrawal deadline?",
+       "params": "scenario variants"
+      }
+     ],
+     "callbacks": [
+      "O8.1",
+      "P3.1",
+      "P3.5"
+     ],
+     "sources": [
+      {
+       "id": "S052",
+       "ref": "tender offers and buy-backs",
+       "use": "core"
+      },
+      {
+       "id": "S005",
+       "ref": "voluntary events: offers",
+       "use": "core"
+      },
+      {
+       "id": "S057",
+       "ref": "takeover bids and tender offers in the EU, overview",
+       "use": "deeper"
+      },
+      {
+       "id": "S287",
+       "ref": "bond tenders, calls and redemptions chapters",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O8.5",
+     "title": "Exchange offers, takeovers with election and mergers with choice",
+     "minutes": 48,
+     "objectives": [
+      "Work out a client's entitlement under cash, share and mixed alternatives",
+      "Explain how scaleback and proration apply to a choice offer",
+      "Differentiate voluntary exchange offers from mandatory mergers already met in O7"
+     ],
+     "key_concepts": [
+      "Cash alternative vs share alternative vs mixed",
+      "Exchange ratio",
+      "Scaleback and elections cap",
+      "Squeeze-out and minimum acceptance conditions",
+      "Offer conditions and regulatory approvals",
+      "Debt exchange offers and consent solicitations",
+      "Result announcements and settlement of the new ISIN"
+     ],
+     "worked_example": "Bidder offers 0.8 new shares plus EUR 2.00 per target share, or EUR 14.00 cash capped at 50% of the total. If cash elections exceed the cap, cash electors get 60% cash / 40% shares by scaleback.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute entitlement under the mixed alternative, including cash for fractional shares",
+       "params": "ratio 0.3-2.0, cash 0-5 EUR, holding 100-2,000"
+      },
+      {
+       "template": "numeric",
+       "task": "Apply a scaleback factor to a cash election and compute shares received",
+       "params": "amounts, rates, dates and quantities randomised within realistic ranges (cap 30-70%)"
+      },
+      {
+       "template": "mcq",
+       "task": "Pick the correct election for a client who wants to avoid concentration in the bidder's stock",
+       "params": "scenario wording and numbers vary from a pool of 6-10 variants"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a CA notification for an exchange offer (wrong effective date, missing default option)",
+       "params": "synthetic MT564-style narrative"
+      },
+      {
+       "template": "match",
+       "task": "Match each offer term (minimum acceptance, long-stop date, squeeze-out threshold) to its meaning",
+       "params": "item pool of 8-12, 5-6 shown per instance (term pool)"
+      }
+     ],
+     "callbacks": [
+      "O7.6",
+      "O8.4",
+      "P2.1"
+     ],
+     "sources": [
+      {
+       "id": "S052",
+       "ref": "mergers, takeovers and exchange offers",
+       "use": "core"
+      },
+      {
+       "id": "S057",
+       "ref": "takeover regulation overview (EU)",
+       "use": "deeper"
+      },
+      {
+       "id": "S233",
+       "ref": "market standards: offers",
+       "use": "core"
+      },
+      {
+       "id": "S145",
+       "ref": "tender offer and takeover rules (US), chapters",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O8.6",
+     "title": "Conversions, warrants, puts and calls, and elections on structured notes",
+     "minutes": 48,
+     "objectives": [
+      "Determine whether to exercise a conversion, warrant or put based on parity and intrinsic value",
+      "Process holder exercise notices for bonds, warrants and certificates",
+      "Explain how exercise of securities with a holder option differs from automatic exercise"
+     ],
+     "key_concepts": [
+      "Convertible bond: conversion ratio, parity, premium",
+      "Warrant exercise: strike, ratio, last exercise day",
+      "Holder put and issuer call",
+      "Notice periods and physical vs cash settlement",
+      "Automatic exercise thresholds in structured products",
+      "Exercise notice via CSD/custodian vs issuer's paying agent"
+     ],
+     "worked_example": "Convertible: EUR 1,000 nominal, conversion price EUR 25.00 gives 40 shares. Shares trade at EUR 28.00, conversion value EUR 1,120 vs bond price EUR 1,085, so converting gains EUR 35 before accrued-interest forfeiture on the converted portion.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute conversion value, parity and conversion premium",
+       "params": "conversion price 5-80, share price +/-30%, bond price 95-130"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute proceeds if a holder puts a bond at par on a put date, including accrued interest",
+       "params": "put date vs coupon dates; day-count variants"
+      },
+      {
+       "template": "mcq",
+       "task": "Should a warrant holder exercise on the last day? Decide based on intrinsic value, settlement type and costs",
+       "params": "strike, spot, ratio"
+      },
+      {
+       "template": "order",
+       "task": "Sequence the steps from client decision to receipt of the shares for a physically settled warrant",
+       "params": "6-8 steps drawn from a pool (6 steps)"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort instruments (listed warrant, Bonus certificate, Discount certificate, ELN, convertible) into holder-exercise / automatic / no-exercise-needed",
+       "params": "instrument pool with auto-exercise rules"
+      }
+     ],
+     "callbacks": [
+      "O8.1",
+      "P6.2",
+      "P6.3",
+      "P3.1"
+     ],
+     "sources": [
+      {
+       "id": "S052",
+       "ref": "conversions, warrants and put/call options",
+       "use": "core"
+      },
+      {
+       "id": "S149",
+       "ref": "convertible bond mechanics, conversion terms",
+       "use": "deeper"
+      },
+      {
+       "id": "S032",
+       "ref": "warrants and certificates basics (exercise and settlement)",
+       "use": "core"
+      },
+      {
+       "id": "S193",
+       "ref": "EUSIPA map: which products need exercise",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O8.7",
+     "title": "Scrip and optional dividends, DRIPs and currency options",
+     "minutes": 48,
+     "objectives": [
+      "Compute scrip entitlements and compare cash against share alternatives",
+      "Process currency elections on cash distributions",
+      "Account for default options and fractions in optional dividends"
+     ],
+     "key_concepts": [
+      "Scrip dividend and dividend reinvestment plan",
+      "Scrip price and ratio of rights per new share",
+      "Cash vs stock option, default option by market",
+      "Currency option and the fixing",
+      "Tax treatment differs by market",
+      "Fractions settled in cash"
+     ],
+     "worked_example": "Dividend EUR 1.20 per share; scrip price fixed at EUR 24.00 means 20 rights per new share. A client with 1,000 shares gets either EUR 1,200 gross, or 50 new shares.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute new shares and fractional cash for a scrip election",
+       "params": "dividend 0.2-3.0, scrip price 8-90, holding 100-5,000"
+      },
+      {
+       "template": "numeric",
+       "task": "Compare effective value of cash vs share option when the market price on the reference day differs from the scrip price",
+       "params": "market price +/-8% vs scrip"
+      },
+      {
+       "template": "mcq",
+       "task": "Identify the default option when a custodian applies the issuer's default and the client is silent",
+       "params": "market variant"
+      },
+      {
+       "template": "numeric",
+       "task": "Convert a dividend option EUR vs USD using the election rate and compute the net payment",
+       "params": "FX rate and fee variants"
+      },
+      {
+       "template": "timeline",
+       "task": "Place election period, pricing period, ex-date and payment on a timeline",
+       "params": "dates generated"
+      }
+     ],
+     "callbacks": [
+      "O7.1",
+      "O8.1",
+      "P2.3"
+     ],
+     "sources": [
+      {
+       "id": "S052",
+       "ref": "optional dividends and dividend reinvestment",
+       "use": "core"
+      },
+      {
+       "id": "S233",
+       "ref": "market standards: dividend options",
+       "use": "core"
+      },
+      {
+       "id": "S005",
+       "ref": "dividend options",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O8.8",
+     "title": "Proxy voting and SRD II: shareholder identification and vote chains",
+     "minutes": 48,
+     "objectives": [
+      "Describe the information flow of a general meeting from issuer to ultimate shareholder",
+      "Explain SRD II rights: shareholder identification, transmission of information, facilitation of voting, vote confirmation",
+      "Handle record date, blocking, split voting and voting by proxy"
+     ],
+     "key_concepts": [
+      "Directive 2017/828 Arts 3a-3c, 3d",
+      "Implementing Reg (EU) 2018/1212 standards and formats",
+      "Intermediary chain and end investor",
+      "Record date entitlement vs share blocking",
+      "Vote confirmation and rejection",
+      "Proxy advisers, split votes, power of attorney",
+      "ISO 20022 meeting messages (seev.001-seev.008 family)"
+     ],
+     "worked_example": "A Swiss private bank holds 50,000 shares of an Italian listed company for 12 clients in an omnibus account at an Italian sub-custodian. The bank must forward the meeting notice, collect instructions by the bank's cut-off, and give the sub-custodian split votes (30,000 for, 20,000 against) after the record date.",
+     "exercises": [
+      {
+       "template": "order",
+       "task": "Put the steps of meeting information transmission (notice, entitlement, instruction, confirmation, result) in order",
+       "params": "6-8 steps drawn from a pool (7 steps)"
+      },
+      {
+       "template": "match",
+       "task": "Match each SRD II article-level duty to the intermediary activity (identification, transmission, facilitation, confirmation)",
+       "params": "pool of 8 duties"
+      },
+      {
+       "template": "timeline",
+       "task": "Mark meeting date, record date, instruction cut-off, voting deadline, confirmation on a timeline",
+       "params": "T-n days, market-specific"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the split vote the omnibus account must lodge from 10 clients' instructions",
+       "params": "holdings, for/against/abstain, some silent"
+      },
+      {
+       "template": "mcq",
+       "task": "True/false statements about vote confirmation obligations of intermediaries",
+       "params": "statement bank"
+      }
+     ],
+     "callbacks": [
+      "O4.3",
+      "O4.1",
+      "P2.2"
+     ],
+     "sources": [
+      {
+       "id": "S172",
+       "ref": "Directive 2017/828: Arts 3a-3d (shareholder identification, info transmission, voting facilitation)",
+       "use": "core"
+      },
+      {
+       "id": "S173",
+       "ref": "Implementing Regulation 2018/1212: tables and formats",
+       "use": "core"
+      },
+      {
+       "id": "S052",
+       "ref": "meeting and proxy chapters",
+       "use": "deeper"
+      },
+      {
+       "id": "S305",
+       "ref": "AMI-SeCo CA report: meeting processing standards",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O8.9",
+     "title": "Market claims, transformations and buyer protection",
+     "minutes": 48,
+     "objectives": [
+      "Explain why trades pending settlement over the record date create claims and transformations",
+      "Compute a market claim and decide who compensates whom",
+      "Explain buyer protection and the instruction deadline mechanics"
+     ],
+     "key_concepts": [
+      "Cum vs ex entitlement",
+      "Market claim (compensation of entitlement)",
+      "Transformation of pending instructions",
+      "Buyer protection and buyer protection deadline",
+      "Claim detection by CSD, T2S automated claims",
+      "Reversals and non-compliance",
+      "Interplay with settlement fails"
+     ],
+     "worked_example": "Seller sold 10,000 shares cum-dividend on T-2 before the ex-date, but the trade fails and settles two days after the record date. The seller still holds the shares on the record date and receives EUR 1.00 per share, so the buyer's custodian raises a market claim of EUR 10,000 net of withholding tax.",
+     "exercises": [
+      {
+       "template": "timeline",
+       "task": "For 5 trades (trade, intended settlement, actual settlement), decide who is the legal holder on the record date and who claims",
+       "params": "trade dates and settlement vary"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the gross and net market claim amount for a pending trade on a taxed dividend",
+       "params": "dividend rate, WHT, quantity"
+      },
+      {
+       "template": "mcq",
+       "task": "Which party applies buyer protection and until when (before market deadline minus buyer protection period)?",
+       "params": "scenario variants"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a claim advice (wrong payee, wrong date basis)",
+       "params": "synthetic claim advice"
+      },
+      {
+       "template": "bucket",
+       "task": "Classify scenarios as market claim / transformation / buyer protection / none",
+       "params": "item pool of 12-20, 8-10 shown per instance (12 scenarios)"
+      }
+     ],
+     "callbacks": [
+      "O3.6",
+      "O3.5",
+      "O7.8",
+      "O8.1"
+     ],
+     "sources": [
+      {
+       "id": "S233",
+       "ref": "market standards: claims, transformations, buyer protection (core text)",
+       "use": "core"
+      },
+      {
+       "id": "S052",
+       "ref": "claims chapter",
+       "use": "core"
+      },
+      {
+       "id": "S329",
+       "ref": "T2S URD: market claims and transformations, detection and settlement",
+       "use": "deeper"
+      },
+      {
+       "id": "S294",
+       "ref": "ESMA Q&As on CSDR: settlement fails and corporate-action interplay",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O8.10",
+     "title": "Election desk workflow, controls, risks and the full event pack",
+     "minutes": 48,
+     "objectives": [
+      "Run an end-to-end voluntary event: capture, validation, client notification, election, instruction, confirmation and posting",
+      "Identify the key operational risks and the controls and claims process when a deadline is missed",
+      "Prioritise a day of events by deadline, value at risk and client segment"
+     ],
+     "key_concepts": [
+      "Golden copy and multi-source validation",
+      "Client notification for retail vs institutional vs discretionary mandates",
+      "Election capture, authentication and cut-offs",
+      "Reconciliation of entitlements and instructions",
+      "Missed-deadline claims and liability",
+      "Class action and withholding claim services",
+      "Hierarchy of event priority",
+      "Messages MT564/565/566/567/568 and seev.031/033/034/035/036"
+     ],
+     "worked_example": "Seven live events are open: a rights issue (3 days left), a bond tender (5), a scrip dividend (2), a class action filing (30), a proxy meeting (4), a warrant expiry (1), a consent solicitation (6). The warrant has the shortest deadline and the highest value at risk, so it is first.",
+     "exercises": [
+      {
+       "template": "order",
+       "task": "Prioritise a list of 8 open events by hours-to-deadline weighted by value at risk",
+       "params": "events from a pool; values generated"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill in the message type or status in an MT564/565 and seev.031/033 election round trip",
+       "params": "word bank, 4-6 blanks (word bank)"
+      },
+      {
+       "template": "spot",
+       "task": "Spot errors on an election instruction ticket (wrong quantity vs entitlement, expired deadline, missing option code)",
+       "params": "synthetic ticket"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort controls into preventive vs detective vs corrective (e.g. dual entry vs reconciliation vs claims)",
+       "params": "item pool of 12-20, 8-10 shown per instance (10 controls)"
+      },
+      {
+       "template": "paper",
+       "task": "Optional: write a one-page procedure for handling a missed election on a discretionary account, including liability and client communication",
+       "params": "rubric: accuracy, escalation, client fairness; hidden until submit"
+      }
+     ],
+     "callbacks": [
+      "O8.1",
+      "O8.2",
+      "O8.8",
+      "O7.8",
+      "O4.6"
+     ],
+     "sources": [
+      {
+       "id": "S233",
+       "ref": "market standards: service levels, deadlines, error handling",
+       "use": "core"
+      },
+      {
+       "id": "S052",
+       "ref": "operations and risk chapters",
+       "use": "deeper"
+      },
+      {
+       "id": "S305",
+       "ref": "AMI-SeCo CA report, ISO 20022 CA messages",
+       "use": "deeper"
+      },
+      {
+       "id": "S327",
+       "ref": "SWIFT MyStandards: usage guidelines for CA messages",
+       "use": "reference"
+      },
+      {
+       "id": "S058",
+       "ref": "operations risk chapter",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O8.11",
+     "title": "Distressed and exceptional corporate actions",
+     "minutes": 50,
+     "objectives": [
+      "Classify a distressed or exceptional event (bankruptcy, liquidation, delisting, squeeze-out, class action, consent solicitation, return of capital, special dividend, odd-lot offer, redenomination, bond default or restructuring) as mandatory, voluntary or claim-type and name the client action it needs",
+      "Post the position and cash effects of a bond default, a recovery distribution, a return of capital and a squeeze-out, including the realised or unrealised loss",
+      "Explain the EU squeeze-out and sell-out mechanism (Takeover Directive thresholds set by Member States between 90% and 95%) and what happens to a position that is compulsorily acquired",
+      "Decide for a delisted or insolvent issuer whether to keep the position at zero or nominal value, file a claim or write it off, and state the evidence needed"
+     ],
+     "key_concepts": [
+      "Bankruptcy and liquidation: position stays on the books until cancellation or final distribution; price may be zero or nominal",
+      "Delisting: loss of trading venue, possible off-exchange holding or forced sale",
+      "Squeeze-out and sell-out: compulsory acquisition after a bid above the national threshold (90-95% under the Takeover Directive); US short-form merger",
+      "Class-action claims: eligibility depends on holding during the class period; proof-of-claim filing; claims services",
+      "Consent solicitations: bondholder vote on amended terms, sometimes with a consent fee",
+      "Return of capital vs special dividend: cost-basis reduction vs income",
+      "Odd-lot offers and redenomination (e.g. Croatia HRK to EUR at 7.53450 on 1 Jan 2023)",
+      "Bond default and restructuring: acceleration, exchange for new bonds, haircut, recovery percentage",
+      "ISO event types and messages for these events (MT564, seev.031)"
+     ],
+     "worked_example": "A client holds EUR 100,000 nominal of a bond bought at 98.00 (cost EUR 98,000). The issuer defaults and the bond trades at 30: unrealised loss EUR 68,000 (Dr Unrealised loss / Cr Securities at market). The restructuring pays a 35% recovery in cash: EUR 35,000 received (Dr Cash 35,000, Dr Realised loss 63,000, Cr Securities cost 98,000). A separate EUR 2 per share return of capital on 1,000 shares is not income: Dr Cash 2,000 / Cr Cost basis 2,000, while a EUR 2 special dividend is posted to income and is subject to the usual withholding.",
+     "exercises": [
+      {
+       "template": "bucket",
+       "task": "Classify events as mandatory, voluntary or claim-type and as income vs capital",
+       "params": "pool of 12 events: squeeze-out, class action, consent solicitation, special dividend, return of capital, odd-lot offer, redenomination, bond default"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the realised loss after a bond default and recovery distribution",
+       "params": "nominal, purchase price, recovery % (20-60), accrued interest ignored"
+      },
+      {
+       "template": "journal",
+       "task": "Post a return of capital and a special dividend on the same position",
+       "params": "shares 500-5,000; amount per share; withholding rate"
+      },
+      {
+       "template": "mcq",
+       "task": "Is a compulsory acquisition (squeeze-out) available here?",
+       "params": "holding percentage after bid vs threshold 90%/95%; jurisdiction variant"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a class-action claim form",
+       "params": "claim form with seeded error: purchase after class period, wrong share count, missed filing date"
+      }
+     ],
+     "callbacks": [
+      "O7.3",
+      "O7.7",
+      "O7.8",
+      "O8.1",
+      "O8.4",
+      "O8.10",
+      "P3.8"
+     ],
+     "sources": [
+      {
+       "id": "S052",
+       "ref": "chapters on distressed, class action and exceptional events",
+       "use": "core"
+      },
+      {
+       "id": "S233",
+       "ref": "market standards: mandatory and voluntary event handling",
+       "use": "core"
+      },
+      {
+       "id": "S057",
+       "ref": "takeover bids, squeeze-out and sell-out (Directive 2004/25/EC)",
+       "use": "reference"
+      },
+      {
+       "id": "S045",
+       "ref": "default, restructuring and recovery",
+       "use": "deeper"
+      },
+      {
+       "id": "S036",
+       "ref": "postings for write-offs, realised and unrealised loss",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": {
+    "name": "CA Election Desk",
+    "variant": "Voluntary events with live deadlines: rights, tender, scrip, proxy, warrants; elect before cut-offs, avoid defaults, and clear market claims; difficulty scales with the number of simultaneous events and client mandates"
+   },
+   "unit_test": "Entitlement and cash calculations across rights, tender, scrip and exchange offers; classification of event types and defaults; deadline timeline placement; SRD II chain; claims versus transformations.",
+   "jurisdiction_notes": "EU first: SRD II and Implementing Reg 2018/1212, T2S market claims and transformations, local rights-issue practices. US: DTC voluntary offering instructions and ATOP, proxy distribution via Broadridge (NOBO/OBO), 'protect' deadlines. UK: provisional allotment letters, renounceable rights, 'make-up' practice. CH: SIX SIS deadlines. SG/HK: short note on local tender practice and CCASS. Keep each to a few lines."
+  },
+  {
+   "id": "A2",
+   "title": "Income accounting",
+   "track": "ops",
+   "hours": 6,
+   "prereqs": [
+    "A1",
+    "O7",
+    "F3"
+   ],
+   "boss_items": [
+    "income accounting",
+    "all corporate actions"
+   ],
+   "hook": "Accrued and received coupon and dividend income, withholding tax, and the reconciliation of an income statement to cash received.",
+   "units": [
+    {
+     "id": "A2.1",
+     "title": "Income streams and when to recognise them",
+     "minutes": 45,
+     "objectives": [
+      "Name every income stream of a securities portfolio and its recognition event",
+      "Distinguish cash-basis from accrual-basis income and ex-date from pay-date recognition",
+      "Explain how the client-side portfolio ledger differs from a fund or bank ledger"
+     ],
+     "key_concepts": [
+      "Dividend, coupon, fund distribution, lending fee, cash interest",
+      "Accrual vs cash basis",
+      "Ex-date recognition of dividends receivable",
+      "Pay-date receipt and settlement of the receivable",
+      "Gross vs net of tax",
+      "Reporting currency vs local currency"
+     ],
+     "worked_example": "Share goes ex on 12 May with EUR 0.80 per share, paid on 20 May. The client holds 5,000 shares: EUR 4,000 gross income is recognised on 12 May (Dr Dividends receivable, Cr Dividend income) and cash arrives on 20 May.",
+     "exercises": [
+      {
+       "template": "bucket",
+       "task": "Sort 12 income and non-income items (coupon, return of capital, dividend, redemption, accrued purchased, fee rebate) by type",
+       "params": "item pool of 12-20, 8-10 shown per instance (item pool)"
+      },
+      {
+       "template": "timeline",
+       "task": "Place ex-date, record date, pay date; mark when income and cash are recognised",
+       "params": "dates generated; markets differ"
+      },
+      {
+       "template": "journal",
+       "task": "Post the ex-date and pay-date entries for a cash dividend",
+       "params": "shares 100-10,000, dividend 0.05-3.00"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose the correct recognition date for a dividend on a stock bought the day before ex-date but settled after it",
+       "params": "scenario variants"
+      }
+     ],
+     "callbacks": [
+      "A1.1",
+      "A1.2",
+      "O7.1",
+      "O7.8"
+     ],
+     "sources": [
+      {
+       "id": "S036",
+       "ref": "income accounting chapters for equities",
+       "use": "core"
+      },
+      {
+       "id": "S028",
+       "ref": "income and CA accounting",
+       "use": "core"
+      },
+      {
+       "id": "S043",
+       "ref": "investment income recognition",
+       "use": "deeper"
+      },
+      {
+       "id": "S224",
+       "ref": "IFRS 9 interest revenue; dividend recognition",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "A2.2",
+     "title": "Bond coupon accruals and accrued interest on trades",
+     "minutes": 45,
+     "objectives": [
+      "Accrue coupon interest daily using the correct day-count",
+      "Book purchased and sold accrued interest separately from price",
+      "Split the first coupon after purchase into interest earned and interest bought"
+     ],
+     "key_concepts": [
+      "Accrued interest per day",
+      "Act/Act, 30/360, Act/360",
+      "Purchased accrued interest as an asset/receivable",
+      "Coupon receipt = reversal of accrued + new income",
+      "Clean/dirty price at booking",
+      "Ex-coupon trades and negative accrual"
+     ],
+     "worked_example": "EUR 100,000 nominal 3% Act/Act bond bought for 99.50 clean with 62 days accrued. Accrued = 100,000 x 3% x 62/365 = EUR 509.59. The ledger shows investment EUR 99,500 and purchased accrued EUR 509.59, not income.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute accrued interest for a trade date and settlement date under a given day-count",
+       "params": "coupon 0.5-8%, nominal 10k-5m, dates, conventions"
+      },
+      {
+       "template": "journal",
+       "task": "Post the purchase: investment at clean, purchased accrued, cash at dirty",
+       "params": "amounts 1k-5m EUR; accounts, dates and debit/credit sides vary (price 90-110)"
+      },
+      {
+       "template": "journal",
+       "task": "Post the first coupon receipt, splitting purchased accrued from interest earned",
+       "params": "amounts 1k-5m EUR; accounts, dates and debit/credit sides vary (coupon dates)"
+      },
+      {
+       "template": "table",
+       "task": "Complete a 6-month accrual schedule showing accrued, income earned and cash",
+       "params": "monthly accrual table"
+      }
+     ],
+     "callbacks": [
+      "P3.4",
+      "P3.5",
+      "P3.6",
+      "F3.1",
+      "A2.1"
+     ],
+     "sources": [
+      {
+       "id": "S036",
+       "ref": "bond income accounting sections",
+       "use": "core"
+      },
+      {
+       "id": "S220",
+       "ref": "ICMA conventions for accrued interest",
+       "use": "core"
+      },
+      {
+       "id": "S045",
+       "ref": "accrued interest and pricing between coupon dates",
+       "use": "deeper"
+      },
+      {
+       "id": "S287",
+       "ref": "Handbook of Fixed Income Securities: accrued interest",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "A2.3",
+     "title": "Dividend accounting: cash, stock, scrip and ex-date effects",
+     "minutes": 45,
+     "objectives": [
+      "Post gross dividends, withholding tax and net cash in a client ledger",
+      "Account for stock dividends, scrip and bonus issues without cash",
+      "Explain the ex-date price drop vs income recognition"
+     ],
+     "key_concepts": [
+      "Gross vs net dividend",
+      "Tax withheld as receivable or expense",
+      "Stock dividend as income vs as quantity change",
+      "Scrip election and the cost of the new shares",
+      "Return of capital reduces cost, not income",
+      "Special dividends"
+     ],
+     "worked_example": "A client in Germany receives EUR 10,000 gross; 26.375% German tax is withheld at source: net cash EUR 7,362.50; the withheld EUR 2,637.50 is booked as tax withheld (receivable if reclaimable).",
+     "exercises": [
+      {
+       "template": "journal",
+       "task": "Post a taxed cash dividend with a reclaimable part",
+       "params": "rate 15-35%, reclaimable portion"
+      },
+      {
+       "template": "journal",
+       "task": "Post a scrip dividend taken in shares: income, new shares at fair value",
+       "params": "scrip price vs market price"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute net dividend and reclaimable amount from gross, statutory rate, treaty rate",
+       "params": "rates by country"
+      },
+      {
+       "template": "mcq",
+       "task": "Return of capital vs income: pick the correct accounting for a distribution flagged as capital repayment",
+       "params": "notice variants"
+      }
+     ],
+     "callbacks": [
+      "A2.1",
+      "O8.7",
+      "O7.1",
+      "O7.5"
+     ],
+     "sources": [
+      {
+       "id": "S036",
+       "ref": "dividends accounting",
+       "use": "core"
+      },
+      {
+       "id": "S226",
+       "ref": "IRS Pub 550: dividends and distributions",
+       "use": "deeper"
+      },
+      {
+       "id": "S052",
+       "ref": "income events",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "A2.4",
+     "title": "Amortisation: premium, discount and effective interest",
+     "minutes": 45,
+     "objectives": [
+      "Build an effective-interest (EIR) amortisation schedule for a premium or discount bond",
+      "Compare straight-line with effective-interest methods",
+      "Explain accretion on zero-coupon instruments"
+     ],
+     "key_concepts": [
+      "Effective interest rate (IRR of cash flows at purchase)",
+      "Premium amortisation reduces income; discount accretion adds",
+      "Amortised cost carrying amount",
+      "Straight-line shortcut",
+      "Zero coupon accretion",
+      "Callable bonds and re-estimation"
+     ],
+     "worked_example": "A 3-year 5% annual-coupon bond of EUR 100,000 bought at 102.78 has an EIR near 4%. Year 1 interest income = 102,780 x 4% = EUR 4,111, coupon EUR 5,000, so amortisation of EUR 889 reduces the carrying amount.",
+     "exercises": [
+      {
+       "template": "table",
+       "task": "Complete a 4-year EIR amortisation table (opening, interest, coupon, closing)",
+       "params": "coupon 2-6%, price 94-106"
+      },
+      {
+       "template": "numeric",
+       "task": "Find the carrying value after year n",
+       "params": "years, EIR given"
+      },
+      {
+       "template": "numeric",
+       "task": "Accrete a zero coupon bond to a given date",
+       "params": "price 60-95, maturity 1-10y"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose which method IFRS 9 requires for amortised cost (EIR) and why straight-line is only acceptable if immaterial",
+       "params": "scenario variants"
+      },
+      {
+       "template": "journal",
+       "task": "Post annual interest income with amortisation of premium",
+       "params": "amounts 1k-5m EUR; accounts, dates and debit/credit sides vary (numbers vary)"
+      }
+     ],
+     "callbacks": [
+      "F1.4",
+      "F1.5",
+      "F3.1",
+      "P3.7"
+     ],
+     "sources": [
+      {
+       "id": "S072",
+       "ref": "amortised cost and EIR chapters",
+       "use": "core"
+      },
+      {
+       "id": "S224",
+       "ref": "IFRS 9 5.4 (amortised cost, EIR) and App. A definitions",
+       "use": "reference"
+      },
+      {
+       "id": "S036",
+       "ref": "premium/discount amortisation",
+       "use": "core"
+      },
+      {
+       "id": "S160",
+       "ref": "Applying IFRS: financial instruments accounting",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "A2.5",
+     "title": "Withholding tax: rates, treaties and relief at source",
+     "minutes": 45,
+     "objectives": [
+      "Calculate withholding tax at statutory and treaty rates, and the reclaimable excess",
+      "Explain relief at source, quick refund and long-form reclaim",
+      "Read a tax-rate matrix for a multi-country portfolio"
+     ],
+     "key_concepts": [
+      "Statutory vs treaty rates",
+      "Relief at source / quick refund / reclaim",
+      "Tax residence certificates and beneficial owner",
+      "US NRA withholding: W-8BEN, QI regime",
+      "FATCA withholding",
+      "Cost-benefit of reclaims (de minimis)"
+     ],
+     "worked_example": "Italy applies 26% to a EUR 20,000 dividend paid to a French resident fund; a treaty rate of 15% implies EUR 2,200 excess to claim. Whether the client gets it depends on documents filed and the time limit.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute the excess tax and the amount recoverable by reclaim",
+       "params": "gross 5k-500k, rates"
+      },
+      {
+       "template": "match",
+       "task": "Match each relief method to its timing and documentation burden",
+       "params": "item pool of 8-12, 5-6 shown per instance (pool of 6)"
+      },
+      {
+       "template": "numeric",
+       "task": "Decide whether a reclaim is worth filing given fees and the excess amount",
+       "params": "fee 50-500 EUR"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a tax voucher (wrong rate, missing client ID)",
+       "params": "synthetic voucher"
+      },
+      {
+       "template": "mcq",
+       "task": "What documents allow relief at source on US-source dividends for a non-US investor?",
+       "params": "scenario variants"
+      }
+     ],
+     "callbacks": [
+      "A2.3",
+      "O4.1",
+      "C1.2"
+     ],
+     "sources": [
+      {
+       "id": "S242",
+       "ref": "QI Agreement and FATCA overview",
+       "use": "core"
+      },
+      {
+       "id": "S226",
+       "ref": "IRS Pub 550: foreign investor rules",
+       "use": "reference"
+      },
+      {
+       "id": "S239",
+       "ref": "OECD CRS, information exchange context",
+       "use": "reference"
+      },
+      {
+       "id": "S063",
+       "ref": "tax services for custodians",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "A2.6",
+     "title": "Reclaims and the EU FASTER Directive",
+     "minutes": 45,
+     "objectives": [
+      "Describe what Directive (EU) 2025/50 changes for withholding tax relief procedures",
+      "Explain the role of certified financial intermediaries and the digital tax residence certificate",
+      "Compare today's patchwork with the future standard process"
+     ],
+     "key_concepts": [
+      "Excess withholding and refund delays",
+      "FASTER objectives: speed, standardisation, anti-abuse",
+      "Certified financial intermediaries",
+      "Digital tax residence certificate",
+      "Standardised reporting by intermediaries",
+      "Quick refund vs relief at source timelines",
+      "Transposition and application dates"
+     ],
+     "worked_example": "Today a EUR 80,000 excess-tax claim on a foreign dividend can take a year or more and need paper certificates. FASTER aims to give EU investors a standard digital residence certificate, certified intermediaries and fixed refund windows, with exact deadlines to be verified in the directive text.",
+     "exercises": [
+      {
+       "template": "cloze",
+       "task": "Fill the FASTER key terms (CFI, DTRC, relief at source, quick refund)",
+       "params": "word bank, 4-6 blanks (word bank)"
+      },
+      {
+       "template": "timeline",
+       "task": "Place transposition, application and first-year milestones on a timeline",
+       "params": "dates from the directive"
+      },
+      {
+       "template": "mcq",
+       "task": "Which party bears which duty under FASTER (member state vs CFI vs investor)?",
+       "params": "statement bank"
+      },
+      {
+       "template": "order",
+       "task": "Sequence the steps in a quick-refund claim",
+       "params": "6-8 steps drawn from a pool (6 steps)"
+      }
+     ],
+     "callbacks": [
+      "A2.5",
+      "O8.8"
+     ],
+     "sources": [
+      {
+       "id": "S178",
+       "ref": "FASTER Directive: recitals and Arts 4-9 (procedures)",
+       "use": "core"
+      },
+      {
+       "id": "S242",
+       "ref": "comparison with US QI approach",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "A2.7",
+     "title": "Income on funds, structured notes and cash",
+     "minutes": 45,
+     "objectives": [
+      "Account for fund distributions, accumulation units, and equalisation",
+      "Accrue conditional coupons and structured note income correctly",
+      "Handle cash interest and securities-lending fees"
+     ],
+     "key_concepts": [
+      "Distribution vs accumulation units",
+      "Reportable income of accumulating funds",
+      "Equalisation payment",
+      "Structured note coupons: fixed, conditional, memory",
+      "Autocall coupon payment and accrual",
+      "Interest on cash accounts",
+      "Securities lending fee income"
+     ],
+     "worked_example": "A memory-coupon certificate pays EUR 3 per EUR 100 per quarter if its underlying is above 70%. When the underlying was below for Q1 and Q2 and recovers in Q3, the Q3 coupon is EUR 9, but accrual before the observation is uncertain, so many clients accrue only on observation.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute the memory coupon due on an observation date given a history of hits and misses",
+       "params": "barrier hits, coupon 1-4%"
+      },
+      {
+       "template": "journal",
+       "task": "Post an accumulating fund distribution (reportable income) without cash",
+       "params": "amounts 1k-5m EUR; accounts, dates and debit/credit sides vary (numbers vary)"
+      },
+      {
+       "template": "mcq",
+       "task": "When should a conditional coupon be recognised: accrued or on observation?",
+       "params": "policy variants"
+      },
+      {
+       "template": "table",
+       "task": "Reconcile income across 5 holdings (equity, bond, fund, certificate, cash) for a quarter",
+       "params": "4-10 rows; inputs randomised each instance"
+      }
+     ],
+     "callbacks": [
+      "P4.3",
+      "P6.3",
+      "A2.2"
+     ],
+     "sources": [
+      {
+       "id": "S036",
+       "ref": "fund and derivatives income sections",
+       "use": "deeper"
+      },
+      {
+       "id": "S043",
+       "ref": "investment company income",
+       "use": "core"
+      },
+      {
+       "id": "S032",
+       "ref": "certificate payoff basics",
+       "use": "reference"
+      },
+      {
+       "id": "S072",
+       "ref": "income on structured instruments",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "A2.8",
+     "title": "Income control, projections and the Ledger",
+     "minutes": 45,
+     "objectives": [
+      "Run an expected-vs-received income report and clear breaks",
+      "Chase unreceived income and raise claims",
+      "Produce a client-facing income statement that ties to the ledger"
+     ],
+     "key_concepts": [
+      "Expected income report",
+      "Aged unreceived items",
+      "Claims on missed payments",
+      "Reconciliation of cash received to accrual",
+      "Income projection",
+      "Reporting gross, net and tax"
+     ],
+     "worked_example": "Expected EUR 38,650 for the month, received EUR 35,800: the EUR 2,850 break is one late bond coupon (EUR 2,100) and a tax-rate mismatch (EUR 750).",
+     "exercises": [
+      {
+       "template": "table",
+       "task": "Complete a break report from expected, received and tax columns",
+       "params": "4-10 rows; inputs randomised each instance (10 rows)"
+      },
+      {
+       "template": "journal",
+       "task": "Post the clearing of an aged receivable once cash arrives",
+       "params": "amounts 1k-5m EUR; accounts, dates and debit/credit sides vary (numbers vary)"
+      },
+      {
+       "template": "spot",
+       "task": "Spot errors in a client income statement (double counting of accrued, wrong period)",
+       "params": "synthetic statement"
+      },
+      {
+       "template": "bucket",
+       "task": "Classify breaks as timing / tax / amount / missing event",
+       "params": "item pool of 12-20, 8-10 shown per instance (12 breaks)"
+      }
+     ],
+     "callbacks": [
+      "A2.1",
+      "A2.2",
+      "A2.3",
+      "A2.5",
+      "O4.6"
+     ],
+     "sources": [
+      {
+       "id": "S036",
+       "ref": "income controls",
+       "use": "core"
+      },
+      {
+       "id": "S058",
+       "ref": "income processing and reconciliation",
+       "use": "deeper"
+      },
+      {
+       "id": "S063",
+       "ref": "income collection chapter",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": {
+    "name": "Ledger",
+    "variant": "Income stream: post accrual, receipt, tax and amortisation entries for a stream of dividends, coupons, scrips and reclaims"
+   },
+   "unit_test": "Accrual and journal entries for dividends and coupons, EIR schedule, withholding tax maths and reclaim decisions.",
+   "jurisdiction_notes": "EU first: country WHT oddities (illustrative rates), FASTER. US: QI/NRA 30% and W-8BEN. UK: no WHT on most dividends, fund equalisation. CH: 35% Verrechnungssteuer refund mechanics. SG/HK: mostly no dividend withholding, brief note."
+  },
+  {
+   "id": "A3",
+   "title": "Gain accounting & tax lots",
+   "track": "ops",
+   "hours": 6,
+   "prereqs": [
+    "A1",
+    "O8"
+   ],
+   "boss_items": [
+    "gain accounting",
+    "all corporate actions"
+   ],
+   "hook": "FIFO, average-cost and specific-lot methods, realised and unrealised gains, and why different lot methods produce different reported gains.",
+   "units": [
+    {
+     "id": "A3.1",
+     "title": "Cost basis, realised and unrealised gains",
+     "minutes": 45,
+     "objectives": [
+      "Compute realised and unrealised gains from cost, proceeds and fees",
+      "Decide whether transaction costs enter basis or reduce proceeds in a given regime",
+      "Explain trade-date recognition and the holding period"
+     ],
+     "key_concepts": [
+      "Cost basis",
+      "Net proceeds",
+      "Realised vs unrealised",
+      "Trade date vs settlement date",
+      "Holding period",
+      "Gain on bonds excludes accrued interest"
+     ],
+     "worked_example": "Buy 1,000 shares at EUR 18.40 plus EUR 25 fee (basis EUR 18,425); sell at EUR 21.10 less EUR 25 fee (proceeds EUR 21,075): realised gain EUR 2,650. If the shares are still held and the price is EUR 20.00, unrealised gain is EUR 1,575.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute realised gain from purchase and sale including fees",
+       "params": "prices 5-250 EUR, qty 100-5,000, fees 0.05-0.30%"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute unrealised gain on an open position at a valuation date",
+       "params": "market price +/-25% vs cost"
+      },
+      {
+       "template": "journal",
+       "task": "Post the sale: cash proceeds, cost relieved, realised gain or loss",
+       "params": "gain or loss; numbers vary"
+      },
+      {
+       "template": "timeline",
+       "task": "A purchase trades on 29 Dec and settles on 2 Jan: decide which year the gain falls into under trade-date vs settlement-date regimes",
+       "params": "year-end dates generated"
+      },
+      {
+       "template": "mcq",
+       "task": "Brokerage fees: add to basis, deduct from proceeds, or expense? Pick per regime",
+       "params": "regime variants"
+      }
+     ],
+     "callbacks": [
+      "A1.4",
+      "A2.2",
+      "F2.1"
+     ],
+     "sources": [
+      {
+       "id": "S036",
+       "ref": "chapters on gains and cost accounting for equities",
+       "use": "core"
+      },
+      {
+       "id": "S227",
+       "ref": "IRS Pub 551, basis of assets: cost basis, fees",
+       "use": "deeper"
+      },
+      {
+       "id": "S226",
+       "ref": "IRS Pub 550, sales and trades of investment property",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "A3.2",
+     "title": "Lot methods: FIFO, LIFO, HIFO and average cost",
+     "minutes": 45,
+     "objectives": [
+      "Match sales to purchase lots under FIFO, LIFO, HIFO and weighted average",
+      "Show how method choice changes realised gain and remaining basis, while total gain over the life of the position is identical",
+      "Complete a lot table after multiple partial sales"
+     ],
+     "key_concepts": [
+      "Tax lot",
+      "FIFO / LIFO / HIFO",
+      "Weighted-average cost",
+      "Lot-relief report",
+      "Remaining lots after partial sales",
+      "Method change and consistency rule"
+     ],
+     "worked_example": "Lots: 500 at EUR 10, 500 at EUR 12, 800 at EUR 15. Sell 900 at EUR 16. FIFO gain = 500 x 6 + 400 x 4 = EUR 4,600; LIFO gain = 800 x 1 + 100 x 4 = EUR 1,200; average cost (EUR 12.78) gain = EUR 2,900.",
+     "exercises": [
+      {
+       "template": "table",
+       "task": "Complete the lot-relief table for a sale under FIFO",
+       "params": "3-5 lots, sale quantity random"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the realised gain under each of FIFO, LIFO and average cost for the same sale",
+       "params": "3 lots, prices 8-60"
+      },
+      {
+       "template": "numeric",
+       "task": "After two partial sales find the remaining quantity and average cost",
+       "params": "qty/cost random"
+      },
+      {
+       "template": "mcq",
+       "task": "Which method realises the smallest gain in a rising market, and why does it raise future gain?",
+       "params": "price path variants"
+      },
+      {
+       "template": "table",
+       "task": "Show that the sum of realised gains over the full life is identical across methods",
+       "params": "full-liquidation scenario"
+      }
+     ],
+     "callbacks": [
+      "A3.1",
+      "Q1.1"
+     ],
+     "sources": [
+      {
+       "id": "S036",
+       "ref": "inventory-style cost methods for investments",
+       "use": "core"
+      },
+      {
+       "id": "S227",
+       "ref": "IRS Pub 551: identifying the shares sold",
+       "use": "core"
+      },
+      {
+       "id": "S043",
+       "ref": "lot accounting in investment companies",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "A3.3",
+     "title": "Specific identification and national regimes",
+     "minutes": 45,
+     "objectives": [
+      "Explain specific-lot identification and its documentation conditions",
+      "Contrast US (FIFO default, specific ID, average for funds), UK (Section 104 pool, same-day and 30-day matching), Germany (FIFO per custody account), France (PMP weighted average) and Italy",
+      "Choose the correct method for a cross-border client"
+     ],
+     "key_concepts": [
+      "Specific identification",
+      "UK Section 104 pool and matching rules",
+      "German FIFO per custody account",
+      "French prix moyen pondere",
+      "Italian regimi (amministrato, dichiarativo, gestito)",
+      "Who computes the gain: bank or client"
+     ],
+     "worked_example": "A UK client buys 200 shares on Monday and sells 300 on Friday from a pool of 1,000 at average EUR 20. Same-day and 30-day matching rules come first, then the pool. The bank's FIFO report is useless for her tax return.",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Match jurisdictions to their default matching rule",
+       "params": "pool of 8 jurisdictions"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the gain under Section 104 pooling for a sequence of buys and a sale",
+       "params": "3 buys, 1 sale"
+      },
+      {
+       "template": "table",
+       "task": "Apply PMP (weighted average) over a sequence of 5 transactions",
+       "params": "5 transactions"
+      },
+      {
+       "template": "mcq",
+       "task": "For a German tax-resident client with two custody accounts at two banks, which gets the FIFO calculation?",
+       "params": "scenario variants"
+      }
+     ],
+     "callbacks": [
+      "A3.2",
+      "C1.2"
+     ],
+     "sources": [
+      {
+       "id": "S227",
+       "ref": "IRS Pub 551: US specific identification",
+       "use": "core"
+      },
+      {
+       "id": "S226",
+       "ref": "IRS Pub 550",
+       "use": "deeper"
+      },
+      {
+       "id": "S057",
+       "ref": "tax-related references where relevant",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "A3.4",
+     "title": "Foreign-currency holdings and bonds: splitting the gain",
+     "minutes": 45,
+     "objectives": [
+      "Split the EUR gain on a USD or CHF holding into price effect and FX effect, with the two summing exactly to the total gain",
+      "Convert cost at trade-date FX and proceeds at sale-date FX, and state which rate each regime requires (trade date, settlement date, monthly average)",
+      "Compute the gain on a foreign bond sale excluding accrued interest, and book the accrued as income"
+     ],
+     "key_concepts": [
+      "Cost converted at trade-date FX",
+      "Price effect vs FX effect",
+      "Cross term allocated to FX",
+      "Accrued interest outside gain",
+      "Market discount and OID"
+     ],
+     "worked_example": "EUR-based client buys 1,000 USD shares at USD 50.00 with EURUSD 1.1000: cost USD 50,000 = EUR 45,454.55 (Dr Securities 45,454.55 / Cr Cash 45,454.55). Sold at USD 55.00 with EURUSD 1.2000: proceeds USD 55,000 = EUR 45,833.33, EUR gain 378.78. Price effect at the buy rate = USD 5,000 / 1.10 = +4,545.45; FX effect on sale proceeds = 55,000 x (1/1.20 - 1/1.10) = -4,166.67; sum 378.78. Bond case: USD 100,000 nominal bought at 98.50 clean + USD 1,200 accrued, sold at 99.10 clean: gain USD 600 on clean price; the accrued is income, never cost or gain.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Split the total EUR gain into price effect and FX effect for a foreign share round trip",
+       "params": "quantity 100-5,000; buy/sell price 10-200 USD or CHF; EURUSD/EURCHF buy and sell rates 0.9-1.3; tolerance EUR 0.05"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the EUR gain on a foreign bond sale with accrued excluded from gain and booked as income",
+       "params": "nominal 50k-1m; clean buy/sell price 90-110; accrued 0.2-2.5 pct; coupon 2-6 pct; rates vary"
+      },
+      {
+       "template": "table",
+       "task": "Complete a multi-currency lot table: local cost, FX at trade date, EUR cost, EUR value today, price and FX unrealised",
+       "params": "4-10 lots; currencies USD/GBP/CHF; quantities, prices, rates randomised each instance"
+      },
+      {
+       "template": "mcq",
+       "task": "Which FX rate converts cost and proceeds under the stated regime?",
+       "params": "regime variants: trade date, settlement date, monthly average, ECB reference vs bank rate; 6-8 wording variants"
+      },
+      {
+       "template": "journal",
+       "task": "Post the EUR purchase and EUR sale of a USD stock showing realised price gain and realised FX gain separately",
+       "params": "quantity, USD price, two EURUSD rates; accounts: Securities, Cash, Realised gain price, Realised gain FX"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a gain report that applies today's FX rate to the original USD cost",
+       "params": "report rows 4-6; error type varies (wrong rate date, accrued in cost, missing commission)"
+      }
+     ],
+     "callbacks": [
+      "A3.1",
+      "A2.2",
+      "F2.1"
+     ],
+     "sources": [
+      {
+       "id": "S036",
+       "ref": "foreign currency transactions and investments (equities chapters)",
+       "use": "core"
+      },
+      {
+       "id": "S045",
+       "ref": "bond pricing, accrued interest and discount/premium sections",
+       "use": "reference"
+      },
+      {
+       "id": "S226",
+       "ref": "IRS Pub 550: market discount bonds, OID, bond premium sections",
+       "use": "reference"
+      },
+      {
+       "id": "S224",
+       "ref": "IFRS 9 B5.7.2-B5.7.2A: FX on monetary vs non-monetary items (read with IAS 21)",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "A3.5",
+     "title": "Cost-basis adjustments for CAs I: splits, bonus issues, spin-offs",
+     "minutes": 45,
+     "objectives": [
+      "Recompute per-share cost and share count after a 2-for-1 split, a 1-for-5 bonus issue and a 1-for-10 reverse split while total cost stays unchanged",
+      "Allocate parent cost basis between parent and spin-off shares using relative market values on the first trading day",
+      "State which CAs carry over holding period and acquisition date and which change total basis (cash in lieu, taxed stock dividend)"
+     ],
+     "key_concepts": [
+      "Total cost invariance",
+      "Per-share cost re-scaling",
+      "Fractions and cash in lieu",
+      "Spin-off basis allocation by relative value",
+      "Holding period tacking"
+     ],
+     "worked_example": "Client holds 1,000 ABC at EUR 60.00 (cost EUR 60,000). 2-for-1 split: 2,000 shares at EUR 30.00, total unchanged. Instead a 1-for-5 bonus issue: 200 new shares, 1,200 shares at EUR 50.00; selling 300 at EUR 62.00 later gives gain 300 x (62 - 50) = EUR 3,600 before commission. Spin-off: parent cost EUR 50,000; 1 spin-co share per 10 parent shares gives 100 spin-co shares; first-day values: parent 1,000 x EUR 80 = 80,000, spin-co 100 x EUR 20 = 2,000; spin-co basis = 50,000 x 2,000/82,000 = EUR 1,219.51, parent basis EUR 48,780.49. Bank side, the custody position only changes quantity: no GL entry beyond the memo accounts.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute the new per-share cost after a split, reverse split or bonus issue",
+       "params": "ratio (2:1, 3:1, 1:5 bonus, 1:10 reverse); quantity 100-5,000; old cost 5-200 EUR"
+      },
+      {
+       "template": "numeric",
+       "task": "Allocate parent basis to spin-off by relative market value and give both new per-share bases",
+       "params": "parent basis 10k-200k; spin ratio 1:2 to 1:20; first-day prices; tolerance EUR 0.05"
+      },
+      {
+       "template": "table",
+       "task": "Adjust a 3-lot FIFO table for a CA and recompute realised gain on a later sale of N shares",
+       "params": "3 lots; CA type; sale quantity and price; method FIFO vs average cost"
+      },
+      {
+       "template": "mcq",
+       "task": "Does this event change total basis, per-share basis, or holding period?",
+       "params": "8-10 events: split, bonus, reverse split with cash in lieu, spin-off, taxed stock dividend"
+      },
+      {
+       "template": "order",
+       "task": "Put the steps of a basis adjustment in order: record-date quantity, ratio, fractions, new lot IDs, restated cost",
+       "params": "event variants; step lists of 5-6"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill in total basis, unit basis and acquisition date of the new lots",
+       "params": "event, quantities and prices vary"
+      }
+     ],
+     "callbacks": [
+      "O7.4",
+      "O7.5",
+      "A3.2"
+     ],
+     "sources": [
+      {
+       "id": "S227",
+       "ref": "IRS Pub 551: basis after stock splits, stock dividends and spin-offs (Stocks and Bonds section)",
+       "use": "core"
+      },
+      {
+       "id": "S052",
+       "ref": "splits, bonus issues and spin-offs: entitlement calculation and processing",
+       "use": "deeper"
+      },
+      {
+       "id": "S036",
+       "ref": "corporate action entries for equity holdings",
+       "use": "core"
+      },
+      {
+       "id": "S323",
+       "ref": "stock dividends and splits: investment accounting",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "A3.6",
+     "title": "Cost-basis adjustments for CAs II: rights, mergers, scrip",
+     "minutes": 45,
+     "objectives": [
+      "Compute TERP and the theoretical value of a right, then the new average cost after exercising N rights",
+      "Compare sale of rights with exercise and show the effect on cost basis and realised gain under each",
+      "Compute the basis of shares received in a share-for-share merger with a cash component and the gain recognised",
+      "Compute the cost of scrip shares received and the income recognised"
+     ],
+     "key_concepts": [
+      "TERP",
+      "Value of a right = cum price - TERP",
+      "Exercise adds subscription cost to basis",
+      "Boot and recognised gain",
+      "Scrip shares cost = reference price"
+     ],
+     "worked_example": "Client holds 1,000 DEF at EUR 40.00 cost (EUR 40,000). Rights issue 1-for-4 at EUR 30.00, cum price EUR 42.00: TERP = (4 x 42 + 30)/5 = 39.60, right = 2.40. Exercising 1,000 rights buys 250 shares for EUR 7,500 (Dr Securities 7,500 / Cr Cash 7,500): 1,250 shares, basis 47,500 = EUR 38.00 each. Alternative: sell 1,000 rights at 2.40 = EUR 2,400 (basis reduction or realised gain per regime). Merger: 1,000 target shares (basis 40,000) swapped for 600 acquirer shares worth EUR 46.00 plus EUR 3.00 cash per share; in a tax-deferred reorganisation recognised gain is capped by the cash, EUR 3,000. Scrip: 1 new share per 40 rights on 1,000 shares gives 25 shares at reference price EUR 32.00 = EUR 800 basis (and EUR 800 income in regimes treating scrip as a dividend).",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute TERP and the theoretical value of one right",
+       "params": "cum price 5-100; subscription price 50-90 pct of cum; ratio 1:10 to 3:2"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute new share count and per-share basis after exercising all rights",
+       "params": "holding 100-5,000; old basis; ratio; subscription price; fractions rounded down"
+      },
+      {
+       "template": "numeric",
+       "task": "Compare gain from selling rights vs exercising and selling shares later at a given price",
+       "params": "regime flag: sale of rights taxed as gain vs basis reduction; later price varies"
+      },
+      {
+       "template": "table",
+       "task": "Compute basis and recognised gain on a share-for-share merger with cash boot, for 3 tax regimes",
+       "params": "exchange ratio, cash per share, market values, regime flag taxable vs tax-deferred"
+      },
+      {
+       "template": "journal",
+       "task": "Post the exercise of rights and the receipt of scrip shares on the client ledger",
+       "params": "accounts: Securities, Cash, Dividend income; amounts 1k-100k EUR"
+      },
+      {
+       "template": "mcq",
+       "task": "Is cost of the new shares the subscription price, market value, or allocated old cost?",
+       "params": "event and regime variants; 8 wording variants"
+      }
+     ],
+     "callbacks": [
+      "O8.2",
+      "O8.3",
+      "O8.5",
+      "O8.7"
+     ],
+     "sources": [
+      {
+       "id": "S052",
+       "ref": "rights issues, mergers and scrip dividend processing",
+       "use": "core"
+      },
+      {
+       "id": "S036",
+       "ref": "accounting for rights and bonus entitlements",
+       "use": "core"
+      },
+      {
+       "id": "S227",
+       "ref": "IRS Pub 551: rights, reorganisations, stock dividends",
+       "use": "reference"
+      },
+      {
+       "id": "S054",
+       "ref": "dividend/scrip equivalence argument (Miller-Modigliani)",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "A3.7",
+     "title": "Wash sales and loss limitations",
+     "minutes": 45,
+     "objectives": [
+      "Decide whether a loss sale is a wash sale under the US 30-day before/after rule and compute the disallowed loss",
+      "Compute adjusted basis and holding period of the replacement shares after a full or partial wash sale",
+      "Apply the UK same-day / 30-day matching rule ahead of the s104 pool and contrast it with the US rule"
+     ],
+     "key_concepts": [
+      "61-day window (30 before, sale day, 30 after)",
+      "Substantially identical securities",
+      "Disallowed loss added to replacement basis",
+      "Holding period tacking",
+      "UK bed-and-breakfast matching"
+     ],
+     "worked_example": "US taxpayer bought 100 XYZ at USD 50.00 (USD 5,000) and sells all 100 on 10 Nov at USD 42.00: loss USD 800. On 20 Nov he buys 100 XYZ at USD 43.00 (USD 4,300): within 30 days, so the USD 800 loss is disallowed and added to the replacement basis: 4,300 + 800 = USD 5,100 (51.00 per share), holding period includes the original. If only 60 shares are bought back, 60% = USD 480 is disallowed and USD 320 stays deductible. UK: same-day purchases and purchases in the following 30 days are matched first, before the s104 pool.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute the disallowed loss and deductible remainder for a partial repurchase",
+       "params": "shares sold 50-1,000; loss per share 1-20; repurchase quantity 0-100 pct of shares sold"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute adjusted basis per share of the replacement lot",
+       "params": "replacement price 10-200; disallowed loss; shares"
+      },
+      {
+       "template": "timeline",
+       "task": "Place purchases and sales on a 61-day timeline and flag which sales are wash sales",
+       "params": "3-6 dated trades; window boundaries tested at day 30/31"
+      },
+      {
+       "template": "mcq",
+       "task": "Is the replacement substantially identical? (same stock, option, other share class, ETF on same index)",
+       "params": "8-10 security pairs"
+      },
+      {
+       "template": "table",
+       "task": "Apply UK matching: same-day, next 30 days, then s104 pool, to a sequence of buys and sells",
+       "params": "4-6 trades; prices and dates vary; output: matched cost and gain per sale"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the missed wash sale in a year-end gain report",
+       "params": "report with 6-8 lots; repurchase in an IRA or spouse account is a variant"
+      }
+     ],
+     "callbacks": [
+      "A3.2",
+      "A3.5"
+     ],
+     "sources": [
+      {
+       "id": "S226",
+       "ref": "IRS Pub 550: wash sales section",
+       "use": "core"
+      },
+      {
+       "id": "S227",
+       "ref": "IRS Pub 551: adjusted basis after disallowed loss",
+       "use": "reference"
+      },
+      {
+       "id": "S323",
+       "ref": "wash sale rule and basis tracking in investment accounting",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "A3.8",
+     "title": "Gain reports, lot-to-position reconciliation and tax documents",
+     "minutes": 45,
+     "objectives": [
+      "Reconcile lot-level quantity and cost to the position ledger and isolate a break of N shares to a single lot or CA",
+      "Produce a realised gain report for a period from sale records and lot relief, split by holding period or tax year as the regime requires",
+      "Name the data a bank supplies on year-end tax documents (EU annual tax certificate, US 1099-B, CRS/FATCA) and which fields come from the gain ledger"
+     ],
+     "key_concepts": [
+      "Lot-to-position tie-out",
+      "Break types: quantity, cost, date, currency",
+      "Realised gain report",
+      "Year-end tax statements",
+      "CRS and FATCA reporting data"
+     ],
+     "worked_example": "Position ledger shows 1,800 Nestle shares; lots show 1,000 @ EUR 90.00, 500 @ EUR 95.00, 300 @ EUR 100.00 = 1,800 shares, cost EUR 167,500, so quantity ties. After a sale of 600 at EUR 105.00 under FIFO: lot 1 falls to 400, realised gain 600 x 15 = EUR 9,000 before fees. Under average cost (167,500/1,800 = 93.06) the gain would be EUR 7,166.67, which explains a reported-vs-accountant gap. A break appears when the ledger says 1,200 but lots total 1,205: a 5-share lot from fractions in a CA was not removed.",
+     "exercises": [
+      {
+       "template": "table",
+       "task": "Reconcile a lot file to a position ledger and mark the break line",
+       "params": "5-10 lots; one injected break (quantity, cost, or missing CA lot)"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute total realised gain for the year under the chosen lot method",
+       "params": "3-6 buys and 2-4 sells; method FIFO/LIFO/average; commissions vary"
+      },
+      {
+       "template": "spot",
+       "task": "Find the lot that explains the quantity break",
+       "params": "break size 1-50 shares; causes: CA fraction, transfer-in without basis, late trade"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort fields of a year-end tax statement by source: gain ledger, income ledger, client static data",
+       "params": "12 field names; 3 buckets"
+      },
+      {
+       "template": "mcq",
+       "task": "Which report does the client need for tax filing in this regime?",
+       "params": "jurisdiction variants: DE, FR, IT, CH, US"
+      },
+      {
+       "template": "order",
+       "task": "Order the steps of the year-end gain report process",
+       "params": "6-7 steps: lock cut-off, restate lots, produce report, review breaks, issue statements"
+      }
+     ],
+     "callbacks": [
+      "A3.2",
+      "O4.6"
+     ],
+     "sources": [
+      {
+       "id": "S226",
+       "ref": "IRS Pub 550: reporting of sales and gains",
+       "use": "core"
+      },
+      {
+       "id": "S239",
+       "ref": "CRS consolidated text: due diligence and reporting data elements",
+       "use": "reference"
+      },
+      {
+       "id": "S242",
+       "ref": "FATCA and QI reporting overview",
+       "use": "reference"
+      },
+      {
+       "id": "S058",
+       "ref": "position reconciliation process",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "A3.9",
+     "title": "Tax treatment of corporate actions",
+     "minutes": 50,
+     "objectives": [
+      "Fill a per-event tax table (cash dividend, stock dividend, bonus issue, split, spin-off, rights, merger, return of capital) stating whether the event is taxable income, a non-taxable reorganisation or a basis adjustment",
+      "Compute net cash after withholding at the statutory and treaty rates and the amount reclaimable (EU, US, UK, CH illustrative cases)",
+      "Identify a deemed distribution (e.g. scrip dividend taxed on the cash equivalent) and the income to report with no cash received",
+      "Reconcile the gross, withholding, credit and net lines of a client statement and isolate a tax-line error"
+     ],
+     "key_concepts": [
+      "Event-by-event tax pattern: cash dividend taxed; stock dividend, bonus issue and split usually not taxed at event but change cost per share",
+      "Spin-off and merger: tax-deferred reorganisation, basis allocated by relative fair value; cash boot taxed",
+      "Rights: exercise or sale; basis allocation; sale proceeds as gain",
+      "Return of capital: reduces basis, excess over basis becomes gain",
+      "Withholding at source, treaty rates, relief at source vs reclaim (FASTER, see A2.6)",
+      "Deemed distributions and tax-credit lines on statements",
+      "Jurisdiction notes (illustrative): DE flat withholding, IT 26% substitute tax, CH 35% federal withholding with private capital gains untaxed, UK no dividend withholding but share-pool matching, US qualified vs ordinary dividend and basis rules"
+     ],
+     "worked_example": "A Swiss-resident client receives a Swiss-company dividend of CHF 10,000 gross: 35% federal withholding CHF 3,500, net CHF 6,500, recoverable through the tax return. A US stock paying USD 1,000 to a non-US client is withheld at 30% (USD 300) with no treaty form, or 15% (USD 150) with a valid treaty form on file, so USD 150 is reclaimable. A scrip dividend of 100 new shares worth EUR 12 each is taxed as EUR 1,200 income although no cash is received, and EUR 1,200 becomes the new-share cost basis.",
+     "exercises": [
+      {
+       "template": "table",
+       "task": "Complete the per-event tax table: taxable at event, basis effect, holding-period effect",
+       "params": "8 events, regime EU/US/UK/CH"
+      },
+      {
+       "template": "numeric",
+       "task": "Net dividend after withholding and amount reclaimable",
+       "params": "gross 1,000-20,000; statutory rate; treaty rate 10-15%"
+      },
+      {
+       "template": "mcq",
+       "task": "Is this event a taxable distribution or a reorganisation?",
+       "params": "event and jurisdiction variants"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the wrong tax line on a client dividend statement",
+       "params": "statement with seeded error: wrong rate, double withholding, missing credit"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort statement lines into income, withholding, credit and basis adjustment",
+       "params": "12 line items; 4 buckets"
+      }
+     ],
+     "callbacks": [
+      "O7.3",
+      "A2.5",
+      "A2.6",
+      "A3.5",
+      "A3.6"
+     ],
+     "sources": [
+      {
+       "id": "S226",
+       "ref": "IRS Pub 550: dividends, return of capital, stock dividends",
+       "use": "core"
+      },
+      {
+       "id": "S227",
+       "ref": "IRS Pub 551: basis after splits, spin-offs, rights and reorganisations",
+       "use": "core"
+      },
+      {
+       "id": "S052",
+       "ref": "tax aspects of corporate actions",
+       "use": "reference"
+      },
+      {
+       "id": "S242",
+       "ref": "US withholding, QI and treaty-rate documentation",
+       "use": "reference"
+      },
+      {
+       "id": "S178",
+       "ref": "FASTER: relief at source and quick refund",
+       "use": "deeper"
+      },
+      {
+       "id": "S036",
+       "ref": "accounting for tax withheld and credits",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "Lot relief under FIFO/LIFO/average/specific; CA basis adjustments; wash sales; FX split of gains.",
+   "jurisdiction_notes": "EU first: Germany FIFO, France PMP, Italy regimes, UK s104 pooling. US: specific ID, wash sale. CH: private capital gains generally untaxed. SG/HK: no capital gains tax."
+  },
+  {
+   "id": "A4",
+   "title": "Valuation: NAV vs market price",
+   "track": "ops",
+   "hours": 6,
+   "prereqs": [
+    "P4",
+    "P5",
+    "A2"
+   ],
+   "boss_items": [
+    "NAV vs market price",
+    "PnL"
+   ],
+   "hook": "Fund valuation, pricing sources, stale and fair-value prices, NAV cut-off and error handling, and the checks run before a NAV file is released.",
+   "units": [
+    {
+     "id": "A4.1",
+     "title": "What NAV is: assets, liabilities and units",
+     "minutes": 45,
+     "objectives": [
+      "Define NAV and NAV per share/unit and list what goes in each side",
+      "Explain valuation point, dealing day, forward vs historic pricing",
+      "Distinguish NAV, market price and offer/bid prices"
+     ],
+     "key_concepts": [
+      "NAV = assets - liabilities",
+      "NAV per unit",
+      "Valuation point and dealing day",
+      "Forward pricing",
+      "Single vs dual pricing",
+      "Share-class NAVs"
+     ],
+     "worked_example": "Fund holds securities EUR 120.4m, cash EUR 3.1m, accrued income EUR 0.6m, payables EUR 0.9m: NAV EUR 123.2m; 10.0m units give NAV/unit EUR 12.32.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute NAV and NAV per unit from components",
+       "params": "assets 20-500m, units 1-50m"
+      },
+      {
+       "template": "mcq",
+       "task": "A subscription arrives after cut-off on D: which NAV does it get (forward pricing)?",
+       "params": "cut-off times vary"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort items into assets, liabilities, and not on the balance sheet",
+       "params": "item pool of 12-20, 8-10 shown per instance (12 items)"
+      },
+      {
+       "template": "timeline",
+       "task": "Place cut-off, valuation point, NAV publication and settlement of a subscription",
+       "params": "dates generated"
+      }
+     ],
+     "callbacks": [
+      "P4.4",
+      "P4.5",
+      "P4.6",
+      "A1.1"
+     ],
+     "sources": [
+      {
+       "id": "S043",
+       "ref": "net asset valuation chapters",
+       "use": "core"
+      },
+      {
+       "id": "S036",
+       "ref": "fund accounting",
+       "use": "core"
+      },
+      {
+       "id": "S179",
+       "ref": "UCITS Directive articles on valuation and pricing",
+       "use": "reference"
+      },
+      {
+       "id": "S007",
+       "ref": "mutual fund pricing concepts",
+       "use": "foundation"
+      }
+     ]
+    },
+    {
+     "id": "A4.2",
+     "title": "NAV calculation walk-through",
+     "minutes": 45,
+     "objectives": [
+      "Build a daily NAV sheet from positions, prices, FX, accruals and capital activity",
+      "Reflect subscriptions/redemptions and units correctly",
+      "Reconcile NAV to prior day with an explain of movements"
+     ],
+     "key_concepts": [
+      "Position valuation at official price",
+      "FX conversion to fund currency",
+      "Income and fee accruals",
+      "Capital activity and units",
+      "NAV roll-forward",
+      "Tolerance checks"
+     ],
+     "worked_example": "Prior NAV EUR 100.0m; market move +EUR 0.8m; accrued income +EUR 0.05m; accrued fees -EUR 0.02m; subscriptions +EUR 2.0m; new NAV EUR 102.83m.",
+     "exercises": [
+      {
+       "template": "table",
+       "task": "Complete a NAV sheet from a list of positions and prices",
+       "params": "8 positions, 2 currencies"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute number of units issued for a subscription",
+       "params": "NAV/unit, amount"
+      },
+      {
+       "template": "table",
+       "task": "Build a NAV roll-forward",
+       "params": "4-10 rows; inputs randomised each instance"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a NAV report (missing accrual, wrong FX)",
+       "params": "synthetic report"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute day-on-day NAV change tolerance check",
+       "params": "amounts, rates, dates and quantities randomised within realistic ranges (threshold)"
+      }
+     ],
+     "callbacks": [
+      "A4.1",
+      "A2.2",
+      "F2.1"
+     ],
+     "sources": [
+      {
+       "id": "S043",
+       "ref": "daily NAV calculation procedures",
+       "use": "core"
+      },
+      {
+       "id": "S036",
+       "ref": "valuation of investments",
+       "use": "core"
+      }
+     ]
+    },
+    {
+     "id": "A4.3",
+     "title": "Pricing sources, hierarchy and exceptions",
+     "minutes": 45,
+     "objectives": [
+      "Describe a pricing policy: sources, hierarchy, and tolerance checks",
+      "Handle stale, missing and disputed prices",
+      "Explain the role of a valuation committee"
+     ],
+     "key_concepts": [
+      "Vendor feeds and exchange closing prices",
+      "Bid, mid or last",
+      "Stale price detection",
+      "Tolerance and challenge",
+      "Evaluated bond prices",
+      "Valuation committee and override audit"
+     ],
+     "worked_example": "A bond quoted at 98.20 for three days while the sector moved: apply a matrix price and document the override.",
+     "exercises": [
+      {
+       "template": "order",
+       "task": "Sort pricing sources by hierarchy under a typical policy",
+       "params": "6-8 steps drawn from a pool (5 sources)"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute NAV impact of a price override",
+       "params": "amounts, rates, dates and quantities randomised within realistic ranges (position size)"
+      },
+      {
+       "template": "bucket",
+       "task": "Classify price exceptions: stale, tolerance breach, missing, corporate-action-affected",
+       "params": "item pool of 12-20, 8-10 shown per instance (10 cases)"
+      },
+      {
+       "template": "mcq",
+       "task": "Who approves an override outside tolerance?",
+       "params": "policy variants"
+      }
+     ],
+     "callbacks": [
+      "A4.2",
+      "P3.7"
+     ],
+     "sources": [
+      {
+       "id": "S043",
+       "ref": "pricing policy",
+       "use": "core"
+      },
+      {
+       "id": "S222",
+       "ref": "IFRS 13: inputs and valuation techniques",
+       "use": "deeper"
+      },
+      {
+       "id": "S036",
+       "ref": "valuation sources",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "A4.4",
+     "title": "Fund expenses: accruals, performance fees and distributions",
+     "minutes": 45,
+     "objectives": [
+      "Accrue management, administration and custody fees daily",
+      "Compute a performance fee with a high-water mark",
+      "Treat dividend distributions and the NAV drop at ex-date"
+     ],
+     "key_concepts": [
+      "TER and ongoing charges",
+      "Daily accrual basis (Act/360 or /365)",
+      "Performance fee, hurdle and high-water mark",
+      "Crystallisation",
+      "Equalisation",
+      "Distribution ex-date"
+     ],
+     "worked_example": "A fund with EUR 200m NAV and 1.20% annual management fee accrues 200m x 1.20% / 365 = EUR 6,575 a day.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute the daily fee accrual",
+       "params": "NAV, rate, day-count"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the performance fee with a high-water mark",
+       "params": "returns, HWM, rate 10-20%"
+      },
+      {
+       "template": "journal",
+       "task": "Post a monthly fee payment",
+       "params": "amounts 1k-5m EUR; accounts, dates and debit/credit sides vary (numbers)"
+      },
+      {
+       "template": "mcq",
+       "task": "How does a distribution change NAV per unit on ex-date?",
+       "params": "scenario wording and numbers vary from a pool of 6-10 variants (numbers)"
+      }
+     ],
+     "callbacks": [
+      "A4.2",
+      "A2.1",
+      "P4.3"
+     ],
+     "sources": [
+      {
+       "id": "S043",
+       "ref": "fees and expenses",
+       "use": "core"
+      },
+      {
+       "id": "S007",
+       "ref": "costs in funds",
+       "use": "foundation"
+      },
+      {
+       "id": "S036",
+       "ref": "accrual",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "A4.5",
+     "title": "Swing pricing and anti-dilution tools",
+     "minutes": 45,
+     "objectives": [
+      "Calculate a swung NAV for net flows above a threshold",
+      "Distinguish full from partial swing and swing pricing from anti-dilution levies",
+      "Explain how Directive (EU) 2024/927 makes liquidity tools available"
+     ],
+     "key_concepts": [
+      "Dilution",
+      "Swing factor",
+      "Threshold",
+      "Full vs partial swing",
+      "Anti-dilution levy",
+      "LMT framework in UCITS/AIFMD II",
+      "Disclosure"
+     ],
+     "worked_example": "NAV EUR 100.00, net redemptions beyond threshold, swing factor 0.40%: swung NAV EUR 99.60 for all transactions that day.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute the swung NAV",
+       "params": "NAV 10-200, factor 0.1-1.0%"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute dilution cost avoided for remaining investors",
+       "params": "amounts, rates, dates and quantities randomised within realistic ranges (flows)"
+      },
+      {
+       "template": "mcq",
+       "task": "Partial or full swing: given the flow vs threshold, which applies?",
+       "params": "scenario wording and numbers vary from a pool of 6-10 variants (flow variants)"
+      },
+      {
+       "template": "match",
+       "task": "Match LMT to description (swing, levy, gates, suspension, in-kind redemption, notice periods)",
+       "params": "item pool of 8-12, 5-6 shown per instance"
+      }
+     ],
+     "callbacks": [
+      "A4.2",
+      "A4.4"
+     ],
+     "sources": [
+      {
+       "id": "S177",
+       "ref": "Directive 2024/927 provisions on LMTs and ESMA guidelines",
+       "use": "core"
+      },
+      {
+       "id": "S182",
+       "ref": "AIFMD",
+       "use": "reference"
+      },
+      {
+       "id": "S301",
+       "ref": "ESMA Q&As UCITS",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "A4.6",
+     "title": "NAV vs market price: ETFs, closed-end funds and iNAV",
+     "minutes": 45,
+     "objectives": [
+      "Compute premium or discount of market price to NAV",
+      "Explain why arbitrage keeps ETF prices near NAV and when it fails",
+      "Explain closed-end fund discounts"
+     ],
+     "key_concepts": [
+      "Premium / discount",
+      "iNAV",
+      "Authorised participant arbitrage",
+      "Creation / redemption basket",
+      "Stale NAV effects for international ETFs",
+      "Closed-end fund discount"
+     ],
+     "worked_example": "ETF NAV EUR 52.30, market EUR 52.65: premium +0.67%; an AP can create units and sell at market, narrowing the premium.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute premium or discount",
+       "params": "amounts, rates, dates and quantities randomised within realistic ranges (NAV, price)"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute AP arbitrage profit",
+       "params": "amounts, rates, dates and quantities randomised within realistic ranges (basket, costs)"
+      },
+      {
+       "template": "mcq",
+       "task": "Why might an ETF trade at a premium when its underlying market is closed?",
+       "params": "scenario wording and numbers vary from a pool of 6-10 variants"
+      },
+      {
+       "template": "table",
+       "task": "Fill a table of premium/discount for 5 funds",
+       "params": "4-10 rows; inputs randomised each instance"
+      }
+     ],
+     "callbacks": [
+      "P5.1",
+      "P5.3",
+      "P5.4"
+     ],
+     "sources": [
+      {
+       "id": "S034",
+       "ref": "ETF pricing and arbitrage chapters",
+       "use": "core"
+      },
+      {
+       "id": "S125",
+       "ref": "ETFs: Ben-David et al.",
+       "use": "deeper"
+      },
+      {
+       "id": "S187",
+       "ref": "ESMA Guidelines on ETFs",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "A4.7",
+     "title": "NAV errors and CSSF 24/856",
+     "minutes": 45,
+     "objectives": [
+      "Classify NAV errors and apply materiality thresholds",
+      "Compute compensation to investors and the fund",
+      "Explain reporting and governance duties under CSSF 24/856"
+     ],
+     "key_concepts": [
+      "Error types: valuation, accrual, trade, investor-level",
+      "Materiality thresholds",
+      "Investor compensation",
+      "Regulator notification",
+      "Root-cause and control improvements",
+      "Replaces CSSF 02/77"
+     ],
+     "worked_example": "A bond fund's NAV was overstated by 0.62% for 3 days. Redeemers on those days were overpaid at the expense of remaining investors, so the shortfall is computed day by day from flows and made good by the responsible party; the CSSF circular's thresholds determine whether investors and the regulator must be notified.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute the error percentage",
+       "params": "NAV, correct NAV"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute total compensation by day with flows",
+       "params": "amounts, rates, dates and quantities randomised within realistic ranges (flows)"
+      },
+      {
+       "template": "bucket",
+       "task": "Classify errors by materiality level",
+       "params": "item pool of 12-20, 8-10 shown per instance (cases)"
+      },
+      {
+       "template": "order",
+       "task": "Sequence the error-handling steps",
+       "params": "6-8 steps drawn from a pool (7 steps)"
+      }
+     ],
+     "callbacks": [
+      "A4.2",
+      "A4.3"
+     ],
+     "sources": [
+      {
+       "id": "S170",
+       "ref": "CSSF Circular 24/856",
+       "use": "core"
+      },
+      {
+       "id": "S043",
+       "ref": "errors",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "A4.8",
+     "title": "Fair-value hierarchy and IFRS 13",
+     "minutes": 45,
+     "objectives": [
+      "Classify instruments in Level 1, 2 or 3",
+      "Explain principal market and bid/ask rules",
+      "Understand disclosure and structured note valuation"
+     ],
+     "key_concepts": [
+      "Level 1: quoted prices",
+      "Level 2: observable inputs",
+      "Level 3: unobservable inputs",
+      "Principal market",
+      "Bid-ask within spread",
+      "Transfers between levels",
+      "Day-one gains"
+     ],
+     "worked_example": "Bank-issued structured note priced by model with observable inputs: Level 2. An illiquid private bond with broker-only quote: Level 3.",
+     "exercises": [
+      {
+       "template": "bucket",
+       "task": "Classify 12 instruments into levels",
+       "params": "item pool of 12-20, 8-10 shown per instance"
+      },
+      {
+       "template": "match",
+       "task": "Match inputs to levels",
+       "params": "item pool of 8-12, 5-6 shown per instance"
+      },
+      {
+       "template": "mcq",
+       "task": "When does an instrument move from Level 1 to 2?",
+       "params": "scenario wording and numbers vary from a pool of 6-10 variants"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute a Level 3 sensitivity to a spread input",
+       "params": "amounts, rates, dates and quantities randomised within realistic ranges (numbers)"
+      }
+     ],
+     "callbacks": [
+      "A4.3",
+      "P6.5"
+     ],
+     "sources": [
+      {
+       "id": "S222",
+       "ref": "IFRS 13 paras 61-90",
+       "use": "core"
+      },
+      {
+       "id": "S223",
+       "ref": "IFRS 7 disclosures",
+       "use": "reference"
+      },
+      {
+       "id": "S160",
+       "ref": "Applying IFRS",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": {
+    "name": "NAV Strike",
+    "variant": "Compute NAV before cut-off with pricing exceptions, accruals, flows, swing and tolerance checks; difficulty scales with exceptions"
+   },
+   "unit_test": "NAV computation, fees, swing, premium/discount, error materiality and IFRS 13 levels.",
+   "jurisdiction_notes": "EU/Luxembourg first: UCITS, CSSF 24/856, Directive 2024/927. US: 40 Act forward pricing and rule 22c-1 mention. UK: dual vs single pricing. CH/SG/HK: brief note."
+  },
+  {
+   "id": "A5",
+   "title": "P&L",
+   "track": "ops",
+   "hours": 5,
+   "prereqs": [
+    "A3",
+    "A4"
+   ],
+   "boss_items": [
+    "PnL"
+   ],
+   "hook": "Daily P&L, attribution to price, carry, trading and fees, and the construction of an explanation of a day's result from position data.",
+   "units": [
+    {
+     "id": "A5.1",
+     "title": "Realised, unrealised and total P&L",
+     "minutes": 50,
+     "objectives": [
+      "Compute realised, unrealised and total P&L for a position after a partial sale, and verify total P&L = proceeds + market value - cost",
+      "Separate trading P&L from income (coupons, dividends) and fees in a daily P&L line",
+      "Explain why the same total P&L can split differently into realised and unrealised under FIFO and average cost"
+     ],
+     "key_concepts": [
+      "Realised vs unrealised",
+      "Total P&L = realised + unrealised + income - costs",
+      "Cost inclusive of commission",
+      "Daily vs inception-to-date P&L"
+     ],
+     "worked_example": "Client buys 1,000 XYZ at EUR 42.10 + EUR 12 commission: cost EUR 42,112 (Dr Securities 42,112 / Cr Cash 42,112). Later sells 400 at EUR 44.00 less EUR 10 commission: proceeds EUR 17,590, cost of 400 = 16,844.80 (average 42.112), realised +745.20. The remaining 600 cost 25,267.20 and are worth 600 x 44.50 = 26,700: unrealised +1,432.80. Total P&L = 745.20 + 1,432.80 = EUR 2,178.00 = 17,590 + 26,700 - 42,112. A dividend of EUR 0.50 on 600 shares adds EUR 300 income, reported separately.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute realised, unrealised and total P&L after a partial sale",
+       "params": "quantity 100-5,000; buy/sell/mark prices 10-200; commissions EUR 5-50; method average cost"
+      },
+      {
+       "template": "table",
+       "task": "Fill a daily P&L table by line: price move, realised, income, fees, total",
+       "params": "5-8 days; trades and prices randomised; one day includes a dividend"
+      },
+      {
+       "template": "numeric",
+       "task": "Verify total P&L by the cash method: proceeds + market value - cost",
+       "params": "positions of 1-3 securities; tolerance EUR 0.01"
+      },
+      {
+       "template": "mcq",
+       "task": "Is this item realised P&L, unrealised P&L, income or fees?",
+       "params": "10-12 items: coupon, mark-up, commission, dividend, price change, FX on cash"
+      },
+      {
+       "template": "numeric",
+       "task": "Compare split of realised/unrealised under FIFO and average cost for the same trades",
+       "params": "3 buys at different prices, 1 partial sale; totals must match"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the double-count in a P&L report (unrealised not reset after sale)",
+       "params": "report 5-7 rows; error type varies"
+      }
+     ],
+     "callbacks": [
+      "A3.1",
+      "A2.2",
+      "A4.2"
+     ],
+     "sources": [
+      {
+       "id": "S036",
+       "ref": "profit and loss on investments: realised/unrealised, trading accounts",
+       "use": "core"
+      },
+      {
+       "id": "S086",
+       "ref": "return and P&L basics: contribution of price and income",
+       "use": "deeper"
+      },
+      {
+       "id": "S058",
+       "ref": "P&L production in the operations flow",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "A5.2",
+     "title": "Trading P&L and positions",
+     "minutes": 50,
+     "objectives": [
+      "Compute a desk's trading P&L for the day from trades and opening/closing positions using average cost and FIFO, getting the same total",
+      "Separate position P&L from spread-capture P&L using mid price at execution",
+      "Roll positions overnight: opening position, trades, closing position, average cost and daily P&L"
+     ],
+     "key_concepts": [
+      "Position keeping",
+      "Average cost vs FIFO",
+      "Spread capture vs inventory P&L",
+      "Day-one P&L",
+      "Position roll-forward"
+     ],
+     "worked_example": "Desk buys 500 at 20.00, buys 300 at 20.40, sells 600 at 20.70; close price 20.60. Average cost = (10,000 + 6,120)/800 = 20.15; realised on 600 = 600 x 0.55 = 330; unrealised on 200 = 200 x 0.45 = 90; total 420. FIFO: realised = 12,420 - (10,000 + 100 x 20.40) = 380; unrealised = 4,120 - 4,080 = 40; total 420 again. Cash check: -10,000 - 6,120 + 12,420 + 4,120 = 420. If the mid at the sale was 20.72, spread capture on 600 = 600 x (20.70 - 20.72) = -12 in a client-facing sale, and the remainder is inventory P&L.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute realised and unrealised P&L with average cost for a sequence of buys and sells",
+       "params": "3-6 trades; quantities 100-2,000; prices 5-100; closing price vary"
+      },
+      {
+       "template": "numeric",
+       "task": "Recompute under FIFO and show the total is unchanged while the split moves",
+       "params": "same trade stream as above; method toggled"
+      },
+      {
+       "template": "table",
+       "task": "Roll a position forward: opening qty/cost, trades, closing qty/cost, daily P&L",
+       "params": "3 days; one short position crossing zero in a variant"
+      },
+      {
+       "template": "numeric",
+       "task": "Split P&L into spread capture (vs mid) and inventory P&L",
+       "params": "trade price, mid at execution, closing mid, quantity"
+      },
+      {
+       "template": "mcq",
+       "task": "How is P&L treated when a long position flips short in one trade?",
+       "params": "5-6 scenario variants"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the wrong closing price source in a trading P&L sheet",
+       "params": "price sources: last, mid, official close, vendor; 6 variants"
+      }
+     ],
+     "callbacks": [
+      "A3.2",
+      "T4.1",
+      "A5.1"
+     ],
+     "sources": [
+      {
+       "id": "S036",
+       "ref": "trading accounts and position-keeping entries",
+       "use": "core"
+      },
+      {
+       "id": "S101",
+       "ref": "dealer economics: spread and inventory",
+       "use": "reference"
+      },
+      {
+       "id": "S100",
+       "ref": "trade lifecycle: position and P&L view",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "A5.3",
+     "title": "Marking to market, carry and financing",
+     "minutes": 50,
+     "objectives": [
+      "Compute daily mark-to-market P&L on a bond using clean price change, accrued carry and financing cost on the right day-count",
+      "Separate carry (coupon accrual minus funding) from price P&L and sum to total",
+      "Explain how stale or off-market prices distort MTM and escalate them to the pricing hierarchy"
+     ],
+     "key_concepts": [
+      "MTM",
+      "Clean vs dirty price",
+      "Carry",
+      "Funding at repo rate",
+      "Day-count conventions (Act/Act, Act/360)"
+     ],
+     "worked_example": "Desk holds EUR 2,000,000 nominal of a 3% annual bond, funded in repo at 2.00% Act/360 on EUR 2,030,000. Clean price moves from 101.50 to 101.20: price P&L = 2,000,000 x -0.30% = -6,000. Accrual for one day (Act/Act) = 2,000,000 x 3%/365 = +164.38. Financing = 2,030,000 x 2.00%/360 = -112.78. Net MTM day = -6,000 + 164.38 - 112.78 = EUR -5,948.40. Ledger: Dr Trading P&L 6,000 / Cr Trading securities 6,000; Dr Accrued interest 164.38 / Cr Interest income 164.38; Dr Interest expense 112.78 / Cr Repo accrual 112.78.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute daily price P&L, carry and financing for a bond position",
+       "params": "nominal 0.5-10m; coupon 1-6 pct; price change -1 to +1; repo rate 0-5 pct; day count Act/365 vs Act/360"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the weekend/holiday carry for a Friday close",
+       "params": "3-day carry; coupon, nominal; day-count variants"
+      },
+      {
+       "template": "journal",
+       "task": "Post the daily MTM, accrual and funding entries",
+       "params": "amounts 100-20,000 EUR; sign of P&L varies"
+      },
+      {
+       "template": "mcq",
+       "task": "Which price should mark this position: executable bid, mid, evaluated price, or last trade?",
+       "params": "liquidity variants; 6-8 scenarios"
+      },
+      {
+       "template": "table",
+       "task": "Build a 5-day MTM table with price, carry, funding and cumulative P&L",
+       "params": "5 days; prices and rates randomised"
+      },
+      {
+       "template": "spot",
+       "task": "Spot a stale price (unchanged for 3 days) in a valuation sheet",
+       "params": "10-row sheet; 1-2 stale lines"
+      }
+     ],
+     "callbacks": [
+      "A5.1",
+      "A4.3",
+      "A2.2"
+     ],
+     "sources": [
+      {
+       "id": "S036",
+       "ref": "mark-to-market and revaluation",
+       "use": "core"
+      },
+      {
+       "id": "S086",
+       "ref": "valuation inputs for return calculation",
+       "use": "reference"
+      },
+      {
+       "id": "S061",
+       "ref": "carry, financing and rolldown",
+       "use": "deeper"
+      },
+      {
+       "id": "S152",
+       "ref": "repo funding of bond positions",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "A5.4",
+     "title": "FX P&L",
+     "minutes": 50,
+     "objectives": [
+      "Compute FX P&L on a foreign-currency position and on foreign cash balances from the change in the EUR rate",
+      "Split position P&L into local price P&L and FX translation P&L so that they sum to the total in base currency",
+      "Explain how a hedge (forward) changes the FX component and book the forward P&L"
+     ],
+     "key_concepts": [
+      "Base vs local currency",
+      "Translation P&L on cost and on gains",
+      "Cash balance revaluation",
+      "Rate source and cut-off (ECB 14:15 CET reference vs 16:00 London WM)",
+      "FX hedging"
+     ],
+     "worked_example": "EUR-based client holds 2,000 USD shares bought at USD 50.00 with EURUSD 1.10 (cost EUR 90,909.09). Now USD 52.00 and EURUSD 1.16: value USD 104,000 = EUR 89,655.17, total P&L = -1,253.92. Price P&L at original rate = 4,000/1.10 = +3,636.36; FX on current value = 104,000 x (1/1.16 - 1/1.10) = -4,890.28; sum = -1,253.92. A 3-month forward sale of USD 104,000 at 1.1660 locks in a EUR value of 89,193.25.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Split the base-currency P&L into local price and FX components",
+       "params": "quantity 100-5,000; price 10-200; EURUSD/EURCHF/EURGBP at buy and now"
+      },
+      {
+       "template": "numeric",
+       "task": "Revalue a foreign cash balance and give the FX P&L",
+       "params": "balance 10k-2m; old/new rate"
+      },
+      {
+       "template": "table",
+       "task": "Compute daily FX P&L for a 3-currency portfolio",
+       "params": "3 currencies; opening values; closing rates; sum check in EUR"
+      },
+      {
+       "template": "journal",
+       "task": "Post the month-end revaluation of a USD nostro balance",
+       "params": "balance, two rates; accounts: Nostro USD, FX revaluation gain/loss"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the P&L of a forward hedge and the net FX exposure",
+       "params": "forward rate, spot at maturity, notional"
+      },
+      {
+       "template": "mcq",
+       "task": "Which rate source belongs in a given reporting purpose (client statement, internal P&L, tax)?",
+       "params": "6-8 purposes"
+      }
+     ],
+     "callbacks": [
+      "A3.4",
+      "A5.1",
+      "A5.3"
+     ],
+     "sources": [
+      {
+       "id": "S036",
+       "ref": "foreign currency position accounting",
+       "use": "core"
+      },
+      {
+       "id": "S086",
+       "ref": "currency return and local vs base",
+       "use": "deeper"
+      },
+      {
+       "id": "S015",
+       "ref": "international investing and currency risk",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "A5.5",
+     "title": "P&L explain: price, carry, rate, FX, new trades",
+     "minutes": 50,
+     "objectives": [
+      "Build a P&L explain for a mixed book, attributing a daily loss to price (delta), rates (DV01), carry, FX and new trades, with an unexplained residual",
+      "Compute rate P&L as -DV01 x change in bp, and flag an unexplained residual above the 5% tolerance",
+      "Use the explain to answer the desk-head's question in a short narrative"
+     ],
+     "key_concepts": [
+      "Taylor-style explain: delta, DV01, carry",
+      "New-trade vs existing-position P&L",
+      "Unexplained residual",
+      "Tolerance and escalation"
+     ],
+     "worked_example": "Friday P&L of the book is EUR -180,000. Explain: equity price moves -110,000; rates: DV01 EUR 18,000/bp with +3 bp = -54,000; carry +14,000; FX -21,000; new trades (day-one) +3,000. Explained = -168,000; unexplained = -12,000 = 6.7% of the total, above a 5% tolerance, so it is escalated: candidates are a stale curve point, a missed intraday trade, or an FX rate cut-off difference.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute rate P&L from DV01 and the move in basis points",
+       "params": "DV01 1k-50k EUR/bp; move -10 to +10 bp"
+      },
+      {
+       "template": "table",
+       "task": "Fill a P&L explain table and compute the unexplained residual and its percentage",
+       "params": "5 components; totals randomised; tolerance 3-10 pct"
+      },
+      {
+       "template": "numeric",
+       "task": "Separate new-trade P&L from existing-position P&L",
+       "params": "trade price vs close; carried position move; quantities"
+      },
+      {
+       "template": "mcq",
+       "task": "Which explain component absorbs this event (late trade, curve reshuffle, dividend, rate fixing)?",
+       "params": "8-10 events"
+      },
+      {
+       "template": "numeric",
+       "task": "Explain a carry figure from coupon accrual, funding and roll",
+       "params": "nominal, coupon, repo rate, days"
+      }
+     ],
+     "callbacks": [
+      "F3.2",
+      "F3.3",
+      "Q3.3",
+      "A5.3"
+     ],
+     "sources": [
+      {
+       "id": "S086",
+       "ref": "attribution of P&L",
+       "use": "core"
+      },
+      {
+       "id": "S061",
+       "ref": "DV01 and rate sensitivity of bonds",
+       "use": "deeper"
+      },
+      {
+       "id": "S083",
+       "ref": "Greeks and P&L expansion (delta, theta)",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "A5.6",
+     "title": "P&L reconciliation and controls",
+     "minutes": 50,
+     "objectives": [
+      "Reconcile front-office P&L to accounting P&L and classify each break (price, FX, accrual, trade capture, timing)",
+      "Apply break thresholds and ageing rules, and decide when a break is escalated",
+      "Design the daily control set: price verification, FX source check, trade completeness and sign-off"
+     ],
+     "key_concepts": [
+      "FO vs finance P&L",
+      "Independent price verification",
+      "Break ageing",
+      "Four-eyes sign-off",
+      "Root cause categories"
+     ],
+     "worked_example": "FO P&L is EUR -180,000, the ledger shows -176,400: break EUR 3,600. Drill-down: EUR 2,500 price source (FO used vendor mid, finance used official close), EUR 800 FX cut-off (WM 16:00 vs ECB 14:15), EUR 300 missing accrual on a new bond. After correction break = 0. The control log records owner, root cause and the fix for the next day.",
+     "exercises": [
+      {
+       "template": "table",
+       "task": "Reconcile FO to ledger P&L and allocate the break to causes",
+       "params": "FO vs ledger; break EUR 500-20,000; 3-4 causes"
+      },
+      {
+       "template": "bucket",
+       "task": "Classify breaks into price, FX, accrual, trade capture, timing",
+       "params": "8-12 breaks"
+      },
+      {
+       "template": "order",
+       "task": "Put the daily P&L control sequence in order",
+       "params": "6-8 steps: freeze, price verify, FX source, recon, escalate, sign-off"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the control gap in a described process (no IPV on Level 3 assets)",
+       "params": "5-6 process descriptions"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute break percentage and decide whether it breaches the threshold",
+       "params": "break, P&L, threshold 1-5 pct"
+      }
+     ],
+     "callbacks": [
+      "A5.5",
+      "A4.3"
+     ],
+     "sources": [
+      {
+       "id": "S058",
+       "ref": "reconciliation and exception handling",
+       "use": "core"
+      },
+      {
+       "id": "S081",
+       "ref": "operational risk controls: reconciliation and sign-off",
+       "use": "reference"
+      },
+      {
+       "id": "S225",
+       "ref": "COSO 2013: control activities",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "Total P&L, positions, MTM, FX split, explain and reconciliation.",
+   "jurisdiction_notes": null
+  },
+  {
+   "id": "A6",
+   "title": "Performance measurement",
+   "track": "ops",
+   "hours": 5,
+   "prereqs": [
+    "A5",
+    "F2"
+   ],
+   "boss_items": [
+    "PnL"
+   ],
+   "hook": "Time-weighted and money-weighted returns, benchmark selection and the reasons two reports of the same portfolio show different returns.",
+   "units": [
+    {
+     "id": "A6.1",
+     "title": "Returns with cash flows and Modified Dietz",
+     "minutes": 50,
+     "objectives": [
+      "Compute the Modified Dietz return from beginning value, ending value and dated external flows, using the correct day weights",
+      "Distinguish external flows from income and internal transfers, and state why the naive (end - start)/start return is wrong",
+      "State the approximation error of Dietz vs true TWR for a large mid-period flow"
+     ],
+     "key_concepts": [
+      "External cash flows",
+      "Day weighting",
+      "Modified Dietz",
+      "Simple Dietz",
+      "Approximation error"
+     ],
+     "worked_example": "Portfolio starts at EUR 100,000 and ends the 30-day month at 112,000 after a deposit of 10,000 on day 10. Weight = (30 - 10)/30 = 0.6667. Return = (112,000 - 100,000 - 10,000)/(100,000 + 10,000 x 0.6667) = 2,000/106,667 = 1.875%. The naive 12.0% ignores the deposit; the base-100,000-only 2.0% overstates because it ignores capital in the portfolio for 20 days.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute the Modified Dietz return for a month with one deposit or withdrawal",
+       "params": "start 50k-5m; flow -20 to +20 pct of start; day 1-30; end value"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the return with two flows on different days",
+       "params": "two flows; days vary; month length 28-31"
+      },
+      {
+       "template": "mcq",
+       "task": "Which items are external flows: deposit, dividend, fee, transfer between accounts, new securities delivered?",
+       "params": "8-10 events"
+      },
+      {
+       "template": "table",
+       "task": "Fill the day-weight table and Dietz numerator/denominator",
+       "params": "3 flows; period length"
+      },
+      {
+       "template": "numeric",
+       "task": "Measure the Dietz vs true return error for a large mid-month flow",
+       "params": "flow 50-100 pct of start; mid-month market jump"
+      }
+     ],
+     "callbacks": [
+      "F1.5",
+      "F2.1",
+      "A5.1"
+     ],
+     "sources": [
+      {
+       "id": "S086",
+       "ref": "returns chapter: Dietz methods",
+       "use": "core"
+      },
+      {
+       "id": "S141",
+       "ref": "performance measurement: return calculation",
+       "use": "deeper"
+      },
+      {
+       "id": "S215",
+       "ref": "GIPS 2020 provision 2: calculation methodology",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "A6.2",
+     "title": "Time-weighted vs money-weighted returns",
+     "minutes": 50,
+     "objectives": [
+      "Compute time-weighted return by chain-linking sub-period returns at each external flow and verify the result is independent of flow size",
+      "Compute money-weighted return (IRR) for a two-flow case and explain the TWR/MWR gap",
+      "Choose TWR or MWR for manager evaluation vs client experience"
+     ],
+     "key_concepts": [
+      "Chain-linking",
+      "Valuation at flow dates",
+      "IRR/MWR",
+      "Timing skill vs manager skill",
+      "GIPS requires TWR"
+     ],
+     "worked_example": "Start EUR 100,000. Half-year 1: +10% to 110,000, then the client deposits 100,000 (210,000). Half-year 2: -5% to 199,500. TWR = 1.10 x 0.95 - 1 = +4.50%. MWR: solve 100,000 y^2 + 100,000 y = 199,500 with y = 1 + r per half-year: y = 0.99833 and the annual MWR = 0.99833^2 - 1 = -0.33%. Same account, +4.5% for the manager but a small loss for the client, because most capital arrived before the fall.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute TWR by chain-linking 3-6 sub-period returns",
+       "params": "returns -10 to +15 pct; periods 3-6"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute TWR from valuations and flow dates",
+       "params": "valuations before/after flow; flow size changes but TWR does not"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the two-period MWR using the quadratic or a table of trial rates",
+       "params": "initial 50k-500k; flow 0-2x; returns -10 to +10 pct"
+      },
+      {
+       "template": "mcq",
+       "task": "Which measure answers which question (manager skill, client experience, tax-lot pain)?",
+       "params": "8 scenarios"
+      },
+      {
+       "template": "table",
+       "task": "Fill sub-period returns and linked TWR for a portfolio with 2 flows",
+       "params": "valuation dates; flows"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error: arithmetic averaging of returns instead of geometric linking",
+       "params": "5-6 calculations"
+      }
+     ],
+     "callbacks": [
+      "F1.5",
+      "A6.1",
+      "Q1.4"
+     ],
+     "sources": [
+      {
+       "id": "S086",
+       "ref": "TWR and MWR chapters",
+       "use": "core"
+      },
+      {
+       "id": "S215",
+       "ref": "GIPS 2020 TWR requirement",
+       "use": "reference"
+      },
+      {
+       "id": "S079",
+       "ref": "portfolio return measurement background",
+       "use": "reference"
+      },
+      {
+       "id": "S075",
+       "ref": "IRR and compounding",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "A6.3",
+     "title": "Benchmarks, risk-adjusted measures and fees",
+     "minutes": 50,
+     "objectives": [
+      "Select an appropriate benchmark and test it against the SAMURAI-style criteria (specified in advance, appropriate, measurable, unambiguous, investable)",
+      "Compute Sharpe, Treynor, information ratio, tracking error and Jensen's alpha from a return table",
+      "Compute gross-to-net returns after management, custody and performance fees"
+     ],
+     "key_concepts": [
+      "Benchmark criteria",
+      "Sharpe and Treynor",
+      "Tracking error and information ratio",
+      "Jensen's alpha",
+      "Gross vs net of fees"
+     ],
+     "worked_example": "Portfolio return 7.0% net, benchmark 5.5%, risk-free 2.0%, volatility 10%, tracking error 3%, beta 1.1. Sharpe = (7 - 2)/10 = 0.50; information ratio = (7 - 5.5)/3 = 0.50; Treynor = 5/1.1 = 4.55%; Jensen alpha = 7 - [2 + 1.1 x (5.5 - 2)] = 1.15%. Gross return before a 0.80% fee was 7.8%. Index families (MSCI, STOXX) define the equity benchmark; a custom 60/40 benchmark needs a stated rebalance rule.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute Sharpe ratio and information ratio from return and risk data",
+       "params": "returns 2-15 pct; vol 5-20 pct; TE 1-6 pct; rf 0-4 pct"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute Treynor ratio and Jensen's alpha",
+       "params": "beta 0.6-1.4; market return 3-10 pct"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute net return after fees",
+       "params": "gross 3-10 pct; fee schedule with management and performance fee"
+      },
+      {
+       "template": "match",
+       "task": "Match a measure to the risk it normalises by (total vol, beta, tracking error)",
+       "params": "5-6 measures"
+      },
+      {
+       "template": "mcq",
+       "task": "Is this benchmark appropriate for this mandate?",
+       "params": "mandate and benchmark variants; 8 pairs"
+      }
+     ],
+     "callbacks": [
+      "F2.2",
+      "F2.4",
+      "A6.2"
+     ],
+     "sources": [
+      {
+       "id": "S086",
+       "ref": "benchmarks and risk-adjusted measures",
+       "use": "core"
+      },
+      {
+       "id": "S236",
+       "ref": "MSCI index methodology: market cap weighting, free float",
+       "use": "reference"
+      },
+      {
+       "id": "S282",
+       "ref": "STOXX rulebooks: index construction",
+       "use": "reference"
+      },
+      {
+       "id": "S048",
+       "ref": "CAPM, beta and alpha",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "A6.4",
+     "title": "Single-period attribution: Brinson",
+     "minutes": 50,
+     "objectives": [
+      "Compute allocation, selection and interaction effects for a two-sector portfolio using Brinson-Fachler or BHB and show they sum to active return",
+      "Interpret positive/negative effects in plain language for a client",
+      "State the difference between BHB and Brinson-Fachler allocation"
+     ],
+     "key_concepts": [
+      "BHB vs Brinson-Fachler",
+      "Allocation effect",
+      "Selection effect",
+      "Interaction effect",
+      "Sum to active return"
+     ],
+     "worked_example": "Equity: portfolio weight 70%, benchmark 60%, return 8% vs 6%. Bonds: weight 30% vs 40%, return 2% vs 3%. Portfolio 6.2%, benchmark 4.8%, active 1.4%. Allocation (Brinson-Fachler, vs total benchmark): equity 0.10 x (6 - 4.8) = 0.12, bonds -0.10 x (3 - 4.8) = 0.18, total 0.30%. Selection: 0.6 x (8 - 6) = 1.20, 0.4 x (2 - 3) = -0.40, total 0.80%. Interaction: 0.10 x 2 + (-0.10) x (-1) = 0.30%. Sum 0.30 + 0.80 + 0.30 = 1.40%.",
+     "exercises": [
+      {
+       "template": "table",
+       "task": "Compute allocation, selection and interaction by sector",
+       "params": "2-4 sectors; weights sum to 100; returns -5 to +15"
+      },
+      {
+       "template": "numeric",
+       "task": "Verify that effects sum to active return",
+       "params": "same data; tolerance 0.01 pct"
+      },
+      {
+       "template": "mcq",
+       "task": "Which effect does this decision show (overweight in a lagging sector, stock picking within sector)?",
+       "params": "8 scenarios"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the allocation effect under BHB vs Brinson-Fachler and explain the difference",
+       "params": "same data, two methods"
+      },
+      {
+       "template": "cloze",
+       "task": "Write the client narrative: fill selection/allocation words and signs",
+       "params": "3 outcomes"
+      }
+     ],
+     "callbacks": [
+      "A6.3",
+      "F2.4"
+     ],
+     "sources": [
+      {
+       "id": "S119",
+       "ref": "Brinson, Hood, Beebower 1986: attribution framework",
+       "use": "core"
+      },
+      {
+       "id": "S086",
+       "ref": "attribution chapters",
+       "use": "core"
+      },
+      {
+       "id": "S140",
+       "ref": "history of attribution methods",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "A6.5",
+     "title": "Multi-period, currency and fixed-income attribution",
+     "minutes": 50,
+     "objectives": [
+      "Link single-period attribution across two or more periods using a smoothing algorithm (Carino) so effects add to cumulative active return",
+      "Split a foreign-asset return into local and currency components and add the currency effect to attribution",
+      "Attribute a bond portfolio's return to yield curve, spread and selection effects"
+     ],
+     "key_concepts": [
+      "Arithmetic vs geometric active return",
+      "Carino smoothing factor",
+      "Local vs currency return",
+      "Bond attribution: duration, curve, spread, selection"
+     ],
+     "worked_example": "Period 1: portfolio +3%, benchmark +2%; period 2: portfolio +2%, benchmark +1.5%. Cumulative portfolio = 5.06%, benchmark = 3.53%, active = 1.53%, whereas summing monthly active gives 1.5%: effects do not add without smoothing. Carino factors: period 1 ln(1.03/1.02)/0.01 = 0.976, period 2 ln(1.02/1.015)/0.005 = 0.983, total ln(1.0506/1.0353)/0.0153 = 0.959; scale each period's effects by (total factor / period factor). Currency: USD equity +6% local, USD -4% vs EUR: EUR return = 1.06 x 0.96 - 1 = +1.76%.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute cumulative and arithmetic active return and the gap",
+       "params": "2-4 periods; returns -3 to +5 pct"
+      },
+      {
+       "template": "table",
+       "task": "Apply Carino scaling to period effects and verify the sum",
+       "params": "2-3 periods; effects given"
+      },
+      {
+       "template": "numeric",
+       "task": "Split a foreign security's return into local and currency parts",
+       "params": "local return, FX change; EUR base"
+      },
+      {
+       "template": "mcq",
+       "task": "Which bond effect explains this move (parallel shift, steepening, spread widening, bond picking)?",
+       "params": "8 scenarios"
+      },
+      {
+       "template": "match",
+       "task": "Match each effect to the decision it measures",
+       "params": "6 effects"
+      }
+     ],
+     "callbacks": [
+      "A6.4",
+      "F3.2"
+     ],
+     "sources": [
+      {
+       "id": "S086",
+       "ref": "multi-period linking, currency attribution",
+       "use": "core"
+      },
+      {
+       "id": "S140",
+       "ref": "progress in attribution: linking",
+       "use": "reference"
+      },
+      {
+       "id": "S061",
+       "ref": "yield curve decomposition of returns",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "A6.6",
+     "title": "GIPS and client reporting",
+     "minutes": 50,
+     "objectives": [
+      "Build a composite from portfolios following GIPS inclusion rules and compute the asset-weighted composite return",
+      "List the mandatory GIPS 2020 disclosures and presentation items (annual returns, dispersion, three-year std dev, benchmark)",
+      "Map GIPS reporting to MiFID II periodic statements (Delegated Reg. 2017/565 Art. 60) and the US marketing rule"
+     ],
+     "key_concepts": [
+      "Composite",
+      "Asset-weighted return",
+      "Dispersion",
+      "GIPS compliant presentation",
+      "MiFID II periodic statement"
+     ],
+     "worked_example": "Composite of three discretionary portfolios: A EUR 40m at 6.0%, B 25m at 5.0%, C 35m at 7.0%. Asset-weighted = (2.40 + 1.25 + 2.45)/100 = 6.10%. A GIPS presentation shows annual composite returns, number of portfolios, dispersion, composite and benchmark three-year standard deviation, firm assets and the benchmark. A MiFID II periodic statement to the portfolio-management client shows holdings, costs and performance over the period.",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Match GIPS items to required or optional",
+       "params": "10-12 items"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute asset-weighted composite return from portfolio returns and weights",
+       "params": "3-6 portfolios; weights 10-100m"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the non-compliant statement in a GIPS presentation",
+       "params": "5-6 statements"
+      },
+      {
+       "template": "mcq",
+       "task": "Which portfolios belong in the composite?",
+       "params": "8 mandate scenarios"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill the periodic statement fields required for a portfolio management client",
+       "params": "fields from Art. 60"
+      }
+     ],
+     "callbacks": [
+      "A6.2",
+      "A6.3"
+     ],
+     "sources": [
+      {
+       "id": "S215",
+       "ref": "GIPS 2020 Standards for Firms: composites, presentation",
+       "use": "core"
+      },
+      {
+       "id": "S164",
+       "ref": "Art. 60: periodic information for portfolio management",
+       "use": "reference"
+      },
+      {
+       "id": "S086",
+       "ref": "GIPS chapters",
+       "use": "deeper"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "Dietz, TWR/MWR, IR, Brinson, linking, GIPS.",
+   "jurisdiction_notes": "GIPS global; EU periodic reporting under MiFID II; US Rule 206(4)-1 marketing rule mention."
+  },
+  {
+   "id": "A7",
+   "title": "Bank-side books",
+   "track": "ops",
+   "hours": 6,
+   "prereqs": [
+    "A2",
+    "A3"
+   ],
+   "boss_items": [
+    "chart of accounts",
+    "client accounts",
+    "secured/Lombard lending"
+   ],
+   "hook": "Bank-side ledgers for client securities, IFRS 9 classification and measurement, journal entries, and the nightly trial-balance reconciliation.",
+   "units": [
+    {
+     "id": "A7.1",
+     "title": "Chart of accounts for a securities bank",
+     "minutes": 45,
+     "objectives": [
+      "Assign a securities-bank event to the right GL account class (asset, liability, equity, income, expense, memo)",
+      "Explain why client securities in custody sit in memo accounts, not on the bank's balance sheet, while client cash is a liability",
+      "Build a trial balance from account balances and prove debits = credits",
+      "Map ledger accounts to the segregation levels required for client assets (CSDR Art. 38, CASS)"
+     ],
+     "key_concepts": [
+      "Account classes",
+      "Client cash = liability",
+      "Memo accounts for custody positions",
+      "Nostro/depot accounts",
+      "Trial balance"
+     ],
+     "worked_example": "Skeleton chart: 1100 Cash at central bank, 1200 Nostro EUR, 1210 Nostro USD, 1300 Loans to clients, 1400 Trading securities (FVTPL), 1500 Accrued interest receivable, 2100 Client deposits, 2200 Due to banks, 2300 Settlement payables, 3000 Equity, 4100 Commission income, 4200 Interest income, 5100 Interest expense, 5200 Operating costs, 9100 Memo: client securities at custody. A client buying 1,000 XYZ for EUR 42,112 reduces 2100 by 42,112 and increases memo 9100 by 1,000 units; it creates no asset on the bank balance sheet. Trial balance: debits 12,345,000 = credits 12,345,000.",
+     "exercises": [
+      {
+       "template": "bucket",
+       "task": "Sort 12 events/accounts into asset, liability, equity, income, expense, memo",
+       "params": "account names from the skeleton chart; 3 variants of 12"
+      },
+      {
+       "template": "match",
+       "task": "Match each event to the GL account it debits and credits",
+       "params": "6 events; accounts from the chart"
+      },
+      {
+       "template": "mcq",
+       "task": "Is this item on or off balance sheet for a custodian bank?",
+       "params": "client securities, client cash, own bond, repo; 8 variants"
+      },
+      {
+       "template": "table",
+       "task": "Complete a trial balance and find the one-sided entry",
+       "params": "12-15 accounts; amounts 10k-10m EUR; one missing amount"
+      },
+      {
+       "template": "order",
+       "task": "Arrange accounts into the segregation hierarchy: own, omnibus client, individual client",
+       "params": "3 levels; names vary"
+      }
+     ],
+     "callbacks": [
+      "A1.1",
+      "A1.3",
+      "O4.1"
+     ],
+     "sources": [
+      {
+       "id": "S036",
+       "ref": "chart of accounts for investment entities",
+       "use": "core"
+      },
+      {
+       "id": "S028",
+       "ref": "Securities Operations: account structure in operations (accounting chapters)",
+       "use": "core"
+      },
+      {
+       "id": "S160",
+       "ref": "financial statement presentation under IFRS",
+       "use": "reference"
+      },
+      {
+       "id": "S312",
+       "ref": "client assets regime CASS: segregation",
+       "use": "reference"
+      },
+      {
+       "id": "S169",
+       "ref": "CSDR Art. 38: omnibus vs individual segregation",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "A7.2",
+     "title": "Trading-book postings and trade vs settlement date accounting",
+     "minutes": 45,
+     "objectives": [
+      "Post a proprietary bond purchase at trade date and settle it two days later with the right accounts and amounts",
+      "Apply trade-date vs settlement-date accounting for regular-way purchases under IFRS 9 and explain the fair value gain between the two dates",
+      "Post a sale with realised gain, splitting clean price and accrued interest"
+     ],
+     "key_concepts": [
+      "Trade date accounting",
+      "Settlement date accounting",
+      "Regular-way",
+      "Clean vs dirty",
+      "Realised gain"
+     ],
+     "worked_example": "Bank buys EUR 5,000,000 nominal of a 2.5% bond at 99.80 clean, 60 days of accrued: 5,000,000 x 2.5% x 60/365 = 20,547.95. Clean 4,990,000; dirty 5,010,547.95. Trade date: Dr Trading securities 4,990,000 / Dr Accrued interest receivable 20,547.95 / Cr Settlement payable 5,010,547.95. T+2: Dr Settlement payable 5,010,547.95 / Cr Nostro 5,010,547.95. Next-day price 99.90: Dr Trading securities 5,000 / Cr Fair value gain 5,000. Sold later at 100.10 clean: proceeds 5,005,000, carrying 4,995,000, realised +10,000 (the accrued is closed separately).",
+     "exercises": [
+      {
+       "template": "journal",
+       "task": "Post the purchase at trade date",
+       "params": "nominal 1-10m; clean price 95-105; coupon 1-6 pct; accrued days 1-180"
+      },
+      {
+       "template": "journal",
+       "task": "Post the settlement",
+       "params": "same amounts; settlement cash account"
+      },
+      {
+       "template": "journal",
+       "task": "Post the fair value change between trade and settlement",
+       "params": "price move -1 to +1 point"
+      },
+      {
+       "template": "journal",
+       "task": "Post a sale with gain, closing the position and accrued",
+       "params": "sale price; accrued at sale"
+      },
+      {
+       "template": "mcq",
+       "task": "Which accounting date applies to this instrument (FVTPL, amortised cost, FVOCI, derivative)?",
+       "params": "6-10 scenarios"
+      }
+     ],
+     "callbacks": [
+      "A2.2",
+      "A3.1",
+      "O3.1"
+     ],
+     "sources": [
+      {
+       "id": "S224",
+       "ref": "IFRS 9 3.1.2 and B3.1.3-B3.1.6: regular-way purchases and sales",
+       "use": "core"
+      },
+      {
+       "id": "S036",
+       "ref": "trading entries",
+       "use": "core"
+      },
+      {
+       "id": "S072",
+       "ref": "regular-way trade date and settlement date accounting",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "A7.3",
+     "title": "Client trades and settlement postings",
+     "minutes": 45,
+     "objectives": [
+      "Post a client trade for the bank acting as agent/custodian: trade-date block, commission income, settlement and the memo custody entry",
+      "Reconcile the client-side entry with the bank-side entries for the same trade",
+      "Handle a failed settlement: reverse or keep the pending entries and book a CSDR cash penalty"
+     ],
+     "key_concepts": [
+      "Agent vs principal",
+      "Blocked client cash",
+      "Commission income",
+      "Settlement payables",
+      "Fails and penalties"
+     ],
+     "worked_example": "Client buys 1,000 XYZ at EUR 42.10 + EUR 12 commission. Client side: Dr Securities 42,112 / Cr Cash 42,112. Bank side at trade date: Dr Client account 42,112 / Cr Settlement payable 42,100 / Cr Commission income 12; memo 9100 +1,000 XYZ (pending). Settlement: Dr Settlement payable 42,100 / Cr Nostro 42,100; memo becomes settled. If the sale-side counterparty fails, the position stays pending, the client cash stays blocked and a CSDR late-settlement cash penalty (daily, rate per the ESMA schedule) is charged to the failing party and passed on to the affected participant.",
+     "exercises": [
+      {
+       "template": "journal",
+       "task": "Post the client buy at trade date on the bank side",
+       "params": "quantity, price, commission; accounts: Client account, Settlement payable, Commission income"
+      },
+      {
+       "template": "journal",
+       "task": "Post settlement on the bank side",
+       "params": "same amounts; Nostro account"
+      },
+      {
+       "template": "journal",
+       "task": "Post a client sale including commission and withholding on the proceeds",
+       "params": "sale price, commission, tax flag"
+      },
+      {
+       "template": "order",
+       "task": "Order the events from client order to final bank posting",
+       "params": "8 events; 2 variants"
+      },
+      {
+       "template": "table",
+       "task": "Reconcile client-side and bank-side entries for 3 trades",
+       "params": "3 trades; one mismatch"
+      },
+      {
+       "template": "mcq",
+       "task": "What happens to the postings when the trade fails on settlement date?",
+       "params": "5-6 failure variants"
+      }
+     ],
+     "callbacks": [
+      "A7.2",
+      "O3.5",
+      "O1.1"
+     ],
+     "sources": [
+      {
+       "id": "S036",
+       "ref": "client entries",
+       "use": "core"
+      },
+      {
+       "id": "S058",
+       "ref": "settlement accounting and fails",
+       "use": "deeper"
+      },
+      {
+       "id": "S262",
+       "ref": "CSDR Arts 6-7: settlement discipline, cash penalties",
+       "use": "reference"
+      },
+      {
+       "id": "S166",
+       "ref": "RTS 2018/1229: penalty mechanism",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "A7.4",
+     "title": "Fees, commissions and custody income",
+     "minutes": 45,
+     "objectives": [
+      "Accrue and post a custody fee on average assets and a transaction commission with a minimum",
+      "Treat third-party payments (fund retrocessions) under MiFID II inducements rules for portfolio management vs advice",
+      "Post fee income, VAT where relevant and write-offs"
+     ],
+     "key_concepts": [
+      "Revenue recognition for fees",
+      "Custody fee on average assets",
+      "Minimum commission",
+      "Inducements and retrocessions",
+      "Accrual and reversal"
+     ],
+     "worked_example": "Custody fee 0.12% p.a. on average assets of EUR 2,400,000: quarterly 2,400,000 x 0.12%/4 = EUR 720; daily accrual 7.89. Post each day Dr Fee receivable 7.89 / Cr Fee income 7.89; at quarter end Dr Client account 720 / Cr Fee receivable. Commission 0.05% with minimum EUR 12 on EUR 42,100 = 21.05. Retrocession: fund trail 0.60% on EUR 1,000,000 = EUR 6,000/year; for a discretionary mandate it must be passed to the client: Dr Retrocession income 6,000 / Cr Client account 6,000.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute the quarterly custody fee and daily accrual",
+       "params": "assets 100k-20m; rate 0.05-0.30 pct; day count"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute commission with minimum and maximum",
+       "params": "trade size 1k-1m; rate and floor/cap vary"
+      },
+      {
+       "template": "journal",
+       "task": "Post the quarterly fee debit from the client account",
+       "params": "amount; accounts"
+      },
+      {
+       "template": "mcq",
+       "task": "May the bank keep this payment? (advice vs discretionary mandate; independent or not)",
+       "params": "8 scenarios"
+      },
+      {
+       "template": "table",
+       "task": "Accrue 5 days of fee and show the quarter-end true-up",
+       "params": "assets change daily"
+      },
+      {
+       "template": "journal",
+       "task": "Post pass-through of a retrocession to the client",
+       "params": "amount 1k-50k"
+      }
+     ],
+     "callbacks": [
+      "T6.1",
+      "A4.4"
+     ],
+     "sources": [
+      {
+       "id": "S175",
+       "ref": "Delegated Directive 2017/593 Art. 11: inducements",
+       "use": "core"
+      },
+      {
+       "id": "S160",
+       "ref": "revenue recognition under IFRS 15",
+       "use": "reference"
+      },
+      {
+       "id": "S036",
+       "ref": "fee entries",
+       "use": "reference"
+      },
+      {
+       "id": "S164",
+       "ref": "Art. 50: costs and charges disclosure",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "A7.5",
+     "title": "Corporate actions and income postings bank-side",
+     "minutes": 45,
+     "objectives": [
+      "Post income collected as custodian: gross dividend, tax at source, net cash credited to the client",
+      "Show which corporate actions need GL entries (cash events, fees, taxes) and which are memo-only (splits, bonus)",
+      "Post a market claim or income reversal after a settlement fail"
+     ],
+     "key_concepts": [
+      "Income collection",
+      "Tax at source",
+      "Memo-only CAs",
+      "Market claims",
+      "Suspense and clearing accounts"
+     ],
+     "worked_example": "Client holds 1,000 XYZ, gross dividend EUR 0.80, Italian substitute tax 26%: gross 800, tax 208, net 592. Client side: Dr Cash 592 / Dr Tax expense 208 / Cr Dividend income 800. Bank side: Dr Nostro 592 / Cr Client account 592. A 2-for-1 split changes the memo quantity 1,000 to 2,000: no GL entry. If the client sold the shares before ex-date but the trade settles after record date, the bank claims EUR 592 from the buyer's custodian: Dr Market claim receivable 592 / Cr Client account 592 and reverses on payment.",
+     "exercises": [
+      {
+       "template": "journal",
+       "task": "Post dividend receipt net of tax on the bank side",
+       "params": "gross, rate 15-30 pct; accounts"
+      },
+      {
+       "template": "journal",
+       "task": "Post the client-side dividend entry",
+       "params": "gross, tax; accounts: Cash, Tax, Dividend income"
+      },
+      {
+       "template": "table",
+       "task": "Classify 8 CA events as GL-posting or memo-only",
+       "params": "split, bonus, dividend, rights, merger"
+      },
+      {
+       "template": "journal",
+       "task": "Post a market claim receivable and its settlement",
+       "params": "amount; counterparty"
+      },
+      {
+       "template": "mcq",
+       "task": "Where does income go when the client's position is in an omnibus account?",
+       "params": "5-6 scenarios"
+      }
+     ],
+     "callbacks": [
+      "A2.3",
+      "O8.3",
+      "O4.6",
+      "A7.3",
+      "A3.5"
+     ],
+     "sources": [
+      {
+       "id": "S063",
+       "ref": "income collection and custody accounting",
+       "use": "core"
+      },
+      {
+       "id": "S036",
+       "ref": "dividend and CA entries",
+       "use": "core"
+      },
+      {
+       "id": "S052",
+       "ref": "market claims and entitlement",
+       "use": "deeper"
+      },
+      {
+       "id": "S178",
+       "ref": "FASTER: withholding relief at source",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "A7.6",
+     "title": "Loans and Lombard credit: postings and impairment",
+     "minutes": 45,
+     "objectives": [
+      "Post a Lombard loan disbursement, daily interest accrual and repayment",
+      "Compute lending value, coverage ratio and the margin-call trigger for a collateral portfolio",
+      "Compute 12-month and lifetime expected credit loss from PD, LGD and EAD and post the impairment"
+     ],
+     "key_concepts": [
+      "Lombard loan",
+      "Lending value / haircut",
+      "Coverage",
+      "IFRS 9 stages 1-3",
+      "ECL = PD x LGD x EAD"
+     ],
+     "worked_example": "Lombard loan EUR 1,000,000 at Euribor 3M 2.10% + 1.25% = 3.35% Act/360. Disbursement: Dr Loans to clients 1,000,000 / Cr Client account 1,000,000. Monthly accrual: 1,000,000 x 3.35% x 30/360 = 2,791.67: Dr Interest receivable / Cr Interest income. Collateral: equities EUR 1,000,000 at 50% = 500,000, bonds EUR 800,000 at 80% = 640,000, lending value 1,140,000, coverage 114%. Stage 1 ECL: PD 0.30% x LGD 10% x EAD 1,000,000 = 300: Dr Impairment expense 300 / Cr Loss allowance 300. After a market drop and an unmet margin call: Stage 2, PD 4% x LGD 25% x 1,000,000 = 10,000.",
+     "exercises": [
+      {
+       "template": "journal",
+       "task": "Post the loan disbursement and the first monthly interest accrual",
+       "params": "loan 100k-10m; spread 0.5-3 pct; Euribor 0-4 pct"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute lending value and coverage of a portfolio by asset class",
+       "params": "haircuts 20-70 pct; market values"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the ECL for stage 1 and stage 2",
+       "params": "PD, LGD, EAD vary; stage-2 uses lifetime PD"
+      },
+      {
+       "template": "mcq",
+       "task": "At which stage does this loan belong?",
+       "params": "8 scenarios: margin call unmet, 30 days past due, default"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort events into loan postings: accrual, margin call, impairment, write-off",
+       "params": "10 events"
+      },
+      {
+       "template": "journal",
+       "task": "Post the impairment on the stage move",
+       "params": "ECL before/after; accounts"
+      }
+     ],
+     "callbacks": [
+      "A2.2",
+      "A7.1",
+      "A7.4"
+     ],
+     "sources": [
+      {
+       "id": "S224",
+       "ref": "IFRS 9 5.5: impairment, stages",
+       "use": "core"
+      },
+      {
+       "id": "S026",
+       "ref": "Lombard loan risks",
+       "use": "reference"
+      },
+      {
+       "id": "S161",
+       "ref": "Basel CRE22: collateral haircuts",
+       "use": "reference"
+      },
+      {
+       "id": "S029",
+       "ref": "securities-backed lending basics",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "A7.7",
+     "title": "IFRS 9 classification and measurement",
+     "minutes": 45,
+     "objectives": [
+      "Classify a financial asset as amortised cost, FVOCI or FVTPL from its business model and SPPI result",
+      "Compute effective-interest income and amortised carrying amount for a discount bond",
+      "Post the fair value change of an FVOCI bond through OCI and explain recycling vs the irrevocable equity election"
+     ],
+     "key_concepts": [
+      "Business model test",
+      "SPPI test",
+      "Amortised cost / FVOCI / FVTPL",
+      "Effective interest rate",
+      "OCI recycling"
+     ],
+     "worked_example": "Bank buys EUR 2,000,000 nominal of a 4% 5-year corporate bond at 98.00 (cost 1,960,000), held to collect, SPPI passes: amortised cost. EIR solves price 98 = sum of coupons and redemption = 4.455%. Year 1 interest income = 1,960,000 x 4.455% = 87,318; coupon cash 80,000; amortisation 7,318; carrying 1,967,318: Dr Nostro 80,000 / Dr Bond 7,318 / Cr Interest income 87,318. If instead held to collect and sell (FVOCI) and the price falls to 96.5, the fair value is 1,930,000 and OCI = -37,318; a convertible note with a leverage feature fails SPPI and goes to FVTPL.",
+     "exercises": [
+      {
+       "template": "bucket",
+       "task": "Classify 10 instruments by measurement category",
+       "params": "bond HTC, bond HTC&S, equity, convertible, loan with leverage, fund unit"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute year-1 effective-interest income and carrying amount",
+       "params": "price 90-110; coupon 1-6 pct; term 3-10 years"
+      },
+      {
+       "template": "journal",
+       "task": "Post the amortisation entry for a discount bond",
+       "params": "nominal, price, EIR given"
+      },
+      {
+       "template": "journal",
+       "task": "Post a FVOCI revaluation",
+       "params": "carrying vs fair value; accounts: Bond, OCI reserve"
+      },
+      {
+       "template": "match",
+       "task": "Match each feature to SPPI pass or fail",
+       "params": "6-8 features"
+      },
+      {
+       "template": "mcq",
+       "task": "Which classification and why?",
+       "params": "business model and cashflow variants; 8 scenarios"
+      }
+     ],
+     "callbacks": [
+      "P3.1",
+      "P6.3",
+      "A4.8",
+      "A2.4",
+      "A7.2"
+     ],
+     "sources": [
+      {
+       "id": "S224",
+       "ref": "IFRS 9 4.1.2, 4.1.2A, B4.1: classification; 5.4.1 EIR",
+       "use": "core"
+      },
+      {
+       "id": "S072",
+       "ref": "IFRS 9 classification and measurement worked cases",
+       "use": "core"
+      },
+      {
+       "id": "S160",
+       "ref": "Applying IFRS: financial instruments",
+       "use": "deeper"
+      },
+      {
+       "id": "S323",
+       "ref": "ASC 320 contrast: AFS/HTM vs IFRS 9",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "A7.8",
+     "title": "Month-end close, reconciliations and the Ledger",
+     "minutes": 45,
+     "objectives": [
+      "Reconcile a nostro GL balance to the bank statement (camt.053/MT950) and classify unmatched items",
+      "Run the month-end close in order: cut-off, accruals, FX revaluation, reconciliations, review, lock",
+      "Post the FX revaluation of a foreign-currency nostro and reverse accruals",
+      "Age breaks and decide escalation"
+     ],
+     "key_concepts": [
+      "Nostro and depot reconciliation",
+      "Cut-off",
+      "Accrual reversal",
+      "FX revaluation",
+      "Break ageing",
+      "Trial balance sign-off"
+     ],
+     "worked_example": "GL 1200 Nostro EUR shows 15,420,311.45; statement shows 15,418,811.45: break 1,500.00 = unposted bank fee: Dr Operating costs 1,500 / Cr Nostro 1,500. FX revaluation of a USD 2,000,000 nostro: last month's rate 1.1500 gives EUR 1,739,130.43; month-end 1.1600 gives 1,724,137.93; loss 14,992.50: Dr FX revaluation loss 14,992.50 / Cr Nostro USD 14,992.50. Close order: cut-off, accruals, revaluation, reconciliation, adjustments, trial balance tie, sign-off.",
+     "exercises": [
+      {
+       "template": "order",
+       "task": "Order the month-end close steps",
+       "params": "8 steps"
+      },
+      {
+       "template": "table",
+       "task": "Reconcile a nostro and classify each break",
+       "params": "GL vs statement; 3-5 breaks; categories timing, fee, error"
+      },
+      {
+       "template": "journal",
+       "task": "Post the FX revaluation of a foreign nostro",
+       "params": "balance 0.5-10m; rates 0.9-1.4"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the unreconciled item older than the threshold",
+       "params": "breaks with ages 1-60 days"
+      },
+      {
+       "template": "journal",
+       "task": "Reverse a prior-month accrual",
+       "params": "accrual amount; accounts"
+      }
+     ],
+     "callbacks": [
+      "A7.1",
+      "A7.5",
+      "O4.6",
+      "A7.3",
+      "A7.6"
+     ],
+     "sources": [
+      {
+       "id": "S058",
+       "ref": "reconciliation and exceptions",
+       "use": "core"
+      },
+      {
+       "id": "S081",
+       "ref": "operational risk: reconciliation breaks",
+       "use": "reference"
+      },
+      {
+       "id": "S036",
+       "ref": "period-end close",
+       "use": "reference"
+      },
+      {
+       "id": "S016",
+       "ref": "ISO 20022 / MT950 account statement messages",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": {
+    "name": "Ledger",
+    "variant": "Bank-side stream: post trades, settlement, fees, CA and loan events to the right GL accounts and keep the trial balance tied"
+   },
+   "unit_test": "GL postings for trades, fees, CA, loans; IFRS 9 classification; reconciliation.",
+   "jurisdiction_notes": "EU first: IFRS (EU-endorsed), client asset segregation rules; CH: Swiss GAAP banks note; US GAAP ASC 320 difference mentioned briefly."
+  }
+ ],
+ "checkpoint": "Level 5 boss quiz (40 min): mixed calculations (TERP and entitlements, EIR schedule, lot relief, NAV and swing, Modified Dietz/TWR, Brinson) plus journal and spot-the-error items drawn from O8, A2-A7. About 30% spaced-review items from L4 (O7, O4, F3).",
+ "open_questions": [
+  "See syllabus/FACTS.md (originals in open-questions.txt)"
+ ]
+}

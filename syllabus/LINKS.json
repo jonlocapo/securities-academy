@@ -1,0 +1,29 @@
+{
+  "_note": "Vetted URL allowlist. Lessons may only link to URLs listed here (validator enforces). Add a URL only after checking it resolves to the right text.",
+  "links": {
+    "MiFID II (Directive 2014/65/EU)": "https://eur-lex.europa.eu/eli/dir/2014/65/oj",
+    "MiFIR (Regulation (EU) No 600/2014)": "https://eur-lex.europa.eu/eli/reg/2014/600/oj",
+    "UCITS Directive (2009/65/EC)": "https://eur-lex.europa.eu/eli/dir/2009/65/oj",
+    "CSDR (Regulation (EU) No 909/2014)": "https://eur-lex.europa.eu/eli/reg/2014/909/oj",
+    "T+1 amendment to CSDR (Regulation (EU) 2025/2075)": "https://eur-lex.europa.eu/eli/reg/2025/2075/oj",
+    "EMIR (Regulation (EU) No 648/2012)": "https://eur-lex.europa.eu/eli/reg/2012/648/oj",
+    "AIFMD (Directive 2011/61/EU)": "https://eur-lex.europa.eu/eli/dir/2011/61/oj",
+    "PRIIPs Regulation (Regulation (EU) No 1286/2014)": "https://eur-lex.europa.eu/eli/reg/2014/1286/oj",
+    "MAR (Regulation (EU) No 596/2014)": "https://eur-lex.europa.eu/eli/reg/2014/596/oj",
+    "Prospectus Regulation ((EU) 2017/1129)": "https://eur-lex.europa.eu/eli/reg/2017/1129/oj",
+    "SRD II (Directive (EU) 2017/828)": "https://eur-lex.europa.eu/eli/dir/2017/828/oj",
+    "Settlement Finality Directive (98/26/EC)": "https://eur-lex.europa.eu/eli/dir/1998/26/oj",
+    "SFDR (Regulation (EU) 2019/2088)": "https://eur-lex.europa.eu/eli/reg/2019/2088/oj",
+    "Transparency Directive (2004/109/EC)": "https://eur-lex.europa.eu/eli/dir/2004/109/oj",
+    "SFTR (Regulation (EU) 2015/2365)": "https://eur-lex.europa.eu/eli/reg/2015/2365/oj",
+    "Benchmarks Regulation ((EU) 2016/1011)": "https://eur-lex.europa.eu/eli/reg/2016/1011/oj",
+    "Regulation NMS (17 CFR Part 242)": "https://www.law.cornell.edu/cfr/text/17/part-242",
+    "T2S (ECB)": "https://www.ecb.europa.eu/paym/target/t2s/html/index.en.html",
+    "ESMA": "https://www.esma.europa.eu/",
+    "FCA Handbook": "https://www.handbook.fca.org.uk/",
+    "SEC Rule 15c3-1, net capital (17 CFR 240.15c3-1)": "https://www.law.cornell.edu/cfr/text/17/240.15c3-1",
+    "SEC Rule 15c3-3, customer protection: reserves and custody (17 CFR 240.15c3-3)": "https://www.law.cornell.edu/cfr/text/17/240.15c3-3",
+    "FINRA Rules": "https://www.finra.org/rules-guidance/rulebooks/finra-rules",
+    "ESMA Interactive Single Rulebook: MiFID II": "https://www.esma.europa.eu/publications-and-data/interactive-single-rulebook/mifid-ii"
+  }
+}

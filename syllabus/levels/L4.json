@@ -1,0 +1,3387 @@
+{
+ "level": "L4",
+ "title": "Post-Trade & Custody",
+ "hours": 39,
+ "intro": "This level covers clearing, settlement and custody, including fails and CSDR penalties, segregation and depositary protection, transfers, and securities lending and repo collateral. It also covers the processing of mandatory corporate actions with correct dates and entitlements, and bond price, yield, duration and convexity.",
+ "modules": [
+  {
+   "id": "O2",
+   "title": "Clearing & CCPs",
+   "track": "ops",
+   "hours": 5,
+   "prereqs": [
+    "T1",
+    "O1"
+   ],
+   "boss_items": [
+    "clearing (post-trade)",
+    "custodian role (settlement)"
+   ],
+   "hook": "The role of central counterparties, novation, clearing members, initial and variation margin, default funds, and intraday margin calls.",
+   "units": [
+    {
+     "id": "O2.1",
+     "title": "Why clearing exists: counterparty risk and netting",
+     "minutes": 45,
+     "objectives": [
+      "Learner can explain why a bilateral trade carries counterparty risk between trade date and settlement date",
+      "Learner can compute bilateral net obligations from a list of trades",
+      "Learner can distinguish clearing from settlement"
+     ],
+     "key_concepts": [
+      "replacement-cost risk",
+      "principal risk",
+      "bilateral vs multilateral netting",
+      "clearing vs settlement",
+      "exposure period"
+     ],
+     "worked_example": "Bank A buys 10,000 shares at EUR 20 from B and sells 6,000 at EUR 20.40 to B the same day; bilateral netting reduces two gross deliveries to a single net 4,000-share delivery and a net cash amount.",
+     "exercises": [
+      {
+       "template": "mcq",
+       "task": "Pick the correct definition of replacement-cost risk for a given scenario",
+       "params": "scenario wording, price move direction"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the bilateral net position and net cash between two parties from a trade list",
+       "params": "3-6 trades, prices, quantities, direction"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort statements into clearing vs settlement vs custody activities",
+       "params": "statement pool"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill in the exposure-period timeline from trade date to settlement date",
+       "params": "T+n cycle length, price move"
+      }
+     ],
+     "callbacks": [
+      "T1.1",
+      "T1.3",
+      "O1.3"
+     ],
+     "sources": [
+      {
+       "id": "S049",
+       "ref": "chapters on clearing and netting",
+       "use": "core"
+      },
+      {
+       "id": "S100",
+       "ref": "chapter on clearing and settlement in the trade lifecycle",
+       "use": "core"
+      },
+      {
+       "id": "S162",
+       "ref": "Recommendations 1-3 (matching, netting, settlement cycles)",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O2.2",
+     "title": "Novation and the CCP as buyer to every seller",
+     "minutes": 50,
+     "objectives": [
+      "Learner can describe novation and open offer and the resulting legal position of the CCP",
+      "Learner can order the flow of obligations before and after novation",
+      "Learner can explain the role of clearing members and the difference between direct and indirect clearing"
+     ],
+     "key_concepts": [
+      "novation vs open offer",
+      "buyer to every seller",
+      "clearing member",
+      "client clearing",
+      "direct vs indirect participant",
+      "CCP vs CSD"
+     ],
+     "worked_example": "A cash-equity trade between two brokers on a venue is novated: after novation both brokers face the CCP, not each other, and the CCP's book is flat apart from timing.",
+     "exercises": [
+      {
+       "template": "order",
+       "task": "Put the steps of trade capture, novation and netting in the right sequence",
+       "params": "set of 5-6 steps"
+      },
+      {
+       "template": "match",
+       "task": "Match actors (CM, client, CCP, CSD, venue) to their role",
+       "params": "actor list"
+      },
+      {
+       "template": "mcq",
+       "task": "Identify who bears the loss if a client's clearing broker fails",
+       "params": "structure variant: direct, indirect, omnibus"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a simplified clearing-flow description",
+       "params": "inserted error: wrong counterparty after novation"
+      }
+     ],
+     "callbacks": [
+      "O2.1",
+      "T1.1"
+     ],
+     "sources": [
+      {
+       "id": "S099",
+       "ref": "chapters on CCP legal structure, novation and membership",
+       "use": "core"
+      },
+      {
+       "id": "S049",
+       "ref": "chapter on CCPs",
+       "use": "core"
+      },
+      {
+       "id": "S261",
+       "ref": "Art 2 definitions, Art 4 (clearing obligation) for context",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O2.3",
+     "title": "Multilateral netting in numbers",
+     "minutes": 45,
+     "objectives": [
+      "Learner can compute multilateral net positions per member and per security",
+      "Learner can calculate netting efficiency (gross vs net)",
+      "Learner can explain when netting does not reduce obligations"
+     ],
+     "key_concepts": [
+      "multilateral net per ISIN",
+      "cash net per currency",
+      "netting efficiency",
+      "gross vs net settlement obligations",
+      "netting set"
+     ],
+     "worked_example": "Five clearing members trade one share and the cash leg: gross turnover EUR 120m, net settlement obligation EUR 18m, i.e. 85% netting efficiency.",
+     "exercises": [
+      {
+       "template": "table",
+       "task": "Complete a member-by-member net table (shares and cash) for a day's trades",
+       "params": "5 members, 6-10 trades"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute netting efficiency",
+       "params": "gross turnover, net obligation"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the net cash obligation of a member across two securities",
+       "params": "prices, quantities"
+      },
+      {
+       "template": "mcq",
+       "task": "Decide whether netting reduces settlement obligations for a given trade set",
+       "params": "trade set variant"
+      }
+     ],
+     "callbacks": [
+      "O2.1",
+      "A1.3"
+     ],
+     "sources": [
+      {
+       "id": "S049",
+       "ref": "netting section",
+       "use": "core"
+      },
+      {
+       "id": "S058",
+       "ref": "chapter on clearing",
+       "use": "deeper"
+      },
+      {
+       "id": "S099",
+       "ref": "chapter on netting and exposure reduction",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "O2.4",
+     "title": "CCP margin: initial, variation, default fund",
+     "minutes": 55,
+     "objectives": [
+      "Learner can distinguish initial margin, variation margin and default fund contributions",
+      "Learner can compute a variation margin call from a price move",
+      "Learner can explain margin period of risk and anti-procyclicality tools",
+      "Learner can name eligible collateral types and haircuts conceptually"
+     ],
+     "key_concepts": [
+      "initial margin (IM)",
+      "variation margin (VM)",
+      "default fund (DF)",
+      "margin period of risk (MPOR)",
+      "VaR / SPAN-type models (conceptual)",
+      "anti-procyclicality",
+      "intraday margin call",
+      "eligible collateral and haircuts"
+     ],
+     "worked_example": "A member is long 100,000 shares at EUR 50; price falls to EUR 47: VM call EUR 300,000 in cash by the next morning, while IM (e.g. 12% of notional) stays posted.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute VM call/return after a price move on a net position",
+       "params": "quantity, price, move"
+      },
+      {
+       "template": "numeric",
+       "task": "Estimate IM from a simple percentage-of-notional proxy",
+       "params": "notional, margin %, MPOR days"
+      },
+      {
+       "template": "bucket",
+       "task": "Classify items as IM, VM, DF or non-margin",
+       "params": "item pool"
+      },
+      {
+       "template": "mcq",
+       "task": "Pick the effect of a volatility spike on IM requirements",
+       "params": "scenario variant"
+      },
+      {
+       "template": "cloze",
+       "task": "Complete a sentence on MPOR and close-out period",
+       "params": "word bank"
+      }
+     ],
+     "callbacks": [
+      "O2.3",
+      "F1.3"
+     ],
+     "sources": [
+      {
+       "id": "S099",
+       "ref": "chapters on risk management and margin",
+       "use": "core"
+      },
+      {
+       "id": "S116",
+       "ref": "chapters on CCP margin models and default fund",
+       "use": "deeper"
+      },
+      {
+       "id": "S261",
+       "ref": "Arts 41-42, 46 (margin, default fund, collateral)",
+       "use": "reference"
+      },
+      {
+       "id": "S260",
+       "ref": "margin and anti-procyclicality provisions incl. EMIR 3",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O2.5",
+     "title": "Default waterfall and recovery",
+     "minutes": 50,
+     "objectives": [
+      "Learner can list the default waterfall layers in order and who bears each",
+      "Learner can explain segregation and portability of client positions",
+      "Learner can explain cover-1/cover-2 stress testing"
+     ],
+     "key_concepts": [
+      "defaulter-pays",
+      "skin in the game",
+      "mutualised default fund",
+      "assessments / cash calls",
+      "porting of client positions",
+      "default auction",
+      "cover 1 / cover 2",
+      "recovery vs resolution"
+     ],
+     "worked_example": "A member defaults with EUR 300m of losses: its IM and DF contribution are consumed first, then the CCP's own capital, then surviving members' DF contributions absorb the rest.",
+     "exercises": [
+      {
+       "template": "order",
+       "task": "Arrange waterfall layers in correct order",
+       "params": "layer set, optional recovery tools"
+      },
+      {
+       "template": "numeric",
+       "task": "Allocate a loss through the waterfall layer by layer",
+       "params": "loss amount, layer sizes"
+      },
+      {
+       "template": "mcq",
+       "task": "Decide which clients' positions can be ported after a default",
+       "params": "segregation regime variant"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a CCP default-management summary",
+       "params": "inserted error: wrong layer order"
+      }
+     ],
+     "callbacks": [
+      "O2.4",
+      "O2.2"
+     ],
+     "sources": [
+      {
+       "id": "S099",
+       "ref": "chapters on default management",
+       "use": "core"
+      },
+      {
+       "id": "S261",
+       "ref": "Arts 39, 45 (segregation and portability; default waterfall)",
+       "use": "reference"
+      },
+      {
+       "id": "S116",
+       "ref": "default fund and loss mutualisation",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "O2.6",
+     "title": "EMIR, EMIR 3 and the CCP landscape",
+     "minutes": 55,
+     "objectives": [
+      "Learner can state what the EMIR clearing obligation covers and what it does not (cash-equity clearing is market-driven)",
+      "Learner can describe the main EU/US CCPs and their asset classes",
+      "Learner can summarise EMIR 3 measures (active account, clearing thresholds, margin models) at a high level"
+     ],
+     "key_concepts": [
+      "clearing obligation",
+      "clearing threshold",
+      "ESMA recognition of third-country CCPs",
+      "PFMI",
+      "active account (EMIR 3)",
+      "main CCPs (LCH, Eurex Clearing, Euronext Clearing, EuroCCP, SIX x-clear, OCC, NSCC/FICC)",
+      "SEC Rule 17Ad-22"
+     ],
+     "worked_example": "A Euronext cash trade is cleared by Euronext Clearing, an interest-rate swap by LCH SwapClear; only the latter falls under the EMIR clearing obligation.",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Match CCPs to the asset classes/markets they clear",
+       "params": "CCP list"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort products into subject-to-EMIR-clearing-obligation vs not",
+       "params": "product list"
+      },
+      {
+       "template": "mcq",
+       "task": "Pick the EMIR 3 measure that addresses a named concern (e.g. EU clearing concentration)",
+       "params": "measure variant"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a description of EU vs US CCP supervision",
+       "params": "inserted error"
+      }
+     ],
+     "callbacks": [
+      "O2.2",
+      "O2.4",
+      "P1.4"
+     ],
+     "sources": [
+      {
+       "id": "S260",
+       "ref": "EMIR as amended by EMIR 3 (Reg. 2024/2987): headline provisions",
+       "use": "core"
+      },
+      {
+       "id": "S295",
+       "ref": "selected clearing Q&As",
+       "use": "reference"
+      },
+      {
+       "id": "S326",
+       "ref": "SEC Rule 17Ad-22 overview",
+       "use": "reference"
+      },
+      {
+       "id": "S099",
+       "ref": "closing chapters on regulation",
+       "use": "deeper"
+      }
+     ]
+    }
+   ],
+   "minigame": {
+    "name": "Margin Hotline",
+    "variant": "CCP edition (lite): price moves trigger VM/IM calls for a clearing member; learner computes and meets the call, then handles a client default and porting decision. Full version at K2."
+   },
+   "unit_test": "Clearing vs settlement, novation, multilateral netting arithmetic, margin types and default waterfall order.",
+   "jurisdiction_notes": "EU first (EMIR, EMIR 3); US sidebar (NSCC/FICC, OCC, Rule 17Ad-22); UK/CH/SG/HK limited to naming main CCPs (e.g. LCH, SIX x-clear)."
+  },
+  {
+   "id": "O3",
+   "title": "Settlement",
+   "track": "ops",
+   "hours": 7,
+   "prereqs": [
+    "O2"
+   ],
+   "boss_items": [
+    "custodian role (settlement)",
+    "transfers",
+    "order & execution workflows"
+   ],
+   "hook": "Settlement cycles, matching, delivery versus payment, partial settlement, fails and buy-ins, and the calculation of CSDR cash penalties.",
+   "units": [
+    {
+     "id": "O3.1",
+     "title": "Settlement basics: instructions, DVP and finality",
+     "minutes": 50,
+     "objectives": [
+      "Learner can describe an instruction, matching and settlement sequence",
+      "Learner can distinguish DVP, RVP, FoP and the three BIS DVP models",
+      "Learner can explain settlement finality and book-entry transfer"
+     ],
+     "key_concepts": [
+      "settlement instruction",
+      "matching (two-sided) vs allegement",
+      "DVP / RVP / DFP / RFP",
+      "BIS DVP models 1-3",
+      "settlement finality",
+      "book-entry form"
+     ],
+     "worked_example": "Seller delivers 5,000 shares against EUR 100,000 in a model-1 gross DVP at the CSD: securities and cash move simultaneously, trade by trade.",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Match settlement instruction types (DVP, RVP, DFP, RFP) to cash/security direction",
+       "params": "type list"
+      },
+      {
+       "template": "order",
+       "task": "Sequence instruction entry, matching, validation, settlement, confirmation",
+       "params": "step set"
+      },
+      {
+       "template": "mcq",
+       "task": "Pick the BIS DVP model for a described mechanism",
+       "params": "mechanism variant"
+      },
+      {
+       "template": "cloze",
+       "task": "Complete a definition of settlement finality",
+       "params": "word bank"
+      }
+     ],
+     "callbacks": [
+      "T1.4",
+      "O2.1"
+     ],
+     "sources": [
+      {
+       "id": "S049",
+       "ref": "chapters on settlement",
+       "use": "core"
+      },
+      {
+       "id": "S028",
+       "ref": "settlement chapters",
+       "use": "core"
+      },
+      {
+       "id": "S162",
+       "ref": "Recommendations 6-9",
+       "use": "reference"
+      },
+      {
+       "id": "S263",
+       "ref": "Art 3 (book-entry), Art 39 (finality)",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O3.2",
+     "title": "CSDs and ICSDs: who holds what",
+     "minutes": 50,
+     "objectives": [
+      "Learner can distinguish a national CSD, an ICSD and a custodian",
+      "Learner can name the main EU CSDs and ICSDs and what they settle",
+      "Learner can explain issuer CSD vs investor CSD and links"
+     ],
+     "key_concepts": [
+      "issuer CSD / investor CSD",
+      "ICSD (Euroclear Bank, Clearstream Banking Luxembourg)",
+      "national CSDs (Euroclear France, Nederland, Belgium; Monte Titoli; Clearstream Banking Frankfurt; Iberclear)",
+      "CSD links and bridges",
+      "CSDR authorisation",
+      "DTC in the US"
+     ],
+     "worked_example": "A Eurobond issued into Euroclear Bank is held by an Italian bank via Euroclear Bank, while an Italian BTP sits in Monte Titoli and is reached by cross-border investors via a link or a custodian.",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Match CSDs/ICSDs to their markets and typical securities",
+       "params": "CSD list"
+      },
+      {
+       "template": "mcq",
+       "task": "Identify the issuer CSD for a given ISIN country prefix and security type",
+       "params": "ISIN variants"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort entities into CSD, ICSD, custodian, CCP, TR",
+       "params": "entity list"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a description of a cross-border holding chain",
+       "params": "inserted error"
+      }
+     ],
+     "callbacks": [
+      "O2.2",
+      "P1.4"
+     ],
+     "sources": [
+      {
+       "id": "S063",
+       "ref": "chapters on CSDs and ICSDs",
+       "use": "core"
+      },
+      {
+       "id": "S021",
+       "ref": "chapters on European CSD structure",
+       "use": "deeper"
+      },
+      {
+       "id": "S263",
+       "ref": "Arts 16-19 (authorisation), 48-52 (links, access)",
+       "use": "reference"
+      },
+      {
+       "id": "S049",
+       "ref": "chapter on CSDs",
+       "use": "core"
+      }
+     ]
+    },
+    {
+     "id": "O3.3",
+     "title": "T2S: one platform for European settlement",
+     "minutes": 50,
+     "objectives": [
+      "Learner can explain the T2S architecture (CSDs, DCAs, central bank money)",
+      "Learner can describe the T2S settlement day and cut-offs",
+      "Learner can explain auto-collateralisation and cross-CSD settlement"
+     ],
+     "key_concepts": [
+      "T2S platform and CSD participation",
+      "dedicated cash account (DCA)",
+      "central bank money",
+      "night-time and daytime settlement",
+      "cut-offs (e.g. DVP cut-off, FoP cut-off)",
+      "auto-collateralisation",
+      "realignment / cross-CSD settlement"
+     ],
+     "worked_example": "A French investor buys German bonds: both CSDs are on T2S, so the DVP settles against central-bank-money cash on a DCA in a single cross-CSD instruction pair.",
+     "exercises": [
+      {
+       "template": "timeline",
+       "task": "Place T2S settlement-day phases (start of day, night-time settlement, real-time settlement, cut-offs) on a timeline",
+       "params": "phase list"
+      },
+      {
+       "template": "mcq",
+       "task": "Identify which participants are CSDs vs payment banks in a T2S flow",
+       "params": "flow variant"
+      },
+      {
+       "template": "order",
+       "task": "Order the steps of cross-CSD DVP settlement",
+       "params": "step set"
+      },
+      {
+       "template": "cloze",
+       "task": "Complete statements on DCAs and auto-collateralisation",
+       "params": "word bank"
+      }
+     ],
+     "callbacks": [
+      "O3.1",
+      "O3.2"
+     ],
+     "sources": [
+      {
+       "id": "S286",
+       "ref": "T2S overview",
+       "use": "core"
+      },
+      {
+       "id": "S328",
+       "ref": "framework agreement summary",
+       "use": "core"
+      },
+      {
+       "id": "S329",
+       "ref": "settlement-day and process sections",
+       "use": "reference"
+      },
+      {
+       "id": "S021",
+       "ref": "chapters on T2S background",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "O3.4",
+     "title": "Settlement cycles: T+2, T+1 and the 2027 shift",
+     "minutes": 55,
+     "objectives": [
+      "Learner can state current and upcoming settlement cycles in EU, US, UK",
+      "Learner can calculate settlement dates with holidays",
+      "Learner can describe operational impacts of T+1 (matching, FX funding, SSIs, securities lending recalls)"
+     ],
+     "key_concepts": [
+      "T+2 in EU today, T+1 on 11 Oct 2027 (Reg. 2025/2075)",
+      "US T+1 since 28 May 2024 (Rule 15c6-1)",
+      "UK T+1 on 11 Oct 2027",
+      "same-day affirmation / matching deadlines",
+      "FX funding window compression"
+     ],
+     "worked_example": "A Frankfurt equity trade on Monday 11 October 2027 settles Tuesday 12 October 2027 under T+1; the same trade on Friday 8 October 2027 would have settled Tuesday 12 October under T+2.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute the intended settlement date given trade date, cycle and TARGET holidays",
+       "params": "trade date, cycle T+1/T+2, holiday list"
+      },
+      {
+       "template": "timeline",
+       "task": "Place trade, matching, funding and settlement deadlines for a T+1 trade",
+       "params": "trade timing variant"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort operational impacts into 'harder under T+1' vs 'unchanged'",
+       "params": "impact list"
+      },
+      {
+       "template": "mcq",
+       "task": "Pick the region's current settlement cycle for an instrument type",
+       "params": "market variant"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a T+1 readiness checklist",
+       "params": "inserted error"
+      }
+     ],
+     "callbacks": [
+      "O3.1",
+      "T1.4"
+     ],
+     "sources": [
+      {
+       "id": "S250",
+       "ref": "Reg. 2025/2075 key provisions",
+       "use": "core"
+      },
+      {
+       "id": "S168",
+       "ref": "proposal rationale and date",
+       "use": "reference"
+      },
+      {
+       "id": "S186",
+       "ref": "ESMA final report on shortening the settlement cycle",
+       "use": "deeper"
+      },
+      {
+       "id": "S190",
+       "ref": "EU T+1 industry roadmap",
+       "use": "deeper"
+      },
+      {
+       "id": "S272",
+       "ref": "SEC Rule 15c6-1 release",
+       "use": "reference"
+      },
+      {
+       "id": "S158",
+       "ref": "UK Accelerated Settlement Taskforce report",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O3.5",
+     "title": "Instruction management: matching, SSIs, hold/release, shaping",
+     "minutes": 55,
+     "objectives": [
+      "Learner can read the status of an instruction (unmatched, matched, on hold, pending, settled)",
+      "Learner can apply hold-and-release, partial settlement and shaping",
+      "Learner can maintain correct SSIs and diagnose matching failures"
+     ],
+     "key_concepts": [
+      "standing settlement instructions (SSI)",
+      "matching fields and tolerances",
+      "hold / release",
+      "partial settlement",
+      "shaping",
+      "settlement priority",
+      "recycling of pending instructions",
+      "MT54x / sese.023 status"
+     ],
+     "worked_example": "A 100,000-share sale settles only 70,000 because the account is short 30,000; a partial settles 70,000 and the remaining 30,000 recycles to the next batch.",
+     "exercises": [
+      {
+       "template": "table",
+       "task": "Fill in the post-settlement positions after a batch with partials",
+       "params": "instruction list, opening positions"
+      },
+      {
+       "template": "mcq",
+       "task": "Identify the mismatching field behind an unmatched status",
+       "params": "field variants"
+      },
+      {
+       "template": "order",
+       "task": "Order a tolerance-based matching decision tree",
+       "params": "step set"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the remaining quantity after partial settlement and shaping",
+       "params": "quantities, lot size"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in an instruction (wrong BIC / account / settlement date)",
+       "params": "inserted error"
+      }
+     ],
+     "callbacks": [
+      "O3.1",
+      "O1.2",
+      "O1.3"
+     ],
+     "sources": [
+      {
+       "id": "S100",
+       "ref": "chapter on settlement processing",
+       "use": "core"
+      },
+      {
+       "id": "S058",
+       "ref": "chapter on settlement",
+       "use": "core"
+      },
+      {
+       "id": "S329",
+       "ref": "matching and instruction processing sections",
+       "use": "reference"
+      },
+      {
+       "id": "S294",
+       "ref": "ESMA Q&As: matching and partial settlement",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O3.6",
+     "title": "Fails and CSDR settlement discipline: penalties",
+     "minutes": 60,
+     "objectives": [
+      "Learner can list causes of settlement fails and the standard fail-management tools",
+      "Learner can calculate CSDR cash penalties using asset-class rates",
+      "Learner can distinguish prevention, monitoring and sanction measures"
+     ],
+     "key_concepts": [
+      "causes of fails (short, no cash, SSI errors, chain fails)",
+      "CSDR Art 6 (prevention) and Art 7 (sanctions)",
+      "Delegated Reg. 2017/389 penalty rates (mechanism in RTS 2018/1229)",
+      "daily penalty per instruction value x rate in basis points",
+      "penalty reference price",
+      "who pays and who receives"
+     ],
+     "worked_example": "A EUR 2,000,000 sale of a liquid share fails for 3 days at 1.0 bp per day: penalty EUR 200 per day, EUR 600 in total, debited from the failing participant and credited to the receiver.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute a CSDR cash penalty from value, rate bp and days of fail",
+       "params": "value, asset class rate, days"
+      },
+      {
+       "template": "table",
+       "task": "Complete a month-end penalty statement for several failing instructions",
+       "params": "instruction list"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort measures into prevention, monitoring, sanction",
+       "params": "measure list"
+      },
+      {
+       "template": "mcq",
+       "task": "Pick the root cause category for a described fail",
+       "params": "scenario variant"
+      },
+      {
+       "template": "order",
+       "task": "Order the daily fail-management routine before cut-off",
+       "params": "step set"
+      }
+     ],
+     "callbacks": [
+      "O3.5",
+      "O2.1"
+     ],
+     "sources": [
+      {
+       "id": "S263",
+       "ref": "Arts 6-7",
+       "use": "core"
+      },
+      {
+       "id": "S166",
+       "ref": "penalty mechanism (RTS 2018/1229) and rates (Del. Reg. 2017/389 Annex)",
+       "use": "core"
+      },
+      {
+       "id": "S294",
+       "ref": "ESMA Q&As on penalties",
+       "use": "reference"
+      },
+      {
+       "id": "S049",
+       "ref": "chapter on fails",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "O3.7",
+     "title": "Buy-ins, CSDR Refit and the US contrast",
+     "minutes": 50,
+     "objectives": [
+      "Learner can explain how the buy-in regime changed under CSDR Refit (mandatory to last-resort)",
+      "Learner can describe a buy-in process and cash compensation",
+      "Learner can contrast EU penalties with US fail charges and Reg SHO close-out"
+     ],
+     "key_concepts": [
+      "mandatory buy-in (original CSDR Art 7)",
+      "Refit: buy-in only as last resort / suspended",
+      "extension period and buy-in agent",
+      "cash compensation",
+      "US Reg SHO close-out and fail charges",
+      "market claims for fail-related events"
+     ],
+     "worked_example": "A fail on an illiquid share persists past the extension period; under Refit the buy-in is not automatic and is applied only after a delay-and-assessment procedure.",
+     "exercises": [
+      {
+       "template": "order",
+       "task": "Order the steps of a buy-in process",
+       "params": "step set"
+      },
+      {
+       "template": "mcq",
+       "task": "Identify whether the original or Refit regime applies to a statement",
+       "params": "statement variant"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort features into EU penalties vs US fail handling",
+       "params": "feature list"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute cash compensation from buy-in price vs original price",
+       "params": "prices, quantity"
+      }
+     ],
+     "callbacks": [
+      "O3.6"
+     ],
+     "sources": [
+      {
+       "id": "S248",
+       "ref": "Refit amendments to Art 7",
+       "use": "core"
+      },
+      {
+       "id": "S247",
+       "ref": "Refit overview",
+       "use": "reference"
+      },
+      {
+       "id": "S263",
+       "ref": "Art 7 original text",
+       "use": "reference"
+      },
+      {
+       "id": "S294",
+       "ref": "ESMA Q&As on buy-in",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O3.8",
+     "title": "Settlement efficiency, internalisation and reporting",
+     "minutes": 50,
+     "objectives": [
+      "Learner can compute settlement efficiency rates",
+      "Learner can explain internalised settlement and its reporting",
+      "Learner can apply a fail-resolution playbook to a mixed scenario"
+     ],
+     "key_concepts": [
+      "settlement efficiency (value / volume)",
+      "internalised settlement (CSDR Art 9)",
+      "settlement fail reporting",
+      "chains and circular fails",
+      "fail-resolution playbook",
+      "cross-border routes"
+     ],
+     "worked_example": "On a day with 2,000 instructions and 60 failing, settlement efficiency by volume is 97%; the desk resolves 40 fails by cut-off using partials, recycling and a stock borrow from the lending desk.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute settlement efficiency by volume and by value",
+       "params": "instructions, failed counts, values"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in an internalised settlement report",
+       "params": "inserted error"
+      },
+      {
+       "template": "order",
+       "task": "Order actions to resolve a three-party circular fail",
+       "params": "scenario"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose the best next action for a pending instruction at 15:30",
+       "params": "scenario variant"
+      }
+     ],
+     "callbacks": [
+      "O3.5",
+      "O3.6",
+      "O3.7"
+     ],
+     "sources": [
+      {
+       "id": "S263",
+       "ref": "Art 9 (internalised settlement)",
+       "use": "reference"
+      },
+      {
+       "id": "S058",
+       "ref": "chapter on fails and metrics",
+       "use": "deeper"
+      },
+      {
+       "id": "S294",
+       "ref": "ESMA Q&As on reporting",
+       "use": "reference"
+      },
+      {
+       "id": "S021",
+       "ref": "chapters on settlement efficiency",
+       "use": "deeper"
+      }
+     ]
+    }
+   ],
+   "minigame": {
+    "name": "Settlement Chase",
+    "variant": "Resolve a stream of fails before cut-off using matching corrections, partials, shaping, borrowing and recycling; penalty meter counts basis points."
+   },
+   "unit_test": "Settlement models, CSD landscape and T2S timeline, cycle calculation including holidays, fail causes, CSDR penalty arithmetic and Refit buy-in status.",
+   "jurisdiction_notes": "EU first (CSDR, Refit, T2S, T+1 on 11 Oct 2027); US sidebar (T+1 since 28 May 2024, DTC, Reg SHO); UK T+1 on 11 Oct 2027; CH/SG/HK not covered in this module."
+  },
+  {
+   "id": "O4",
+   "title": "Custody & safekeeping",
+   "track": "ops",
+   "hours": 6,
+   "prereqs": [
+    "O3"
+   ],
+   "boss_items": [
+    "custodian role (safekeeping)",
+    "client accounts",
+    "chart of accounts (custody side)"
+   ],
+   "hook": "Custody chains, omnibus and segregated accounts, the CSD layer, depositary duties, and what happens to client assets if a custodian fails.",
+   "units": [
+    {
+     "id": "O4.1",
+     "title": "The custody chain: from investor to CSD",
+     "minutes": 50,
+     "objectives": [
+      "Learner can map a holding chain from end investor to CSD",
+      "Learner can distinguish global custodian, sub-custodian, agent bank and depositary",
+      "Learner can list core custody services"
+     ],
+     "key_concepts": [
+      "custody chain",
+      "global custodian vs sub-custodian",
+      "agent bank",
+      "safekeeping, settlement, asset servicing",
+      "direct vs indirect holding",
+      "legal vs beneficial owner"
+     ],
+     "worked_example": "A Swiss pension fund holds Italian equities through its global custodian in Zurich, which uses a sub-custodian in Milan that is a participant of Monte Titoli.",
+     "exercises": [
+      {
+       "template": "order",
+       "task": "Order the layers of a cross-border custody chain",
+       "params": "chain variant: 3-5 layers"
+      },
+      {
+       "template": "match",
+       "task": "Match custody services to descriptions",
+       "params": "service list"
+      },
+      {
+       "template": "mcq",
+       "task": "Identify who is legal owner at a given layer",
+       "params": "layer variant"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort tasks into custodian, broker, CSD, issuer agent",
+       "params": "task list"
+      }
+     ],
+     "callbacks": [
+      "O3.2",
+      "C1.1"
+     ],
+     "sources": [
+      {
+       "id": "S063",
+       "ref": "chapters on global custody and chain",
+       "use": "core"
+      },
+      {
+       "id": "S049",
+       "ref": "custody chapters",
+       "use": "core"
+      },
+      {
+       "id": "S005",
+       "ref": "custody chapters",
+       "use": "foundation"
+      }
+     ]
+    },
+    {
+     "id": "O4.2",
+     "title": "Account structures: omnibus, segregated, nominee",
+     "minutes": 55,
+     "objectives": [
+      "Learner can compare omnibus and individually segregated structures",
+      "Learner can describe CSDR Art 38 client segregation options",
+      "Learner can explain nominee and street-name practice"
+     ],
+     "key_concepts": [
+      "omnibus client segregation (OCS)",
+      "individual client segregation (ICS)",
+      "CSDR Art 38",
+      "nominee accounts",
+      "beneficial vs record holder",
+      "street name / Cede & Co (US)",
+      "commingling risk"
+     ],
+     "worked_example": "A custodian's Euroclear account has an omnibus pool for 40 clients; offering ICS for a large institution moves that client's position to a dedicated sub-account with higher cost.",
+     "exercises": [
+      {
+       "template": "table",
+       "task": "Show positions at three levels (client ledger, custodian, CSD) for a reconciliation case",
+       "params": "positions per client"
+      },
+      {
+       "template": "mcq",
+       "task": "Pick the segregation level that best protects against a specific risk",
+       "params": "risk variant"
+      },
+      {
+       "template": "bucket",
+       "task": "Classify features as omnibus vs individual segregation",
+       "params": "feature list"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a custodian's account-structure disclosure",
+       "params": "inserted error"
+      }
+     ],
+     "callbacks": [
+      "O3.2",
+      "C1.2"
+     ],
+     "sources": [
+      {
+       "id": "S169",
+       "ref": "Art 38 text and ESMA reading",
+       "use": "core"
+      },
+      {
+       "id": "S035",
+       "ref": "Euronext Securities segregation levels",
+       "use": "core"
+      },
+      {
+       "id": "S063",
+       "ref": "chapters on account structures",
+       "use": "deeper"
+      },
+      {
+       "id": "S291",
+       "ref": "depositary asset segregation Del. Regs",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O4.3",
+     "title": "Asset protection and legal risk",
+     "minutes": 50,
+     "objectives": [
+      "Learner can explain how segregation and title protect client assets on insolvency",
+      "Learner can distinguish title transfer, pledge and bailment",
+      "Learner can compare asset-protection regimes (EU, US 15c3-3, UK CASS, DE Depotgesetz)"
+     ],
+     "key_concepts": [
+      "insolvency remoteness",
+      "title vs security interest",
+      "reuse of assets",
+      "client asset rules (SEC 15c3-3, FCA CASS)",
+      "Girosammeldepot (DE)",
+      "sub-custodian liability",
+      "legal opinions"
+     ],
+     "worked_example": "On a custodian insolvency, segregated securities are returned in kind, while cash held on the custodian's own balance sheet can be an unsecured claim.",
+     "exercises": [
+      {
+       "template": "bucket",
+       "task": "Sort assets into protected vs at-risk on custodian failure",
+       "params": "asset/structure variant"
+      },
+      {
+       "template": "mcq",
+       "task": "Identify the regime concept named in a description",
+       "params": "regime variant"
+      },
+      {
+       "template": "match",
+       "task": "Match regimes (15c3-3, CASS, Depotgesetz, CSDR Art 38) to jurisdictions",
+       "params": "list"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a client-asset statement",
+       "params": "inserted error"
+      }
+     ],
+     "callbacks": [
+      "O4.2"
+     ],
+     "sources": [
+      {
+       "id": "S150",
+       "ref": "chapters on custodian insolvency and client assets",
+       "use": "core"
+      },
+      {
+       "id": "S273",
+       "ref": "Rule 15c3-3 overview",
+       "use": "reference"
+      },
+      {
+       "id": "S312",
+       "ref": "FCA PS14/9 CASS",
+       "use": "reference"
+      },
+      {
+       "id": "S214",
+       "ref": "Depotgesetz overview",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O4.4",
+     "title": "Forms of holding: bearer, registered, book-entry",
+     "minutes": 45,
+     "objectives": [
+      "Learner can compare physical, immobilised and dematerialised securities",
+      "Learner can explain registrar and share-register roles",
+      "Learner can describe CSDR Art 3 and Art 37 integrity-of-issue rules"
+     ],
+     "key_concepts": [
+      "bearer vs registered",
+      "immobilisation vs dematerialisation",
+      "global note and common depositary / common safekeeper",
+      "registrar / transfer agent",
+      "CSDR Arts 3, 37"
+     ],
+     "worked_example": "A global bearer note is held at Euroclear Bank by a common depositary; an Italian dematerialised share exists only as a book entry at Monte Titoli.",
+     "exercises": [
+      {
+       "template": "bucket",
+       "task": "Sort securities by form (bearer, registered, dematerialised)",
+       "params": "security list"
+      },
+      {
+       "template": "mcq",
+       "task": "Pick who maintains the register in a given structure",
+       "params": "structure variant"
+      },
+      {
+       "template": "cloze",
+       "task": "Complete a text on immobilisation",
+       "params": "word bank"
+      },
+      {
+       "template": "match",
+       "task": "Match terms (global note, CD, CSD, registrar) to roles",
+       "params": "term list"
+      }
+     ],
+     "callbacks": [
+      "O4.1",
+      "P2.4"
+     ],
+     "sources": [
+      {
+       "id": "S063",
+       "ref": "chapters on forms of securities",
+       "use": "core"
+      },
+      {
+       "id": "S263",
+       "ref": "Arts 3, 37",
+       "use": "reference"
+      },
+      {
+       "id": "S049",
+       "ref": "chapter on immobilisation",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "O4.5",
+     "title": "Depositaries for UCITS and AIFs",
+     "minutes": 55,
+     "objectives": [
+      "Learner can list the three depositary duties (safekeeping, cash monitoring, oversight)",
+      "Learner can explain the strict liability rule on loss of financial instruments",
+      "Learner can distinguish depositary from custodian and sub-custodian delegation"
+     ],
+     "key_concepts": [
+      "UCITS V / AIFMD depositary regime",
+      "safekeeping of custody vs non-custody assets",
+      "cash flow monitoring",
+      "oversight duties",
+      "delegation and liability",
+      "restitution of lost assets",
+      "reuse restrictions",
+      "Luxembourg circulars"
+     ],
+     "worked_example": "A Luxembourg UCITS depositary delegates to a sub-custodian in Spain: if instruments are lost, the depositary must return equivalent assets unless it can prove an external event beyond reasonable control.",
+     "exercises": [
+      {
+       "template": "bucket",
+       "task": "Sort tasks into safekeeping, cash monitoring or oversight",
+       "params": "task list"
+      },
+      {
+       "template": "mcq",
+       "task": "Decide liability in a described loss scenario",
+       "params": "scenario variant"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a depositary agreement summary",
+       "params": "inserted error"
+      },
+      {
+       "template": "match",
+       "task": "Match articles/documents to their subject",
+       "params": "list: UCITS V, AIFMD L2, CSSF 16/644, 18/697"
+      }
+     ],
+     "callbacks": [
+      "O4.1",
+      "O4.3",
+      "P4.1"
+     ],
+     "sources": [
+      {
+       "id": "S289",
+       "ref": "UCITS V depositary Del. Reg. 2016/438",
+       "use": "core"
+      },
+      {
+       "id": "S290",
+       "ref": "AIFMD L2 depositary articles",
+       "use": "core"
+      },
+      {
+       "id": "S292",
+       "ref": "CSSF 16/644",
+       "use": "deeper"
+      },
+      {
+       "id": "S293",
+       "ref": "CSSF 18/697",
+       "use": "deeper"
+      },
+      {
+       "id": "S310",
+       "ref": "ESMA opinion on CSD delegation",
+       "use": "reference"
+      },
+      {
+       "id": "S180",
+       "ref": "UCITS/AIFMD",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O4.6",
+     "title": "Reconciliation and operational controls",
+     "minutes": 55,
+     "objectives": [
+      "Learner can perform position and cash reconciliations and classify breaks",
+      "Learner can age and escalate breaks",
+      "Learner can name key statements and messages (MT535/536/537, MT940/950, semt)"
+     ],
+     "key_concepts": [
+      "position reconciliation",
+      "cash reconciliation (nostro)",
+      "break categories (timing, pricing, booking, corporate action)",
+      "ageing and escalation",
+      "daily statements",
+      "SOC / ISAE 3402 reports (conceptual)"
+     ],
+     "worked_example": "Internal book shows 10,000 shares of an ISIN, the sub-custodian statement shows 9,500: a pending sale of 500 not yet booked internally explains the difference.",
+     "exercises": [
+      {
+       "template": "table",
+       "task": "Reconcile a position table and mark break reasons",
+       "params": "positions, pending items"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the residual break after explaining known items",
+       "params": "quantities"
+      },
+      {
+       "template": "match",
+       "task": "Match message types to statement purposes",
+       "params": "message list"
+      },
+      {
+       "template": "order",
+       "task": "Order the daily reconciliation routine",
+       "params": "step set"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a custody statement extract",
+       "params": "inserted error"
+      }
+     ],
+     "callbacks": [
+      "A1.4",
+      "O4.2",
+      "O3.5"
+     ],
+     "sources": [
+      {
+       "id": "S058",
+       "ref": "chapters on reconciliation",
+       "use": "core"
+      },
+      {
+       "id": "S100",
+       "ref": "reconciliation in trade lifecycle",
+       "use": "deeper"
+      },
+      {
+       "id": "S327",
+       "ref": "statement message usage guidelines",
+       "use": "reference"
+      },
+      {
+       "id": "S016",
+       "ref": "ISO 20022 introduction",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O4.7",
+     "title": "Custody economics and provider selection",
+     "minutes": 50,
+     "objectives": [
+      "Learner can compute custody fees from a fee schedule",
+      "Learner can describe sub-custodian due diligence and risk factors",
+      "Learner can evaluate service-level terms"
+     ],
+     "key_concepts": [
+      "safekeeping fees in bps",
+      "transaction fees",
+      "FX and cash sweep",
+      "tax services",
+      "sub-custodian selection and monitoring",
+      "service levels",
+      "operational risk"
+     ],
+     "worked_example": "Safekeeping on EUR 400m at 20 bp for the first EUR 100m and 15 bp above costs EUR 200k + EUR 450k = EUR 650k a year (EUR 162.5k per quarter), plus transaction fees for 3,000 settlements.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute annual custody fees with tiers",
+       "params": "AUC, bp tiers, transaction counts"
+      },
+      {
+       "template": "mcq",
+       "task": "Pick the key due-diligence criterion in a case",
+       "params": "case variant"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort fees into asset-based, transaction-based, ad hoc",
+       "params": "fee list"
+      },
+      {
+       "template": "table",
+       "task": "Build a quarterly fee invoice table",
+       "params": "volumes"
+      }
+     ],
+     "callbacks": [
+      "O4.1",
+      "O3.8"
+     ],
+     "sources": [
+      {
+       "id": "S063",
+       "ref": "chapters on custody business model",
+       "use": "core"
+      },
+      {
+       "id": "S150",
+       "ref": "sub-custodian selection",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "Custody chain, segregation structures, asset protection, depositary duties and liabilities, reconciliation logic.",
+   "jurisdiction_notes": "EU first (CSDR Art 38, UCITS V/AIFMD depositary, CSSF circulars); US sidebar (street name, 15c3-3); UK CASS; Germany Depotgesetz; CH not covered here (see R3/C3)."
+  },
+  {
+   "id": "O5",
+   "title": "Transfers",
+   "track": "ops",
+   "hours": 4,
+   "prereqs": [
+    "O4"
+   ],
+   "boss_items": [
+    "transfers",
+    "client accounts"
+   ],
+   "hook": "Account transfers between institutions, the instruction and matching process, handling of funds and multi-currency positions, and the checks before booking.",
+   "units": [
+    {
+     "id": "O5.1",
+     "title": "Transfer taxonomy: FoP vs DvP, internal vs external",
+     "minutes": 45,
+     "objectives": [
+      "Learner can distinguish FoP, DvP, internal book transfer and external transfer",
+      "Learner can name risks of FoP (no cash leg) and how to mitigate them",
+      "Learner can list data needed for a transfer instruction"
+     ],
+     "key_concepts": [
+      "FoP / DFP / RFP vs DVP / RVP",
+      "internal vs inter-custodian transfer",
+      "in-specie vs cash",
+      "transfer reasons (change of provider, consolidation, inheritance)",
+      "ownership change vs custody change",
+      "cost and tax consequences"
+     ],
+     "worked_example": "Moving 5,000 shares to another bank is a FoP delivery with no payment; selling and re-buying would instead be a DvP trade and may crystallise tax.",
+     "exercises": [
+      {
+       "template": "bucket",
+       "task": "Sort scenarios into FoP, DvP, internal transfer",
+       "params": "scenario list"
+      },
+      {
+       "template": "mcq",
+       "task": "Pick the correct instruction type for a described case",
+       "params": "case variant"
+      },
+      {
+       "template": "cloze",
+       "task": "Complete a text on principal risk in FoP",
+       "params": "word bank"
+      },
+      {
+       "template": "match",
+       "task": "Match required data fields to the instruction element",
+       "params": "field list"
+      }
+     ],
+     "callbacks": [
+      "O3.1",
+      "C1.2"
+     ],
+     "sources": [
+      {
+       "id": "S028",
+       "ref": "chapter on transfers",
+       "use": "core"
+      },
+      {
+       "id": "S049",
+       "ref": "transfer sections",
+       "use": "core"
+      },
+      {
+       "id": "S058",
+       "ref": "chapter on settlement instructions",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "O5.2",
+     "title": "FoP transfers in practice: MT54x and sese messages",
+     "minutes": 50,
+     "objectives": [
+      "Learner can pick the right MT540-MT543 / sese.023 instruction for a transfer",
+      "Learner can read the main fields of a FoP instruction",
+      "Learner can handle a rejection, repair and recall"
+     ],
+     "key_concepts": [
+      "MT540/541/542/543 (receive/deliver free/against payment)",
+      "MT544-547 confirmations",
+      "MT548 status",
+      "sese.023 / sese.024 / sese.025",
+      "settlement parties and places",
+      "cost-basis carryover data"
+     ],
+     "worked_example": "To deliver 5,000 shares free to another custodian, the sender issues a MT542 (deliver free) or sese.023 with the receiver as account owner at the CSD.",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Match message types (MT540-543) to function",
+       "params": "message list"
+      },
+      {
+       "template": "order",
+       "task": "Order the lifecycle of a FoP instruction",
+       "params": "step set"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in an MT542/sese.023 summary",
+       "params": "inserted error"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose the next step after a rejection code",
+       "params": "rejection variant"
+      }
+     ],
+     "callbacks": [
+      "O3.5",
+      "T7.1"
+     ],
+     "sources": [
+      {
+       "id": "S016",
+       "ref": "ISO 20022 securities message sections",
+       "use": "core"
+      },
+      {
+       "id": "S327",
+       "ref": "usage guidelines for settlement messages",
+       "use": "core"
+      },
+      {
+       "id": "S306",
+       "ref": "ISO 20022 customisation notes",
+       "use": "reference"
+      },
+      {
+       "id": "S052",
+       "ref": "messaging chapters",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O5.3",
+     "title": "US customer account transfers: ACATS",
+     "minutes": 50,
+     "objectives": [
+      "Learner can describe the ACATS process and timeline",
+      "Learner can list common reject reasons",
+      "Learner can describe fraud controls for transfers"
+     ],
+     "key_concepts": [
+      "ACATS (NSCC Rule 50)",
+      "FINRA Rule 11870",
+      "transfer initiation form (TIF)",
+      "validation, review, exception and reclaim windows",
+      "reject reasons",
+      "fraudulent transfers (FINRA RN 23-06)"
+     ],
+     "worked_example": "A customer submits a TIF to the receiving broker; the delivering broker validates and releases the assets within the ACATS timeframe, rejecting on account-title mismatch if names differ.",
+     "exercises": [
+      {
+       "template": "order",
+       "task": "Order the ACATS stages",
+       "params": "stage list"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort rejection reasons into recoverable vs not",
+       "params": "reason list"
+      },
+      {
+       "template": "mcq",
+       "task": "Identify the party responsible at each ACATS stage",
+       "params": "stage variant"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a TIF",
+       "params": "inserted error"
+      }
+     ],
+     "callbacks": [
+      "O5.1"
+     ],
+     "sources": [
+      {
+       "id": "S237",
+       "ref": "NSCC Rule 50",
+       "use": "core"
+      },
+      {
+       "id": "S206",
+       "ref": "FINRA Rule 11870",
+       "use": "core"
+      },
+      {
+       "id": "S129",
+       "ref": "FINRA RN 23-06",
+       "use": "deeper"
+      },
+      {
+       "id": "S046",
+       "ref": "customer-protection context",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O5.4",
+     "title": "UK STAR, EU practice and Swiss sidebar",
+     "minutes": 45,
+     "objectives": [
+      "Learner can describe the UK STAR transfer standards",
+      "Learner can explain how EU transfers work without a single harmonised scheme",
+      "Learner can compare EU, UK and US models"
+     ],
+     "key_concepts": [
+      "STAR (UK)",
+      "bilateral FoP in EU",
+      "CSD-led transfers",
+      "re-registration of nominee holdings",
+      "portability reforms (conceptual)",
+      "SIX SIS / Swiss practice (sidebar)"
+     ],
+     "worked_example": "A UK ISA transfer runs over the STAR standards, while an Italian-to-German bank transfer is typically an FoP via the CSD/ICSD route.",
+     "exercises": [
+      {
+       "template": "bucket",
+       "task": "Sort features into STAR, ACATS, or EU bilateral FoP",
+       "params": "feature list"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose the typical route for a cross-border transfer",
+       "params": "route variant"
+      },
+      {
+       "template": "match",
+       "task": "Match schemes to jurisdictions",
+       "params": "scheme list"
+      },
+      {
+       "template": "cloze",
+       "task": "Complete a text comparing the models",
+       "params": "word bank"
+      }
+     ],
+     "callbacks": [
+      "O5.2",
+      "O5.3"
+     ],
+     "sources": [
+      {
+       "id": "S281",
+       "ref": "STAR standards overview",
+       "use": "core"
+      },
+      {
+       "id": "S049",
+       "ref": "regional transfer practices",
+       "use": "reference"
+      },
+      {
+       "id": "S124",
+       "ref": "EU investor-mobility context",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O5.5",
+     "title": "Fund transfers and ISO 20022",
+     "minutes": 50,
+     "objectives": [
+      "Learner can explain transfers of fund units (platform vs register)",
+      "Learner can describe re-registration and in-kind transfers",
+      "Learner can list the ISO 20022 messages used for fund orders and transfers"
+     ],
+     "key_concepts": [
+      "TA register vs platform holdings",
+      "fund platforms (e.g. Vestima, FundSettle)",
+      "setr / sese for funds",
+      "re-registration",
+      "cost-basis carryover",
+      "orphan holdings"
+     ],
+     "worked_example": "A client's Luxembourg UCITS units move from one distributor's nominee at the TA to another: the transfer agent re-registers the units; no redemption, so no tax event.",
+     "exercises": [
+      {
+       "template": "order",
+       "task": "Order the steps of a fund-unit transfer",
+       "params": "step set"
+      },
+      {
+       "template": "mcq",
+       "task": "Pick the transfer method for a given holding structure",
+       "params": "structure variant"
+      },
+      {
+       "template": "match",
+       "task": "Match message families to functions",
+       "params": "family list"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a fund transfer request",
+       "params": "inserted error"
+      }
+     ],
+     "callbacks": [
+      "O5.2",
+      "P4.5"
+     ],
+     "sources": [
+      {
+       "id": "S016",
+       "ref": "fund messages sections",
+       "use": "core"
+      },
+      {
+       "id": "S327",
+       "ref": "usage guidelines",
+       "use": "reference"
+      },
+      {
+       "id": "S052",
+       "ref": "fund-related CA/processing notes",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O5.6",
+     "title": "Client transfer workflow and cost-basis carry-over",
+     "minutes": 45,
+     "objectives": [
+      "Trace a transfer-in and a transfer-out from client instruction to completion, naming the sending and receiving party actions",
+      "Diagnose rejections and breaks (account title, quantity, unsupported security, restriction, missing signature) and the action to resolve each",
+      "Carry over cost basis and acquisition dates for transferred lots and compute the effect of missing basis",
+      "Reconcile the position and cash after a transfer between sender and receiver"
+     ],
+     "key_concepts": [
+      "Transfer-in and transfer-out workflow: request, validation, instruction, matching, settlement, confirmation",
+      "FoP messages (MT540-543, sese.023) and market schemes: US ACATS, UK STAR; no single harmonised EU scheme",
+      "Rejection and break reasons and repair",
+      "Cost-basis and acquisition-date carry-over; transfer statements for tax lots",
+      "Missing basis: default treatment and client correction",
+      "Reconciliation after transfer: positions, pending claims, fees"
+     ],
+     "worked_example": "A client transfers in 1,000 shares: 400 bought on 12 Mar 2019 at EUR 18.00 and 600 on 30 Jun 2021 at EUR 22.50. Carried-over cost is 400 x 18.00 + 600 x 22.50 = EUR 20,700 (EUR 20.70 average). If the sender supplies no basis, the receiver may default to the market value on transfer date (EUR 30.00 x 1,000 = EUR 30,000), understating the gain by EUR 9,300 on a later sale at EUR 30; the client submits the lot history to correct it.",
+     "exercises": [
+      {
+       "template": "order",
+       "task": "Sequence the steps of a transfer-in or transfer-out",
+       "params": "7-9 steps; direction varies"
+      },
+      {
+       "template": "mcq",
+       "task": "What is the cause of this rejection and the repair?",
+       "params": "reject reason pool"
+      },
+      {
+       "template": "numeric",
+       "task": "Carried-over cost basis and gain understated by a missing basis",
+       "params": "lots 2-4; default price"
+      },
+      {
+       "template": "table",
+       "task": "Reconcile sender and receiver positions after the transfer",
+       "params": "position and cash lines, one break"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a transfer request",
+       "params": "request with seeded error: account title, quantity, ISIN"
+      }
+     ],
+     "callbacks": [
+      "O3.5",
+      "O4.6",
+      "O5.1",
+      "O5.2",
+      "O5.4"
+     ],
+     "sources": [
+      {
+       "id": "S028",
+       "ref": "transfer and position management",
+       "use": "core"
+      },
+      {
+       "id": "S049",
+       "ref": "clearing, settlement and custody: FoP mechanics",
+       "use": "reference"
+      },
+      {
+       "id": "S237",
+       "ref": "ACATS rules: transfer data and timeline",
+       "use": "reference"
+      },
+      {
+       "id": "S281",
+       "ref": "STAR: UK transfer standards",
+       "use": "reference"
+      },
+      {
+       "id": "S058",
+       "ref": "reconciliation after transfers",
+       "use": "reference"
+      },
+      {
+       "id": "S226",
+       "ref": "IRS Pub 550: basis reporting on sales",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "Transfer types, instruction messages, ACATS stages, STAR/EU comparison and fund-unit transfers.",
+   "jurisdiction_notes": "EU first (bilateral FoP, ISO 20022); US ACATS; UK STAR; CH sidebar; SG/HK not covered."
+  },
+  {
+   "id": "O6",
+   "title": "Securities lending & repo",
+   "track": "ops",
+   "hours": 5,
+   "prereqs": [
+    "O3"
+   ],
+   "boss_items": [
+    "secured/Lombard lending (collateral basics)",
+    "custodian role"
+   ],
+   "hook": "Securities lending and repo mechanics, collateral types and haircuts, margining, recall rights, and the treatment of dividends during a loan.",
+   "units": [
+    {
+     "id": "O6.1",
+     "title": "Securities lending mechanics",
+     "minutes": 50,
+     "objectives": [
+      "Learner can describe the parties and flows of a securities loan",
+      "Learner can compute loan fees, rebates and revenue splits",
+      "Learner can explain recalls and manufactured payments"
+     ],
+     "key_concepts": [
+      "lender, borrower, agent lender",
+      "loan fee / rebate rate",
+      "open vs term loans",
+      "recall and return",
+      "manufactured dividends",
+      "specials vs general collateral"
+     ],
+     "worked_example": "Lending EUR 10m of a stock at 40 bp for 30 days earns EUR 10m x 0.004 x 30/360 = EUR 3,333; the agent keeps a 25% share.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute loan fee income and agent split",
+       "params": "value, fee bp, days, split %"
+      },
+      {
+       "template": "order",
+       "task": "Order the lifecycle of a loan",
+       "params": "step set"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose the correct treatment of a dividend on loaned stock",
+       "params": "dividend variant"
+      },
+      {
+       "template": "cloze",
+       "task": "Complete a text on recall",
+       "params": "word bank"
+      }
+     ],
+     "callbacks": [
+      "P2.3",
+      "O3.1"
+     ],
+     "sources": [
+      {
+       "id": "S090",
+       "ref": "securities lending chapters",
+       "use": "core"
+      },
+      {
+       "id": "S050",
+       "ref": "collateral management intro",
+       "use": "deeper"
+      },
+      {
+       "id": "S049",
+       "ref": "chapter on lending",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O6.2",
+     "title": "Repo mechanics",
+     "minutes": 50,
+     "objectives": [
+      "Learner can describe a repo and reverse repo",
+      "Learner can compute repurchase price and implied rate",
+      "Learner can distinguish GC and special repo, bilateral and tri-party"
+     ],
+     "key_concepts": [
+      "repo/reverse repo",
+      "repo rate (act/360)",
+      "start and end legs",
+      "GC vs special",
+      "tri-party agents",
+      "CCP-cleared repo"
+     ],
+     "worked_example": "EUR 10m of Bunds are repoed for 7 days at 3.00% (act/360); repurchase price = 10m x (1 + 0.03 x 7/360) = EUR 10,005,833.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute the repurchase price from rate and term",
+       "params": "cash, rate, days"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute implied repo rate from two prices",
+       "params": "start, end, days"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort descriptions into GC vs special",
+       "params": "list"
+      },
+      {
+       "template": "mcq",
+       "task": "Pick who is lender vs borrower of cash",
+       "params": "variant"
+      }
+     ],
+     "callbacks": [
+      "F1.1",
+      "P3.1"
+     ],
+     "sources": [
+      {
+       "id": "S152",
+       "ref": "repo market chapters",
+       "use": "core"
+      },
+      {
+       "id": "S071",
+       "ref": "ICMA ERCC guide",
+       "use": "core"
+      },
+      {
+       "id": "S090",
+       "ref": "repo chapters",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "O6.3",
+     "title": "Collateral: haircuts, margin and eligibility",
+     "minutes": 50,
+     "objectives": [
+      "Learner can compute haircut and margin requirement",
+      "Learner can explain mark-to-market and margin calls on SFTs",
+      "Learner can describe eligibility and concentration rules"
+     ],
+     "key_concepts": [
+      "haircut and initial margin",
+      "variation margin on repo/loan",
+      "eligible collateral",
+      "substitution",
+      "concentration limits",
+      "cash vs non-cash collateral"
+     ],
+     "worked_example": "Lending EUR 10m of shares against bonds with 5% haircut: collateral must be at least EUR 10.5m; if the shares rise to EUR 10.4m the requirement becomes EUR 10.92m, so a EUR 420k top-up is called.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute required collateral from a haircut",
+       "params": "value, haircut %"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute a margin call after mark-to-market",
+       "params": "loan value, collateral value, haircut"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort assets by typical eligibility",
+       "params": "asset list"
+      },
+      {
+       "template": "mcq",
+       "task": "Decide whether a substitution is acceptable",
+       "params": "case variant"
+      }
+     ],
+     "callbacks": [
+      "O6.1",
+      "O2.4"
+     ],
+     "sources": [
+      {
+       "id": "S050",
+       "ref": "collateral chapters",
+       "use": "core"
+      },
+      {
+       "id": "S320",
+       "ref": "ECB haircut guideline",
+       "use": "reference"
+      },
+      {
+       "id": "S309",
+       "ref": "ECB haircut explainer",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O6.4",
+     "title": "Documentation: GMRA and GMSLA",
+     "minutes": 50,
+     "objectives": [
+      "Learner can describe the structure of GMRA/GMSLA",
+      "Learner can distinguish title transfer from pledge",
+      "Learner can explain events of default and close-out netting"
+     ],
+     "key_concepts": [
+      "GMRA 2011",
+      "GMSLA 2010 and 2018 pledge version",
+      "title transfer",
+      "events of default",
+      "close-out netting",
+      "annexes"
+     ],
+     "worked_example": "Under a GMRA, if a counterparty defaults, all repos are terminated, valued at default market value and netted into a single claim.",
+     "exercises": [
+      {
+       "template": "mcq",
+       "task": "Pick the clause governing a described scenario",
+       "params": "scenario variant"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort features into title transfer vs pledge",
+       "params": "feature list"
+      },
+      {
+       "template": "order",
+       "task": "Order the close-out netting steps",
+       "params": "step set"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a GMRA summary",
+       "params": "inserted error"
+      }
+     ],
+     "callbacks": [
+      "O6.2",
+      "O6.3"
+     ],
+     "sources": [
+      {
+       "id": "S216",
+       "ref": "GMRA 2011",
+       "use": "core"
+      },
+      {
+       "id": "S217",
+       "ref": "GMSLA",
+       "use": "core"
+      },
+      {
+       "id": "S150",
+       "ref": "legal analysis chapters",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "O6.5",
+     "title": "SFTR: reporting and reuse",
+     "minutes": 50,
+     "objectives": [
+      "Learner can describe SFTR scope and reporting obligations",
+      "Learner can explain reuse conditions (Art 15)",
+      "Learner can read key SFTR reporting fields"
+     ],
+     "key_concepts": [
+      "SFTR scope (repo, sec lending, margin lending, buy-sell back)",
+      "reporting to TRs",
+      "UTI and LEI",
+      "Art 13 fund disclosure",
+      "Art 15 reuse conditions",
+      "ESMA Q&As"
+     ],
+     "worked_example": "A repo between two EU banks is reported to a trade repository by T+1 with a UTI and both LEIs, and every modification and collateral update is also reported.",
+     "exercises": [
+      {
+       "template": "bucket",
+       "task": "Sort transactions into in-scope vs out-of-scope",
+       "params": "transaction list"
+      },
+      {
+       "template": "mcq",
+       "task": "Pick the field that identifies the trade across repositories",
+       "params": "field variant"
+      },
+      {
+       "template": "cloze",
+       "task": "Complete a text on reuse conditions",
+       "params": "word bank"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a report extract",
+       "params": "inserted error"
+      }
+     ],
+     "callbacks": [
+      "O6.1",
+      "O6.4"
+     ],
+     "sources": [
+      {
+       "id": "S244",
+       "ref": "SFTR text: Arts 4, 13, 15",
+       "use": "core"
+      },
+      {
+       "id": "S299",
+       "ref": "ESMA Q&As",
+       "use": "reference"
+      },
+      {
+       "id": "S243",
+       "ref": "SFTR",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O6.6",
+     "title": "Lifecycle operations and risks",
+     "minutes": 50,
+     "objectives": [
+      "Learner can handle corporate actions on loaned/repoed securities",
+      "Learner can explain operational and credit risks",
+      "Learner can link lending to short-selling and settlement fails"
+     ],
+     "key_concepts": [
+      "CA on loaned stock",
+      "voting and recall",
+      "tax on manufactured payments",
+      "fails and recalls",
+      "reuse risk",
+      "link to short selling"
+     ],
+     "worked_example": "Before a record date, the lender recalls shares to vote; the borrower must return them in the standard settlement cycle or incur fails.",
+     "exercises": [
+      {
+       "template": "order",
+       "task": "Order the steps of recall processing",
+       "params": "step set"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose the manufactured payment treatment",
+       "params": "event variant"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort risks into credit, operational, legal",
+       "params": "risk list"
+      },
+      {
+       "template": "cloze",
+       "task": "Complete a text on the link to fails",
+       "params": "word bank"
+      }
+     ],
+     "callbacks": [
+      "O6.1",
+      "O3.6"
+     ],
+     "sources": [
+      {
+       "id": "S090",
+       "ref": "operations chapters",
+       "use": "core"
+      },
+      {
+       "id": "S050",
+       "ref": "risk chapters",
+       "use": "deeper"
+      },
+      {
+       "id": "S253",
+       "ref": "Short Selling Regulation",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "SFT mechanics, haircut/margin arithmetic, GMRA/GMSLA concepts and SFTR reporting basics.",
+   "jurisdiction_notes": "EU first (SFTR, ICMA ERCC); US sidebar (SEC/FINRA treatment, Reg SHO); UK/CH/SG/HK limited to GMRA/GMSLA governing law."
+  },
+  {
+   "id": "O7",
+   "title": "Corporate actions I: mandatory events",
+   "track": "ops",
+   "hours": 8,
+   "prereqs": [
+    "O4",
+    "P2",
+    "P3"
+   ],
+   "boss_items": [
+    "all corporate actions",
+    "income accounting (event side)",
+    "custodian role (asset servicing)"
+   ],
+   "hook": "Dividends, splits, mergers and other mandatory events: announcement, important dates, entitlement calculation and posting to client accounts.",
+   "units": [
+    {
+     "id": "O7.1",
+     "title": "The corporate action landscape and lifecycle",
+     "minutes": 45,
+     "objectives": [
+      "Learner can classify an event as mandatory, mandatory with choice or voluntary",
+      "Learner can order the stages of the CA lifecycle (announcement to reconciliation)",
+      "Learner can name the main ISO 15022 event types for the mandatory events in this module"
+     ],
+     "key_concepts": [
+      "mandatory / mandatory with choice / voluntary",
+      "event lifecycle: announcement, validation, notification, entitlement, instruction, payment, reconciliation",
+      "issuer, agent, CSD, custodian chain",
+      "golden copy and data sources",
+      "ISO event codes (DVCA, DVSE, INTR, REDM, MCAL, PCAL, DRAW, FCTR, SPLF, SPLR, BONU, MRGR, CHAN, NAME, PARI)",
+      "cash vs securities vs combined outcomes"
+     ],
+     "worked_example": "A listed company announces EUR 1.20 dividend: this is a mandatory event (DVCA); the same notice offering shares or cash would be mandatory with choice (DRIP/scrip), handled in O8.",
+     "exercises": [
+      {
+       "template": "bucket",
+       "task": "Sort events into mandatory, mandatory-with-choice and voluntary",
+       "params": "event list from a 15-event pool"
+      },
+      {
+       "template": "order",
+       "task": "Put the CA lifecycle stages in sequence",
+       "params": "stage set"
+      },
+      {
+       "template": "match",
+       "task": "Match ISO event codes to plain-language events",
+       "params": "code list (DVCA, SPLF, BONU, MRGR, REDM...)"
+      },
+      {
+       "template": "mcq",
+       "task": "Identify whether an event changes position, cash, both or neither",
+       "params": "event variant"
+      },
+      {
+       "template": "cloze",
+       "task": "Complete a text on golden-copy sourcing",
+       "params": "word bank"
+      }
+     ],
+     "callbacks": [
+      "P2.3",
+      "P3.2",
+      "O4.1"
+     ],
+     "sources": [
+      {
+       "id": "S052",
+       "ref": "opening chapters on event classification and lifecycle",
+       "use": "core"
+      },
+      {
+       "id": "S233",
+       "ref": "CAJWG market standards: event classification",
+       "use": "core"
+      },
+      {
+       "id": "S049",
+       "ref": "corporate actions chapter",
+       "use": "core"
+      },
+      {
+       "id": "S005",
+       "ref": "asset servicing chapters",
+       "use": "foundation"
+      }
+     ]
+    },
+    {
+     "id": "O7.2",
+     "title": "Key dates and entitlement: ex, record, payment",
+     "minutes": 55,
+     "objectives": [
+      "Learner can place announcement, last-trading, ex, record and payment dates on a timeline",
+      "Learner can determine whether a trade is entitled to an event from its trade and settlement dates",
+      "Learner can explain how the move to T+1 changes ex/record relationships"
+     ],
+     "key_concepts": [
+      "announcement date",
+      "ex-date and last entitled trade date",
+      "record date (EU: ex-date = record date minus one business day under T+2)",
+      "payment date",
+      "contractual vs settled entitlement",
+      "market claim (preview of O8)",
+      "T+1 aligns ex-date with record date"
+     ],
+     "worked_example": "Record date is Friday 12 June 2026: under T+2 the ex-date is Thursday 11 June, so a buyer trading on 10 June is entitled while a buyer trading on 11 June is not; under T+1 (EU from 11 Oct 2027) ex-date equals record date.",
+     "exercises": [
+      {
+       "template": "timeline",
+       "task": "Place the key dates of a dividend on a timeline",
+       "params": "record date, cycle T+1/T+2, holidays"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the ex-date from record date and cycle",
+       "params": "record date, cycle, holiday set"
+      },
+      {
+       "template": "mcq",
+       "task": "Decide whether a given trade is entitled",
+       "params": "trade date, cycle, event dates"
+      },
+      {
+       "template": "table",
+       "task": "Complete a table of entitled/not-entitled trades around the ex-date",
+       "params": "5-8 trades"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the date error in a CA notice",
+       "params": "inserted error: ex-date after record date"
+      }
+     ],
+     "callbacks": [
+      "O3.4",
+      "O7.1",
+      "P2.3"
+     ],
+     "sources": [
+      {
+       "id": "S233",
+       "ref": "key date standards",
+       "use": "core"
+      },
+      {
+       "id": "S052",
+       "ref": "chapter on dates and entitlement",
+       "use": "core"
+      },
+      {
+       "id": "S250",
+       "ref": "T+1 impact on ex/record",
+       "use": "reference"
+      },
+      {
+       "id": "S058",
+       "ref": "corporate actions chapter",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "O7.3",
+     "title": "Cash dividends: gross, tax, net, currency",
+     "minutes": 55,
+     "objectives": [
+      "Learner can compute gross and net dividend entitlement from a position and a rate",
+      "Learner can apply withholding tax at source and explain reclaim-at-source concepts",
+      "Learner can describe DRIP vs cash dividend and dividend currency (pay-in-EUR vs currency option) at a basic level"
+     ],
+     "key_concepts": [
+      "dividend per share, gross vs net",
+      "withholding tax rate at source",
+      "quoted vs payment currency",
+      "paying agent, CSD, custodian credit",
+      "dividend on settled vs contractual position",
+      "scrip/DRIP as pointer to O8",
+      "link to income accounting A2"
+     ],
+     "worked_example": "10,000 shares x EUR 1.20 = EUR 12,000 gross; with 26% withholding the client receives EUR 8,880 and the custodian posts the tax separately.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute net dividend after withholding",
+       "params": "shares, DPS, WHT %"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute entitlement on a position changed by an unsettled trade",
+       "params": "position, pending trades"
+      },
+      {
+       "template": "table",
+       "task": "Fill a dividend payment run for 6 clients (gross, tax, net)",
+       "params": "positions, rates"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose the correct event for a described payment",
+       "params": "event variant"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the arithmetic error in a dividend advice",
+       "params": "inserted error"
+      }
+     ],
+     "callbacks": [
+      "O7.2",
+      "P2.3",
+      "A1.3"
+     ],
+     "sources": [
+      {
+       "id": "S052",
+       "ref": "dividend chapters",
+       "use": "core"
+      },
+      {
+       "id": "S036",
+       "ref": "income entries for dividends",
+       "use": "deeper"
+      },
+      {
+       "id": "S242",
+       "ref": "QI/withholding overview",
+       "use": "reference"
+      },
+      {
+       "id": "S178",
+       "ref": "FASTER Directive: reclaim context",
+       "use": "reference"
+      },
+      {
+       "id": "S053",
+       "ref": "dividend policy",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O7.4",
+     "title": "Stock dividends and bonus issues",
+     "minutes": 45,
+     "objectives": [
+      "Learner can compute entitlement for a stock dividend or bonus issue with fractions",
+      "Learner can explain how a bonus issue differs from a split",
+      "Learner can explain the effect on price and holdings"
+     ],
+     "key_concepts": [
+      "bonus issue (capitalisation of reserves)",
+      "stock dividend without option (mandatory)",
+      "ratio notation (1 for 10)",
+      "fractional entitlements and cash in lieu",
+      "ex-price adjustment",
+      "cost-basis implication (pointer to A3)"
+     ],
+     "worked_example": "1 new share per 10 held: 1,234 shares entitle to 123 new shares and 0.4 fraction, settled as cash in lieu; the price drops by about 1/11 on the ex-date.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute new shares and cash in lieu",
+       "params": "holding, ratio, price"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute theoretical ex-price after a bonus",
+       "params": "cum price, ratio"
+      },
+      {
+       "template": "mcq",
+       "task": "Decide whether an event changes company value",
+       "params": "event variant"
+      },
+      {
+       "template": "table",
+       "task": "Update a position table after a bonus issue",
+       "params": "holdings table"
+      }
+     ],
+     "callbacks": [
+      "O7.3",
+      "P2.1"
+     ],
+     "sources": [
+      {
+       "id": "S052",
+       "ref": "chapters on distributions in shares",
+       "use": "core"
+      },
+      {
+       "id": "S233",
+       "ref": "fraction handling standards",
+       "use": "reference"
+      },
+      {
+       "id": "S015",
+       "ref": "equity valuation basics",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O7.5",
+     "title": "Splits and reverse splits",
+     "minutes": 45,
+     "objectives": [
+      "Learner can compute post-split holdings and prices",
+      "Learner can handle fractions in reverse splits",
+      "Learner can describe impacts on orders, options and static data"
+     ],
+     "key_concepts": [
+      "split ratio (N-for-M)",
+      "reverse split",
+      "nominal vs share count",
+      "value neutrality",
+      "fractional shares and cash payment",
+      "order and derivative adjustments",
+      "ISIN change possibility"
+     ],
+     "worked_example": "A 4-for-1 split turns 500 shares at EUR 200 into 2,000 at EUR 50; in a 1-for-10 reverse split, 1,234 shares become 123 new shares plus a 0.4 fraction settled in cash.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute post-split holdings and price",
+       "params": "holding, price, ratio"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute fractions and cash payment for a reverse split",
+       "params": "holding, ratio, price"
+      },
+      {
+       "template": "mcq",
+       "task": "Pick the correct adjustment for a resting limit order",
+       "params": "order variant"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a split notice",
+       "params": "inserted error: value not preserved"
+      }
+     ],
+     "callbacks": [
+      "O7.4"
+     ],
+     "sources": [
+      {
+       "id": "S052",
+       "ref": "chapters on splits",
+       "use": "core"
+      },
+      {
+       "id": "S233",
+       "ref": "market standards",
+       "use": "reference"
+      },
+      {
+       "id": "S049",
+       "ref": "corporate actions chapter",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "O7.6",
+     "title": "Coupons and interest payments",
+     "minutes": 50,
+     "objectives": [
+      "Learner can compute coupon payments with day-count conventions",
+      "Learner can apply business-day conventions to payment dates",
+      "Learner can distinguish fixed, floating and zero-coupon cases"
+     ],
+     "key_concepts": [
+      "coupon rate and frequency",
+      "payment date and business-day convention",
+      "record date and ex-coupon periods",
+      "floating-rate reset and fixing",
+      "zero coupon and accretion",
+      "link to accrued interest (P3.5)"
+     ],
+     "worked_example": "EUR 1,000,000 nominal at 3.5% annual: coupon EUR 35,000; if the payment date falls on a Saturday it is paid the next business day (unadjusted) without extra interest.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute a coupon payment",
+       "params": "nominal, rate, frequency, day count"
+      },
+      {
+       "template": "timeline",
+       "task": "Place coupon dates around a weekend/holiday",
+       "params": "payment date, convention"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute an FRN coupon from fixing and margin",
+       "params": "reference rate, margin, days"
+      },
+      {
+       "template": "mcq",
+       "task": "Classify the payment type",
+       "params": "bond variant"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a coupon notice",
+       "params": "inserted error"
+      }
+     ],
+     "callbacks": [
+      "P3.2",
+      "P3.4",
+      "P3.5",
+      "O7.2"
+     ],
+     "sources": [
+      {
+       "id": "S052",
+       "ref": "interest payment chapters",
+       "use": "core"
+      },
+      {
+       "id": "S220",
+       "ref": "ICMA conventions",
+       "use": "reference"
+      },
+      {
+       "id": "S287",
+       "ref": "fixed income reference",
+       "use": "reference"
+      },
+      {
+       "id": "S233",
+       "ref": "market standards",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O7.7",
+     "title": "Redemptions: maturity, calls, drawings, pool factors",
+     "minutes": 50,
+     "objectives": [
+      "Learner can compute redemption proceeds for full and partial redemptions",
+      "Learner can apply pool factors to nominal positions",
+      "Learner can distinguish call, drawing and put (voluntary, see O8)"
+     ],
+     "key_concepts": [
+      "final maturity (REDM)",
+      "full call (MCAL) and partial call (PCAL)",
+      "drawing by lot (DRAW)",
+      "pool factor (FCTR)",
+      "sinking fund",
+      "nominal vs outstanding amount",
+      "redemption premium"
+     ],
+     "worked_example": "A holder of EUR 1,000,000 original face sees the factor drop from 0.80 to 0.65: EUR 150,000 is repaid and the remaining nominal is EUR 650,000.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute proceeds of a partial redemption from a factor change",
+       "params": "face, old factor, new factor"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute redemption with premium and accrued interest",
+       "params": "face, redemption price, accrued"
+      },
+      {
+       "template": "match",
+       "task": "Match terms to events (call, drawing, factor)",
+       "params": "term list"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort redemption events into mandatory vs holder's option",
+       "params": "event list"
+      },
+      {
+       "template": "table",
+       "task": "Update a position after a drawing",
+       "params": "holdings table"
+      }
+     ],
+     "callbacks": [
+      "O7.6",
+      "P3.1"
+     ],
+     "sources": [
+      {
+       "id": "S052",
+       "ref": "redemption chapters",
+       "use": "core"
+      },
+      {
+       "id": "S287",
+       "ref": "bond features",
+       "use": "deeper"
+      },
+      {
+       "id": "S233",
+       "ref": "partial redemption standards",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O7.8",
+     "title": "Mandatory reorganisations: mergers, exchanges, spin-offs",
+     "minutes": 50,
+     "objectives": [
+      "Learner can compute entitlements for a mandatory merger or exchange with fractions",
+      "Learner can explain demerger/spin-off treatment and squeeze-outs",
+      "Learner can describe the position and static-data changes"
+     ],
+     "key_concepts": [
+      "mandatory merger (MRGR)",
+      "exchange ratio and cash component",
+      "ISIN of acquirer shares",
+      "spin-off / demerger",
+      "squeeze-out / compulsory acquisition",
+      "cost allocation (pointer to A3)"
+     ],
+     "worked_example": "A 3-for-2 share exchange turns 1,001 old shares into 1,501.5 new shares: 1,501 delivered and 0.5 settled in cash.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute new shares and cash for an exchange",
+       "params": "holding, ratio, cash component, price"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose the right event type",
+       "params": "event variant"
+      },
+      {
+       "template": "table",
+       "task": "Update positions and ISINs after a merger",
+       "params": "holdings table"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a merger notice",
+       "params": "inserted error"
+      }
+     ],
+     "callbacks": [
+      "O7.5",
+      "O7.4"
+     ],
+     "sources": [
+      {
+       "id": "S052",
+       "ref": "reorganisations chapters",
+       "use": "core"
+      },
+      {
+       "id": "S233",
+       "ref": "market standards",
+       "use": "reference"
+      },
+      {
+       "id": "S057",
+       "ref": "capital markets law context",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O7.9",
+     "title": "Identifier, name and other static-data changes",
+     "minutes": 40,
+     "objectives": [
+      "Learner can handle ISIN, name and other static-data changes without economic impact",
+      "Learner can map old to new identifiers in positions and tax lots",
+      "Learner can list downstream systems affected by an identifier change"
+     ],
+     "key_concepts": [
+      "ISIN/FIGI/ticker change",
+      "name change (NAME)",
+      "redenomination",
+      "place-of-listing and domicile changes",
+      "change of agent",
+      "position continuity"
+     ],
+     "worked_example": "A company changes name and ISIN: the position quantity stays 10,000, the old ISIN is closed and the new opened with the same cost basis.",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Match changes to affected data fields",
+       "params": "change list"
+      },
+      {
+       "template": "mcq",
+       "task": "Decide whether the event is economic or static",
+       "params": "event variant"
+      },
+      {
+       "template": "table",
+       "task": "Re-key a position and lot table to the new ISIN",
+       "params": "holdings table"
+      },
+      {
+       "template": "order",
+       "task": "Order the steps for a static-data event",
+       "params": "step set"
+      }
+     ],
+     "callbacks": [
+      "O7.8"
+     ],
+     "sources": [
+      {
+       "id": "S052",
+       "ref": "static data events",
+       "use": "core"
+      },
+      {
+       "id": "S233",
+       "ref": "standards",
+       "use": "reference"
+      },
+      {
+       "id": "S058",
+       "ref": "securities reference data",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "O7.10",
+     "title": "Messaging and reconciliation: MT564-568 and seev",
+     "minutes": 45,
+     "objectives": [
+      "Learner can read an MT564/seev.031 notification",
+      "Learner can map MT564/565/566/567/568 to their ISO 20022 equivalents",
+      "Learner can reconcile an event payment and handle breaks"
+     ],
+     "key_concepts": [
+      "MT564 notification",
+      "MT565 instruction",
+      "MT566 confirmation",
+      "MT567 status",
+      "MT568 narrative",
+      "seev.031/033/034/036",
+      "field qualifiers (CAEV, CAMV, XDTE, RDTE, PAYD)",
+      "payment reconciliation"
+     ],
+     "worked_example": "An MT564 shows CAEV//DVCA, CAMV//MAND, XDTE 11 June, RDTE 12 June, PAYD 19 June and a gross rate of EUR 1.20; the desk computes expected cash and matches it with the MT566 confirmation.",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Match MT messages to their ISO 20022 seev equivalents",
+       "params": "message list"
+      },
+      {
+       "template": "mcq",
+       "task": "Read the event type and key dates from a notification extract",
+       "params": "message variant"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in an MT564 extract",
+       "params": "inserted error"
+      },
+      {
+       "template": "numeric",
+       "task": "Reconcile the expected cash with the received amount",
+       "params": "positions, rate, tax"
+      },
+      {
+       "template": "order",
+       "task": "Order the CA message flow",
+       "params": "step set"
+      }
+     ],
+     "callbacks": [
+      "O7.1",
+      "O7.2",
+      "T7.3"
+     ],
+     "sources": [
+      {
+       "id": "S052",
+       "ref": "messaging chapters",
+       "use": "core"
+      },
+      {
+       "id": "S305",
+       "ref": "AMI-SeCo CA standards",
+       "use": "core"
+      },
+      {
+       "id": "S233",
+       "ref": "market standards",
+       "use": "reference"
+      },
+      {
+       "id": "S327",
+       "ref": "usage guidelines",
+       "use": "reference"
+      },
+      {
+       "id": "S016",
+       "ref": "ISO 20022",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": {
+    "name": "CA Election Desk",
+    "variant": "Mandatory-events edition: process a stream of mandatory events on the right dates, compute entitlements and match payments; elections added in O8."
+   },
+   "unit_test": "Event classification and lifecycle, key-date logic, cash and share entitlements for every mandatory event type, and notification reading.",
+   "jurisdiction_notes": "EU first (CAJWG standards, T2S/CSD announcements, ISO 20022 seev); US sidebar (DTC announcements, record-date practice, T+1 ex-date alignment); UK/CH/SG/HK differences only noted (e.g. UK ex-coupon periods)."
+  },
+  {
+   "id": "F3",
+   "title": "Fixed income maths I",
+   "track": "theory",
+   "hours": 4,
+   "prereqs": [
+    "P3",
+    "Q4"
+   ],
+   "boss_items": [],
+   "hook": "Bond price from yield, yield to maturity, duration, modified duration and convexity, and their use in estimating the price effect of a yield change.",
+   "units": [
+    {
+     "id": "F3.1",
+     "title": "Price as present value; the price-yield relationship",
+     "minutes": 45,
+     "objectives": [
+      "Learner can price a fixed-coupon bond by discounting cash flows",
+      "Learner can explain why price and yield move inversely and why the curve is convex",
+      "Learner can compare coupon, yield and price (par, discount, premium)"
+     ],
+     "key_concepts": [
+      "PV of coupons and principal",
+      "annuity formula",
+      "par/premium/discount",
+      "inverse relation",
+      "curvature of the price-yield curve"
+     ],
+     "worked_example": "A 5-year 4% annual bond priced at a 3% yield: 4 x 4.5797 + 100 x 0.86261 = EUR 104.58 per 100.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Price a bond from coupon, maturity and yield",
+       "params": "coupon, years, yield"
+      },
+      {
+       "template": "table",
+       "task": "Complete a PV table of cash flows",
+       "params": "cash-flow list, yield"
+      },
+      {
+       "template": "mcq",
+       "task": "Predict price direction for a yield move",
+       "params": "yield move variant"
+      },
+      {
+       "template": "bucket",
+       "task": "Classify a bond as par, premium or discount",
+       "params": "coupon/yield pairs"
+      }
+     ],
+     "callbacks": [
+      "P3.7",
+      "F1.3",
+      "F1.4"
+     ],
+     "sources": [
+      {
+       "id": "S045",
+       "ref": "bond pricing chapters",
+       "use": "core"
+      },
+      {
+       "id": "S061",
+       "ref": "price and yield chapters",
+       "use": "core"
+      },
+      {
+       "id": "S093",
+       "ref": "bond mathematics chapters",
+       "use": "deeper"
+      },
+      {
+       "id": "S015",
+       "ref": "bond prices and yields",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "F3.2",
+     "title": "Yield measures and conventions",
+     "minutes": 50,
+     "objectives": [
+      "Learner can compute current yield and yield to maturity approximations",
+      "Learner can solve YTM numerically by bracketing",
+      "Learner can distinguish annual, semi-annual and street conventions"
+     ],
+     "key_concepts": [
+      "current yield",
+      "YTM as IRR",
+      "bracketing / interpolation (conceptual numerical method)",
+      "ICMA vs US street conventions",
+      "yield-to-call/worst",
+      "dirty vs clean in yield calculations"
+     ],
+     "worked_example": "A 5-year 4% bond priced at 104.58 has YTM 3% (bracket between 2.5% and 3.5% and interpolate); current yield is 4/104.58 = 3.82%.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute current yield",
+       "params": "coupon, price"
+      },
+      {
+       "template": "numeric",
+       "task": "Estimate YTM by bracketing",
+       "params": "price, coupon, years"
+      },
+      {
+       "template": "mcq",
+       "task": "Pick the convention behind a quoted yield",
+       "params": "market variant"
+      },
+      {
+       "template": "match",
+       "task": "Match yield measures to what they ignore",
+       "params": "measure list"
+      }
+     ],
+     "callbacks": [
+      "F3.1",
+      "P3.6"
+     ],
+     "sources": [
+      {
+       "id": "S061",
+       "ref": "yield chapters",
+       "use": "core"
+      },
+      {
+       "id": "S045",
+       "ref": "yield measures",
+       "use": "core"
+      },
+      {
+       "id": "S220",
+       "ref": "ICMA conventions",
+       "use": "reference"
+      },
+      {
+       "id": "S287",
+       "ref": "yield measures reference",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "F3.3",
+     "title": "Duration: Macaulay and modified",
+     "minutes": 50,
+     "objectives": [
+      "Learner can compute Macaulay duration of a simple bond",
+      "Learner can derive modified duration and link it to the derivative of price w.r.t. yield",
+      "Learner can estimate price change from duration"
+     ],
+     "key_concepts": [
+      "Macaulay duration (weighted average time)",
+      "modified duration = D/(1+y)",
+      "price sensitivity as derivative",
+      "effective duration for callables (conceptual)"
+     ],
+     "worked_example": "A 5-year 4% bond at 3% has Macaulay duration about 4.6 years, modified duration about 4.5; a +50 bp yield move implies roughly -2.2% price.",
+     "exercises": [
+      {
+       "template": "table",
+       "task": "Compute Macaulay duration from weights",
+       "params": "cash flows, yield"
+      },
+      {
+       "template": "numeric",
+       "task": "Estimate price change from modified duration",
+       "params": "duration, yield change"
+      },
+      {
+       "template": "mcq",
+       "task": "Explain what happens to duration when coupon rises",
+       "params": "variant"
+      },
+      {
+       "template": "cloze",
+       "task": "Complete the link between duration and the derivative",
+       "params": "word bank"
+      }
+     ],
+     "callbacks": [
+      "F3.1",
+      "Q3.4"
+     ],
+     "sources": [
+      {
+       "id": "S061",
+       "ref": "duration chapters",
+       "use": "core"
+      },
+      {
+       "id": "S045",
+       "ref": "duration chapters",
+       "use": "core"
+      },
+      {
+       "id": "S093",
+       "ref": "duration",
+       "use": "deeper"
+      },
+      {
+       "id": "S006",
+       "ref": "derivative intuition",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "F3.4",
+     "title": "DV01, portfolio duration and hedging",
+     "minutes": 45,
+     "objectives": [
+      "Learner can compute DV01 / PVBP",
+      "Learner can compute portfolio duration as a weighted average",
+      "Learner can size a simple duration hedge"
+     ],
+     "key_concepts": [
+      "DV01 / PVBP",
+      "portfolio duration",
+      "key-rate duration (preview)",
+      "hedge ratio",
+      "limits of duration"
+     ],
+     "worked_example": "A EUR 10m position with modified duration 4.5 has DV01 about EUR 4,500 per bp.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute DV01 from market value and duration",
+       "params": "MV, duration"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute portfolio duration",
+       "params": "weights, durations"
+      },
+      {
+       "template": "numeric",
+       "task": "Size a hedge to neutralise DV01",
+       "params": "DV01s"
+      },
+      {
+       "template": "mcq",
+       "task": "Identify the risk duration does not capture",
+       "params": "variant"
+      }
+     ],
+     "callbacks": [
+      "F3.3",
+      "O7.7"
+     ],
+     "sources": [
+      {
+       "id": "S061",
+       "ref": "hedging chapters",
+       "use": "core"
+      },
+      {
+       "id": "S060",
+       "ref": "risk measures",
+       "use": "deeper"
+      },
+      {
+       "id": "S045",
+       "ref": "portfolio chapters",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "F3.5",
+     "title": "Convexity and second-order price change",
+     "minutes": 50,
+     "objectives": [
+      "Learner can compute convexity for a simple bond",
+      "Learner can apply the Taylor estimate with duration and convexity",
+      "Learner can explain negative convexity in callables"
+     ],
+     "key_concepts": [
+      "convexity as second derivative",
+      "Taylor approximation (Q4)",
+      "approximation error for large moves",
+      "negative convexity",
+      "barbell vs bullet"
+     ],
+     "worked_example": "With duration 4.5 and convexity 25, a +100 bp move: -4.5% + 0.5 x 25 x 0.0001 = -4.4%, i.e. convexity adds back about 0.125 percentage points.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute price change with duration + convexity",
+       "params": "duration, convexity, shift"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute error vs exact repricing",
+       "params": "price, yield move"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose the instrument with negative convexity",
+       "params": "instrument list"
+      },
+      {
+       "template": "cloze",
+       "task": "Complete the Taylor expansion terms",
+       "params": "word bank"
+      },
+      {
+       "template": "paper",
+       "task": "Optional: explain convexity to a client in writing",
+       "params": "rubric on clarity and accuracy"
+      }
+     ],
+     "callbacks": [
+      "F3.3",
+      "Q4.5"
+     ],
+     "sources": [
+      {
+       "id": "S061",
+       "ref": "convexity chapters",
+       "use": "core"
+      },
+      {
+       "id": "S045",
+       "ref": "convexity",
+       "use": "core"
+      },
+      {
+       "id": "S075",
+       "ref": "bond sensitivity",
+       "use": "deeper"
+      },
+      {
+       "id": "S017",
+       "ref": "Taylor/second derivative",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "Bond pricing by PV, yield measures, duration, DV01 and convexity arithmetic.",
+   "jurisdiction_notes": "EU conventions (ICMA) first; US street conventions as a sidebar; UK/CH/SG/HK noted only where quoting differs."
+  }
+ ],
+ "checkpoint": "Boss quiz (35-45 min, ~30 questions) mixing O2-O7 and F3: netting and margin arithmetic, settlement-date and penalty calculations, segregation and depositary scenarios, SFT collateral numbers, entitlement computations for each mandatory event type, and a duration/convexity estimate. Mix of numeric, timeline, spot-the-error and match items, with 20-30% spaced-review items from L1-L3.",
+ "open_questions": [
+  "See syllabus/FACTS.md (originals in open-questions.txt)"
+ ]
+}

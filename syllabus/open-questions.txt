@@ -1,0 +1,31 @@
+﻿L1 | Confirm exact chapter numbering for Berk/DeMarzo (S008), Bodie-Kane-Marcus (S015), Ross (S001) and Blitzstein-Hwang (S074) in the editions you hold; chapter refs here are from memory of the usual structure.
+L1 | Confirm Switzerland's settlement-cycle plans (T+1 date alongside EU/UK) before stating it as fact; T1.2 flags it as 'to confirm'.
+L1 | The T1 jurisdiction note on EU/UK T+2 until 11 October 2027 should be rechecked against the latest ESMA/FCA announcements nearer the date.
+L2 | Directive (EU) 2024/2810 on multiple-vote share structures: confirm transposition deadline and status as of Nov 2026
+L2 | PRIIPs KID reform timing and UCITS KIID-to-KID transition status after Regulation (EU) 2024/2811: verify dates
+L2 | Exact chapter numbers for Bodie-Kane-Marcus, Fabozzi and Hull references are by topic only; verify against the editions in the library
+L2 | Fund orders and the EU T+1 move on 11 Oct 2027: check whether fund subscriptions/redemptions are in scope or stay on their own cycles
+L3 | EU consolidated tape start dates for equities/ETFs after 2024 review.
+L3 | Exact FTT rates (FR 0.3%, IT, ES) and Italian on/off-venue rates as of Nov 2026.
+L3 | ISO 20022 counterpart messages for MT515/MT518 trade confirmations (name of family).
+L3 | SEC Reg NMS tick-size/access-fee and Rule 605 amendment compliance dates in 2025-26.
+L3 | Art 39a MiFIR PFOF ban national exemptions and effective-date nuances.
+L4 | CSDR Refit application dates for the revised buy-in regime and penalty redistribution details; confirm exact status as of Nov 2026
+L4 | Current CSDR penalty rates per asset class in Del. Reg. 2018/1229 (worked example uses 1.0 bp/day for liquid shares): verify before generating numeric templates
+L4 | ISO 15022 event codes (e.g. PCAL, DRAW, FCTR) and seev.03x mappings: verify against the CAJWG / SMPG current standards
+L4 | EU transfer practice has no single harmonised retail scheme: confirm what is notable per country before writing O5.4 content
+L4 | ESMA/EC position on T2S night-time cut-offs and DCA details may have changed with T2S releases; verify S329
+L5 | FASTER Directive (EU) 2025/50: confirm transposition/application dates and refund deadlines (quick refund / relief at source) in A2.6.
+L5 | SRD II (Arts 3a-3d), Implementing Reg 2018/1212 deadlines and ISO 20022 seev.001-008 message names: verify before final lesson text.
+L5 | CSSF 24/856 materiality thresholds, national WHT rates and Italian/UK/German lot-method details (A2.5, A3.3, A4.7) need checking; Directive 2024/927 LMT national transposition status (April 2026).
+L5 | Library has few PDFs for this level's books; chapter references are by topic, not number, pending TOC checks.
+L6 | MAR PDMR notification threshold after Listing Act amendments (EUR 15,000 vs raised national options) and insider-list format changes: verify current text
+L6 | FINRA pattern day trader USD 25k rule: replacement by intraday margin standard pending SEC approval as of Nov 2026; portfolio margin minimum equity
+L6 | AMLR 2024/1624 application date 10 Jul 2027 and US Corporate Transparency Act scope; Lombard lending-value percentages are illustrative bank-practice figures; UCITS Art 52 sub-limits to check against consolidated text
+L6 | FinSA article numbers cited (Arts 7-17, 58) and ESMA suitability guideline application date to be confirmed against source
+L7 | RIS: provisional agreement Dec 2025, formal adoption/application dates still pending as of Nov 2026 - verify before teaching dates.
+L7 | Research bundling after Listing Act (Dir 2024/2811) and SME issuer threshold (EUR 1bn) - check current MiFID II Art 24(9a); MAR PDMR threshold changes via Listing Act.
+L7 | US: Reg NMS access-fee cap and tick-size compliance dates (Nov 2025 / Nov 2026), Treasury clearing mandate dates (Dec 2026 / Jun 2027), and chapter numbers cited for Tuckman-Serrat, BKM and Stewart should be checked against editions.
+L8 | Chapter and section numbers for Hull (S083), Shreve (S092/S146), Cochrane (S111), Hamilton (S153) and Joshi (S094) are from memory and edition-dependent; verify against the editions in the library.
+L8 | Callback ids to earlier levels (Q3.x, Q4.x, Q5.x, Q6.x, Q7.x, F3-F5, P5.4, P6.x, T8.1, C4.2, A6.1) are guessed from skeleton topic order and must be reconciled with the final L1-L7 files.
+L8 | Wilmott (S084) chapter numbers (e.g. 'Ch. 77', 'Ch. 80') are uncertain; the Introduces book is organised differently from the larger Wilmott volumes.

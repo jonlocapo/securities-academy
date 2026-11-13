@@ -1,0 +1,2509 @@
+{
+ "level": "L1",
+ "title": "Market Literacy",
+ "hours": 30,
+ "intro": "This level covers the arithmetic used in markets: percentages, basis points, powers, logarithms, compounding, discounting, annuities and returns. It describes stocks, bonds and funds, the main market participants, and how a trade moves from order to custody. It also covers client-account setup, double-entry posting of a trade, and the average, variance and normal curve.",
+ "modules": [
+  {
+   "id": "Q1",
+   "title": "Algebra & Functions Refresh",
+   "track": "theory",
+   "hours": 6,
+   "prereqs": [],
+   "boss_items": [],
+   "hook": "Percentages, basis points, powers, logarithms and simple equations as used in fee, return and doubling-time calculations. Short drills with hints and unlimited retries.",
+   "units": [
+    {
+     "id": "Q1.1",
+     "title": "Percentages, basis points and proportions",
+     "minutes": 45,
+     "objectives": [
+      "Learner can convert between percent, decimal and basis points",
+      "Learner can compute a percentage change and chain successive percentage changes",
+      "Learner can compute a fee or a weight as a percentage of an amount"
+     ],
+     "key_concepts": [
+      "percent, per mille, basis point (bp)",
+      "percentage change vs percentage-point change",
+      "multiplicative factors (1+r)",
+      "weights and shares of a total"
+     ],
+     "worked_example": "A EUR 25,000 portfolio pays a 0.45% (45 bp) annual custody fee = EUR 112.50. A fund that falls 20% and then rises 25% is exactly back at its start, because 0.80 x 1.25 = 1.00; falling 20% and rising 20% leaves it 4% short.",
+     "exercises": [
+      {
+       "template": "mcq",
+       "task": "Warm-up check (no score pressure): pick the correct decimal and bp equivalent of a stated percentage",
+       "params": "percentage drawn from 0.05%-3.5%; distractors are off-by-10 and off-by-100 errors"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the annual fee in EUR from a portfolio value and a fee in bp",
+       "params": "value EUR 5,000-2,000,000; fee 5-150 bp; step hints show bp -> decimal -> multiply"
+      },
+      {
+       "template": "numeric",
+       "task": "Find the percentage change between two prices, then the price after a stated percentage move",
+       "params": "start price EUR 5-500; move -35% to +60%; tolerance 0.01"
+      },
+      {
+       "template": "numeric",
+       "task": "Chain two or three successive percentage moves into one total move",
+       "params": "moves between -30% and +40%; asks for total % change to 2 decimals"
+      },
+      {
+       "template": "match",
+       "task": "Pair headline statements with their correct reading (percent vs percentage points, e.g. yield rises from 2.0% to 2.5%)",
+       "params": "4-5 pairs from a bank of 20 rate/yield/fee headlines"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill in the blanks of a short fee statement with amounts, bp and percentages",
+       "params": "random fee schedule; word bank with one distractor"
+      }
+     ],
+     "callbacks": [],
+     "sources": [
+      {
+       "id": "S003",
+       "ref": "Ch. 1 Prerequisites (real numbers, ratios and rates)",
+       "use": "core"
+      },
+      {
+       "id": "S027",
+       "ref": "Opening chapters on algebraic basics and word problems (drills)",
+       "use": "deeper"
+      },
+      {
+       "id": "S015",
+       "ref": "Ch. 5 (return arithmetic, percentage returns)",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "Q1.2",
+     "title": "Ratios, units and solving simple equations",
+     "minutes": 45,
+     "objectives": [
+      "Learner can rearrange a formula to isolate any variable",
+      "Learner can solve linear equations in one unknown from a market word problem",
+      "Learner can keep track of units (shares, EUR, EUR per share)"
+     ],
+     "key_concepts": [
+      "amount = quantity x price",
+      "isolating a variable",
+      "linear equations and inequalities",
+      "units analysis",
+      "rounding down to whole shares"
+     ],
+     "worked_example": "How many whole shares can EUR 10,000 buy at EUR 37.60 if there is a flat EUR 9.90 fee? Solve n x 37.60 + 9.90 <= 10,000, so n = 265 shares (cost EUR 9,964.00 + 9.90 = EUR 9,973.90).",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Solve for quantity, price or amount in 'amount = quantity x price' with a hidden unknown",
+       "params": "which variable is hidden is randomised; values with 2-3 decimals"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the maximum whole number of shares affordable including a flat or proportional fee",
+       "params": "budget EUR 2,000-50,000; price EUR 3-400; fee flat EUR 5-20 or 0.1%-0.3%"
+      },
+      {
+       "template": "order",
+       "task": "Put the steps of rearranging a formula in the correct sequence",
+       "params": "formula from bank: amount, weight, average price, fee"
+      },
+      {
+       "template": "mcq",
+       "task": "Pick the correct rearrangement of a given formula",
+       "params": "5 formulas, 4 options each with sign/fraction slips"
+      },
+      {
+       "template": "numeric",
+       "task": "Find the average price paid after two purchases at different prices (weighted average)",
+       "params": "two lots of 50-500 shares at EUR 10-120"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the arithmetic or unit error in a three-line hand calculation",
+       "params": "error type drawn from {forgot fee, mixed bp and %, divided instead of multiplied}"
+      }
+     ],
+     "callbacks": [
+      "Q1.1"
+     ],
+     "sources": [
+      {
+       "id": "S003",
+       "ref": "Ch. 2 Equations and Inequalities",
+       "use": "core"
+      },
+      {
+       "id": "S002",
+       "ref": "Opening chapters on equations and word problems",
+       "use": "deeper"
+      },
+      {
+       "id": "S011",
+       "ref": "Ch. 1-2 (introductory algebra and equations)",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "Q1.3",
+     "title": "Powers, roots and large numbers",
+     "minutes": 45,
+     "objectives": [
+      "Learner can apply the laws of exponents including negative and fractional exponents",
+      "Learner can convert a multi-year growth factor into a per-year factor using roots",
+      "Learner can read and write large amounts in millions, billions and scientific notation"
+     ],
+     "key_concepts": [
+      "laws of exponents",
+      "negative exponent as reciprocal",
+      "n-th root as power 1/n",
+      "scientific notation",
+      "calculator habits for powers"
+     ],
+     "worked_example": "EUR 1 grows to EUR 1.21 in 2 years, so the yearly factor is 1.21^(1/2) = 1.10, i.e. 10% a year. A company with 3.2 x 10^9 shares at EUR 45 has a market capitalisation of EUR 144 bn.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Evaluate a power expression with integer and negative exponents",
+       "params": "base 2-12, exponent -4..6; calculator allowed, tolerance 0.001"
+      },
+      {
+       "template": "numeric",
+       "task": "Take the n-th root of a total growth factor to get the yearly factor and rate",
+       "params": "total factor 1.05-3.0; n = 2-20 years"
+      },
+      {
+       "template": "match",
+       "task": "Pair each expression with its simplified form using exponent laws",
+       "params": "5 pairs from a bank of 20"
+      },
+      {
+       "template": "cloze",
+       "task": "Rewrite market-size headlines between EUR bn, EUR m and powers of ten",
+       "params": "figures drawn from realistic market-cap and turnover ranges"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose the larger of two quantities written in different notations",
+       "params": "mix of scientific notation, fractions and percentages"
+      },
+      {
+       "template": "numeric",
+       "task": "Convert a 5-year total return into an average yearly return",
+       "params": "total return -20% to +120%; tolerance 0.01 pp"
+      }
+     ],
+     "callbacks": [
+      "Q1.1",
+      "Q1.2"
+     ],
+     "sources": [
+      {
+       "id": "S003",
+       "ref": "Ch. 1 (exponents and scientific notation, radicals)",
+       "use": "core"
+      },
+      {
+       "id": "S022",
+       "ref": "Ch. 1 Prerequisites review",
+       "use": "deeper"
+      },
+      {
+       "id": "S020",
+       "ref": "Algebra notes: exponents and radicals sections",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "Q1.4",
+     "title": "Functions and graphs",
+     "minutes": 45,
+     "objectives": [
+      "Learner can read and evaluate function notation f(x)",
+      "Learner can identify slope and intercept of a linear function and interpret them",
+      "Learner can read a piecewise function such as a tiered fee schedule and find where two lines cross"
+     ],
+     "key_concepts": [
+      "function, domain, range",
+      "linear function, slope, intercept",
+      "piecewise functions",
+      "quadratic shape and vertex",
+      "break-even as intersection"
+     ],
+     "worked_example": "A broker charges max(EUR 5, 0.10% of notional): the fee line is flat at EUR 5 until notional EUR 5,000 and then slopes at 0.001. Holding n shares bought at EUR 20, the profit function is P(S) = n(S - 20), a straight line with slope n.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Evaluate a linear or piecewise fee function at several notionals",
+       "params": "fee rule with min fee EUR 3-15, rate 0.05%-0.25%, optional cap"
+      },
+      {
+       "template": "mcq",
+       "task": "Match a described situation to the correct graph (flat, rising, kinked)",
+       "params": "6 situations: position P&L, fee schedule, cash balance, loss floor"
+      },
+      {
+       "template": "numeric",
+       "task": "Find the break-even point where two fee schedules cost the same",
+       "params": "two linear schedules with different fixed and variable parts"
+      },
+      {
+       "template": "numeric",
+       "task": "Read slope and intercept from a table of values",
+       "params": "random linear data, 4 points, noise-free"
+      },
+      {
+       "template": "multi",
+       "task": "Select all statements true of a given graph",
+       "params": "graph from bank of 8 shapes; 4 statements, 1-3 correct"
+      },
+      {
+       "template": "numeric",
+       "task": "Evaluate a quadratic and find its minimum for a simple cost-vs-size model",
+       "params": "a in 1-5, b, c small integers; tolerance 0.01"
+      }
+     ],
+     "callbacks": [
+      "Q1.2"
+     ],
+     "sources": [
+      {
+       "id": "S003",
+       "ref": "Ch. 3 Functions and Ch. 4 Linear functions",
+       "use": "core"
+      },
+      {
+       "id": "S022",
+       "ref": "Ch. 3 Functions",
+       "use": "deeper"
+      },
+      {
+       "id": "S023",
+       "ref": "Ch. 2 Functions",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "Q1.5",
+     "title": "Exponential functions and growth",
+     "minutes": 45,
+     "objectives": [
+      "Learner can evaluate f(t) = a x b^t for growth and decay",
+      "Learner can tell linear from exponential growth from a table or a graph",
+      "Learner can state what the number e is for and evaluate e^x"
+     ],
+     "key_concepts": [
+      "exponential growth and decay",
+      "growth factor vs growth rate",
+      "half-life and doubling",
+      "number e and continuous growth",
+      "rule of 72 (preview)"
+     ],
+     "worked_example": "EUR 1,000 growing at 4% a year is worth 1,000 x 1.04^10 = EUR 1,480.24 after 10 years, versus EUR 1,400 if only the original EUR 1,000 earned 4% each year. Rule of 72: 72/4 = 18 years to double, close to the exact 17.7.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute the value after t years of growth at a given yearly rate",
+       "params": "principal EUR 500-100,000; rate 0.5%-12%; t = 1-40"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort sequences or tables into 'linear' or 'exponential'",
+       "params": "8 generated data series with random start and step/factor"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the remaining value of an amount that loses a fixed percentage per year (inflation, fee drag)",
+       "params": "decay 1%-8% a year; horizon 5-30 years"
+      },
+      {
+       "template": "numeric",
+       "task": "Apply the rule of 72 and compare it with the exact doubling time given",
+       "params": "rate 2%-15%"
+      },
+      {
+       "template": "mcq",
+       "task": "Pick the graph that matches a growth description",
+       "params": "4 curves: linear, exponential, decay, saturation"
+      },
+      {
+       "template": "numeric",
+       "task": "Evaluate e^x for small x and compare with (1+x)",
+       "params": "x between -0.1 and 0.2; tolerance 0.0005"
+      }
+     ],
+     "callbacks": [
+      "Q1.3",
+      "Q1.4"
+     ],
+     "sources": [
+      {
+       "id": "S003",
+       "ref": "Ch. 6 Exponential and Logarithmic Functions (exponential functions, the number e)",
+       "use": "core"
+      },
+      {
+       "id": "S022",
+       "ref": "Ch. 4 Exponential and Logarithmic Functions",
+       "use": "deeper"
+      },
+      {
+       "id": "S023",
+       "ref": "Ch. 4 Exponential and Logarithmic Functions",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "Q1.6",
+     "title": "Logarithms",
+     "minutes": 45,
+     "objectives": [
+      "Learner can use a logarithm as the inverse of an exponential to solve for time or rate",
+      "Learner can apply the product, quotient and power rules",
+      "Learner can read a log-scale chart and explain why log charts show percentage moves"
+     ],
+     "key_concepts": [
+      "log as an inverse",
+      "natural log ln and base 10",
+      "log rules",
+      "solving a^x = b",
+      "log scale and constant percentage change"
+     ],
+     "worked_example": "How long to double at 4% a year? Solve 1.04^t = 2, so t = ln 2 / ln 1.04 = 0.6931 / 0.03922 = 17.67 years. On a log chart a 10% rise looks the same size at EUR 10 and at EUR 100.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Solve for the number of years needed to reach a target value at a given rate",
+       "params": "growth 1%-15%; target multiple 1.5x-10x; tolerance 0.05 years"
+      },
+      {
+       "template": "numeric",
+       "task": "Evaluate logs using a calculator and the rules (ln of a product, quotient, power)",
+       "params": "arguments 0.1-1000"
+      },
+      {
+       "template": "match",
+       "task": "Pair each expression with its equal using the log rules",
+       "params": "5 pairs from a bank of 20"
+      },
+      {
+       "template": "numeric",
+       "task": "Solve for the yearly rate that turns a start value into an end value over t years (with logs and with roots)",
+       "params": "start/end values; t = 3-25; compare both methods"
+      },
+      {
+       "template": "mcq",
+       "task": "Interpret a log-scale chart: which asset grew faster in percent terms?",
+       "params": "two generated price paths; log vs linear axis"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a worked log solution (e.g. ln(a+b) split wrongly)",
+       "params": "error from {sum split, missing exponent, wrong base}"
+      }
+     ],
+     "callbacks": [
+      "Q1.5"
+     ],
+     "sources": [
+      {
+       "id": "S003",
+       "ref": "Ch. 6 (logarithmic functions, properties, exponential and logarithmic equations)",
+       "use": "core"
+      },
+      {
+       "id": "S022",
+       "ref": "Ch. 4 (logarithmic functions and equations)",
+       "use": "deeper"
+      },
+      {
+       "id": "S020",
+       "ref": "Algebra notes: logarithm functions and equations",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "Q1.7",
+     "title": "Sequences: arithmetic and geometric",
+     "minutes": 45,
+     "objectives": [
+      "Learner can write the n-th term of an arithmetic and of a geometric sequence",
+      "Learner can recognise which kind of sequence a data series follows",
+      "Learner can find a missing term or the common difference/ratio"
+     ],
+     "key_concepts": [
+      "sequence and index",
+      "arithmetic: constant difference",
+      "geometric: constant ratio",
+      "recursive vs closed form"
+     ],
+     "worked_example": "A savings plan starts at EUR 100 a month and rises by EUR 10 each month: the 12th instalment is 100 + 11 x 10 = EUR 210 (arithmetic). A dividend of EUR 2.00 growing 5% a year pays 2.00 x 1.05^4 = EUR 2.43 in year 5 (geometric).",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute the n-th term of an arithmetic sequence",
+       "params": "first term 20-500; difference -20..+50; n = 5-60"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the n-th term of a geometric sequence from a growth rate",
+       "params": "first term EUR 1-200; rate 1%-15%; n = 3-30"
+      },
+      {
+       "template": "bucket",
+       "task": "Classify generated sequences as arithmetic, geometric or neither",
+       "params": "8 series with random parameters, 1-2 neither"
+      },
+      {
+       "template": "numeric",
+       "task": "Find the common ratio or difference from two given terms",
+       "params": "terms at positions i and j"
+      },
+      {
+       "template": "table",
+       "task": "Complete a table of the first 8 values of a sequence and its ratio/difference column",
+       "params": "random start; type randomised"
+      },
+      {
+       "template": "mcq",
+       "task": "Decide which sequence models a stated situation (linear fee, compound dividend, declining balance)",
+       "params": "6 situations from a bank"
+      }
+     ],
+     "callbacks": [
+      "Q1.5",
+      "Q1.6"
+     ],
+     "sources": [
+      {
+       "id": "S003",
+       "ref": "Ch. 9 Sequences, Probability and Counting Theory (sequences)",
+       "use": "core"
+      },
+      {
+       "id": "S022",
+       "ref": "Ch. 13 Sequences, Probability and Counting Theory",
+       "use": "deeper"
+      },
+      {
+       "id": "S023",
+       "ref": "Chapter on sequences and series",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "Q1.8",
+     "title": "Series, sigma notation and a mixed drill round",
+     "minutes": 45,
+     "objectives": [
+      "Learner can read and expand sigma notation",
+      "Learner can sum a finite geometric series with the formula and the infinite series when the ratio is below 1",
+      "Learner can combine percentages, powers, logs and series in a mixed set"
+     ],
+     "key_concepts": [
+      "sigma notation",
+      "partial sums",
+      "finite geometric sum S = a(1 - r^n)/(1 - r)",
+      "infinite geometric sum a/(1 - r)",
+      "convergence intuition"
+     ],
+     "worked_example": "Sum of 1.05^-k for k = 1..5 is (1 - 1.05^-5)/0.05 = 4.3295; this is exactly the present value of EUR 1 a year for 5 years at 5%, which F1 will name an annuity factor. The infinite version gives 1/0.05 = 20.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Evaluate a sigma expression by expansion",
+       "params": "k from 1 to 3-8; term = linear or power of k"
+      },
+      {
+       "template": "numeric",
+       "task": "Sum the first n terms of a geometric series with the closed formula",
+       "params": "a, r in {0.5..1.2}, n = 4-20"
+      },
+      {
+       "template": "numeric",
+       "task": "Sum an infinite geometric series and judge whether it converges",
+       "params": "r from -1.2 to 1.2"
+      },
+      {
+       "template": "mcq",
+       "task": "Rewrite a written sum in sigma notation",
+       "params": "4 sums, 4 options"
+      },
+      {
+       "template": "table",
+       "task": "Mixed round: fill a table of percentage, power, log and series results for one scenario",
+       "params": "scenario seed with ~6 linked quantities"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a series solution",
+       "params": "error from {wrong n, wrong first term, ignored r > 1}"
+      }
+     ],
+     "callbacks": [
+      "Q1.1",
+      "Q1.5",
+      "Q1.6",
+      "Q1.7"
+     ],
+     "sources": [
+      {
+       "id": "S003",
+       "ref": "Ch. 9 (series and their notations; geometric series)",
+       "use": "core"
+      },
+      {
+       "id": "S022",
+       "ref": "Ch. 13 (series)",
+       "use": "deeper"
+      },
+      {
+       "id": "S011",
+       "ref": "Chapter on sequences and series (finance-related)",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "20-question mixed test on percentages/bp, equation rearrangement, exponents and roots, linear and piecewise functions, exponentials, logs and geometric series.",
+   "jurisdiction_notes": null
+  },
+  {
+   "id": "F1",
+   "title": "Money and Time",
+   "track": "theory",
+   "hours": 5,
+   "prereqs": [
+    "Q1"
+   ],
+   "boss_items": [],
+   "hook": "Simple and compound interest, present and future value, annuities and return measures, with EUR money-market and deposit examples.",
+   "units": [
+    {
+     "id": "F1.1",
+     "title": "Simple interest and the time value of money",
+     "minutes": 50,
+     "objectives": [
+      "Learner can compute simple interest over a fractional period with an Act/360 style day count",
+      "Learner can explain why money today beats money later",
+      "Learner can distinguish nominal rate, period and amount"
+     ],
+     "key_concepts": [
+      "interest as rent on money",
+      "principal, rate, term",
+      "simple interest I = P x r x t",
+      "day count basics (Act/360, Act/365) as a preview",
+      "money-market quoting (EURIBOR, EUR short rate as reference examples)"
+     ],
+     "worked_example": "EUR 500,000 lent for 90 days at 3.20% on Act/360: interest = 500,000 x 0.032 x 90/360 = EUR 4,000. With Act/365 the same loan pays EUR 3,945.21, which is why conventions matter.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute simple interest for a deposit given rate, days and day-count basis",
+       "params": "principal EUR 10,000-5,000,000; rate 0.1%-6%; days 7-360; basis 360 or 365"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the maturity amount of a deposit",
+       "params": "same ranges; asks for principal + interest"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose the more valuable of two offers (EUR 1,000 now vs EUR 1,040 in a year) given a stated rate",
+       "params": "rate 2%-6%; amounts"
+      },
+      {
+       "template": "cloze",
+       "task": "Complete a short explanation of the time value of money",
+       "params": "word bank: principal, rate, term, interest"
+      },
+      {
+       "template": "match",
+       "task": "Pair quoting conventions with the markets that use them (money market Act/360, many bonds 30/360 or Act/Act)",
+       "params": "5 pairs, previewing P3"
+      }
+     ],
+     "callbacks": [
+      "Q1.1",
+      "Q1.2"
+     ],
+     "sources": [
+      {
+       "id": "S008",
+       "ref": "Ch. 4 Time Value of Money and Ch. 5 Interest Rates (interest rate quotes)",
+       "use": "core"
+      },
+      {
+       "id": "S075",
+       "ref": "Ch. 2 The Basic Theory of Interest",
+       "use": "deeper"
+      },
+      {
+       "id": "S220",
+       "ref": "Appendix A5 (day-count conventions), skim only",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "F1.2",
+     "title": "Compounding and future value",
+     "minutes": 50,
+     "objectives": [
+      "Learner can compute future value with annual and sub-annual compounding",
+      "Learner can compute the effective annual rate (EAR) from a nominal rate and compounding frequency",
+      "Learner can compute continuously compounded growth and use it to compare rates"
+     ],
+     "key_concepts": [
+      "future value FV = PV(1 + r)^n",
+      "compounding frequency m",
+      "effective annual rate",
+      "continuous compounding e^(rt)",
+      "interest on interest"
+     ],
+     "worked_example": "EUR 20,000 for 10 years at 3% compounded annually becomes 20,000 x 1.03^10 = EUR 26,878.33. A 3% nominal rate compounded monthly gives EAR = (1 + 0.03/12)^12 - 1 = 3.042%; continuous compounding gives e^0.03 - 1 = 3.045%.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute the future value of a lump sum with annual compounding",
+       "params": "PV EUR 1,000-250,000; r 0.5%-10%; n = 1-40"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute future value with m compounding periods per year",
+       "params": "m in {2, 4, 12, 365}"
+      },
+      {
+       "template": "numeric",
+       "task": "Convert a nominal rate with frequency m to an effective annual rate",
+       "params": "nominal 1%-12%; m in {2, 4, 12}; tolerance 0.001%"
+      },
+      {
+       "template": "table",
+       "task": "Complete a year-by-year growth table showing interest on interest",
+       "params": "PV, r, 6 rows"
+      },
+      {
+       "template": "mcq",
+       "task": "Rank three offers with different nominal rates and frequencies by effective yield",
+       "params": "random triples"
+      }
+     ],
+     "callbacks": [
+      "Q1.5",
+      "Q1.6",
+      "F1.1"
+     ],
+     "sources": [
+      {
+       "id": "S008",
+       "ref": "Ch. 4 (compounding) and Ch. 5 (EAR, continuous compounding)",
+       "use": "core"
+      },
+      {
+       "id": "S075",
+       "ref": "Ch. 2 (compounding, continuous compounding)",
+       "use": "deeper"
+      },
+      {
+       "id": "S024",
+       "ref": "Ch. 2 Present value (compounding sections)",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "F1.3",
+     "title": "Discounting and present value",
+     "minutes": 60,
+     "objectives": [
+      "Learner can compute present value by discounting a single future cash flow",
+      "Learner can compute the present value of several cash flows and compare options",
+      "Learner can solve for the discount rate or the number of periods"
+     ],
+     "key_concepts": [
+      "discount factor 1/(1 + r)^n",
+      "present value of a cash-flow list",
+      "net present value",
+      "solving for r or n with roots and logs",
+      "discount rate as opportunity cost"
+     ],
+     "worked_example": "A zero-coupon note repays EUR 1,000 in 5 years; at a 4% discount rate it is worth 1,000 / 1.04^5 = EUR 821.93. If it trades at EUR 800, the yield satisfies (1,000/800)^(1/5) - 1 = 4.56%.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Discount a single future cash flow to today",
+       "params": "FV EUR 500-100,000; r 0.5%-10%; n = 1-30"
+      },
+      {
+       "template": "table",
+       "task": "Build a PV table for a list of cash flows and sum it",
+       "params": "3-5 cash flows EUR 100-5,000; r 1%-8%"
+      },
+      {
+       "template": "numeric",
+       "task": "Solve for the yearly discount rate given price and payoff (zero-coupon yield)",
+       "params": "price/payoff 40%-98%; n = 1-20"
+      },
+      {
+       "template": "numeric",
+       "task": "Solve for the number of years given price, payoff and rate",
+       "params": "uses logs, tolerance 0.05"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose the better of two payment plans by present value",
+       "params": "two cash-flow lists; rate randomised"
+      }
+     ],
+     "callbacks": [
+      "Q1.3",
+      "Q1.6",
+      "F1.2"
+     ],
+     "sources": [
+      {
+       "id": "S008",
+       "ref": "Ch. 4 Time Value of Money (valuing a stream of cash flows, NPV)",
+       "use": "core"
+      },
+      {
+       "id": "S024",
+       "ref": "Ch. 2 Present Value and the Opportunity Cost of Capital",
+       "use": "deeper"
+      },
+      {
+       "id": "S075",
+       "ref": "Ch. 2 (present value)",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "F1.4",
+     "title": "Annuities and perpetuities",
+     "minutes": 60,
+     "objectives": [
+      "Learner can price an ordinary annuity and an annuity-due with the closed formula",
+      "Learner can price a perpetuity and a growing perpetuity",
+      "Learner can compute a loan instalment from principal, rate and term"
+     ],
+     "key_concepts": [
+      "annuity factor (1 - (1+r)^-n)/r",
+      "annuity-due vs ordinary",
+      "perpetuity C/r",
+      "growing perpetuity C/(r - g)",
+      "loan payment and amortisation"
+     ],
+     "worked_example": "A loan of EUR 100,000 over 10 years at 4% with yearly payments has instalment 100,000 / 8.1109 = EUR 12,329.09 (annuity factor 8.1109 from the geometric series in Q1.8). A share paying EUR 3 forever at a 6% required return is worth 3/0.06 = EUR 50.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute the present value of a level annuity",
+       "params": "payment EUR 100-20,000; r 1%-9%; n = 2-30"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the instalment of an amortising loan",
+       "params": "principal EUR 10,000-500,000; r 1%-8%; n = 3-30"
+      },
+      {
+       "template": "table",
+       "task": "Complete the first 4 rows of a loan amortisation schedule (interest, principal, balance)",
+       "params": "from the loan generator above"
+      },
+      {
+       "template": "numeric",
+       "task": "Price a perpetuity and a growing perpetuity",
+       "params": "C, r, g with g < r"
+      },
+      {
+       "template": "mcq",
+       "task": "Identify which formula fits a described cash-flow pattern",
+       "params": "annuity, annuity-due, perpetuity, growing perpetuity, lump sum"
+      },
+      {
+       "template": "numeric",
+       "task": "Compare lease vs buy by present value of payments",
+       "params": "two payment profiles"
+      }
+     ],
+     "callbacks": [
+      "Q1.8",
+      "F1.3"
+     ],
+     "sources": [
+      {
+       "id": "S008",
+       "ref": "Ch. 4 (perpetuities, annuities, growing cash flows) and Ch. 5 (loan amortisation)",
+       "use": "core"
+      },
+      {
+       "id": "S024",
+       "ref": "Ch. 2 (perpetuities and annuities)",
+       "use": "deeper"
+      },
+      {
+       "id": "S075",
+       "ref": "Ch. 2 (annuities and amortisation)",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "F1.5",
+     "title": "Returns: holding-period, annualised, real and nominal",
+     "minutes": 80,
+     "objectives": [
+      "Learner can compute a holding-period return including income",
+      "Learner can annualise and de-annualise a return",
+      "Learner can convert between nominal and real returns using inflation",
+      "Learner can compute a simple money-weighted vs time-weighted return in a two-period toy example"
+     ],
+     "key_concepts": [
+      "holding-period return (HPR)",
+      "capital gain + income",
+      "annualisation (geometric)",
+      "nominal vs real (Fisher)",
+      "intuition for time-weighted vs money-weighted return (preview of A6)"
+     ],
+     "worked_example": "A share bought at EUR 40, paying a EUR 1.20 dividend and sold at EUR 43 after 18 months, has HPR (43 - 40 + 1.20)/40 = 10.5%, or 6.9% a year geometrically. With 2.5% inflation, the real return is 1.069/1.025 - 1 = 4.3% a year.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute the HPR from purchase price, sale price and income",
+       "params": "prices EUR 5-300; dividend 0%-6% of price"
+      },
+      {
+       "template": "numeric",
+       "task": "Annualise a multi-month return and de-annualise a yearly return",
+       "params": "horizon 3-60 months; return -30% to +80%"
+      },
+      {
+       "template": "numeric",
+       "task": "Convert a nominal return to a real return",
+       "params": "nominal -5%..+15%; inflation 0%-8%"
+      },
+      {
+       "template": "table",
+       "task": "Fill in a five-year return table with total value and yearly returns",
+       "params": "random yearly returns -25%..+35%"
+      },
+      {
+       "template": "numeric",
+       "task": "Compare average yearly return (arithmetic) with the actual compound result in a volatile path",
+       "params": "4-year return list including a loss; shows why they differ"
+      },
+      {
+       "template": "mcq",
+       "task": "Decide which of two portfolios did better when contributions timing differs (toy two-period case)",
+       "params": "two portfolios, one top-up each; teaser for TWR/MWR"
+      }
+     ],
+     "callbacks": [
+      "Q1.1",
+      "Q1.3",
+      "F1.2"
+     ],
+     "sources": [
+      {
+       "id": "S015",
+       "ref": "Ch. 5 Risk, Return and the Historical Record (holding-period returns, real vs nominal)",
+       "use": "core"
+      },
+      {
+       "id": "S008",
+       "ref": "Ch. 5 Interest Rates (real vs nominal rates)",
+       "use": "deeper"
+      },
+      {
+       "id": "S086",
+       "ref": "Opening chapter on return measures (preview only)",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "15-question test on simple and compound interest, EAR, discounting, annuity/perpetuity pricing, loan instalments and return arithmetic (nominal/real, annualised).",
+   "jurisdiction_notes": "Examples use EUR and ECB/EURIBOR-style money-market conventions; US dollar and sterling conventions (Act/360 vs Act/365 for GBP) are mentioned as one-line contrasts only."
+  },
+  {
+   "id": "P1",
+   "title": "What a Security Is",
+   "track": "ops",
+   "hours": 4,
+   "prereqs": [],
+   "boss_items": [
+    "stocks, bonds, funds"
+   ],
+   "hook": "The main security types (shares, bonds, funds and derivatives), their rights and cash flows, and how to classify an instrument by its terms.",
+   "units": [
+    {
+     "id": "P1.1",
+     "title": "Securities and why markets exist",
+     "minutes": 45,
+     "objectives": [
+      "Learner can define a security and distinguish it from a loan, a deposit and a contract",
+      "Learner can explain the roles of issuers, investors and intermediaries",
+      "Learner can explain primary vs secondary markets"
+     ],
+     "key_concepts": [
+      "security as a tradable claim",
+      "issuer, investor, intermediary",
+      "primary vs secondary market",
+      "transferability, fungibility, identifiers (ISIN, LEI)",
+      "MiFID II 'financial instrument' list as the legal definition"
+     ],
+     "worked_example": "A company raises EUR 50 m by issuing 5,000,000 new shares at EUR 10 (primary market). When an investor later sells 1,000 of them to another investor on an exchange, the company receives nothing (secondary market).",
+     "exercises": [
+      {
+       "template": "bucket",
+       "task": "Sort 10 items into 'security' or 'not a security' (share, bond, fund unit, bank deposit, loan, invoice, ...)",
+       "params": "items drawn from a bank of 30"
+      },
+      {
+       "template": "match",
+       "task": "Pair each player with their role",
+       "params": "issuer, investor, broker, exchange, CSD, custodian, regulator"
+      },
+      {
+       "template": "mcq",
+       "task": "Decide whether a described trade is primary or secondary market",
+       "params": "6 scenarios"
+      },
+      {
+       "template": "cloze",
+       "task": "Complete a sentence about fungibility and identifiers",
+       "params": "word bank with ISIN, LEI, issuer, fungible"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the proceeds of a primary-market issue after underwriting fees",
+       "params": "shares 1-20 m; price EUR 5-60; fee 1%-4%"
+      }
+     ],
+     "callbacks": [
+      "Q1.1"
+     ],
+     "sources": [
+      {
+       "id": "S004",
+       "ref": "Ch. 1 and Ch. 2 (financial system, markets and instruments)",
+       "use": "core"
+      },
+      {
+       "id": "S030",
+       "ref": "Opening chapters: why markets exist and what they do",
+       "use": "deeper"
+      },
+      {
+       "id": "S183",
+       "ref": "Art. 4(1)(15) and Annex I Section C (definition of financial instruments)",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "P1.2",
+     "title": "Equity: owning a slice of a company",
+     "minutes": 50,
+     "objectives": [
+      "Learner can describe the rights of a shareholder (dividends, voting, residual claim)",
+      "Learner can compute market capitalisation and a simple dividend yield",
+      "Learner can explain why share prices move"
+     ],
+     "key_concepts": [
+      "ordinary shares",
+      "dividend, retained earnings",
+      "market capitalisation",
+      "residual claim and limited liability",
+      "listed vs unlisted shares"
+     ],
+     "worked_example": "A listed firm has 80 m shares at EUR 25: market cap EUR 2.0 bn. It pays EUR 1.00 per share, so the dividend yield is 4.0% and total dividends are EUR 80 m. In a wind-up, shareholders are paid only after creditors.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute market capitalisation and dividend yield from shares, price and dividend",
+       "params": "shares 10-500 m; price EUR 3-300; dividend 0%-7% yield"
+      },
+      {
+       "template": "mcq",
+       "task": "Pick the right to which a shareholder is entitled in a scenario",
+       "params": "vote, dividend, pre-emption, none"
+      },
+      {
+       "template": "order",
+       "task": "Rank claimants in a liquidation (secured creditor, unsecured creditor, preferred, ordinary shareholder)",
+       "params": "4-5 claim types shuffled"
+      },
+      {
+       "template": "multi",
+       "task": "Select factors that can move a share price",
+       "params": "bank of 12 factors, 3-5 correct"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the value of a holding and the effect of a stated percentage price move",
+       "params": "position 100-5,000 shares; price move -15%..+20%"
+      }
+     ],
+     "callbacks": [
+      "Q1.1",
+      "F1.5"
+     ],
+     "sources": [
+      {
+       "id": "S004",
+       "ref": "Chapter on equity markets",
+       "use": "core"
+      },
+      {
+       "id": "S015",
+       "ref": "Ch. 2 Asset Classes and Financial Instruments (equity securities)",
+       "use": "deeper"
+      },
+      {
+       "id": "S062",
+       "ref": "Chapters on common stock and stock markets",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "P1.3",
+     "title": "Debt: bonds and the promise to repay",
+     "minutes": 50,
+     "objectives": [
+      "Learner can read the key terms of a plain bond (issuer, coupon, maturity, par)",
+      "Learner can compute annual coupon payments and current yield",
+      "Learner can explain how price and market yield move in opposite directions in an intuitive example"
+     ],
+     "key_concepts": [
+      "par/nominal, coupon, maturity",
+      "issuer types: government, corporate, supranational",
+      "current yield",
+      "price quoted as % of par",
+      "credit risk and rating (intuition)"
+     ],
+     "worked_example": "A EUR 1,000 bond pays a 3% coupon (EUR 30 a year) for 5 years. If it trades at 95% of par (EUR 950), the current yield is 30/950 = 3.16%; a buyer also gains EUR 50 at maturity, which is why yield exceeds the coupon rate.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute the annual coupon and the current yield",
+       "params": "nominal EUR 1,000-1,000,000; coupon 0.5%-7%; price 80-115% of par"
+      },
+      {
+       "template": "match",
+       "task": "Pair bond terms with their meaning",
+       "params": "par, coupon, maturity, issue price, rating, redemption"
+      },
+      {
+       "template": "mcq",
+       "task": "State whether a bond price rises or falls when market yields rise (with a one-line cash-flow reason)",
+       "params": "scenarios with differing coupon and yield moves"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort issuers into government, corporate or supranational and by likely credit risk",
+       "params": "12 generic issuer descriptions"
+      },
+      {
+       "template": "numeric",
+       "task": "Value a 1-year zero-coupon bond at a given market yield, linking to F1.3",
+       "params": "yield 0.5%-8%; nominal EUR 1,000"
+      }
+     ],
+     "callbacks": [
+      "F1.3",
+      "Q1.1"
+     ],
+     "sources": [
+      {
+       "id": "S004",
+       "ref": "Chapter on bond markets",
+       "use": "core"
+      },
+      {
+       "id": "S030",
+       "ref": "Chapters on bonds and government debt",
+       "use": "deeper"
+      },
+      {
+       "id": "S045",
+       "ref": "Opening chapters: bond features and terminology",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "P1.4",
+     "title": "Funds: pooling money and the NAV idea",
+     "minutes": 45,
+     "objectives": [
+      "Learner can explain what a fund is and why investors use one",
+      "Learner can compute a fund's net asset value per unit from simple balances",
+      "Learner can distinguish open-ended funds, ETFs and closed-ended funds at headline level"
+     ],
+     "key_concepts": [
+      "pooling and diversification",
+      "unit/share of a fund",
+      "NAV per unit = (assets - liabilities)/units",
+      "open-ended vs closed-ended vs ETF",
+      "UCITS as the EU retail fund label",
+      "management fee and TER"
+     ],
+     "worked_example": "A fund holds EUR 120.4 m of securities and EUR 1.6 m of cash, owes EUR 0.5 m in fees and has 1,000,000 units: NAV per unit = (122.0 - 0.5)/1.0 = EUR 121.50. Investors buy and sell units at NAV (open-ended); an ETF unit also trades on an exchange at a price that can differ slightly.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute NAV per unit from assets, liabilities and units outstanding",
+       "params": "assets EUR 50-500 m; liabilities 0.2%-2%; units 0.5-5 m"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the units issued when an investor subscribes a stated amount at NAV",
+       "params": "amount EUR 1,000-1,000,000; NAV EUR 10-300"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort fund descriptions into open-ended fund, ETF, closed-end fund",
+       "params": "9 descriptions from a bank"
+      },
+      {
+       "template": "match",
+       "task": "Pair fund terms with their meaning",
+       "params": "NAV, TER, unit, redemption, UCITS, diversification"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose how a EUR 1,000 annual fee on a EUR 250,000 holding translates into TER",
+       "params": "holding and fee randomised"
+      }
+     ],
+     "callbacks": [
+      "Q1.1",
+      "F1.5"
+     ],
+     "sources": [
+      {
+       "id": "S004",
+       "ref": "Chapter on collective investment vehicles",
+       "use": "core"
+      },
+      {
+       "id": "S007",
+       "ref": "Opening chapters on how funds work and their costs",
+       "use": "deeper"
+      },
+      {
+       "id": "S015",
+       "ref": "Ch. 4 Mutual Funds and Other Investment Companies",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "P1.5",
+     "title": "The market map: who does what",
+     "minutes": 50,
+     "objectives": [
+      "Learner can place an institution on the map of buyside, sellside, infrastructure and regulators",
+      "Learner can match intermediary types (broker, dealer, bank, custodian, asset manager) to what they do",
+      "Learner can sketch the European market map in one page and name an equivalent in the US and UK"
+     ],
+     "key_concepts": [
+      "buy side vs sell side",
+      "broker vs dealer vs exchange",
+      "market infrastructure: trading venue, CCP, CSD, custodian",
+      "regulators and supervisors (national authority, ESMA, ECB)",
+      "asset classes and market sizes (orders of magnitude)"
+     ],
+     "worked_example": "A pension fund (investor) instructs an asset manager (buy side) who uses a broker (sell side) to buy shares on a venue; trades are cleared by a CCP and settled at a CSD, with a custodian holding the shares. Equivalent names: Euronext/Deutsche Borse in EU, NYSE/Nasdaq in the US, LSE in the UK.",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Pair institutions with their role on the market map",
+       "params": "8 pairs from a bank of 30 real-world archetypes (generic, not company-specific)"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort institution types into buy side, sell side, infrastructure, regulator",
+       "params": "12 institution types"
+      },
+      {
+       "template": "order",
+       "task": "Order the actors in the journey of a retail purchase from client to custody",
+       "params": "5-7 actors, shuffled"
+      },
+      {
+       "template": "mcq",
+       "task": "Decide who would perform a described task (hold the shares, match the order, supervise the market)",
+       "params": "8 tasks"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the wrong role in a short description of how a stock trade works",
+       "params": "one planted error of 4 possible kinds"
+      }
+     ],
+     "callbacks": [
+      "P1.1",
+      "P1.2",
+      "P1.3",
+      "P1.4"
+     ],
+     "sources": [
+      {
+       "id": "S004",
+       "ref": "Chapters on financial institutions and intermediaries",
+       "use": "core"
+      },
+      {
+       "id": "S062",
+       "ref": "Chapters on financial institutions and markets",
+       "use": "deeper"
+      },
+      {
+       "id": "S188",
+       "ref": "ESMA Interactive Single Rulebook landing page, for role names only",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "15-question test on security definitions, shareholder rights, bond terms and current yield, NAV per unit, and matching institutions on the market map.",
+   "jurisdiction_notes": "EU first (UCITS as retail fund label, ESMA/national authorities); US and UK equivalents named once each in P1.5 (SEC/FINRA, FCA); no detailed comparison yet."
+  },
+  {
+   "id": "T1",
+   "title": "Anatomy of a Trade",
+   "track": "ops",
+   "hours": 3,
+   "prereqs": [
+    "P1"
+   ],
+   "boss_items": [
+    "order & execution workflows",
+    "custodian role (settlement, safekeeping)"
+   ],
+   "hook": "The path of an order from client to custody: the teams and systems involved at each step, and what each handover passes on.",
+   "units": [
+    {
+     "id": "T1.1",
+     "title": "From idea to order to execution",
+     "minutes": 45,
+     "objectives": [
+      "Learner can list the data an order must contain",
+      "Learner can distinguish an order, an execution and a confirmation",
+      "Learner can describe who may be in the chain between client and venue"
+     ],
+     "key_concepts": [
+      "order fields: side, instrument, quantity, price type, validity",
+      "market vs limit order (bird's-eye)",
+      "execution venue and counterparty",
+      "trade date T",
+      "order status: new, partially filled, filled, cancelled"
+     ],
+     "worked_example": "A client asks to buy 200 shares of a listed company at a limit of EUR 52.40. The broker routes the order, 100 shares fill at EUR 52.30 and 100 at EUR 52.40: average price EUR 52.35, total consideration EUR 10,470.",
+     "exercises": [
+      {
+       "template": "order",
+       "task": "Put the steps from a client's instruction to an execution report in sequence",
+       "params": "6-7 steps from a bank, with variants for care vs automated routing"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute average fill price and consideration from partial fills",
+       "params": "2-4 fills of 20-500 shares at EUR 5-120"
+      },
+      {
+       "template": "match",
+       "task": "Pair an order field with an example value",
+       "params": "side, quantity, instrument identifier, limit price, validity"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the missing or inconsistent field on an order ticket",
+       "params": "random ticket with 1 planted error"
+      },
+      {
+       "template": "mcq",
+       "task": "Decide whether a limit order would execute given a market price",
+       "params": "buy/sell, limit vs market price"
+      }
+     ],
+     "callbacks": [
+      "P1.2",
+      "P1.5",
+      "Q1.2"
+     ],
+     "sources": [
+      {
+       "id": "S100",
+       "ref": "Chapters on the trade lifecycle: order, execution and trade capture",
+       "use": "core"
+      },
+      {
+       "id": "S028",
+       "ref": "Opening chapters: trade and position management overview",
+       "use": "deeper"
+      },
+      {
+       "id": "S004",
+       "ref": "Chapter on how securities are traded",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "T1.2",
+     "title": "Confirmation, clearing and settlement in one picture",
+     "minutes": 45,
+     "objectives": [
+      "Learner can place trade date, settlement date and the settlement cycle on a timeline",
+      "Learner can explain delivery versus payment in one sentence",
+      "Learner can explain what a CCP does at headline level"
+     ],
+     "key_concepts": [
+      "trade confirmation and matching",
+      "clearing: netting and CCP",
+      "settlement: exchange of cash for securities (DVP)",
+      "settlement cycle: EU/UK T+2 today, US T+1 since 28 May 2024, EU/UK move to T+1 on 11 October 2027",
+      "fails and why they matter"
+     ],
+     "worked_example": "A EUR 10,470 purchase made on Monday settles in the EU on Wednesday (T+2); the same trade in the US settles on Tuesday (T+1). On settlement day the buyer's cash account is debited and the securities account credited at the same moment.",
+     "exercises": [
+      {
+       "template": "timeline",
+       "task": "Place trade date, confirmation, clearing and settlement on a timeline, skipping weekends and a named holiday",
+       "params": "trade day Mon-Fri; T+1 or T+2; one TARGET holiday inserted at random"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the settlement date for a trade (as a weekday count)",
+       "params": "trade date random in a month; cycle T+1 or T+2; holidays listed"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill in the blanks of a DVP description",
+       "params": "word bank: delivery, payment, simultaneous, counterparty"
+      },
+      {
+       "template": "mcq",
+       "task": "Identify what goes wrong in a fail scenario (cash short, securities short, instruction mismatch)",
+       "params": "6 scenarios"
+      },
+      {
+       "template": "match",
+       "task": "Pair infrastructure names with function (CCP, CSD, ICSD, custodian, broker)",
+       "params": "5 pairs"
+      }
+     ],
+     "callbacks": [
+      "T1.1",
+      "P1.5"
+     ],
+     "sources": [
+      {
+       "id": "S100",
+       "ref": "Chapters on confirmation, clearing and settlement",
+       "use": "core"
+      },
+      {
+       "id": "S005",
+       "ref": "Chapters on clearing, settlement and custody overview",
+       "use": "deeper"
+      },
+      {
+       "id": "S272",
+       "ref": "Release 34-96930 (summary of the T+1 rule)",
+       "use": "reference"
+      },
+      {
+       "id": "S250",
+       "ref": "Reg. (EU) 2025/2075 (T+1 date), skim only",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "T1.3",
+     "title": "Custody: who holds the securities?",
+     "minutes": 45,
+     "objectives": [
+      "Learner can explain safekeeping and why securities are held through a chain of intermediaries",
+      "Learner can distinguish a custodian, a CSD and a client's securities account",
+      "Learner can tell what the client sees vs what sits behind it"
+     ],
+     "key_concepts": [
+      "safekeeping and asset servicing",
+      "custody chain: client - bank/broker - custodian - CSD",
+      "book-entry (dematerialised) holding",
+      "omnibus vs segregated account (headline)",
+      "asset servicing: income, corporate actions"
+     ],
+     "worked_example": "A client's 200 shares appear on a statement at his bank. The bank holds them at a custodian in an omnibus account, which holds them at the national CSD. When the company pays a dividend the cash flows back down the same chain.",
+     "exercises": [
+      {
+       "template": "order",
+       "task": "Order the layers of a custody chain from the client to the CSD",
+       "params": "3-5 layers; variants for domestic vs cross-border"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort tasks into custody tasks vs trading tasks vs clearing tasks",
+       "params": "12 tasks"
+      },
+      {
+       "template": "mcq",
+       "task": "Decide which party is legally responsible for a stated safekeeping risk",
+       "params": "4 scenarios"
+      },
+      {
+       "template": "match",
+       "task": "Pair custody terms with meaning",
+       "params": "safekeeping, sub-custodian, omnibus, segregated, book-entry"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a statement of holdings reconciliation (client statement vs custodian record)",
+       "params": "one quantity mismatch planted"
+      }
+     ],
+     "callbacks": [
+      "T1.2",
+      "P1.5"
+     ],
+     "sources": [
+      {
+       "id": "S005",
+       "ref": "Chapters on custody and safekeeping",
+       "use": "core"
+      },
+      {
+       "id": "S063",
+       "ref": "Opening chapters on custody and the custody chain",
+       "use": "deeper"
+      },
+      {
+       "id": "S035",
+       "ref": "Euronext Securities segregation levels page, headline only",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "T1.4",
+     "title": "A full trade from start to finish",
+     "minutes": 45,
+     "objectives": [
+      "Learner can walk a single trade through every stage with dates and amounts",
+      "Learner can say who is responsible for each handover",
+      "Learner can compute total settlement cash including fees"
+     ],
+     "key_concepts": [
+      "end-to-end trade lifecycle",
+      "handover points and responsibilities",
+      "settlement amount = consideration + fees (+ accrued interest for bonds, preview)",
+      "common break points"
+     ],
+     "worked_example": "Monday: buy 200 shares at EUR 52.35 = EUR 10,470 + EUR 15 commission = EUR 10,485 cash due. Monday evening: confirmation matched. Wednesday: DVP settlement at the CSD; the shares appear in the client's account, cash leaves. The same flow in the US would end on Tuesday.",
+     "exercises": [
+      {
+       "template": "table",
+       "task": "Complete a lifecycle table of date, event, responsible team and status for one trade",
+       "params": "random trade; cycle T+1 or T+2"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute total cash to settle including commission and any stamp duty or financial transaction tax given in the scenario",
+       "params": "quantity 50-1,000; price EUR 5-150; fee flat or percentage; optional tax 0.1%-0.2%"
+      },
+      {
+       "template": "order",
+       "task": "Re-order a shuffled set of 8 lifecycle events",
+       "params": "includes order, execution, confirm, match, clear, settle, custody update, report"
+      },
+      {
+       "template": "mcq",
+       "task": "Pinpoint at which stage a stated problem arises",
+       "params": "6 break scenarios"
+      },
+      {
+       "template": "paper",
+       "task": "Optional: in 150 words, explain to a new colleague what happens between a click on 'buy' and shares appearing in the account",
+       "params": "rubric: all stages, correct order, correct roles, correct settlement timing"
+      }
+     ],
+     "callbacks": [
+      "T1.1",
+      "T1.2",
+      "T1.3",
+      "Q1.2"
+     ],
+     "sources": [
+      {
+       "id": "S100",
+       "ref": "Chapters on end-to-end trade lifecycle",
+       "use": "core"
+      },
+      {
+       "id": "S058",
+       "ref": "Chapters on trade, settlement and custody operations",
+       "use": "deeper"
+      },
+      {
+       "id": "S049",
+       "ref": "Opening chapters: overview of clearing, settlement and custody",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "12-question test: ordering the lifecycle, computing a settlement date and cash, and assigning stages to the right party.",
+   "jurisdiction_notes": "EU/UK T+2 now (T+1 from 11 October 2027), US T+1 since 28 May 2024; Switzerland noted as moving in step with the EU/UK (to confirm). Details deferred to O3."
+  },
+  {
+   "id": "C1",
+   "title": "Client Accounts 101",
+   "track": "ops",
+   "hours": 3,
+   "prereqs": [
+    "P1"
+   ],
+   "boss_items": [
+    "client accounts",
+    "client onboarding"
+   ],
+   "hook": "How a client is identified, which account types exist, and who has authority to decide on investments (the client, the manager or an adviser).",
+   "units": [
+    {
+     "id": "C1.1",
+     "title": "Client segments: retail, private banking and institutional",
+     "minutes": 45,
+     "objectives": [
+      "Learner can describe the three broad client segments and their typical needs",
+      "Learner can name the MiFID II categories (retail, professional, eligible counterparty) and one consequence of each",
+      "Learner can explain why segment matters for service and protection"
+     ],
+     "key_concepts": [
+      "retail, private banking/wealth, institutional",
+      "MiFID II client categories",
+      "protection level vs categorisation",
+      "typical products and services per segment"
+     ],
+     "worked_example": "A salaried individual with EUR 30,000 is a retail client with the highest protection. A family with EUR 8 m is private-banking but may still be retail under MiFID unless opted up. A pension fund is an institution and normally a professional client.",
+     "exercises": [
+      {
+       "template": "bucket",
+       "task": "Sort 10 client profiles into retail, private banking or institutional",
+       "params": "profiles from a bank with wealth, experience, type"
+      },
+      {
+       "template": "match",
+       "task": "Pair MiFID categories with the right level of protection or typical consequence",
+       "params": "retail, professional, eligible counterparty"
+      },
+      {
+       "template": "mcq",
+       "task": "Decide which category a described client falls in under default rules",
+       "params": "6 profiles"
+      },
+      {
+       "template": "multi",
+       "task": "Select which services are typical for each segment",
+       "params": "bank of 12 services"
+      },
+      {
+       "template": "cloze",
+       "task": "Complete a short paragraph on why categorisation matters",
+       "params": "word bank: protection, information, suitability, opt-up"
+      }
+     ],
+     "callbacks": [
+      "P1.5"
+     ],
+     "sources": [
+      {
+       "id": "S031",
+       "ref": "Opening chapters on wealth management and client segments",
+       "use": "core"
+      },
+      {
+       "id": "S235",
+       "ref": "Art. 4(1)(10)-(11), Art. 30 and Annex II (client classification), headline reading",
+       "use": "core"
+      },
+      {
+       "id": "S064",
+       "ref": "Chapters on segmentation of private banking clients",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "C1.2",
+     "title": "Account types: what can be opened?",
+     "minutes": 45,
+     "objectives": [
+      "Learner can distinguish a cash account, a securities (custody) account and a margin account",
+      "Learner can recognise individual, joint and corporate account holders",
+      "Learner can name one tax-advantaged account wrapper in the EU, US and UK"
+     ],
+     "key_concepts": [
+      "cash/current account vs securities account",
+      "cash vs margin account (credit, preview of K2)",
+      "individual, joint, corporate",
+      "tax wrappers (e.g. national savings plans, US IRA, UK ISA)",
+      "account number structure: client, account, sub-account"
+     ],
+     "worked_example": "An investor has a current account at the bank (cash) and a securities account linked to it. A buy debits cash and credits securities; with a margin account (US) the broker may lend part of the purchase price. A UK ISA or a US IRA is a wrapper that changes tax, not how the trade works.",
+     "exercises": [
+      {
+       "template": "match",
+       "task": "Pair each account type with its purpose",
+       "params": "cash, securities, margin, joint, corporate, tax wrapper"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort 10 transactions into the account (cash vs securities) they touch",
+       "params": "buy, sell, dividend, fee, deposit, withdrawal, transfer in"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose the right account structure for a described client",
+       "params": "6 scenarios"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the inconsistent account set-up in an opening form (e.g. joint account with one signatory missing)",
+       "params": "random form with 1 planted error"
+      },
+      {
+       "template": "multi",
+       "task": "Select which accounts allow borrowing to buy securities",
+       "params": "bank of 8 account types; correct set varies by jurisdiction"
+      }
+     ],
+     "callbacks": [
+      "C1.1",
+      "T1.3"
+     ],
+     "sources": [
+      {
+       "id": "S031",
+       "ref": "Chapters on client accounts and service model",
+       "use": "core"
+      },
+      {
+       "id": "S087",
+       "ref": "Chapters on private banking services and account structures",
+       "use": "deeper"
+      },
+      {
+       "id": "S046",
+       "ref": "Chapters on customer accounts (cash vs margin), skim only",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "C1.3",
+     "title": "Mandates: execution-only, advisory and discretionary",
+     "minutes": 45,
+     "objectives": [
+      "Learner can classify a service as execution-only, advisory or discretionary",
+      "Learner can say who takes the investment decision under each mandate",
+      "Learner can list one obligation that rises with each step up in service"
+     ],
+     "key_concepts": [
+      "execution-only: client decides, no advice",
+      "advisory: recommendation, client decides",
+      "discretionary: manager decides within mandate",
+      "suitability and appropriateness (headline)",
+      "mandate document and investment guidelines"
+     ],
+     "worked_example": "A client who phones 'buy 100 shares of X' is execution-only (the bank checks appropriateness for complex products only). A relationship manager who proposes a bond switch gives advice and must assess suitability. A portfolio manager who rebalances without asking, within a signed mandate, is discretionary.",
+     "exercises": [
+      {
+       "template": "bucket",
+       "task": "Sort 10 situations into execution-only, advisory or discretionary",
+       "params": "situations from a bank of 25"
+      },
+      {
+       "template": "mcq",
+       "task": "State who takes the decision, and who bears the suitability duty, in a scenario",
+       "params": "6 scenarios"
+      },
+      {
+       "template": "match",
+       "task": "Pair mandate types with obligations (appropriateness, suitability, periodic reporting)",
+       "params": "3 mandates x 3 obligations"
+      },
+      {
+       "template": "order",
+       "task": "Order the layers by increasing bank responsibility",
+       "params": "execution-only, advice, discretionary"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a mandate summary (e.g. discretionary but order needs prior client approval)",
+       "params": "random mandate; planted inconsistency"
+      }
+     ],
+     "callbacks": [
+      "C1.2"
+     ],
+     "sources": [
+      {
+       "id": "S066",
+       "ref": "Introduction and Section on scope of suitability (headline reading)",
+       "use": "core"
+      },
+      {
+       "id": "S065",
+       "ref": "Sections on execution-only and appropriateness (headline reading)",
+       "use": "core"
+      },
+      {
+       "id": "S096",
+       "ref": "Chapters on advisory vs discretionary client relationships",
+       "use": "deeper"
+      },
+      {
+       "id": "S271",
+       "ref": "Reg BI small entity guide, one-page contrast",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "C1.4",
+     "title": "Onboarding overview: from stranger to client",
+     "minutes": 45,
+     "objectives": [
+      "Learner can list the steps of onboarding in order",
+      "Learner can name the documents and data typically collected",
+      "Learner can explain at headline level why KYC and risk profiling exist"
+     ],
+     "key_concepts": [
+      "identification and verification (KYC)",
+      "source of funds/wealth, purpose of account",
+      "risk profile and investment objectives",
+      "agreements, terms, fee schedule",
+      "ongoing review (headline)"
+     ],
+     "worked_example": "Onboarding a new private client: ID and address verified, source of wealth declared (inheritance EUR 400,000), risk profile set to 'balanced', account opened under a discretionary mandate, fee schedule signed, tax residency form filed. Only then is the account activated for trading.",
+     "exercises": [
+      {
+       "template": "order",
+       "task": "Put the onboarding steps in the right order",
+       "params": "7-8 steps, variants for individual vs corporate"
+      },
+      {
+       "template": "multi",
+       "task": "Select which documents are required for a described client",
+       "params": "individual, couple, small company"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the missing item or inconsistency in a client file",
+       "params": "planted error from {missing ID, residency mismatch, risk profile vs mandate, no signature}"
+      },
+      {
+       "template": "match",
+       "task": "Pair each onboarding data point with its purpose (KYC, risk profile, tax, mandate)",
+       "params": "8 pairs"
+      },
+      {
+       "template": "mcq",
+       "task": "Decide whether the account can be activated given a described file",
+       "params": "5 files; some incomplete"
+      }
+     ],
+     "callbacks": [
+      "C1.1",
+      "C1.3"
+     ],
+     "sources": [
+      {
+       "id": "S031",
+       "ref": "Chapters on client onboarding and the advisory process",
+       "use": "core"
+      },
+      {
+       "id": "S102",
+       "ref": "Principles on client acceptance (headline only)",
+       "use": "deeper"
+      },
+      {
+       "id": "S196",
+       "ref": "Recommendation 10 (customer due diligence), skim only",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "12-question test classifying clients, accounts and mandates, and ordering the onboarding steps.",
+   "jurisdiction_notes": "EU (MiFID II categories) first; US cash vs margin accounts and Reg BI mentioned once; UK ISA and Swiss FinSA client segments named in one line each; detailed treatment deferred to C2-C4."
+  },
+  {
+   "id": "A1",
+   "title": "Double-Entry for Securities",
+   "track": "ops",
+   "hours": 5,
+   "prereqs": [
+    "P1"
+   ],
+   "boss_items": [
+    "chart of accounts"
+   ],
+   "hook": "The double-entry rule for securities and cash, how a trade is posted on both sides of the ledger, and how the nightly balance check shows a missing entry.",
+   "units": [
+    {
+     "id": "A1.1",
+     "title": "Why books balance: the accounting equation",
+     "minutes": 60,
+     "objectives": [
+      "Learner can state the accounting equation Assets = Liabilities + Equity",
+      "Learner can classify items as asset, liability, income or expense",
+      "Learner can explain why double entry gives a built-in error check"
+     ],
+     "key_concepts": [
+      "assets, liabilities, equity, income, expense",
+      "accounting equation",
+      "double entry: every event changes two sides",
+      "balance sheet vs income statement (headline)"
+     ],
+     "worked_example": "A client deposits EUR 10,000: the bank's asset (cash at the central bank) rises by 10,000 and its liability (client deposit) rises by 10,000. The equation still balances: 10,000 = 10,000 + 0.",
+     "exercises": [
+      {
+       "template": "bucket",
+       "task": "Sort 12 items into asset, liability, equity, income or expense",
+       "params": "bank/investor items such as cash, shares held, loan, fee income, custody cost"
+      },
+      {
+       "template": "numeric",
+       "task": "Find the missing figure in the accounting equation",
+       "params": "two of assets, liabilities, equity given; EUR 1,000-5,000,000"
+      },
+      {
+       "template": "mcq",
+       "task": "State the two effects of a simple event on the equation",
+       "params": "6 events"
+      },
+      {
+       "template": "match",
+       "task": "Pair accounting terms with their meaning",
+       "params": "asset, liability, equity, income, expense, ledger"
+      },
+      {
+       "template": "cloze",
+       "task": "Complete a short explanation of why every entry is made twice",
+       "params": "word bank with distractors"
+      }
+     ],
+     "callbacks": [
+      "P1.4",
+      "Q1.2"
+     ],
+     "sources": [
+      {
+       "id": "S036",
+       "ref": "Opening chapters: accounting basics for investments",
+       "use": "core"
+      },
+      {
+       "id": "S028",
+       "ref": "Chapters on accounting and position keeping",
+       "use": "deeper"
+      },
+      {
+       "id": "S160",
+       "ref": "Conceptual Framework overview (definitions of asset, liability, equity)",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "A1.2",
+     "title": "Debits, credits and T-accounts",
+     "minutes": 60,
+     "objectives": [
+      "Learner can apply the debit/credit rule to the five account types",
+      "Learner can post a simple event as a balanced journal entry",
+      "Learner can build a T-account and a trial balance"
+     ],
+     "key_concepts": [
+      "debit left, credit right",
+      "normal balances by account type",
+      "journal entry with two or more lines",
+      "T-account and running balance",
+      "trial balance"
+     ],
+     "worked_example": "Deposit of EUR 10,000: Dr Cash at bank 10,000 / Cr Client deposits 10,000. Fee income of EUR 15 on a client: Dr Client account 15 / Cr Fee income 15. A trial balance then shows total debits = total credits.",
+     "exercises": [
+      {
+       "template": "journal",
+       "task": "Build the Dr/Cr entry for each of 4 simple events",
+       "params": "events from {deposit, withdrawal, fee charged, interest paid}; amounts EUR 10-100,000"
+      },
+      {
+       "template": "mcq",
+       "task": "Identify which side increases a given account type",
+       "params": "5 account types"
+      },
+      {
+       "template": "table",
+       "task": "Post a list of entries to T-accounts and compute balances",
+       "params": "4-6 entries on 3-4 accounts"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the closing balance of an account from opening balance and postings",
+       "params": "mixed debits and credits"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the unbalanced or wrongly-sided journal entry",
+       "params": "planted error from {sides swapped, amount mismatch, wrong account}"
+      },
+      {
+       "template": "table",
+       "task": "Complete a trial balance and check it balances",
+       "params": "6-8 accounts, one hidden figure"
+      }
+     ],
+     "callbacks": [
+      "A1.1"
+     ],
+     "sources": [
+      {
+       "id": "S036",
+       "ref": "Chapters on journal entries and ledgers",
+       "use": "core"
+      },
+      {
+       "id": "S160",
+       "ref": "Opening chapter on the accounting framework, skim only",
+       "use": "reference"
+      },
+      {
+       "id": "S028",
+       "ref": "Chapter on accounting for securities transactions",
+       "use": "deeper"
+      }
+     ]
+    },
+    {
+     "id": "A1.3",
+     "title": "Two ledgers: cash and securities positions",
+     "minutes": 60,
+     "objectives": [
+      "Learner can explain the difference between a money ledger and a securities (position) ledger",
+      "Learner can record a securities movement by quantity and by value",
+      "Learner can state why the securities ledger is also kept in units"
+     ],
+     "key_concepts": [
+      "cash ledger (amount in currency)",
+      "position ledger (quantity per ISIN)",
+      "nominal/quantity vs market value vs book value",
+      "per-client, per-account, per-security keys",
+      "the bank's own books vs client holdings (headline)"
+     ],
+     "worked_example": "A client's securities ledger shows 200 shares of X: quantity 200, average cost EUR 52.35, book value EUR 10,470, market value 200 x 55 = EUR 11,000. The cash ledger shows the matching EUR 10,485 debit from the purchase.",
+     "exercises": [
+      {
+       "template": "table",
+       "task": "Complete a position table with quantity, average cost, book value and market value",
+       "params": "3 securities, prices from EUR 5 to 200"
+      },
+      {
+       "template": "bucket",
+       "task": "Sort 10 events into 'moves cash', 'moves securities', 'moves both'",
+       "params": "buy, sell, dividend, deposit, transfer in, fee, split"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute market value and unrealised gain of a position",
+       "params": "quantity 50-2,000; cost and price EUR 5-300"
+      },
+      {
+       "template": "mcq",
+       "task": "Say which ledger changes for each event and in which direction",
+       "params": "6 events"
+      },
+      {
+       "template": "match",
+       "task": "Pair terms with their definition",
+       "params": "book value, market value, nominal, quantity, average cost"
+      }
+     ],
+     "callbacks": [
+      "A1.2",
+      "P1.4",
+      "T1.3"
+     ],
+     "sources": [
+      {
+       "id": "S036",
+       "ref": "Chapters on investment accounting for equities",
+       "use": "core"
+      },
+      {
+       "id": "S028",
+       "ref": "Chapters on position keeping",
+       "use": "deeper"
+      },
+      {
+       "id": "S058",
+       "ref": "Chapters on books and records and reconciliation",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "A1.4",
+     "title": "Booking a trade: buy and sell in the ledgers",
+     "minutes": 60,
+     "objectives": [
+      "Learner can post a buy and a sell in both ledgers with fees",
+      "Learner can distinguish trade-date from settlement-date postings at a headline level",
+      "Learner can compute realised gain on a simple sale"
+     ],
+     "key_concepts": [
+      "buy: Dr securities / Cr cash",
+      "sell: Dr cash / Cr securities, gain or loss",
+      "fees as expense or part of cost",
+      "trade date vs settlement date (headline)",
+      "pending/unsettled position"
+     ],
+     "worked_example": "Buy 200 shares at EUR 52.35 + EUR 15 fee: Dr Securities 10,485 / Cr Cash 10,485 (fee included in cost). Later sell 200 at EUR 56 with EUR 15 fee: Dr Cash 11,185 / Cr Securities 10,485 / Cr Realised gain 700.",
+     "exercises": [
+      {
+       "template": "journal",
+       "task": "Post the entries for a stock purchase including commission",
+       "params": "qty 50-1,000; price EUR 5-150; fee flat EUR 5-20"
+      },
+      {
+       "template": "journal",
+       "task": "Post the entries for a stock sale and identify the realised gain or loss",
+       "params": "sale price +/- 25% vs cost"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute realised gain after fees",
+       "params": "qty, buy price, sell price, two fees"
+      },
+      {
+       "template": "timeline",
+       "task": "Show which entries are posted on trade date and which on settlement date in a two-ledger world",
+       "params": "T+1 or T+2; trade and settlement dates"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the error in a purchase entry (fee posted twice, gain taken on a buy, wrong side)",
+       "params": "planted error from 4 kinds"
+      }
+     ],
+     "callbacks": [
+      "A1.3",
+      "T1.4",
+      "F1.5"
+     ],
+     "sources": [
+      {
+       "id": "S036",
+       "ref": "Chapters on accounting for purchases and sales",
+       "use": "core"
+      },
+      {
+       "id": "S028",
+       "ref": "Chapters on trade booking and settlement accounting",
+       "use": "deeper"
+      },
+      {
+       "id": "S058",
+       "ref": "Chapters on trade booking and accounting",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "A1.5",
+     "title": "Position checks and the first chart of accounts",
+     "minutes": 60,
+     "objectives": [
+      "Learner can reconcile an internal position against a custodian statement",
+      "Learner can read a short chart of accounts and choose the right account for an event",
+      "Learner can post a short day of events end to end"
+     ],
+     "key_concepts": [
+      "reconciliation (internal vs external)",
+      "breaks and their typical causes",
+      "chart of accounts: numbering and groups",
+      "mapping events to accounts",
+      "end-of-day check: trial balance and position check"
+     ],
+     "worked_example": "Internal books show 1,200 shares of Y; the custodian shows 1,000 because 200 shares of a sale settled yesterday. After adjusting for the settled sale, positions agree. A mini chart: 1000 Cash, 1100 Securities, 2000 Client deposits, 4000 Fee income, 5000 Custody cost.",
+     "exercises": [
+      {
+       "template": "table",
+       "task": "Reconcile an internal position list with a custodian list and mark each break",
+       "params": "4-6 securities, 1-2 breaks (timing, wrong quantity, missing)"
+      },
+      {
+       "template": "journal",
+       "task": "Post a mini day (deposit, buy, fee, dividend) using the provided chart of accounts",
+       "params": "4 events; random amounts"
+      },
+      {
+       "template": "match",
+       "task": "Pair events with the chart-of-accounts code that should be used",
+       "params": "8 events, 8 codes"
+      },
+      {
+       "template": "mcq",
+       "task": "Diagnose the likely cause of a break",
+       "params": "6 break cases"
+      },
+      {
+       "template": "spot",
+       "task": "Spot the wrong account used in a short ledger extract",
+       "params": "random extract with 1 planted error"
+      }
+     ],
+     "callbacks": [
+      "A1.2",
+      "A1.4",
+      "T1.3"
+     ],
+     "sources": [
+      {
+       "id": "S058",
+       "ref": "Chapters on reconciliation and books and records",
+       "use": "core"
+      },
+      {
+       "id": "S036",
+       "ref": "Chapters on accounts and ledgers",
+       "use": "deeper"
+      },
+      {
+       "id": "S028",
+       "ref": "Chapters on reconciliation",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": {
+    "name": "Ledger",
+    "variant": "Gentle intro round: a stream of 8-10 simple events (deposit, buy, sell, fee) to post as balanced entries with a visible trial balance; no timer, hints allowed"
+   },
+   "unit_test": "15-question test on classifying accounts, posting Dr/Cr entries, buying and selling in two ledgers, and finding reconciliation breaks.",
+   "jurisdiction_notes": "Local GAAP vs IFRS differences are not covered here; IFRS 9 classification is deferred to A7. Client-side books only in this level."
+  },
+  {
+   "id": "Q2",
+   "title": "Probability and Statistics Intuition",
+   "track": "theory",
+   "hours": 4,
+   "prereqs": [
+    "Q1"
+   ],
+   "boss_items": [],
+   "hook": "Mean, variance, standard deviation and the normal distribution, and how these define the volatility figure on a fund factsheet.",
+   "units": [
+    {
+     "id": "Q2.1",
+     "title": "Data, averages and the shape of returns",
+     "minutes": 60,
+     "objectives": [
+      "Learner can compute mean, median and mode of a return list",
+      "Learner can read a histogram of returns",
+      "Learner can explain the effect of outliers on the mean"
+     ],
+     "key_concepts": [
+      "mean, median, mode",
+      "histogram and frequency",
+      "outliers and robustness",
+      "arithmetic vs geometric mean (callback to F1.5)"
+     ],
+     "worked_example": "Monthly returns of a fund (%): 1.2, -0.8, 2.0, 0.5, -3.1, 1.8. Mean = 0.27%, median = 0.85%. One -3.1% month pulls the mean below the median.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute mean, median and mode of a return list",
+       "params": "6-12 returns in [-8%, +8%]"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose which average is most representative for a skewed dataset",
+       "params": "dataset with one large outlier"
+      },
+      {
+       "template": "table",
+       "task": "Complete a frequency table and read the most frequent bin",
+       "params": "20 random returns; bin width 1%"
+      },
+      {
+       "template": "numeric",
+       "task": "Compare arithmetic and geometric mean on a short return list",
+       "params": "4-6 returns"
+      },
+      {
+       "template": "match",
+       "task": "Pair histogram shapes with descriptions (symmetric, skewed, fat tails)",
+       "params": "4 shapes"
+      }
+     ],
+     "callbacks": [
+      "F1.5",
+      "Q1.1"
+     ],
+     "sources": [
+      {
+       "id": "S074",
+       "ref": "Ch. 4 Expectation (mean intuition); Ch. 1 for counting",
+       "use": "core"
+      },
+      {
+       "id": "S001",
+       "ref": "Ch. 1 Combinatorial analysis, Ch. 7 Properties of expectation (skim)",
+       "use": "deeper"
+      },
+      {
+       "id": "S039",
+       "ref": "Ch. 3 Expectation",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "Q2.2",
+     "title": "Spread: variance and standard deviation",
+     "minutes": 60,
+     "objectives": [
+      "Learner can compute variance and standard deviation of a short list",
+      "Learner can annualise a monthly standard deviation by the square-root-of-time rule",
+      "Learner can say why two funds with the same average return can differ in risk"
+     ],
+     "key_concepts": [
+      "deviation from the mean",
+      "variance and standard deviation (population vs sample)",
+      "volatility as standard deviation of returns",
+      "square-root-of-time scaling (preview)",
+      "range vs standard deviation"
+     ],
+     "worked_example": "Fund A monthly returns: 1, 1, 1, 1 (%), SD 0. Fund B: 4, -2, 3, -1: same mean 1% but sample SD = 2.94%. If monthly SD is 2.94%, annualised volatility is 2.94% x sqrt(12) = 10.2%.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute variance and standard deviation of a short return list",
+       "params": "4-8 returns; sample vs population switched at random"
+      },
+      {
+       "template": "numeric",
+       "task": "Annualise a monthly or daily standard deviation",
+       "params": "SD 0.3%-5%; monthly x sqrt(12) or daily x sqrt(252)"
+      },
+      {
+       "template": "mcq",
+       "task": "Rank three funds by risk from their return lists without full calculation",
+       "params": "three lists with equal means"
+      },
+      {
+       "template": "cloze",
+       "task": "Fill in the blanks of a definition of variance",
+       "params": "word bank: mean, squared, deviation, average"
+      },
+      {
+       "template": "table",
+       "task": "Complete a deviation table (return, deviation, squared deviation) and total",
+       "params": "5 returns"
+      }
+     ],
+     "callbacks": [
+      "Q2.1",
+      "Q1.3"
+     ],
+     "sources": [
+      {
+       "id": "S074",
+       "ref": "Ch. 4 Expectation and Ch. 6 Moments (variance)",
+       "use": "core"
+      },
+      {
+       "id": "S001",
+       "ref": "Ch. 4 Random variables (variance section)",
+       "use": "deeper"
+      },
+      {
+       "id": "S039",
+       "ref": "Ch. 3 Expectation (variance)",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "Q2.3",
+     "title": "Probability: events, conditional and independence",
+     "minutes": 60,
+     "objectives": [
+      "Learner can compute probabilities of simple and combined events",
+      "Learner can apply the multiplication rule for independent events and the conditional probability formula",
+      "Learner can read a probability tree"
+     ],
+     "key_concepts": [
+      "sample space, event, probability",
+      "complement, union, intersection",
+      "independence",
+      "conditional probability P(A|B)",
+      "probability tree and Bayes intuition (headline)"
+     ],
+     "worked_example": "A trade has a 2% chance of failing to settle on time (independent per trade). The chance that none of 5 independent trades fails is 0.98^5 = 90.4%, so at least one fails with probability 9.6%. Given that a trade involves a thinly-traded stock, fail probability may rise to 6%.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute the probability that none or at least one of n independent trades fails",
+       "params": "fail prob 0.5%-8%; n = 2-20"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute a conditional probability from a two-way table",
+       "params": "2x2 table of counts, 100-1,000 entries"
+      },
+      {
+       "template": "mcq",
+       "task": "Decide whether two events are independent from a table or description",
+       "params": "6 cases"
+      },
+      {
+       "template": "order",
+       "task": "Arrange the steps to solve a probability-tree problem",
+       "params": "4-5 steps"
+      },
+      {
+       "template": "numeric",
+       "task": "Apply Bayes' rule in a simple false-alarm example (compliance alert accuracy)",
+       "params": "base rate 0.5%-5%; hit rate 80%-99%; false-positive 1%-10%"
+      }
+     ],
+     "callbacks": [
+      "Q1.1",
+      "Q1.5",
+      "T1.2"
+     ],
+     "sources": [
+      {
+       "id": "S074",
+       "ref": "Ch. 1 Probability and counting, Ch. 2 Conditional probability",
+       "use": "core"
+      },
+      {
+       "id": "S001",
+       "ref": "Ch. 2 Axioms of probability and Ch. 3 Conditional probability and independence",
+       "use": "deeper"
+      },
+      {
+       "id": "S039",
+       "ref": "Ch. 1 Probability",
+       "use": "reference"
+      }
+     ]
+    },
+    {
+     "id": "Q2.4",
+     "title": "Distributions, the normal curve and sampling",
+     "minutes": 60,
+     "objectives": [
+      "Learner can compute probabilities for a binomial count in a small case",
+      "Learner can use the 68-95-99.7 rule and a z-score for a normal variable",
+      "Learner can explain the law of large numbers and the standard error of a sample mean"
+     ],
+     "key_concepts": [
+      "discrete distribution (binomial)",
+      "normal distribution, z-score",
+      "68-95-99.7 rule",
+      "sample mean, law of large numbers",
+      "standard error = SD/sqrt(n)"
+     ],
+     "worked_example": "If daily returns have mean 0.04% and SD 1.0%, a -2% day is a z-score of (-2 - 0.04)/1.0 = -2.04, rarer than 2.5%. A sample mean from 100 observations has standard error 1.0/10 = 0.1%; more data means a more precise average.",
+     "exercises": [
+      {
+       "template": "numeric",
+       "task": "Compute the z-score of an observation and judge how unusual it is",
+       "params": "mean -0.5..+1.5; SD 0.5-3; observation within +/- 4 SD"
+      },
+      {
+       "template": "numeric",
+       "task": "Use the 68-95-99.7 rule to give approximate probabilities",
+       "params": "ranges stated in SD multiples"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute the standard error of a sample mean for different sample sizes",
+       "params": "SD 0.5%-3%; n = 4-400"
+      },
+      {
+       "template": "mcq",
+       "task": "Choose the correct statement about sampling and the law of large numbers",
+       "params": "5 statements"
+      },
+      {
+       "template": "numeric",
+       "task": "Compute a binomial probability for k successes in a small case (e.g. 3 fails of 10 trades)",
+       "params": "n = 3-10; p = 5%-30%; k = 0-3"
+      }
+     ],
+     "callbacks": [
+      "Q2.2",
+      "Q2.3",
+      "Q1.3"
+     ],
+     "sources": [
+      {
+       "id": "S074",
+       "ref": "Ch. 3 Random variables, Ch. 5 Continuous random variables (normal), Ch. 10 Inequalities and limit theorems",
+       "use": "core"
+      },
+      {
+       "id": "S001",
+       "ref": "Ch. 5 Continuous random variables (normal) and Ch. 8 Limit theorems",
+       "use": "deeper"
+      },
+      {
+       "id": "S039",
+       "ref": "Ch. 2 Random variables and Ch. 5 Inequalities",
+       "use": "reference"
+      }
+     ]
+    }
+   ],
+   "minigame": null,
+   "unit_test": "12-question test on mean/median, variance/SD and annualisation, probability and conditional probability, z-scores and standard error.",
+   "jurisdiction_notes": null
+  }
+ ],
+ "checkpoint": "Level 1 boss quiz (about 35 minutes, 30 questions) mixing algebra and logs, compounding/discounting/annuities, security types and NAV, trade lifecycle ordering, client segments and mandates, ledger postings and probability/variance. At least 40% of questions are spaced-review callbacks to unit tests; passing awards the 'Market Literate' badge and unlocks the L2 badge, not content.",
+ "open_questions": [
+  "See syllabus/FACTS.md (originals in open-questions.txt)"
+ ]
+}
