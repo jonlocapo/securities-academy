@@ -148,7 +148,7 @@ function checkInstance(w, i, isCheck) {
     case 'journal': { if (!i.lines || !i.lines.length || !i.accounts) { bad(w, 'journal needs lines and accounts'); break; }
       let dr = 0, cr = 0; for (const l of i.lines) { if (!i.accounts.includes(l.account)) bad(w, 'line account not in accounts list: ' + l.account); dr += l.dr || 0; cr += l.cr || 0; if (!((l.dr > 0) ^ (l.cr > 0))) bad(w, 'each line needs exactly one positive dr or cr'); }
       if (Math.abs(dr - cr) > 0.005) bad(w, `answer key does not balance: Dr ${dr} Cr ${cr}`);
-      if (i.accounts.length < new Set(i.lines.map((l) => l.account)).size + 2) bad(w, 'add 2+ distractor accounts'); break; }
+      if (i.accounts.length < new Set(i.lines.map((l) => l.account)).size + 2) bad(w, 'add 2+ distractor accounts'); if (i.accounts.some((x) => /[$*`\\]/.test(x))) bad(w, 'account names are plain text (they fill a native <select>)'); break; }
     case 'table': if (!i.columns || !i.rows) bad(w, 'table needs columns and rows'); else { let blanks = 0; i.rows.forEach((r) => { if (r.length !== i.columns.length) bad(w, 'row length != columns'); r.forEach((c) => { if (c && typeof c === 'object') { blanks++; if (c.answer != null && !isFinite(c.answer)) bad(w, 'cell answer not finite'); } }); }); if (!blanks) bad(w, 'table has no blanks'); } break;
     case 'spot': if (!i.doc || i.doc.length < 3) bad(w, 'spot needs 3+ segments'); else { const errs = i.doc.filter((d) => d.error); if (!errs.length) bad(w, 'spot has no error segment'); if (errs.length === i.doc.length) bad(w, 'every segment is an error'); errs.forEach((d) => nonEmpty(w, d.why, 'why')); } break;
     case 'paper': nonEmpty(w, i.rubric, 'rubric'); if (!/\{\{answer\}\}/.test(i.gradingPrompt || '')) bad(w, 'gradingPrompt needs {{answer}}'); break;
@@ -302,6 +302,14 @@ function coreTests() {
     const hi = SA.newState(); hi.units['F1.1'] = { lv: 4, pd: 1 }; const ps = SA.placementStart(1); ps.passed.push('F1'); SA.applyPlacement(hi, ps, 0);
     if (hi.units['F1.1'].lv !== 4) bad('core', 'placement lowered a level');
     console.log('  placement: ace ' + ace.probes + ' modules in ' + Math.round(ace.t / 60) + ' min, dud stops after ' + dud.probes);
+  }
+  // plain-only fields: titles and names end up in SVG text, page titles, crumbs and attributes, which cannot render markup.
+  // Everything else is markdown and goes through SA.md (render.js mdEl). Keep these two kinds apart.
+  {
+    const MARK = /\$[^$]+\$|\*[^*\s][^*]*\*|`|\\[a-zA-Z]{2,}|\[[^\]]+\]\(/;
+    const walk = (v, p) => { if (typeof v === 'string') { if (/(^|\.)(title|name|label|short)$/.test(p) && MARK.test(v)) bad('core', 'markup in a plain-text field ' + p + ': ' + v); }
+      else if (Array.isArray(v)) v.forEach((x, i) => walk(x, p + '.' + i)); else if (v && typeof v === 'object') for (const k of Object.keys(v)) walk(v[k], p + '.' + k); };
+    walk(SA.COURSE, 'COURSE');
   }
   console.log(problems ? `CORE PROBLEMS: ${problems}` : 'CORE OK');
 }

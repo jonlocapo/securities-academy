@@ -25,8 +25,16 @@ def cite(ref):
     names = [a.split(",")[0].strip() for a in (x.get("authors") or "").split(";") if a.strip()]
     who = "" if x.get("type") == "regulation" or not names else (" & ".join(names) if len(names) <= 2 else names[0] + " et al.")
     ref = dict(ref, ref=re.sub(r"[,;(]\s*(skim|reference|drills?)( only)?\)?\s*$", "", ref.get("ref", ""), flags=re.I).strip())
-    title = x["title"] + (f" ({x['edition']} ed.)" if x.get("edition") else "")
-    out = {"text": ", ".join(t for t in (who, title, ref.get("ref", "")) if t)}
+    # one readable line: no dashes (UI style), and no part that only repeats another ("FINRA Rulebook, FINRA Rulebook")
+    title = re.sub(r"\s*[—–]\s*", ": ", x["title"]) + (f" ({x['edition']} ed.)" if x.get("edition") and x["edition"] not in x["title"] else "")
+    words = lambda t: set(re.findall(r"[a-z0-9]+", t.lower()))
+    if who and words(who) <= words(title): who = ""
+    where = re.sub(r"\s*[—–]\s*", ": ", ref.get("ref", ""))
+    # a locator that restates the end of the title keeps only what it adds ("FINRA Rulebook, FINRA Rulebook structure" -> "structure")
+    for k in range(min(len(where), len(title)), 3, -1):
+        if title.lower().endswith(where[:k].lower()) and (k == len(where) or not where[k].isalnum()): where = where[k:].strip(" ,:;"); break
+    if where and (words(where) <= words(title) or where.lower() in ("entire", "whole", "all")): where = ""
+    out = {"text": ", ".join(t for t in (who, title, where) if t)}
     if x.get("type") in LINKABLE and x.get("url") and x.get("free") is not False: out["url"] = x["url"]
     return out
 

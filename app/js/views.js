@@ -409,13 +409,13 @@
     clear(rootEl);
     rootEl.appendChild(crumb('#/at/' + m.id, levelName(lvl) + ' · ' + lvl.title));
     rootEl.appendChild(h('header', { class: 'page-head' }, h('h1', null, m.title)));
-    rootEl.appendChild(h('p', { class: 'story' }, m.hook));
+    rootEl.appendChild(mdEl('p', 'story', m.hook, true));
     if (locked) rootEl.appendChild(h('p', { class: 'notice warn' }, 'Opens when you reach Proficient in ', prereqLinks(m), '.'));
     const list = h('div', { class: 'unit-list' });
     m.units.forEach((u) => {
       const meta = unitMeta(u), lv = SA.unitLevel(st, u), can = meta.built && !locked;
       const det = h('div', { class: 'unit-detail', hidden: true, id: 'ud-' + u.replace('.', '-') },
-        meta.objectives.length ? h('ul', { class: 'obj-list' }, meta.objectives.map((o) => h('li', null, o.replace(/^Learner can /i, '').replace(/^./, (x) => x.toUpperCase())))) : null,
+        meta.objectives.length ? h('ul', { class: 'obj-list' }, meta.objectives.map((o) => mdEl('li', null, o.replace(/^Learner can /i, '').replace(/^./, (x) => x.toUpperCase()), true))) : null,
         (meta.reading || []).length ? h('div', { class: 'reading' }, h('h4', null, 'Further reading'), h('ul', null, meta.reading.map((s) => h('li', null, s.url ? h('a', { href: s.url, target: '_blank', rel: 'noopener noreferrer' }, s.text) : s.text)))) : null,
         h('p', { class: 'unit-time' }, 'About ' + meta.minutes + ' minutes'));
       const toggle = h('button', { type: 'button', class: 'unit-toggle', 'aria-expanded': 'false', 'aria-controls': det.id },
@@ -451,7 +451,7 @@
         rootEl.appendChild(h('div', { class: 'btn-row' }, play, best ? h('span', { class: 'muted' }, 'Best: ' + best) : null)); rootEl.appendChild(out); rootEl.appendChild(host);
       }
     }
-    if (m.jurisdiction_notes) { rootEl.appendChild(h('h2', null, 'Other jurisdictions')); rootEl.appendChild(h('p', null, m.jurisdiction_notes)); }
+    if (m.jurisdiction_notes) { rootEl.appendChild(h('h2', null, 'Other jurisdictions')); rootEl.appendChild(mdEl('p', null, m.jurisdiction_notes, true)); }
   };
 
   /* ---------- lesson ---------- */
