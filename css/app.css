@@ -629,3 +629,7 @@ body.is-demo { padding-bottom: 190px; }
 .demo-skip { margin: 0 0 6px; font-size: .85rem; color: var(--muted); font-style: italic; }
 .demo-nav { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .demo-exit { margin-left: auto; font-size: .85rem; color: var(--muted); }
+
+/* the module you came back from: a short pulse on its ring */
+.node.focus .ring-bg { stroke: var(--accent); animation: node-focus 1.2s ease-out 2; }
+@keyframes node-focus { 0% { stroke-width: 3; } 40% { stroke-width: 8; } 100% { stroke-width: 3; } }

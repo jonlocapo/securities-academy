@@ -265,7 +265,7 @@
     return { W: 2 * RMAX, H: 2 * RMAX, pos, stripes, cx: RMAX, cy: RMAX, view, full: RMAX, fi };
   }
 
-  V.tree = function (rootEl) {
+  V.tree = function (rootEl, focusId) {
     const c = C(), st = S(), mode = getView();
     const L = mode === 'rings' ? layoutRings(c, st) : layoutLayers(c), pos = L.pos;
     const svg = sv('svg', { viewBox: mode === 'rings' ? (L.cx - L.view) + ' ' + (L.cy - L.view) + ' ' + 2 * L.view + ' ' + 2 * L.view : '0 0 ' + L.W + ' ' + L.H, class: 'tree-svg ' + mode, role: 'group', 'aria-label': 'Skill tree', preserveAspectRatio: 'xMidYMid meet' });
@@ -346,6 +346,9 @@
       page(rootEl, 'Skill tree');
       rootEl.appendChild(h('div', { class: 'tree-bar' }, h('div'), seg));
       rootEl.appendChild(h('div', { class: 'tree-wrap' }, svg));
+      // coming back from a module: scroll its node to the middle of the screen and mark it briefly
+      const fn = focusId && svg.querySelector('.node[href="#/m/' + focusId + '"]');
+      if (fn) { fn.classList.add('focus'); requestAnimationFrame(() => fn.scrollIntoView({ block: 'center', inline: 'center' })); }
       return;
     }
     // Rings: a full-screen map. Drag to pan, wheel or +/- to zoom, the target button re-centres on the learner's frontier.
@@ -393,6 +396,9 @@
       btn('\u25CE', 'Back to my progress', () => { Object.assign(vb, home); apply(true); })));
     map.addEventListener('keydown', (ev) => { if (ev.key === '+' || ev.key === '=') zoomAt(0.8, null, null, true); else if (ev.key === '-') zoomAt(1.25, null, null, true); });
     rootEl.appendChild(map);
+    // coming back from a module: centre the map on its node at the usual zoom and mark it briefly
+    const fp = focusId && pos[focusId], fnode = focusId && svg.querySelector('.node[href="#/m/' + focusId + '"]');
+    if (fp) { vb.x = fp.x - vb.w / 2; vb.y = fp.y - vb.h / 2; apply(false); if (fnode) fnode.classList.add('focus'); }
   };
 
   /* ---------- module page ---------- */
@@ -401,7 +407,7 @@
     if (!m) return notFound(rootEl, 'No module ' + id);
     const locked = isLocked(m), lvl = levelOf(m);
     clear(rootEl);
-    rootEl.appendChild(crumb('#/', levelName(lvl) + ' · ' + lvl.title));
+    rootEl.appendChild(crumb('#/at/' + m.id, levelName(lvl) + ' · ' + lvl.title));
     rootEl.appendChild(h('header', { class: 'page-head' }, h('h1', null, m.title)));
     rootEl.appendChild(h('p', { class: 'story' }, m.hook));
     if (locked) rootEl.appendChild(h('p', { class: 'notice warn' }, 'Opens when you reach Proficient in ', prereqLinks(m), '.'));
