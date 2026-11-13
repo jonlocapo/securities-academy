@@ -98,7 +98,7 @@
     clear(headerEl); const xpEl = h('b', null, String(shownXp == null ? st.xp : shownXp));
     headerEl.appendChild(h('div', { class: 'hdr-inner' },
       h('a', { href: '#/', class: 'brand' }, 'Securities Academy'),
-      h('nav', { 'aria-label': 'Main' }, nav('#/', 'Skill tree', hash === '#/' || hash === '#' || /^#\/[mutpc]\//.test(hash)), nav('#/desk', 'Desk', /^#\/(desk|play)/.test(hash)), nav('#/profile', 'Profile', hash === '#/profile')),
+      h('nav', { 'aria-label': 'Main' }, nav('#/', 'Skill tree', hash === '#/' || hash === '#' || /^#\/(m|u|t|p|c|at)\//.test(hash)), nav('#/desk', 'Desk', /^#\/(desk|play)/.test(hash)), nav('#/profile', 'Profile', hash === '#/profile')),
       h('div', { class: 'stats', 'aria-label': 'Your progress' }, trackDots(),
         dailyRing(st), reviewBadge(st), rankPill(st, xpEl),
         app.streak() ? h('span', { class: 'stat-pill streak', title: app.streak() + (app.streak() === 1 ? ' day' : ' days') + ' in a row with some practice' }, SA.views.icon('flame'), h('b', null, String(app.streak()))) : null),
@@ -166,6 +166,7 @@
     try {
       switch (r.kind) {
         case '': V.tree(main); if (SA.tour) SA.tour.maybeStart(); break;
+        case 'at': V.tree(main, r.arg); break; // the tree, scrolled or panned to one module (module page breadcrumb)
         case 'm': V.module(main, r.arg); break;
         case 'u': rememberLesson(); V.lesson(main, r.arg); break;
         case 'p': rememberLesson(); V.practice(main, r.arg); break;
