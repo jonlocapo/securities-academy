@@ -212,7 +212,7 @@ function coreTests() {
       const code = SA.encodeCode(s), d = SA.decodePassword(code.toUpperCase()); lens.push(code.length);
       const lv = (x) => SA.COURSE.unitIds.map((id) => SA.unitLevel(x, id)).join('');
       if (d.xp !== s.xp || d.streak !== s.streak || d.lastDay !== s.lastDay || d.freezes !== s.freezes || lv(d) !== lv(s) || JSON.stringify(Object.keys(d.modTests).sort()) !== JSON.stringify(Object.keys(s.modTests).sort()) || JSON.stringify(Object.keys(d.checkpoints).sort()) !== JSON.stringify(Object.keys(s.checkpoints).sort()) || JSON.stringify(d.games) !== JSON.stringify(Object.fromEntries(SA.COURSE.games.filter((g) => s.games[g]).map((g) => [g, s.games[g]])))) { bad('core', 'code v2 round-trip mismatch at ' + n); break; }
-      const chars = code.replace(/-/g, '').toUpperCase(), k = r.int(0, chars.length - 1), alt = '0123456789ABCDEFGHJKMNPQRSTVWXYZ'.replace(chars[k], '')[r.int(0, 30)];
+      const chars = code.replace(/[^0-9A-Za-z]/g, '').toUpperCase(), k = r.int(0, chars.length - 1), alt = '0123456789ABCDEFGHJKMNPQRSTVWXYZ'.replace(chars[k], '')[r.int(0, 30)];
       let rejected = false; try { const t = SA.decodePassword(chars.slice(0, k) + alt + chars.slice(k + 1)); rejected = JSON.stringify(t) !== JSON.stringify(d) ? false : true; } catch (e) { rejected = true; }
       if (!rejected) lens.tampered = (lens.tampered || 0) + 1;
     }
@@ -223,7 +223,8 @@ function coreTests() {
     if (SA.decodePassword(SA.encodePassword(old)).xp !== 1234) bad('core', 'v1 password no longer loads');
     { const s2 = SA.newState(); Object.assign(s2.settings, { feedback: 'end', dailyGoal: 20, sandbox: true, placed: 1, theme: 'light', accent: SA.accentIds()[2] }); s2.daily = { d: SA.today(), n: 7, done: 0 }; s2.stats = { sets: 12, dailyDays: 4, bestCombo: 9 };
       const code = SA.encodeCode(s2), t = SA.decodePassword(code);
-      if (!/^([0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12} ?)+$/.test(code)) bad('core', 'progress code is not a run of v4 UUIDs: ' + code);
+      if (!/^[0-9A-HJKMNP-TV-Z]{1,4}([ \n][0-9A-HJKMNP-TV-Z]{1,4})*$/.test(code) || code.split('\n').some((l) => l.split(' ').length > 4)) bad('core', 'progress code is not a grouped base32 password: ' + code);
+      if (SA.decodePassword('1e020000-1de2-40ef-816c-db3400022000 03880000-1000-4009-9000-00000000000b f3000000-0000-4000-a000-000000000000').xp !== 0) bad('core', 'UUID-form codes no longer load');
       { const s3 = SA.newState(); s3.settings.dailyGoal = 37; s3.settings.sandbox = true; const t3 = SA.decodePassword(SA.encodeCode(s3)); if (t3.settings.dailyGoal !== 37 || !t3.settings.sandbox) bad('core', 'custom daily goal lost in progress code'); }
       { const s4 = SA.newState(); s4.daily = { d: SA.today(), n: 8, done: 0 }; SA.setDailyGoal(s4, 8); if (!s4.daily.done || SA.setDailyGoal(s4, 0) !== null) bad('core', 'setDailyGoal: lowering to the count must meet the goal, 0 must be refused'); }
       if (JSON.stringify(t.settings) !== JSON.stringify(s2.settings) || JSON.stringify(t.daily) !== JSON.stringify(s2.daily) || JSON.stringify(t.stats) !== JSON.stringify(s2.stats)) bad('core', 'settings/daily/stats lost in progress code: ' + JSON.stringify([t.settings, t.daily, t.stats])); }

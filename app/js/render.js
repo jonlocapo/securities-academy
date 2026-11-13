@@ -27,7 +27,50 @@
     return e;
   }
   function mdEl(tag, cls, src, isInline) { const e = h(tag, { class: cls }); SA.md.into(e, src, isInline); return e; }
-  const stripMd = (s) => String(s == null ? '' : s).replace(/\$([^$]*)\$/g, '$1').replace(/[*`]/g, '');
+  // plain text for places that cannot hold rendered maths (aria-labels): TeX turned into a readable approximation
+  const plainTex = (t) => { let x = t, prev;
+    do { prev = x; x = x.replace(/\\d?frac\{([^{}]*)\}\{([^{}]*)\}/g, '($1)/($2)').replace(/\\sqrt\[([^\]]*)\]\{([^{}]*)\}/g, 'root $1 of ($2)').replace(/\\sqrt\{([^{}]*)\}/g, 'sqrt($1)'); } while (x !== prev);
+    return x.replace(/\\(times|cdot)(?![a-zA-Z])/g, '×').replace(/\\div(?![a-zA-Z])/g, '÷').replace(/\\leq?(?![a-zA-Z])/g, '≤').replace(/\\geq?(?![a-zA-Z])/g, '≥').replace(/\\neq?(?![a-zA-Z])/g, '≠').replace(/\\approx/g, '≈').replace(/\\%/g, '%')
+      .replace(/\\(left|right|,|;|!|quad|qquad)/g, ' ').replace(/\\text\{([^{}]*)\}/g, '$1').replace(/\\([a-zA-Z]+)/g, '$1').replace(/[{}]/g, '').replace(/\s+/g, ' ').trim(); };
+  const stripMd = (s) => String(s == null ? '' : s).replace(/\$([^$]*)\$/g, (m, t) => plainTex(t)).replace(/[*`]/g, '');
+  const hasMath = (s) => /\$[^$]+\$/.test(String(s == null ? '' : s));
+  const inlineMd = (tag, cls, src) => (hasMath(src) || /[*`]/.test(String(src)) ? mdEl(tag, cls, src, true) : h(tag, { class: cls }, String(src)));
+
+  /* a dropdown whose options can hold maths (a native <select> shows raw TeX). Button + listbox, keyboard as a select:
+     arrows / Home / End move, Enter or Space picks, Escape or Tab closes. */
+  let mselN = 0;
+  function mathSelect(opts, label, placeholder, onPick) {
+    const id = 'msel' + (++mselN), wrap = h('div', { class: 'msel' });
+    const shown = h('span', { class: 'msel-val placeholder' }, placeholder);
+    const btn = h('button', { type: 'button', class: 'msel-btn', 'aria-haspopup': 'listbox', 'aria-expanded': 'false', 'aria-label': label }, shown, h('span', { class: 'msel-caret', 'aria-hidden': 'true' }, '▾'));
+    const list = h('ul', { class: 'msel-list', role: 'listbox', id: id + '-l', tabindex: '-1', 'aria-label': label, hidden: true });
+    const items = opts.map((o, i) => { const li = mdEl('li', 'msel-opt', o.src, true); li.setAttribute('role', 'option'); li.setAttribute('id', id + '-' + i); li.setAttribute('aria-selected', 'false'); li.addEventListener('mousedown', (e) => e.preventDefault()); li.addEventListener('click', () => pick(i)); list.appendChild(li); return li; });
+    let cur = -1, act = -1, open = false, dis = false;
+    const setAct = (i) => { act = Math.max(0, Math.min(items.length - 1, i)); items.forEach((li, j) => li.classList.toggle('active', j === act)); list.setAttribute('aria-activedescendant', id + '-' + act); if (items[act].scrollIntoView) items[act].scrollIntoView({ block: 'nearest' }); };
+    const outside = (e) => { if (!wrap.contains(e.target)) close(false); };
+    function show() {
+      if (dis || open) return; open = true; list.hidden = false; btn.setAttribute('aria-expanded', 'true');
+      const r = btn.getBoundingClientRect ? btn.getBoundingClientRect() : null, vh = (typeof window !== 'undefined' && window.innerHeight) || 0;
+      wrap.classList.toggle('up', !!(r && vh && r.bottom + 270 > vh && r.top > 270)); // not enough room below: open upwards
+      setAct(cur < 0 ? 0 : cur); list.focus(); document.addEventListener('mousedown', outside, true);
+    }
+    function close(refocus) { if (!open) return; open = false; list.hidden = true; btn.setAttribute('aria-expanded', 'false'); document.removeEventListener('mousedown', outside, true); if (refocus) btn.focus(); }
+    function pick(i) {
+      cur = i; items.forEach((li, j) => li.setAttribute('aria-selected', j === i ? 'true' : 'false'));
+      shown.textContent = ''; shown.classList.remove('placeholder'); SA.md.into(shown, opts[i].src, true);
+      btn.setAttribute('aria-label', label + ': ' + stripMd(opts[i].src)); close(true); onPick(opts[i].value);
+    }
+    btn.addEventListener('click', () => (open ? close(true) : show()));
+    btn.addEventListener('keydown', (e) => { if (['ArrowDown', 'ArrowUp', 'Enter', ' '].indexOf(e.key) >= 0) { e.preventDefault(); show(); } });
+    list.addEventListener('keydown', (e) => {
+      const k = e.key;
+      if (k === 'ArrowDown') setAct(act + 1); else if (k === 'ArrowUp') setAct(act - 1); else if (k === 'Home') setAct(0); else if (k === 'End') setAct(items.length - 1);
+      else if (k === 'Enter' || k === ' ') pick(act); else if (k === 'Escape') close(true); else if (k === 'Tab') { close(false); return; } else return;
+      e.preventDefault(); e.stopPropagation();
+    });
+    wrap.appendChild(btn); wrap.appendChild(list);
+    return { el: wrap, disable() { dis = true; close(false); btn.disabled = true; } };
+  }
   const clear = (e) => { e.innerHTML = ''; return e; };
   const letter = (i) => String.fromCharCode(65 + i);
   const range = (n) => Array.from({ length: n }, (_, i) => i);
@@ -221,10 +264,8 @@
     const n = inst.pairs.length, resp = Array(n).fill(null), perm = shuffled(inst, 'match', n), selects = [], rows = [];
     const box = h('div', { class: 'match-list' });
     inst.pairs.forEach((pr, k) => {
-      const sel = h('select', { 'aria-label': 'Match for item ' + (k + 1) }, h('option', { value: '' }, 'Choose…'),
-        perm.map((ri) => h('option', { value: ri }, stripMd(inst.pairs[ri][1]))));
-      sel.addEventListener('change', () => { resp[k] = sel.value === '' ? null : +sel.value; onChange(resp.slice()); });
-      const row = h('div', { class: 'match-row' }, mdEl('div', 'match-left', pr[0], true), h('span', { class: 'arrow', 'aria-hidden': 'true' }, '→'), sel);
+      const sel = mathSelect(perm.map((ri) => ({ value: ri, src: inst.pairs[ri][1] })), 'Match for ' + stripMd(pr[0]), 'Choose…', (v) => { resp[k] = v; onChange(resp.slice()); });
+      const row = h('div', { class: 'match-row' }, mdEl('div', 'match-left', pr[0], true), h('span', { class: 'arrow', 'aria-hidden': 'true' }, '→'), sel.el);
       selects.push(sel); rows.push(row); box.appendChild(row);
     });
     c.appendChild(box); onChange(resp.slice());
@@ -232,7 +273,7 @@
       get: () => resp.slice(),
       lock(res) {
         const ok = res.detail || [];
-        rows.forEach((row, k) => { selects[k].disabled = true; row.classList.add(ok[k] ? 'ok' : 'bad'); if (!ok[k]) row.appendChild(h('div', { class: 'key-line small' }, 'Correct: ', h('strong', null, stripMd(inst.pairs[k][1])))); });
+        rows.forEach((row, k) => { selects[k].disable(); row.classList.add(ok[k] ? 'ok' : 'bad'); if (!ok[k]) row.appendChild(h('div', { class: 'key-line small' }, 'Correct: ', inlineMd('strong', null, inst.pairs[k][1]))); });
       },
     };
   };
@@ -270,7 +311,7 @@
     function chip(e) {
       const ok = okMask ? okMask[e] : null;
       const b = h('button', { type: 'button', class: 'tl-chip' + (selected === e ? ' sel' : '') + (ok === true ? ' ok' : ok === false ? ' bad' : ''), disabled: locked ? true : null }, mdEl('span', '', inst.events[e].text, true));
-      if (ok === false) b.appendChild(h('small', { class: 'tl-fix' }, ' → ' + stripMd(inst.slots[inst.events[e].slot])));
+      if (ok === false) b.appendChild(h('small', { class: 'tl-fix' }, ' → ', inlineMd('span', null, inst.slots[inst.events[e].slot])));
       b.addEventListener('click', (ev) => {
         ev.stopPropagation(); if (locked) return;
         if (selected == null) selected = e;
@@ -284,7 +325,7 @@
     function draw() {
       clear(track); clear(tray);
       inst.slots.forEach((s, si) => {
-        const col = h('div', { class: 'tl-slot', role: 'button', tabindex: locked ? '-1' : '0', 'aria-label': 'Slot ' + stripMd(s) }, h('div', { class: 'tl-label' }, stripMd(s)), h('div', { class: 'tl-dot', 'aria-hidden': 'true' }));
+        const col = h('div', { class: 'tl-slot', role: 'button', tabindex: locked ? '-1' : '0', 'aria-label': 'Slot ' + stripMd(s) }, inlineMd('div', 'tl-label', s), h('div', { class: 'tl-dot', 'aria-hidden': 'true' }));
         const body = h('div', { class: 'tl-body' });
         order.filter((e) => resp[e] === si).forEach((e) => body.appendChild(chip(e)));
         col.appendChild(body);

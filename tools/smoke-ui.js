@@ -78,6 +78,14 @@ const synth = {
   paper: { template: 'paper', seed: 8, prompt: 'p', rubric: 'r', gradingPrompt: 'G {{answer}}' },
 };
 const seen = new Set();
+// text nodes, option labels and aria-labels are plain text: a TeX command or a $...$ there shows up raw on screen
+const TEX = /\\[a-zA-Z]{2,}|\$[^$\s][^$]*\$/;
+function rawTex(n, label) {
+  const t = n.nodeType === 3 ? n._text : '';
+  if (TEX.test(t)) return bad(label + ': raw TeX in text: ' + t.slice(0, 60));
+  for (const k of ['aria-label', 'title', 'placeholder']) if (n.attrs && TEX.test(n.attrs[k] || '')) return bad(label + ': raw TeX in ' + k + ': ' + n.attrs[k].slice(0, 60));
+  for (const ch of n.children) if (rawTex(ch, label) === undefined && problems > 50) return;
+}
 function mountAll(inst, label) {
   const c = document.createElement('div'); let last; let calls = 0;
   try {
@@ -86,10 +94,17 @@ function mountAll(inst, label) {
     if (inst.choices && c.querySelectorAll('.choice').length !== inst.choices.length) bad(label + ': ' + c.querySelectorAll('.choice').length + ' of ' + inst.choices.length + ' choices shown');
     const r = hnd.get();
     if (inst.template !== 'paper') hnd.lock(SA.grade(inst, r));
+    rawTex(c, label);
     seen.add(inst.template);
   } catch (e) { bad(label + ': ' + e.stack.split('\n').slice(0, 3).join(' | ')); }
 }
 for (const ex of u.exercises) for (let seed = 1; seed <= 10; seed++) mountAll(SA.instance('F1.1', ex.id, seed), ex.id + '#' + seed);
+// every built Level 1 unit: exercises at a few seeds, lesson checks
+for (const f of fs.readdirSync(path.join(ROOT, 'app/content/L1')).filter((x) => /\.js$/.test(x) && x !== 'F1.1.js')) {
+  run('app/content/L1/' + f); const id = f.replace(/\.js$/, ''), uu = SA.units[id]; if (!uu) continue;
+  for (const ex of uu.exercises) for (let seed = 1; seed <= 4; seed++) mountAll(SA.instance(id, ex.id, seed), id + ' ' + ex.id + '#' + seed);
+  (uu.lesson || []).forEach((c, i) => { if (c.check) mountAll(Object.assign({ seed: 7100 + i }, c.check), id + ' lesson check ' + i); });
+}
 u.lesson.forEach((c, i) => { if (c.check) mountAll(Object.assign({ seed: 7000 + i }, c.check), 'lesson check ' + i); });
 for (const k of Object.keys(synth)) mountAll(synth[k], 'synthetic ' + k);
 const need = ['mcq', 'multi', 'numeric', 'cloze', 'order', 'match', 'bucket', 'timeline', 'journal', 'table', 'spot', 'paper'];
