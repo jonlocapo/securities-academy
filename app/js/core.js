@@ -433,14 +433,18 @@
   SA.applyGame = function (st, name, score) { const ev = [], best = st.games[name] || 0; addXp(st, Math.round(score / 10), ev); if (score > best) { st.games[name] = Math.min(65535, Math.round(score)); ev.push({ type: 'highscore', name, score }); } return { events: ev }; };
 
   /* ---------- session composition (pure; needs SA.COURSE index + loaded units) ---------- */
-  // practice: every exercise of the unit once + ~1 callback per 3 own items, from callback units the learner reached >= Familiar
+  // practice: every exercise of the unit once + ~1 recall item per 3 own items (see below), from units the learner reached >= Familiar
   SA.composePractice = function (st, unitId, seed) {
     const r = rng('practice/' + unitId + '/' + seed), u = SA.units[unitId], meta = SA.COURSE.unitMeta[unitId];
     const items = u.exercises.filter((e) => e.template !== 'paper').map((e) => ({ unitId, exId: e.id, seed: r.int(1, 1e9), callback: false }));
-    const pool = (meta.callbacks || []).filter((id) => SA.unitLevel(st, id) >= 2);
-    const nCb = Math.min(pool.length ? Math.max(1, Math.round(items.length / 3)) : 0, 3);
-    const cbs = [];
-    for (let k = 0; k < nCb; k++) cbs.push({ unitId: r.pick(pool), exId: null, seed: r.int(1, 1e9), callback: true });
+    // recall items: the unit's own callback list first, topped up from any earlier unit the learner has reached (Familiar or
+    // better), so the same one or two units do not come up every time. Distinct units, in a random order.
+    const C = SA.COURSE, at = C.unitIds.indexOf(unitId), own = (meta.callbacks || []).filter((id) => SA.unitLevel(st, id) >= 2);
+    const more = C.unitIds.filter((id, i) => i < at && own.indexOf(id) < 0 && C.unitMeta[id].built && SA.unitLevel(st, id) >= 2);
+    const nCb = Math.min(own.length + more.length ? Math.max(1, Math.round(items.length / 3)) : 0, 3);
+    const want = []; // the unit's own list counts double, so it is favoured but not the only source
+    r.shuffle(own.concat(own, more)).forEach((id) => { if (want.length < nCb && want.indexOf(id) < 0) want.push(id); });
+    const cbs = want.map((id) => ({ unitId: id, exId: null, seed: r.int(1, 1e9), callback: true }));
     return r.shuffle(items.concat(cbs)); // callback items have exId:null -> resolve with SA.pickExercise after loading the unit
   };
   // pick exercise for a callback/test item once its unit is loaded

@@ -124,7 +124,7 @@ To write a number in scientific notation, move the decimal point until one non-z
           const e = r.int(-4, 6);
           const v = Math.pow(b, e);
           return {
-            prompt: `Evaluate $${b}^{${e}}$. (Give at least 4 significant figures; an answer within 0.1% is accepted.)`,
+            prompt: `Evaluate $${b}^{${e}}$ and enter the result as a decimal number. (Give at least 4 significant figures; an answer within 0.1% is accepted.)`,
             answer: v, dp: 8, tol: { rel: 0.001 }, unit: '',
             hints: e < 0 ? [`A negative exponent means reciprocal: $${b}^{${e}} = 1/${b}^{${-e}}$.`, `$${b}^{${-e}} = ${f.num(Math.pow(b, -e), 0)}$.`] : [`Multiply ${b} by itself ${e} times (or use the \`^\` key).`],
             solution: e < 0 ? `$${b}^{${e}} = 1/${b}^{${-e}} = 1/${f.num(Math.pow(b, -e), 0)} = ${v.toPrecision(5)}$` : `$${b}^{${e}} = ${f.num(v, 0)}$`,
@@ -135,7 +135,7 @@ To write a number in scientific notation, move the decimal point until one non-z
         const v = Math.pow(b, e);
         const sym = mode === 'product' ? `${b}^{${m}} \\times ${b}^{${n}}` : `\\dfrac{${b}^{${m}}}{${b}^{${n}}}`;
         return {
-          prompt: `Simplify and evaluate $${sym}$. (Give at least 4 significant figures; an answer within 0.1% is accepted.)`,
+          prompt: `Evaluate $${sym}$ and enter the result as a decimal number. Combining the powers first makes it easier. (Give at least 4 significant figures; an answer within 0.1% is accepted.)`,
           answer: v, dp: 8, tol: { rel: 0.001 }, unit: '',
           hints: [`Same base, so ${mode === 'product' ? 'add' : 'subtract'} the exponents.`, `The exponent becomes ${m} ${mode === 'product' ? '+' : '−'} (${n}) = ${e}.`, `Now evaluate $${b}^{${e}}$.`],
           solution: `$${sym} = ${b}^{${e}} = ${e < 0 ? '1/' + f.num(Math.pow(b, -e), 0) + ' = ' + v.toPrecision(5) : f.num(v, 0)}$`,
@@ -162,14 +162,16 @@ To write a number in scientific notation, move the decimal point until one non-z
       id: 'exponent-laws-match',
       template: 'match',
       generate(r) {
-        const vars = r.shuffle(['x', 'y', 'z', 't', 'u']);
-        const a = r.int(2, 6), b = r.int(2, 5), c = r.int(7, 9), d = r.int(2, 6), e = r.int(2, 4);
+        // one letter throughout, so pairs cannot be matched by letter: the exponent rule has to be applied
+        const v = r.pick(['x', 'y', 'z', 't', 'u']);
+        let a, b, c, d, e;
+        do { a = r.int(2, 6); b = r.int(2, 5); c = r.int(7, 9); d = r.int(2, 6); e = r.int(2, 4); } while (new Set([a + b, c - b, a * e]).size < 3); // distinct results: each match is unambiguous
         const kinds = [
-          [`${vars[0]}^{${a}} \\times ${vars[0]}^{${b}}`, `${vars[0]}^{${a + b}}`],
-          [`\\dfrac{${vars[1]}^{${c}}}{${vars[1]}^{${b}}}`, `${vars[1]}^{${c - b}}`],
-          [`(${vars[2]}^{${a}})^{${e}}`, `${vars[2]}^{${a * e}}`],
-          [`${vars[3]}^{-${d}}`, `\\dfrac{1}{${vars[3]}^{${d}}}`],
-          [`${vars[4]}^{1/${e + 1}}`, `\\sqrt[${e + 1}]{${vars[4]}}`],
+          [`${v}^{${a}} \\times ${v}^{${b}}`, `${v}^{${a + b}}`],
+          [`\\dfrac{${v}^{${c}}}{${v}^{${b}}}`, `${v}^{${c - b}}`],
+          [`(${v}^{${a}})^{${e}}`, `${v}^{${a * e}}`],
+          [`${v}^{-${d}}`, `\\dfrac{1}{${v}^{${d}}}`],
+          [`${v}^{1/${e + 1}}`, `\\sqrt[${e + 1}]{${v}}`],
         ];
         const k = r.int(4, 5);
         const chosen = r.sample(kinds, k).map(([l, rr]) => [`$${l}$`, `$${rr}$`]);

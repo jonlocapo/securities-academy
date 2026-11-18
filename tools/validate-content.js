@@ -303,6 +303,16 @@ function coreTests() {
     if (hi.units['F1.1'].lv !== 4) bad('core', 'placement lowered a level');
     console.log('  placement: ace ' + ace.probes + ' modules in ' + Math.round(ace.t / 60) + ' min, dud stops after ' + dud.probes);
   }
+  // recall items in a practice set come from several units, never the same one twice in a set
+  {
+    const st = SA.newState(), ids = SA.COURSE.unitIds.filter((x) => SA.COURSE.unitMeta[x].built), seen = new Set(); let dup = false;
+    ids.slice(0, 6).forEach((x) => { st.units[x] = { lv: 2, pd: 0 }; });
+    const last = ids[ids.length - 1];
+    SA.units[last] = SA.units[last] || { exercises: [{ id: 'a', template: 'numeric' }, { id: 'b', template: 'numeric' }, { id: 'c', template: 'numeric' }] };
+    for (let k = 1; k <= 200; k++) { const cb = SA.composePractice(st, last, k).filter((i) => i.callback).map((i) => i.unitId); if (new Set(cb).size < cb.length) dup = true; cb.forEach((x) => seen.add(x)); }
+    if (dup) bad('core', 'a practice set repeats a recall unit');
+    if (seen.size < 4) bad('core', 'recall items come from too few units: ' + [...seen].join(','));
+  }
   // plain-only fields: titles and names end up in SVG text, page titles, crumbs and attributes, which cannot render markup.
   // Everything else is markdown and goes through SA.md (render.js mdEl). Keep these two kinds apart.
   {
