@@ -58,6 +58,16 @@ Permanent: sources/ids.json (normalised title -> id). Removed sources retire the
   self-reports score. Gives XP but cannot unlock gates alone (AI grading is stochastic).
 - English only for now.
 
+## Interface design (user, 2026-11-26)
+- If a control needs an explanation on screen, the design is wrong: fix the design instead. No placeholder text,
+  helper captions, "e.g." hints or explanatory tooltips. The one exception is a guide the user asked for and opens
+  on purpose (the calculator's ? button).
+- Nothing the user asked for in conversation shows up in the product as a description of itself: no labels like
+  "now X" or "X, as requested", no notes about how a feature works behind the scenes.
+- Hidden systems stay hidden (for example the hint weighting on mastery): no hints, tooltips or wording that reveal them.
+- Visual changes are shown as mockups first and built only after the user approves.
+- After every merge to main, publish to gh-pages (tools/publish-pages.sh) so the change is visible on the live site.
+
 ## Process
 1. Verified source list → user review.
 2. Syllabus map (levels, modules, outcomes, sources per module) → user sign-off. No bulk content before this.
