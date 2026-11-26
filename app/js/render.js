@@ -255,7 +255,6 @@
       });
       focusPos = -1;
     }
-    c.appendChild(h('p', { class: 'ex-note' }, 'Put the steps in order: drag, or use the arrow buttons.'));
     c.appendChild(ol); draw(); onChange(cur.slice());
     return {
       get: () => cur.slice(),
@@ -482,7 +481,7 @@
       reveal.hidden = false;
       reveal.appendChild(h('h4', null, 'Rubric')); reveal.appendChild(mdEl('div', 'rubric', inst.rubric || ''));
       reveal.appendChild(h('h4', null, 'Grade it with your own assistant'));
-      reveal.appendChild(h('p', { class: 'muted' }, 'Copy the prompt, paste it into your chatbot, then enter the score it gives (or your own judgement). Paper scores give XP only and never unlock anything.'));
+      reveal.appendChild(h('p', { class: 'muted' }, 'Copy the prompt, paste it into your chatbot, then enter the score it gives.'));
       reveal.appendChild(h('div', null, copyBtn, copied));
       const pre = h('textarea', { class: 'paper-prompt', readonly: true, rows: '6', 'aria-label': 'Grading prompt' }); pre.value = gp; reveal.appendChild(pre);
       reveal.appendChild(h('div', { class: 'score-row' }, h('label', null, 'Self-score (0–100) ', scoreIn), save));

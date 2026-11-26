@@ -38,6 +38,14 @@ def cite(ref):
     if x.get("type") in LINKABLE and x.get("url") and x.get("free") is not False: out["url"] = x["url"]
     return out
 
+# syllabus wording keeps scoping notes for lesson authors ("at headline level", "conceptually", "preview only");
+# learners see the objective or reading without them
+AUTHOR_NOTES = [r"\s*\((?:conceptually|simplified)(?:, no solver)?\)", r",? (?:at|on) (?:a )?(?:headline|high|conceptual) level",
+                r" in an intuitive example", r" to a simple example", r"(?<=\w) conceptually\b",
+                r"\s*\((?:preview only|headline only|headline reading|finance-related)\)", r",? (?:for role names only|headline only|headline reading)\b"]
+def for_learner(t):
+    for pat in AUTHOR_NOTES: t = re.sub(pat, "", t)
+    return t.strip()
 ids_file = APP / "content" / "unit-ids.json"
 unit_ids = load(ids_file) if ids_file.exists() else []
 levels, modules, unit_meta, module_ids = [], {}, {}, []
@@ -54,8 +62,8 @@ for lv in syl:
             if u["id"] not in unit_ids: unit_ids.append(u["id"])
             built = (APP / "content" / lv["level"] / f"{u['id']}.js").exists()
             unit_meta[u["id"]] = {"id": u["id"], "title": u["title"], "minutes": u.get("minutes"), "module": m["id"], "level": lv["level"],
-                                  "objectives": u.get("objectives", []), "callbacks": u.get("callbacks", []),
-                                  "reading": [c for c in (cite(r) for r in u.get("sources", [])) if c], "built": built}
+                                  "objectives": [for_learner(o) for o in u.get("objectives", [])], "callbacks": u.get("callbacks", []),
+                                  "reading": [for_learner(c) if isinstance(c, str) else dict(c, text=for_learner(c["text"])) for c in (cite(r) for r in u.get("sources", [])) if c], "built": built}
     levels.append({"id": lv["level"], "title": lv["title"], "hours": lv.get("hours"), "intro": lv.get("intro", ""),
                    "checkpoint": lv.get("checkpoint", ""), "modules": mids})
 
