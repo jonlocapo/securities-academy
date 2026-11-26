@@ -158,7 +158,7 @@
       try { inst = SA.instance(it.unitId, it.exId, it.seed); } catch (e) { items.splice(idx, 1); dots.pop().remove(); return step(); }
       dots.forEach((d, k) => d.classList.toggle('cur', k === idx));
       clear(body);
-      if (it.callback) body.appendChild(h('p', { class: 'item-meta' }, h('span', { class: 'tag review', title: 'A question from an earlier unit' }, 'Review: ' + unitTitle(it.unitId))));
+      if (it.callback) body.appendChild(h('p', { class: 'item-meta' }, h('span', { class: 'tag review' }, 'Review: ' + unitTitle(it.unitId))));
       const host = h('div', { class: 'exercise' }); body.appendChild(host);
       runExercise(host, inst, {
         hints: cfg.hints, retry: cfg.retry, deferred: cfg.deferred, skip: cfg.skip, autofocus: true, nextLabel: idx === items.length - 1 ? 'Finish' : 'Next',
@@ -454,8 +454,7 @@
     const nb = builtUnits(m).length;
     if (nb && !locked) {
       rootEl.appendChild(h('h2', null, 'Unit test'));
-      const tip = 'Two questions per unit, no hints. 80% to pass.' + (nb < m.units.length ? ' Covers the ' + nb + ' units written so far.' : '');
-      rootEl.appendChild(h('div', { class: 'btn-row' }, btnLink('#/t/' + m.id, st.modTests[m.id] ? 'Take it again' : 'Take the unit test', 'primary', tip), st.modTests[m.id] ? h('span', { class: 'good' }, 'Passed ✓') : null));
+      rootEl.appendChild(h('div', { class: 'btn-row' }, btnLink('#/t/' + m.id, st.modTests[m.id] ? 'Take it again' : 'Take the unit test', 'primary'), st.modTests[m.id] ? h('span', { class: 'good' }, 'Passed ✓') : null));
     }
     if (m.minigame) {
       const mg = m.minigame, reg = SA.minigames[mg.key], best = st.games[mg.key];
@@ -523,7 +522,7 @@
       show();
       const papers = u.exercises.filter((e) => e.template === 'paper');
       if (papers.length) {
-        const sec = h('section', { class: 'panel' }, h('h2', { title: 'You mark it yourself. It earns XP but does not change your level.' }, 'Written exercise'));
+        const sec = h('section', { class: 'panel' }, h('h2', null, 'Written exercise'));
         papers.forEach((ex, k) => {
           const holder = h('div', { class: 'paper-holder' }), openBtn = h('button', { type: 'button', class: 'btn' }, 'Open written exercise' + (papers.length > 1 ? ' ' + (k + 1) : ''));
           openBtn.addEventListener('click', () => {
@@ -693,7 +692,7 @@
     rootEl.appendChild(h('p', { class: 'muted' }, SA.fmt.num(rk.next - st.xp, 0) + ' XP to rank ' + (rk.level + 1)));
     // streak freezes: three snowflakes, lit for each one banked
     const fz = st.freezes || 0;
-    rootEl.appendChild(h('div', { class: 'freezes', title: 'Streak freezes: ' + fz + ' of 3. Every rank-up banks one. A missed day uses one instead of resetting your streak.', 'aria-label': 'Streak freezes: ' + fz + ' of 3' },
+    rootEl.appendChild(h('div', { class: 'freezes', title: 'Streak freezes: ' + fz + ' of 3', 'aria-label': 'Streak freezes: ' + fz + ' of 3' },
       [0, 1, 2].map((i) => icon('freeze', i < fz ? 'on' : 'off'))));
     // reward track: one tile per reward, lit once reached
     rootEl.appendChild(h('div', { class: 'reward-track', role: 'list', 'aria-label': 'Rank rewards' }, SA.REWARDS.filter((r) => r.kind !== 'game' || (SA.blitz && SA.blitz.games[r.id])).map((r) => {
@@ -719,7 +718,7 @@
     const bd = SA.app.badges();
     if (bd.length) { rootEl.appendChild(h('h2', null, 'Badges')); rootEl.appendChild(h('div', { class: 'badge-wrap' }, bd.map((b) => h('span', { class: 'badge' }, b.label)))); }
 
-    const tip = 'Your progress is saved in this browser only. Copy this code to carry it to another browser or device, and paste it there under Load. Older long passwords still work.';
+    const tip = 'Progress is saved in this browser only. To carry it to another device, copy the code and load it there.';
     rootEl.appendChild(h('h2', null, 'Progress code ', h('span', { class: 'info', title: tip, tabindex: '0', 'aria-label': tip }, 'ⓘ')));
     const pwOut = h('pre', { class: 'pw', hidden: true, tabindex: '0' }), showBtn = h('button', { type: 'button', class: 'btn' }, 'Show'), copyBtn = h('button', { type: 'button', class: 'btn', hidden: true }, 'Copy'), cmsg = h('span', { class: 'muted', 'aria-live': 'polite' });
     showBtn.addEventListener('click', () => {
@@ -741,10 +740,10 @@
     rootEl.appendChild(h('h2', null, 'Settings'));
     const fbSeg = h('div', { class: 'seg-group', role: 'group', 'aria-label': 'Practice answers' });
     [['each', 'After each question'], ['end', 'At the end']].forEach(([v, t]) => fbSeg.appendChild(h('button', { type: 'button', class: 'seg-btn' + (st.settings.feedback === v ? ' sel' : ''), 'aria-pressed': String(st.settings.feedback === v), onclick: () => { S().settings.feedback = v; SA.app.save(); SA.app.reload(); } }, t)));
-    rootEl.appendChild(h('div', { class: 'setting' }, h('span', { class: 'setting-k', title: 'Unit tests and checkpoints always show results at the end.' }, 'Practice answers'), fbSeg));
+    rootEl.appendChild(h('div', { class: 'setting' }, h('span', { class: 'setting-k' }, 'Practice answers'), fbSeg));
     const calSeg = h('div', { class: 'seg-group', role: 'group', 'aria-label': 'Calculator' }), calNow = st.settings.calc === 'off' ? 'off' : 'auto';
     [['auto', 'On'], ['off', 'Off']].forEach(([v, t]) => calSeg.appendChild(h('button', { type: 'button', class: 'seg-btn' + (calNow === v ? ' sel' : ''), 'aria-pressed': String(calNow === v), onclick: () => { S().settings.calc = v; SA.app.save(); if (SA.calc) SA.calc.sync(); SA.app.reload(); } }, t)));
-    rootEl.appendChild(h('div', { class: 'setting' }, h('span', { class: 'setting-k', title: 'Opens under a number field when you click it.' }, 'Calculator'), calSeg));
+    rootEl.appendChild(h('div', { class: 'setting' }, h('span', { class: 'setting-k' }, 'Calculator'), calSeg));
     const dgSeg = h('div', { class: 'seg-group', role: 'group', 'aria-label': 'Daily goal' });
     const goal = st.settings.dailyGoal || 10, preset = [5, 10, 20].includes(goal);
     const setGoal = (n) => { const ev = SA.setDailyGoal(S(), n); if (!ev) return false; SA.app.save(); if (ev.length) SA.app.announce(ev); SA.app.reload(); return true; };
@@ -755,7 +754,7 @@
     const cBox = h('span', { class: 'goal-custom', hidden: preset ? true : null }, cIn, ' a day ', h('button', { type: 'button', class: 'btn', onclick: () => { if (!setGoal(cIn.value)) cErr.textContent = 'Enter a whole number from ' + SA.GOAL_MIN + ' to ' + SA.GOAL_MAX + '.'; } }, 'Set'), ' ', cErr);
     cIn.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); cBox.querySelector('button').click(); } });
     dgSeg.appendChild(h('button', { type: 'button', class: 'seg-btn' + (preset ? '' : ' sel'), 'aria-pressed': String(!preset), onclick: () => { cBox.hidden = false; cIn.focus(); } }, preset ? 'Custom' : 'Custom (' + goal + ')'));
-    rootEl.appendChild(h('div', { class: 'setting' }, h('span', { class: 'setting-k', title: 'Correct answers a day. Meeting it earns 25 XP.' }, 'Daily goal'), dgSeg, cBox));
+    rootEl.appendChild(h('div', { class: 'setting' }, h('span', { class: 'setting-k' }, 'Daily goal'), dgSeg, cBox));
     const sb = h('input', { type: 'checkbox', id: 'sandbox' }); sb.checked = !!st.settings.sandbox;
     sb.addEventListener('change', () => { S().settings.sandbox = sb.checked; SA.app.save(); SA.app.refreshHeader(); });
     rootEl.appendChild(h('div', { class: 'setting' }, h('label', { class: 'check', for: 'sandbox' }, sb, ' Unlock everything')));

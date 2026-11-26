@@ -147,7 +147,7 @@ A fail leaves one party without cash or securities and can cascade along a chain
 Settlement breaks take a large share of back-office time. They are expensive to trace, and unpaid items that no one chases can build up.
 
 > [!eu]
-> Under [CSDR](https://eur-lex.europa.eu/eli/reg/2014/909/oj), CSDs apply daily **cash penalties** to the participant that causes the fail. The penalty mechanics and the buy-in rules were reworked by the CSDR Refit, and the details are covered in L4.
+> Under [CSDR](https://eur-lex.europa.eu/eli/reg/2014/909/oj), CSDs apply daily **cash penalties** to the participant that causes the fail. The penalty mechanics and the buy-in rules were reworked by the CSDR Refit, and the details are covered in Module 4.
 
 > [!warning]
 > Common pitfalls are counting calendar days instead of business days, overlooking that a local holiday in the settlement market shifts the date, and treating "confirmed" as "settled".`,

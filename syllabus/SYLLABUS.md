@@ -10,7 +10,7 @@ This level covers the arithmetic used in markets: percentages, basis points, pow
 
 ### Q1 Algebra & Functions Refresh · 6 h · track: theory · needs: —
 
-_Percentages, basis points, powers, logarithms and simple equations as used in fee, return and doubling-time calculations. Short drills with hints and unlimited retries._
+_Percentages, basis points, powers, logarithms and simple equations as used in fee, return and doubling-time calculations._
 
 
 - **Q1.1 Percentages, basis points and proportions** (45 min) — Learner can convert between percent, decimal and basis points; Learner can compute a percentage change and chain successive percentage changes; Learner can compute a fee or a weight as a percentage of an amount
@@ -264,7 +264,7 @@ Jurisdictions: EU first (Prospectus Regulation, multiple-vote share structures d
 
 ### P3 Bonds in depth · 7 h · track: ops · needs: P1, F1
 
-_Bond terms, price and accrued interest, the calculation of settlement amount from price and nominal, and the main bond types. The learner can reconcile a confirmation amount to its components._
+_Bond terms, price and accrued interest, the settlement amount from price and nominal, the main bond types, and how a confirmation amount breaks down into its parts._
 
 Covers (boss's list): bonds  
 
@@ -371,7 +371,7 @@ Jurisdictions: UCITS ETF (EU) first; US in-kind creation and 40-Act ETFs mention
 
 ### P6 Derivatives & structured products as securities (EU bridge) · 5 h · track: ops · needs: P2, P3
 
-_Structured notes and derivatives as securities records: ISIN, paying agent, CSD holding, statement price and KID. The learner can identify each data point for a product._
+_Structured notes and derivatives as securities records: ISIN, paying agent, CSD holding, statement price and KID, and where each appears for a given product._
 
 🎮 Minigame: **Dealer Desk** — secondary-market bid/ask on a certificate: set a quote around fair value and issuer credit, manage inventory  
 

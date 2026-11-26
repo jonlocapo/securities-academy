@@ -13,7 +13,7 @@
      "hours": 6,
      "prereqs": [],
      "boss_items": [],
-     "hook": "Percentages, basis points, powers, logarithms and simple equations as used in fee, return and doubling-time calculations. Short drills with hints and unlimited retries.",
+     "hook": "Percentages, basis points, powers, logarithms and simple equations as used in fee, return and doubling-time calculations.",
      "units": [
       {
        "id": "Q1.1",
@@ -2959,7 +2959,7 @@
      "boss_items": [
       "bonds"
      ],
-     "hook": "Bond terms, price and accrued interest, the calculation of settlement amount from price and nominal, and the main bond types. The learner can reconcile a confirmation amount to its components.",
+     "hook": "Bond terms, price and accrued interest, the settlement amount from price and nominal, the main bond types, and how a confirmation amount breaks down into its parts.",
      "units": [
       {
        "id": "P3.1",
@@ -4290,7 +4290,7 @@
       "P3"
      ],
      "boss_items": [],
-     "hook": "Structured notes and derivatives as securities records: ISIN, paying agent, CSD holding, statement price and KID. The learner can identify each data point for a product.",
+     "hook": "Structured notes and derivatives as securities records: ISIN, paying agent, CSD holding, statement price and KID, and where each appears for a given product.",
      "units": [
       {
        "id": "P6.1",
