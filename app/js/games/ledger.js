@@ -144,7 +144,7 @@
           sel.value = l.account;
           const sd = h('select', { 'aria-label': 'Debit or credit, line ' + (i + 1), onchange: (ev) => { l.side = ev.target.value; upd(); } }, h('option', { value: 'Dr', text: 'Dr' }), h('option', { value: 'Cr', text: 'Cr' }));
           sd.value = l.side;
-          const am = h('input', { type: 'text', inputmode: SA.calc && SA.calc.inputMode ? SA.calc.inputMode() : 'decimal', autocomplete: 'off', class: 'gl-amt', 'data-calc': '1', 'data-calc-dp': '2', 'aria-label': 'Amount in EUR, line ' + (i + 1), placeholder: '0.00', value: l.amount, oninput: (ev) => { l.amount = ev.target.value; upd(); }, onkeydown: (ev) => { if (ev.key === 'Enter') { ev.preventDefault(); check(); } } });
+          const am = h('input', { type: 'text', inputmode: SA.calc && SA.calc.inputMode ? SA.calc.inputMode() : 'decimal', autocomplete: 'off', class: 'gl-amt', 'data-calc': '1', 'data-calc-dp': '2', 'aria-label': 'Amount in EUR, line ' + (i + 1), value: l.amount, oninput: (ev) => { l.amount = ev.target.value; upd(); }, onkeydown: (ev) => { if (ev.key === 'Enter') { ev.preventDefault(); check(); } } });
           const rm = h('button', { type: 'button', class: 'btn small ghost', 'aria-label': 'Remove line ' + (i + 1), disabled: lines.length <= 2, onclick: () => { lines.splice(i, 1); renderStage(); } }, '×');
           rowsEl.appendChild(h('div', { class: 'gl-row' }, sel, sd, am, rm));
         });
