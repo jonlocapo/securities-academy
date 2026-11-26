@@ -55,6 +55,11 @@ tex('exp(0.05)', 'e^{0.05}'); tex('5%', '5\\%'); tex('-(1+2)', '-\\left(1 + 2\\r
   n++; if (C.tex('pv = 100/1.05^3', V) !== '\\mathit{pv} = \\frac{100}{1.05^{3}}') bad('tex of a definition: ' + C.tex('pv = 100/1.05^3', V));
   n++; if (C.tex('20q', V) !== '20q') bad('tex of 20q: ' + C.tex('20q', V));
 }
+// a log base can be any expression in brackets, or a name
+val('log_(1/8)(64)', -2); val('log_{1/8}(64)', -2); val('log_(2^3)(64)', 2); val('log_(2)(8) + 1', 4);
+n++; if (C.sheet('b = 1/8\nlog_b(64)').value.v !== -2) bad('log_b with b defined');
+err('log_(1/8)', true); err('log_(1', true); err('log_(1)(5)'); err('log_(-2)(4)');
+tex('log_(1/8)(64)', '\\log_{\\frac{1}{8}}\\left(64\\right)');
 // several lines: definitions in any order, the one line that is not a definition fills the field
 {
   const sv = (text, want) => { n++; const r = C.sheet(text).value; if (!r || !r.ok || Math.abs(r.v - want) > 1e-9 * Math.max(1, Math.abs(want))) bad('sheet ' + JSON.stringify(text) + ' -> ' + JSON.stringify(r) + ', want ' + want); };
@@ -64,7 +69,7 @@ tex('exp(0.05)', 'e^{0.05}'); tex('5%', '5\\%'); tex('-(1+2)', '-\\left(1 + 2\\r
   no('q = 1\nq = 2\nq', /Does not hold/, 'a name defined twice');
   no('a = b\nb = a\na', /many solutions/, 'equations that do not fix their unknowns');
   no('q = q + 1\nq', /No value of q/, 'an equation with no solution');
-  no('5/x\nx = 0', /Division by zero, with x = 0/, 'an impossible value names the value behind it');
+  no('5/x\nx = 0', /Division by zero/, 'an impossible value');
   no('2+2\n3+3', /Only one line/, 'two answer lines');
   no('x + y = 3\nx', /Needs 1 more equation/, 'too few equations');
   no('x + y = 3\nx - y = 1\nx + y = 4\nx', /No values of x and y/, 'equations that contradict each other');

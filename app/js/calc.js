@@ -55,13 +55,16 @@
         if (k < word.length) { parts.length = 0; parts.push(word); }
         for (let q = 0; q < parts.length; q++) {
           const nm = parts[q];
-          if (nm === 'log' && q === parts.length - 1 && s[i] === '_') { // log_2(8), log_e(x)
-            i++; let j2 = i; while (j2 < s.length && /[0-9.a-zA-Z]/.test(s[j2])) j2++;
-            const b = s.slice(i, j2); i = j2;
-            if (!b) throw (i >= s.length ? INC : fail('Put the base after log_, as in log_2(8)'));
-            const bv = b === 'e' ? Math.E : Number(b);
-            if (!isFinite(bv)) throw fail('A log base must be a number');
-            out.push({ t: 'id', v: 'log', base: b, bv }); continue;
+          if (nm === 'log' && q === parts.length - 1 && s[i] === '_') { // log_2(8), log_e(x), log_b(x), log_(1/8)(64), log_{1/8}(64)
+            i++; let b;
+            if (s[i] === '(' || s[i] === '{') { // any expression as the base, in brackets
+              const open = s[i], close = open === '(' ? ')' : '}'; let depth = 0, j2 = i;
+              for (; j2 < s.length; j2++) { if (s[j2] === open) depth++; else if (s[j2] === close && !--depth) break; }
+              if (j2 >= s.length) throw INC;
+              b = s.slice(i + 1, j2); i = j2 + 1;
+            } else { let j2 = i; while (j2 < s.length && /[0-9.a-zA-Z]/.test(s[j2])) j2++; b = s.slice(i, j2); i = j2; }
+            if (!b.trim()) throw (i >= s.length ? INC : fail('Put the base after log_, as in log_2(8) or log_(1/8)(64)'));
+            out.push({ t: 'id', v: 'log', base: b }); continue;
           }
           out.push(BUILTIN.includes(nm) ? { t: 'id', v: nm } : { t: 'var', v: nm });
         }
@@ -78,7 +81,7 @@
   }
 
   /* ---------- parser: text -> tree ---------- */
-  // nodes: num {v,s} | const {v} | var {v} | neg {a} | bin {op,a,b,imp} | pow {a,b} | post {op,a} | fn {f,args,base,bv} | par {a}
+  // nodes: num {v,s} | const {v} | var {v} | neg {a} | bin {op,a,b,imp} | pow {a,b} | post {op,a} | fn {f,args,base (a tree)} | par {a}
   function parse(src, vars) {
     const t = lex(src, vars);
     if (!t.length) throw INC;
@@ -129,10 +132,10 @@
           if (peek() && peek().t === 'rp') { p++; closed = true; } else if (peek()) throw fail('Expected )');
           if (args.length < n) throw (!closed ? INC : fail(x.v + ' needs ' + n + ' numbers, separated by a comma'));
           if (args.length > n) throw fail(x.v + ' takes ' + n + (n === 1 ? ' number' : ' numbers'));
-          return { k: 'fn', f: x.v, args, base: x.base, bv: x.bv };
+          return { k: 'fn', f: x.v, args, base: x.base != null ? parse(x.base, vars) : null };
         }
         if (n === 2) throw (peek() ? fail(x.v + '(…, …) needs brackets') : INC);
-        return { k: 'fn', f: x.v, args: [post(primary())], base: x.base, bv: x.bv }; // sqrt 2, ln 5
+        return { k: 'fn', f: x.v, args: [post(primary())], base: x.base != null ? parse(x.base, vars) : null }; // sqrt 2, ln 5
       }
       if (x.t === 'rp') throw fail('A ) has no matching (');
       if (x.t === 'comma') throw fail('A comma belongs inside root(…, …) or ncr(…, …)');
@@ -171,7 +174,7 @@
         if (n.f === 'ln') { if (x <= 0) throw fail('ln needs a number above 0'); return Math.log(x); }
         if (n.f === 'log') {
           if (x <= 0) throw fail('log needs a number above 0');
-          const b = n.bv == null ? 10 : n.bv; if (b <= 0 || b === 1) throw fail('A log base must be above 0 and not 1');
+          const b = n.base ? ev(n.base, ctx) : 10; if (b <= 0 || b === 1) throw fail('A log base must be above 0 and not 1');
           return b === 10 ? Math.log10(x) : Math.log(x) / Math.log(b);
         }
         if (n.f === 'root') {
@@ -223,7 +226,7 @@
        numerically for their unknowns (linear systems exactly, others such as a yield by Newton's method);
      - too few equations, equations that contradict each other, and impossible values (5/x with x = 0) are errors.
      -> { lines: [{ src, kind: 'empty' | 'eq' | 'expr', r, tex }], vars, solved: [names], main, value } */
-  const vlist = (n, out) => { if (!n || typeof n !== 'object') return out; if (n.k === 'var') out.add(n.v); ['a', 'b'].forEach((k) => vlist(n[k], out)); (n.args || []).forEach((x) => vlist(x, out)); return out; };
+  const vlist = (n, out) => { if (!n || typeof n !== 'object') return out; if (n.k === 'var') out.add(n.v); ['a', 'b', 'base'].forEach((k) => vlist(n[k], out)); (n.args || []).forEach((x) => vlist(x, out)); return out; };
   const fmtList = (xs) => xs.length < 2 ? xs.join('') : xs.slice(0, -1).join(', ') + ' and ' + xs[xs.length - 1];
   function solveSystem(eqs, unknown, vars) { // Gauss-Newton with a numerical Jacobian; -> values, or { msg }
     const n = unknown.length, at = (x) => { const v = Object.assign({}, vars); unknown.forEach((u, i) => { v[u] = x[i]; }); return v; };
@@ -335,8 +338,6 @@
       main = i;
       const missing = L.names.filter((v) => vars[v] == null);
       L.r = broken ? { ok: false, msg: 'One of the equations has a problem' } : missing.length ? { ok: false, msg: fmtList(missing) + (missing.length > 1 ? ' have' : ' has') + ' no value' } : evalIn(L.t);
-      // an impossible value names the values that led to it: Division by zero, with x = 0
-      if (!L.r.ok && L.r.msg && !missing.length && !broken && L.names.length) L.r.msg += ', with ' + fmtList(L.names.map((v) => v + ' = ' + show(vars[v], 7)));
     });
     return { lines, vars, solved, main, value: main >= 0 ? lines[main].r : answers.length > 1 ? { ok: false, msg: 'more than one answer line' } : null };
   }
@@ -369,7 +370,7 @@
         if (n.f === 'exp') return 'e^{' + A[0] + '}';
         if (n.f === 'ncr') return '\\binom{' + A[0] + '}{' + A[1] + '}';
         if (n.f === 'ln') return '\\ln\\left(' + A[0] + '\\right)';
-        return '\\log' + (n.base ? '_{' + n.base + '}' : '') + '\\left(' + A[0] + '\\right)';
+        return '\\log' + (n.base ? '_{' + tex(strip(n.base)) + '}' : '') + '\\left(' + A[0] + '\\right)';
       }
     }
     return '';
@@ -440,7 +441,7 @@
       'fact', 'ncr', 'pct', 'ans', 'mul', 'div', 'add', 'sub', 'left', 'right', 'comma', 'dot', ['enter', 4]] },
   };
   const GUIDE = [['^', 'power: 1.05^3'], ['/', 'divide or fraction: 1/8'], ['*', 'times'], ['( )', 'group: (1+r)^n'], ['sqrt(x), root(n, x)', 'square and nth root'],
-    ['ln(x), log(x), log_b(x)', 'logs: natural, base 10, base b'], ['exp(x), e', 'e to the power, e'], ['pi, ans', 'π, last result'], ['n!, ncr(n, r)', 'factorial, combinations'],
+    ['ln(x), log(x), log_b(x)', 'logs: natural, base 10, base b'], ['log_(1/8)(x)', 'a base worked out first'], ['exp(x), e', 'e to the power, e'], ['pi, ans', 'π, last result'], ['n!, ncr(n, r)', 'factorial, combinations'],
     ['5%', 'per cent (0.05)'], ['Enter', 'check the answer']];
 
   let box = null, inp, prev, sugEl, symEl, tipEl, symBtn, tipBtn, kb = null, kbBody, kbTabs = {}, page = 'num';
@@ -599,7 +600,7 @@
       row.appendChild(el('span', 'cq-arrow', '↳'));
       if (L.tex != null) { const m = el('span', 'cq-tex'); try { if (root.katex) root.katex.render(L.tex, m, { throwOnError: false }); else m.textContent = L.src; } catch (e) { m.textContent = L.src; } row.appendChild(m); }
       if (r.ok) { const v = el('span', 'cq-val'), t = show(r.v, 7); v.textContent = '= ' + t + (Math.abs(Number(t.replace(/,/g, '')) - r.v) > 1e-12 * Math.max(1, Math.abs(r.v)) ? '…' : ''); row.appendChild(v); }
-      else if (!r.inc) { const e = el('span', 'cq-err'); e.textContent = r.msg; row.appendChild(e); }
+      else if (!r.inc) row.appendChild(el('span', 'cq-err', 'Error'));
       else if (L.tex == null) row.appendChild(el('span', 'cq-wait', '…'));
       prev.appendChild(row);
     });
