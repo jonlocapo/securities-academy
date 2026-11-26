@@ -129,8 +129,10 @@ Spec: DECISIONS.md. Update this file at the end of every session.
   amounts, table number cells, Ledger amounts). / makes a fraction from the operand before it, ^ a power, * ×, : ÷;
   typed names sqrt, root, ln, log (then _ for a base), exp, pi, ans, ncr become functions; n!, %, Ans, history of 5.
   Every edit writes the value straight into the field (plain digits, 12 significant figures, read by parseNum); a
-  new field starts a new calculation. Typed through a transparent text box over the drawing (phone keyboards work);
-  the symbol keypad is hidden behind a small button (choice kept per browser in localStorage 'sa-calc-keys'). Setting settings.calc =
+  new field starts a new calculation. Typed through a transparent text box over the drawing.
+  Maths keyboard (GeoGebra-style, docked on the bottom edge): pages "123" (default on touch screens, where it replaces
+  the phone keyboard) and "f(x)" (symbols first, default on desktop, where it is optional and opened from a floating
+  round button beside the calculator). Shown/hidden kept per browser in localStorage 'sa-calc-kb'. Setting settings.calc =
   auto | button | off (Profile), carried in the progress code (2 bits after the stats; older codes read as auto).
   Output is rounded to the field's decimals (data-calc-dp from the exercise's dp; at least 6 significant figures when
   the tolerance is relative) and multiplied by 100 for % fields (numeric unit '%', cloze blank followed by %, table
@@ -142,7 +144,8 @@ Spec: DECISIONS.md. Update this file at the end of every session.
   not available; the next build_course.py run will restamp as usual.
 
 ## Mobile pass (2026-11-26)
-- Every route checked at 375 px (no horizontal overflow). Skill tree "Layers" has a narrow layout under 600 px
+- Reference device: iPhone 17 (402 x 874 CSS px). viewport-fit=cover with safe-area insets on the header, main
+  column, calculator and keyboard. Every route checked at 402 px and 375 px (no horizontal overflow). Skill tree "Layers" has a narrow layout under 600 px
   (layoutNarrow in views.js: depths run downwards, up to 3 nodes a row, all edges vertical) instead of a 780 px drawing
   scrolled sideways. Header on phones: brand + theme, nav, progress + resume in three rows. Larger tap targets.
 
