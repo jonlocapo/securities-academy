@@ -124,6 +124,15 @@ Spec: DECISIONS.md. Update this file at the end of every session.
 - Next: rebuild the L1 units that gained books (T1.x Baker, Q2.x Blitzstein/Wasserman, F1 Luenberger, F1.5 Bacon,
   A1.x Picker, C1.x Collardi), then Step 4 (L2 content: same pipeline — build_course.py after writing units).
 
+## Calculator (2026-11-26)
+- js/calc.js: maths editor beside numeric fields (inputs marked `data-calc`: numeric, numeric cloze blanks, journal
+  amounts, table number cells, Ledger amounts). / makes a fraction from the operand before it, ^ a power, * ×, : ÷;
+  typed names sqrt, root, ln, log (then _ for a base), exp, pi, ans, ncr become functions; n!, %, Ans, history of 5.
+  "Use in answer" writes plain digits (12 significant figures) that parseNum reads. Setting settings.calc =
+  auto | button | off (Profile), carried in the progress code (2 bits after the stats; older codes read as auto).
+  Engine test: tools/smoke-calc.js. Asset stamps were refreshed with the stamp_assets() logic because sources/ was
+  not available; the next build_course.py run will restamp as usual.
+
 ## Step 4 — Remaining levels: not started
 
 ## Round 4: rewards subsystems (2026-11-11)

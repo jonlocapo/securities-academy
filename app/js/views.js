@@ -720,6 +720,9 @@
     const fbSeg = h('div', { class: 'seg-group', role: 'group', 'aria-label': 'Practice answers' });
     [['each', 'After each question'], ['end', 'At the end']].forEach(([v, t]) => fbSeg.appendChild(h('button', { type: 'button', class: 'seg-btn' + (st.settings.feedback === v ? ' sel' : ''), 'aria-pressed': String(st.settings.feedback === v), onclick: () => { S().settings.feedback = v; SA.app.save(); SA.app.reload(); } }, t)));
     rootEl.appendChild(h('div', { class: 'setting' }, h('span', { class: 'setting-k', title: 'Unit tests and checkpoints always show results at the end.' }, 'Practice answers'), fbSeg));
+    const calSeg = h('div', { class: 'seg-group', role: 'group', 'aria-label': 'Calculator' }), calNow = st.settings.calc || 'auto';
+    [['auto', 'Opens by itself'], ['button', 'From its button'], ['off', 'Off']].forEach(([v, t]) => calSeg.appendChild(h('button', { type: 'button', class: 'seg-btn' + (calNow === v ? ' sel' : ''), 'aria-pressed': String(calNow === v), onclick: () => { S().settings.calc = v; SA.app.save(); if (SA.calc) SA.calc.sync(); SA.app.reload(); } }, t)));
+    rootEl.appendChild(h('div', { class: 'setting' }, h('span', { class: 'setting-k', title: 'A calculator for numeric answers. It can open by itself when you reach a number field, wait for its button, or stay hidden.' }, 'Calculator'), calSeg));
     const dgSeg = h('div', { class: 'seg-group', role: 'group', 'aria-label': 'Daily goal' });
     const goal = st.settings.dailyGoal || 10, preset = [5, 10, 20].includes(goal);
     const setGoal = (n) => { const ev = SA.setDailyGoal(S(), n); if (!ev) return false; SA.app.save(); if (ev.length) SA.app.announce(ev); SA.app.reload(); return true; };
