@@ -41,7 +41,7 @@ def cite(ref):
 # syllabus wording keeps scoping notes for lesson authors ("at headline level", "conceptually", "preview only");
 # learners see the objective or reading without them
 AUTHOR_NOTES = [r"\s*\((?:conceptually|simplified)(?:, no solver)?\)", r",? (?:at|on) (?:a )?(?:headline|high|conceptual) level",
-                r" in an intuitive example", r" to a simple example", r"(?<=\w) conceptually\b",
+                r" in an intuitive example", r" to a simple example", r"(?<=[\w)]) conceptually\b",
                 r"\s*\((?:preview only|headline only|headline reading|finance-related)\)", r",? (?:for role names only|headline only|headline reading)\b"]
 def for_learner(t):
     for pat in AUTHOR_NOTES: t = re.sub(pat, "", t)

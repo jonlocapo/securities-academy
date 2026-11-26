@@ -44,7 +44,7 @@ In a **margin account** the broker may lend part of the purchase price, using th
 Private banks in Europe and Switzerland usually offer the same arrangement under another name, a **Lombard loan**: a credit line secured by the client's portfolio. The bank applies a **lending value** (a haircut) to each asset, so the client can borrow only part of the portfolio's value.
 
 > [!warning]
-> Borrowing magnifies gains and losses, and a fall in value can trigger a **margin call**. This is covered in Level 6 (K2). A loan needs its own signed agreement, separate from the account-opening form.
+> Borrowing magnifies gains and losses, and a fall in value can trigger a **margin call**. This is covered in Module 6 (K2). A loan needs its own signed agreement, separate from the account-opening form.
 
 > [!us]
 > US retail brokers distinguish cash and margin accounts. Many tax-advantaged retirement accounts, such as IRAs, generally cannot be margined.`,

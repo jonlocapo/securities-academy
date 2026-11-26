@@ -67,6 +67,8 @@ Permanent: sources/ids.json (normalised title -> id). Removed sources retire the
 - Syllabus text written for lesson authors (jurisdiction notes, minigame variants, unit-test specs, open questions)
   never reaches the course pages.
 - Hidden systems stay hidden (for example the hint weighting on mastery): no hints, tooltips or wording that reveal them.
+- `node tools/lint-copy.js` enforces these: author notes in course data, level codes in lessons, placeholder text and
+  explanatory tooltips fail it. A deliberate exception carries `copy-ok` on its line.
 - Visual changes are shown as mockups first and built only after the user approves.
 - After every merge to main, publish to gh-pages (tools/publish-pages.sh) so the change is visible on the live site.
 

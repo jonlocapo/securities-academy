@@ -377,7 +377,7 @@
         const cr = h('button', { type: 'button', class: 'seg-btn' + (l.side === 'Cr' ? ' sel' : ''), 'aria-pressed': l.side === 'Cr' ? 'true' : 'false' }, 'Cr');
         const setSide = (s) => { l.side = s; dr.classList.toggle('sel', s === 'Dr'); cr.classList.toggle('sel', s === 'Cr'); dr.setAttribute('aria-pressed', s === 'Dr' ? 'true' : 'false'); cr.setAttribute('aria-pressed', s === 'Cr' ? 'true' : 'false'); upd(); onChange(get()); };
         dr.addEventListener('click', () => setSide('Dr')); cr.addEventListener('click', () => setSide('Cr'));
-        const amt = h('input', { type: 'text', inputmode: numMode(), autocomplete: 'off', class: 'j-amt', 'data-calc': '1', 'data-calc-dp': '2', placeholder: 'Amount', 'aria-label': 'Amount, line ' + (i + 1), value: l.amount });
+        const amt = h('input', { type: 'text', inputmode: numMode(), autocomplete: 'off', class: 'j-amt', 'data-calc': '1', 'data-calc-dp': '2', 'aria-label': 'Amount, line ' + (i + 1), value: l.amount });
         amt.addEventListener('input', () => { l.amount = amt.value; upd(); onChange(get()); });
         const rm = h('button', { type: 'button', class: 'icon-btn', 'aria-label': 'Remove line ' + (i + 1), disabled: lines.length <= 1 }, '×');
         rm.addEventListener('click', () => { lines.splice(i, 1); draw(); upd(); onChange(get()); });
@@ -463,7 +463,7 @@
   /* ---------- paper ---------- */
   R.paper = function (c, inst, onChange, opts) {
     opts = opts || {};
-    const ta = h('textarea', { class: 'paper-text', rows: '10', placeholder: 'Write your answer here…', 'aria-label': 'Your answer' });
+    const ta = h('textarea', { class: 'paper-text', rows: '10', 'aria-label': 'Your answer' });
     const submit = h('button', { type: 'button', class: 'btn primary', disabled: true }, 'Submit answer');
     const reveal = h('div', { class: 'paper-reveal', hidden: true });
     let score = null, submitted = false;
