@@ -64,6 +64,8 @@ Permanent: sources/ids.json (normalised title -> id). Removed sources retire the
   on purpose (the calculator's ? button).
 - Nothing the user asked for in conversation shows up in the product as a description of itself: no labels like
   "now X" or "X, as requested", no notes about how a feature works behind the scenes.
+- Syllabus text written for lesson authors (jurisdiction notes, minigame variants, unit-test specs, open questions)
+  never reaches the course pages.
 - Hidden systems stay hidden (for example the hint weighting on mastery): no hints, tooltips or wording that reveal them.
 - Visual changes are shown as mockups first and built only after the user approves.
 - After every merge to main, publish to gh-pages (tools/publish-pages.sh) so the change is visible on the live site.

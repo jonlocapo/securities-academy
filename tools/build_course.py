@@ -49,7 +49,6 @@ for lv in syl:
         modules[m["id"]] = {"id": m["id"], "title": m["title"], "track": m.get("track"), "hours": m.get("hours"), "level": lv["level"],
                             "prereqs": m.get("prereqs", []), "hook": m.get("hook", ""), "boss_items": m.get("boss_items", []),
                             "units": [u["id"] for u in m["units"]], "unit_test": m.get("unit_test", ""),
-                            "jurisdiction_notes": m.get("jurisdiction_notes"),
                             "minigame": ({"key": GAMES.get(mg["name"]), "name": mg["name"], "variant": mg.get("variant", "")} if mg else None)}
         for u in m["units"]:
             if u["id"] not in unit_ids: unit_ids.append(u["id"])
