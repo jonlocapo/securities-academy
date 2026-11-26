@@ -338,72 +338,107 @@
   const doc = root.document;
   if (!doc || !doc.addEventListener || !root.MutationObserver) return;
 
-  // the keypad is optional (hidden behind a small button): the calculator is meant to be typed into
-  const KEYS = [
-    ['(', '('], [')', ')'], ['/', '<span class="ck-frac"><span>a</span><span>b</span></span>', 'Fraction'], ['^', 'x<sup>y</sup>', 'Power'], ['sqrt', '√', 'Square root'], ['root', '<sup>n</sup>√', 'nth root'],
-    ['7', '7', null, 'n'], ['8', '8', null, 'n'], ['9', '9', null, 'n'], [':', '÷', 'Divide', 'o'], ['ln', 'ln', 'Natural log'], ['log', 'log', 'Log base 10'],
-    ['4', '4', null, 'n'], ['5', '5', null, 'n'], ['6', '6', null, 'n'], ['*', '×', 'Times', 'o'], ['exp', 'e<sup>x</sup>', 'e to the power'], ['logb', 'log<sub>b</sub>', 'Log to a base'],
-    ['1', '1', null, 'n'], ['2', '2', null, 'n'], ['3', '3', null, 'n'], ['-', '−', 'Minus', 'o'], ['!', 'n!', 'Factorial'], ['ncr', '<sup>n</sup>C<sub>r</sub>', 'Combinations, n choose r'],
-    ['0', '0', null, 'n'], ['.', '.', 'Decimal point', 'n'], ['%', '%', 'Per cent'], ['+', '+', 'Plus', 'o'], ['π', 'π', 'Pi'], ['e', 'e', 'Euler’s number e'],
-    ['left', '←', 'Move left'], ['right', '→', 'Move right'], ['back', '⌫', 'Delete'], ['clear', 'AC', 'Clear'], ['ans', 'Ans', 'Last result'], ['=', '=', 'Equals', 'eq'],
-  ];
+  /* maths keyboard, docked along the bottom of the screen like GeoGebra's. Two pages: "123" (numbers first, the default on
+     phones and tablets, where it replaces the phone keyboard) and "f(x)" (symbols first, the default on desktop, where
+     the physical keyboard types the numbers and this keyboard is optional, opened from a floating button).
+     A key is [action, label html, spoken name, style, columns]; an action is a key name for Editor.key, or a list of them */
+  const FRAC = '<span class="ck-frac"><span>a</span><span>b</span></span>';
+  const K = {
+    '(': ['(', '('], ')': [')', ')'], frac: ['/', FRAC, 'Fraction'], pow: ['^', 'x<sup>y</sup>', 'Power'], sq: [['^', '2', 'right'], 'x<sup>2</sup>', 'Squared'],
+    sqrt: ['sqrt', '√', 'Square root'], root: ['root', '<sup>n</sup>√', 'nth root'], ln: ['ln', 'ln', 'Natural log'], log: ['log', 'log', 'Log base 10'],
+    logb: ['logb', 'log<sub>b</sub>', 'Log to a base'], exp: ['exp', 'e<sup>x</sup>', 'e to the power'], ten: [['1', '0', '^'], '10<sup>x</sup>', 'Ten to the power'],
+    fact: ['!', 'n!', 'Factorial'], ncr: ['ncr', '<sup>n</sup>C<sub>r</sub>', 'Combinations, n choose r'], pct: ['%', '%', 'Per cent'],
+    pi: ['π', 'π', 'Pi'], e: ['e', 'e', 'Euler’s number e'], ans: ['ans', 'Ans', 'Last result'],
+    mul: ['*', '×', 'Times', 'o'], div: [':', '÷', 'Divide', 'o'], add: ['+', '+', 'Plus', 'o'], sub: ['-', '−', 'Minus', 'o'], eq: ['=', '=', 'Keep as Ans', 'o'],
+    left: ['left', '←', 'Move left', 'nav'], right: ['right', '→', 'Move right', 'nav'], up: ['up', '↑', 'Move up', 'nav'], down: ['down', '↓', 'Move down', 'nav'],
+    back: ['back', '⌫', 'Delete', 'nav'], clear: ['clear', 'AC', 'Clear', 'nav'], enter: ['enter', '↵', 'Enter: keep as Ans, again to check', 'go'], dot: ['.', '.', 'Decimal point', 'n'],
+  };
+  for (let d = 0; d <= 9; d++) K[d] = [String(d), String(d), null, 'n'];
+  const PAGES = {
+    num: { name: '123', cols: 10, rows: [
+      ['(', ')', 'frac', 'pow', 7, 8, 9, 'mul', 'div', 'back'],
+      ['sq', 'sqrt', 'pi', 'pct', 4, 5, 6, 'add', 'sub', 'clear'],
+      ['left', 'right', 'up', 'down', 1, 2, 3, 'ans', 'e', 'eq'],
+      ['ln', 'log', 'exp', 'fact', [0, 2], 'dot', 'ncr', 'root', 'enter']] },
+    fx: { name: 'f(x)', cols: 8, rows: [
+      ['frac', 'pow', 'sq', 'sqrt', 'root', '(', ')', 'back'],
+      ['ln', 'log', 'logb', 'exp', 'ten', 'pi', 'e', 'clear'],
+      ['fact', 'ncr', 'pct', 'ans', 'mul', 'div', 'add', 'sub'],
+      ['left', 'right', 'up', 'down', 'eq', ['enter', 3]]] },
+  };
   const HELP = [['/', 'fraction (the number before it goes on top)'], ['^', 'power'], ['*', '×'], [':', '÷'], ['sqrt, root', 'square and nth root'],
     ['ln, log, exp', 'logs, e to the power'], ['log then _', 'log to another base'], ['pi, e, ans', 'π, e, last result'], ['!, ncr', 'factorial, combinations'], ['%', 'per cent (5% = 0.05)'],
     ['arrows', 'move in and out of boxes'], ['Enter', 'keep the result as Ans; again to check'], ['Esc', 'back to the answer']];
-  const TOUCH = !!(root.matchMedia && root.matchMedia('(pointer: coarse)').matches); // phones and tablets: keypad first
-  const SENT = '\u200b'; // the text box always holds one invisible character, so Backspace on phone keyboards reaches us
+  const TOUCH = !!(root.matchMedia && root.matchMedia('(pointer: coarse)').matches); // phones and tablets: the maths keyboard is the keyboard
+  const SENT = '​'; // the text box always holds one invisible character, so Backspace on phone keyboards reaches us
 
-  let panel = null, edEl, cap, resEl, histEl, forEl, helpEl, keysEl, keysBtn, fab = null;
+  let panel = null, edEl, cap, resEl, histEl, forEl, helpEl, kb, kbBody, kbTabs = {}, kbFab, fab = null, page = TOUCH ? 'num' : 'fx';
   let target = null, dismissed = false, ans = null, hist = [], fresh = false, touch = false;
   const E = Editor(), spots = new WeakMap(); // drawn element -> where a tap on it puts the cursor
   const mode = () => { const st = SA.app && SA.app.state; return (st && st.settings && st.settings.calc) || 'auto'; };
   const fields = () => Array.from(doc.querySelectorAll('#app input[data-calc]'));
   const live = (x) => x && doc.body.contains(x) && !x.disabled;
   const el = (tag, cls, html) => { const x = doc.createElement(tag); if (cls) x.className = cls; if (html != null) x.innerHTML = html; return x; };
-  // keypad shown or hidden: remembered per browser; shown by default on touch screens, hidden on desktop
-  const pref = (v) => { try { if (v == null) { const s = root.localStorage.getItem('sa-calc-keys'); return s == null ? TOUCH : s === '1'; } root.localStorage.setItem('sa-calc-keys', v ? '1' : '0'); } catch (e) { /* per browser only */ } return TOUCH; };
+  // keyboard shown or hidden: remembered per browser; shown by default on touch screens, hidden on desktop
+  const pref = (v) => { try { if (v == null) { const s = root.localStorage.getItem('sa-calc-kb'); return s == null ? TOUCH : s === '1'; } root.localStorage.setItem('sa-calc-kb', v ? '1' : '0'); } catch (e) { /* per browser only */ } return TOUCH; };
   const fieldOpts = (f) => ({ dp: f && f.getAttribute('data-calc-dp') != null ? Number(f.getAttribute('data-calc-dp')) : null, rel: !!(f && f.getAttribute('data-calc-rel')), pct: !!(f && f.getAttribute('data-calc-pct')) });
   // on touch screens the calculator is the keyboard: number fields stop calling up the phone keyboard while it is on
   function inputMode() { return TOUCH && mode() !== 'off' && !dismissed && (mode() === 'auto' || (panel && !panel.hidden)) ? 'none' : 'decimal'; }
   function setModes() { const m = inputMode(); fields().forEach((f) => { if (f.getAttribute('inputmode') !== m) f.setAttribute('inputmode', m); }); }
   const focusCap = () => { if (!touch) cap.focus({ preventScroll: true }); };
+  const kbOn = () => !!kb && !kb.hidden;
 
   function build() {
     panel = el('div', 'calc'); panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-label', 'Calculator'); panel.hidden = true;
     const top = el('div', 'calc-top'), title = el('span', 'calc-title', 'Calculator');
-    keysBtn = el('button', 'calc-ic calc-kb', '<span class="kb-g"><i></i><i></i><i></i><i></i><i></i><i></i></span>'); keysBtn.type = 'button'; keysBtn.setAttribute('aria-label', 'Symbol keys');
     const helpBtn = el('button', 'calc-ic', '?'); helpBtn.type = 'button'; helpBtn.setAttribute('aria-label', 'What to type'); helpBtn.setAttribute('aria-expanded', 'false');
     const x = el('button', 'calc-ic', '×'); x.type = 'button'; x.setAttribute('aria-label', 'Close calculator');
-    top.append(title, keysBtn, helpBtn, x);
+    top.append(title, helpBtn, x);
     helpEl = el('dl', 'calc-help'); helpEl.hidden = true;
     HELP.forEach(([k, d]) => { helpEl.append(el('dt', null, k), el('dd', null, d)); });
     const wrap = el('div', 'calc-edwrap');
     edEl = el('div', 'calc-ed'); edEl.setAttribute('aria-hidden', 'true');
-    // a real text box over the drawing: brings up the phone keyboard and takes the typing
+    // a real text box over the drawing: takes the typing from a physical keyboard
     cap = el('input', 'calc-cap'); cap.type = 'text'; cap.value = SENT;
     ['autocomplete', 'autocorrect', 'autocapitalize', 'spellcheck'].forEach((a) => cap.setAttribute(a, 'off'));
     cap.setAttribute('aria-label', 'Calculation'); cap.setAttribute('aria-describedby', 'calc-res'); cap.setAttribute('enterkeyhint', 'done');
     wrap.append(edEl, cap);
     resEl = el('div', 'calc-res'); resEl.id = 'calc-res'; resEl.setAttribute('aria-live', 'polite');
-    keysEl = el('div', 'calc-keys');
-    KEYS.forEach(([k, label, aria, cls]) => {
-      const b = el('button', 'ck' + (cls ? ' ck-' + cls : ''), label); b.type = 'button'; b.setAttribute('aria-label', aria || k);
-      b.addEventListener('pointerdown', (ev) => { touch = ev.pointerType === 'touch'; });
-      b.addEventListener('mousedown', (ev) => ev.preventDefault()); // keep the caret where it is
-      b.addEventListener('click', () => { press(k, true); focusCap(); });
-      keysEl.appendChild(b);
-    });
     histEl = el('div', 'calc-hist');
     forEl = el('div', 'calc-for');
-    panel.append(top, helpEl, wrap, resEl, keysEl, histEl, forEl);
+    panel.append(top, helpEl, wrap, resEl, histEl, forEl);
     doc.body.appendChild(panel);
-    showKeys(pref());
+
+    // the docked maths keyboard
+    kb = el('div', 'mkb'); kb.hidden = true; kb.setAttribute('role', 'group'); kb.setAttribute('aria-label', 'Maths keyboard');
+    const bar = el('div', 'mkb-bar'), tabs = el('div', 'mkb-tabs');
+    Object.keys(PAGES).forEach((id) => {
+      const t = el('button', 'mkb-tab'); t.type = 'button'; t.textContent = PAGES[id].name; t.setAttribute('aria-pressed', 'false');
+      t.addEventListener('mousedown', (ev) => ev.preventDefault());
+      t.addEventListener('click', () => { page = id; drawKeys(); });
+      kbTabs[id] = t; tabs.appendChild(t);
+    });
+    const hide = el('button', 'mkb-hide', '<svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+    hide.type = 'button'; hide.setAttribute('aria-label', 'Hide maths keyboard');
+    hide.addEventListener('mousedown', (ev) => ev.preventDefault());
+    hide.addEventListener('click', () => { showKb(false); pref(false); });
+    bar.append(tabs, hide);
+    kbBody = el('div', 'mkb-keys');
+    kb.append(bar, kbBody);
+    doc.body.appendChild(kb);
+
+    // floating keyboard button: brings the maths keyboard back
+    kbFab = el('button', 'mkb-fab', '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6 9.5h1M9.5 9.5h1M13 9.5h1M16.5 9.5h1M6 12.5h1M9.5 12.5h1M13 12.5h1M16.5 12.5h1M8 15.5h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>');
+    kbFab.type = 'button'; kbFab.hidden = true; kbFab.setAttribute('aria-label', 'Maths keyboard');
+    kbFab.addEventListener('mousedown', (ev) => ev.preventDefault());
+    kbFab.addEventListener('click', () => { showKb(true); pref(true); focusCap(); });
+    doc.body.appendChild(kbFab);
+    drawKeys();
 
     fab = el('button', 'calc-fab', '<span aria-hidden="true">±×</span> Calculator'); fab.type = 'button'; fab.hidden = true; fab.setAttribute('aria-label', 'Open calculator');
     doc.body.appendChild(fab);
 
     x.addEventListener('click', () => { close(); if (live(target)) target.focus(); });
-    keysBtn.addEventListener('click', () => { showKeys(keysEl.hidden); pref(!keysEl.hidden); });
     helpBtn.addEventListener('click', () => { helpEl.hidden = !helpEl.hidden; helpBtn.setAttribute('aria-expanded', String(!helpEl.hidden)); pad(); });
     fab.addEventListener('click', () => { dismissed = false; setModes(); if (TOUCH) { const a = doc.activeElement; if (a && a.matches && a.matches('input[data-calc]')) a.blur(); open(false); } else open(true); });
     cap.addEventListener('keydown', onKey);
@@ -413,7 +448,30 @@
     cap.addEventListener('focus', () => { touch = false; panel.classList.add('focus'); draw(); });
     cap.addEventListener('blur', () => { panel.classList.remove('focus'); draw(); });
   }
-  function showKeys(on) { keysEl.hidden = !on; keysBtn.setAttribute('aria-expanded', String(!!on)); keysBtn.classList.toggle('on', !!on); cap.setAttribute('inputmode', on && TOUCH ? 'none' : 'text'); pad(); }
+  function drawKeys() {
+    const P = PAGES[page];
+    kbBody.innerHTML = ''; kbBody.className = 'mkb-keys mkb-' + page; kbBody.style.gridTemplateColumns = 'repeat(' + P.cols + ', minmax(0, 1fr))';
+    Object.keys(kbTabs).forEach((id) => { kbTabs[id].classList.toggle('on', id === page); kbTabs[id].setAttribute('aria-pressed', String(id === page)); });
+    P.rows.forEach((row) => row.forEach((cell) => {
+      const [id, span] = Array.isArray(cell) ? cell : [cell, 1], [act, label, aria, cls] = K[id];
+      const b = el('button', 'ck' + (cls ? ' ck-' + cls : ''), label); b.type = 'button'; b.setAttribute('aria-label', aria || String(id));
+      if (span > 1) b.style.gridColumn = 'span ' + span;
+      b.addEventListener('pointerdown', (ev) => { touch = ev.pointerType === 'touch'; });
+      b.addEventListener('mousedown', (ev) => ev.preventDefault()); // keep the caret where it is
+      b.addEventListener('click', () => { if (act === 'enter') enterKey(); else (Array.isArray(act) ? act : [act]).forEach((a) => press(a)); focusCap(); });
+      kbBody.appendChild(b);
+    }));
+  }
+  function showKb(on) {
+    if (!kb) return;
+    kb.hidden = !on; panel.classList.toggle('with-kb', !!on);
+    // with the maths keyboard up on a touch screen, tapping the calculation must not bring up the phone keyboard as well
+    cap.setAttribute('inputmode', TOUCH && on ? 'none' : 'text');
+    pad();
+  }
+  function enterKey() { // Enter: keep the result as Ans; again (or on an empty calculation) check the answer
+    if (fresh || E.isEmpty()) { if (target && doc.body.contains(target)) target.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true })); } else equals();
+  }
   // a tap on the text box: find the drawn symbol under it and put the cursor there
   function place(x, y) {
     const under = doc.elementsFromPoint ? doc.elementsFromPoint(x, y) : [];
@@ -430,11 +488,7 @@
     if (ev.altKey || ev.ctrlKey || ev.metaKey || ev.isComposing) return;
     let k = ev.key;
     if (k === 'Escape') { ev.preventDefault(); if (live(target)) target.focus(); else close(); return; }
-    if (k === 'Enter') { // first Enter keeps the result as Ans; Enter again checks the answer, as Enter in the field would
-      ev.preventDefault();
-      if (fresh || E.isEmpty()) { if (target && doc.body.contains(target)) target.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true })); } else equals();
-      return;
-    }
+    if (k === 'Enter') { ev.preventDefault(); enterKey(); return; } // first Enter keeps the result as Ans; Enter again checks the answer
     else if (NAV[k]) k = NAV[k];
     else if (k.length !== 1) return; // phone keyboards send 'Unidentified': the input event below takes it
     else if (/[A-Z]/.test(k)) k = k.toLowerCase();
@@ -557,14 +611,25 @@
   }
 
   /* ---------- open, close, follow the page ---------- */
-  function pad() { // room below the page so the panel never hides the last field
-    if (!panel || panel.hidden) { doc.body.style.paddingBottom = ''; return; }
-    doc.body.style.paddingBottom = (panel.offsetHeight + 24) + 'px';
+  /* layout: the keyboard sits on the bottom edge; the calculator sits on top of it (phones: full width, desktop: bottom
+     right); the floating keyboard button sits beside the calculator when the keyboard is down; the page gets room below */
+  const narrow = () => !!(root.matchMedia && root.matchMedia('(max-width: 600px)').matches);
+  function pad() {
+    if (!panel || panel.hidden) { doc.body.style.paddingBottom = ''; if (kbFab) kbFab.hidden = true; return; }
+    const kh = kbOn() ? kb.offsetHeight : 0, ph = panel.offsetHeight, n = narrow();
+    panel.style.bottom = (n ? kh : kh ? kh + 12 : 16) + 'px';
+    kbFab.hidden = kbOn();
+    if (n) { kbFab.style.right = '12px'; kbFab.style.bottom = (ph + kh + 10) + 'px'; }
+    else { kbFab.style.right = (panel.offsetWidth + 28) + 'px'; kbFab.style.bottom = '16px'; }
+    doc.body.style.paddingBottom = (ph + kh + 24) + 'px';
   }
   function open(focusEd) {
     if (!panel) build();
     if (mode() === 'off') return;
-    panel.hidden = false; fab.hidden = true; setModes(); draw();
+    const was = panel.hidden;
+    panel.hidden = false; fab.hidden = true; setModes();
+    if (was) showKb(pref());
+    draw();
     if (focusEd) cap.focus({ preventScroll: true });
     root.requestAnimationFrame(inView);
   }
@@ -573,11 +638,11 @@
     const tr = target.getBoundingClientRect(), pr = panel.getBoundingClientRect();
     if (tr.bottom > pr.top - 8 && tr.right > pr.left) root.scrollBy(0, Math.min(tr.top - 72, tr.bottom - pr.top + 24));
   }
-  function close() { if (!panel) return; panel.hidden = true; dismissed = true; setModes(); pad(); sync(); }
+  function close() { if (!panel) return; panel.hidden = true; kb.hidden = true; dismissed = true; setModes(); pad(); sync(); }
   function sync() {
     const m = mode(), any = fields().some((f) => !f.disabled);
     if (!panel) { if (m === 'off' || !any) return; build(); }
-    if (m === 'off' || !any) { panel.hidden = true; fab.hidden = true; pad(); return; }
+    if (m === 'off' || !any) { panel.hidden = true; kb.hidden = true; fab.hidden = true; pad(); return; }
     if (!live(target)) pickTarget();
     setModes();
     if (panel.hidden) fab.hidden = false; else draw();
