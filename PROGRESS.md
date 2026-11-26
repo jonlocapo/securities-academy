@@ -124,24 +124,21 @@ Spec: DECISIONS.md. Update this file at the end of every session.
 - Next: rebuild the L1 units that gained books (T1.x Baker, Q2.x Blitzstein/Wasserman, F1 Luenberger, F1.5 Bacon,
   A1.x Picker, C1.x Collardi), then Step 4 (L2 content: same pipeline — build_course.py after writing units).
 
-## Calculator (2026-11-26)
-- js/calc.js: maths editor beside numeric fields (inputs marked `data-calc`: numeric, numeric cloze blanks, journal
-  amounts, table number cells, Ledger amounts). / makes a fraction from the operand before it, ^ a power, * ×, : ÷;
-  typed names sqrt, root, ln, log (then _ for a base), exp, pi, ans, ncr become functions; n!, %, Ans, history of 5.
-  Every edit writes the value straight into the field (plain digits, 12 significant figures, read by parseNum); a
-  new field starts a new calculation. Typed through a transparent text box over the drawing.
-  Maths keyboard (GeoGebra-style, docked on the bottom edge): pages "123" (default on touch screens, where it replaces
-  the phone keyboard) and "f(x)" (symbols first, default on desktop, where it is optional and opened from a floating
-  round button beside the calculator). Shown/hidden kept per browser in localStorage 'sa-calc-kb'. Setting settings.calc =
-  auto | button | off (Profile), carried in the progress code (2 bits after the stats; older codes read as auto).
-  Output is rounded to the field's decimals (data-calc-dp from the exercise's dp; at least 6 significant figures when
-  the tolerance is relative) and multiplied by 100 for % fields (numeric unit '%', cloze blank followed by %, table
-  column with % in its header); the result line shows "→ value" when that changes what is written. Typing % in the
-  calculator (5%) keeps percentages consistent. Desktop: a new field sends typing to the calculator; Enter keeps the
-  result as Ans, Enter again checks the answer. Touch screens (pointer: coarse): keypad shown by default and number
-  fields use inputmode none while the calculator is on, so the phone keyboard does not cover it.
-  Engine test: tools/smoke-calc.js. Asset stamps were refreshed with the stamp_assets() logic because sources/ was
-  not available; the next build_course.py run will restamp as usual.
+## Calculator (2026-11-26, redesigned the same day to the approved mockup)
+- js/calc.js. Clicking a number field (inputs marked `data-calc`: numeric, numeric cloze blanks, journal amounts, table
+  number cells, Ledger amounts) opens a one-line text input under it, in a white box with a themed outline; the input's
+  left edge lines up with the field. Standalone numeric answers get it in the page flow; fields in tables, sentences and
+  journal lines get it as an overlay. Beside the input: square buttons for symbols (desktop), a closeable guide
+  tooltip, and close. A click outside closes it; × or Esc closes it and lets you type in the field itself.
+- Typed as text, Wolfram Alpha style: 1.26^(1/8) - 1, ln(2)/0.05, log_2(8), root(3, 27), ncr(10, 3), 5!, 5%, pi, e, ans,
+  implicit multiplication (2pi), decimal commas (3,25) except inside two-argument functions. Function names are
+  suggested while typing (arrows, Enter or Tab to pick). Under the input: ↳, the formula as read (KaTeX) and its value.
+- Every change writes the value into the field (the target, shaded with the theme's --ring colour): rounded to the
+  field's decimals (data-calc-dp; at least 6 significant figures when the tolerance is relative), × 100 for % fields
+  (numeric unit '%', cloze blank followed by %, table column with % in its header). Enter checks the answer.
+- Touch screens: a maths keyboard (pages "123" and "f(x)") docks on the bottom edge and number fields use inputmode none,
+  so the phone keyboard does not appear. Setting settings.calc = auto | off (Profile; 'button' from older saves counts as
+  auto), carried in the progress code. Engine test: tools/smoke-calc.js.
 
 ## Mobile pass (2026-11-26)
 - Reference device: iPhone 17 (402 x 874 CSS px). viewport-fit=cover with safe-area insets on the header, main
