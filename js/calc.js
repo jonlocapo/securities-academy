@@ -314,7 +314,7 @@
     const row = el('div', 'cq-row');
     inp = el('input', 'cq-in'); inp.type = 'text';
     ['autocomplete', 'autocorrect', 'autocapitalize', 'spellcheck'].forEach((a) => inp.setAttribute(a, 'off'));
-    inp.setAttribute('aria-label', 'Calculation'); inp.setAttribute('placeholder', 'Type a calculation, e.g. 1.05^3'); inp.setAttribute('enterkeyhint', 'done');
+    inp.setAttribute('aria-label', 'Calculation'); inp.setAttribute('enterkeyhint', 'done');
     inp.setAttribute('role', 'combobox'); inp.setAttribute('aria-autocomplete', 'list'); inp.setAttribute('aria-expanded', 'false'); inp.setAttribute('aria-controls', 'cq-sug');
     if (TOUCH) inp.setAttribute('inputmode', 'none');
     const btn = (html, label) => { const b = el('button', 'cq-btn', html); b.type = 'button'; b.setAttribute('aria-label', label); noFocusLoss(b); return b; };
