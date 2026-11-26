@@ -82,7 +82,7 @@
       hintBox.appendChild(h('div', { class: 'hint' }, mdEl('span', '', hints[hintsShown - 1], true)));
       hintBtn.textContent = hintsShown >= hints.length ? 'No more hints' : 'Another hint'; hintBtn.disabled = hintsShown >= hints.length;
     });
-    const result = () => ({ correct: firstOk && !hintUsed && !retried, retried: hintUsed || retried, hinted: hintUsed, tries: attempts, solved: lastOk, attempts, res: lastRes });
+    const result = () => ({ correct: firstOk && !hintUsed && !retried, first: firstOk && !retried, hints: hintsShown, retried: hintUsed || retried, hinted: hintUsed, tries: attempts, solved: lastOk, attempts, res: lastRes });
     let nextBtn = null;
     function grade(skipped) {
       const res = skipped ? { correct: false } : SA.grade(inst, handle.get());
@@ -164,7 +164,7 @@
         hints: cfg.hints, retry: cfg.retry, deferred: cfg.deferred, skip: cfg.skip, autofocus: true, nextLabel: idx === items.length - 1 ? 'Finish' : 'Next',
         onNext(res, el) {
           run = res.correct ? run + 1 : 0;
-          const rec = { unitId: it.unitId, correct: res.correct, retried: res.retried, hinted: res.hinted, tries: res.tries, solved: res.solved, callback: it.callback, inst, host: cfg.deferred ? el : null };
+          const rec = { unitId: it.unitId, correct: res.correct, first: res.first, hints: res.hints, retried: res.retried, hinted: res.hinted, tries: res.tries, solved: res.solved, callback: it.callback, inst, host: cfg.deferred ? el : null };
           results.push(rec);
           if (cfg.liveXp) { const n = SA.itemXp(rec, run) * (cfg.xpMult || 1); if (n) award(SA.awardXp(S(), n), el.querySelector('.feedback .btn.primary') || el); }
           const d = dots[idx]; if (!cfg.deferred) d.classList.add(res.correct ? 'ok' : 'bad'); else d.classList.add('done');
@@ -535,7 +535,7 @@
           const own = results.filter((r) => !r.callback), nu = nextUnitAfter(id);
           summary(rootEl2, {
             score: out.score, events: out.events, xp: S().xp - xp0,
-            headline: own.filter((r) => r.correct).length + ' of ' + own.length + ' right first time',
+            headline: own.filter((r) => r.correct || (r.hinted && r.first)).length + ' of ' + own.length + ' right first time',
             actions: [h('button', { type: 'button', class: 'btn primary', onclick: () => SA.app.reload() }, challenge ? 'Again' : 'Practise again'), nu ? btnLink('#/u/' + nu, 'Next unit') : null, btnLink('#/m/' + mod.id, 'Back')],
           });
         },

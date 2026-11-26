@@ -1,7 +1,7 @@
 /* Securities Academy - calculator. A small maths editor that sits beside numeric answer fields.
    Keys build a formula as it would be written: / starts a fraction (taking the number before it as the numerator),
    ^ a power, * gives ×, - gives −, and typed names become functions (sqrt, root, ln, log, exp, pi, ans, ncr).
-   The value shows as you type; "Use in answer" writes it into the field. Engine (SA.calcEngine) is pure and tested in
+   The value shows as you type and goes straight into the answer field. Typed first; a keypad hides behind a button. Engine (SA.calcEngine) is pure and tested in
    tools/smoke-calc.js; the panel only starts in a real browser. Setting: settings.calc = 'auto' | 'button' | 'off'. */
 (function (root) {
   'use strict';
@@ -325,6 +325,7 @@
   const doc = root.document;
   if (!doc || !doc.addEventListener || !root.MutationObserver) return;
 
+  // the keypad is optional (hidden behind a small button): the calculator is meant to be typed into
   const KEYS = [
     ['(', '('], [')', ')'], ['/', '<span class="ck-frac"><span>a</span><span>b</span></span>', 'Fraction'], ['^', 'x<sup>y</sup>', 'Power'], ['sqrt', '√', 'Square root'], ['root', '<sup>n</sup>√', 'nth root'],
     ['7', '7', null, 'n'], ['8', '8', null, 'n'], ['9', '9', null, 'n'], [':', '÷', 'Divide', 'o'], ['ln', 'ln', 'Natural log'], ['log', 'log', 'Log base 10'],
@@ -335,80 +336,107 @@
   ];
   const HELP = [['/', 'fraction (the number before it goes on top)'], ['^', 'power'], ['*', '×'], [':', '÷'], ['sqrt, root', 'square and nth root'],
     ['ln, log, exp', 'logs, e to the power'], ['log then _', 'log to another base'], ['pi, e, ans', 'π, e, last result'], ['!, ncr', 'factorial, combinations'], ['%', 'per cent (5% = 0.05)'],
-    ['arrows', 'move in and out of boxes'], ['Enter', 'work it out'], ['Ctrl+Enter', 'use in answer'], ['Esc', 'back to the answer']];
+    ['arrows', 'move in and out of boxes'], ['Enter', 'keep the result as Ans'], ['Esc', 'back to the answer']];
+  const SENT = '​'; // the text box always holds one invisible character, so Backspace on phone keyboards reaches us
 
-  let panel = null, edEl, resEl, histEl, useBtn, forEl, helpEl, fab = null;
-  let target = null, dismissed = false, ans = null, hist = [], fresh = false;
-  const E = Editor();
+  let panel = null, edEl, cap, resEl, histEl, forEl, helpEl, keysEl, keysBtn, fab = null;
+  let target = null, dismissed = false, ans = null, hist = [], fresh = false, touch = false;
+  const E = Editor(), spots = new WeakMap(); // drawn element -> where a tap on it puts the cursor
   const mode = () => { const st = SA.app && SA.app.state; return (st && st.settings && st.settings.calc) || 'auto'; };
   const fields = () => Array.from(doc.querySelectorAll('#app input[data-calc]'));
-  const live = (el) => el && doc.body.contains(el) && !el.disabled;
+  const live = (x) => x && doc.body.contains(x) && !x.disabled;
   const el = (tag, cls, html) => { const x = doc.createElement(tag); if (cls) x.className = cls; if (html != null) x.innerHTML = html; return x; };
+  const pref = (v) => { try { if (v == null) return root.localStorage.getItem('sa-calc-keys') === '1'; root.localStorage.setItem('sa-calc-keys', v ? '1' : '0'); } catch (e) { /* per browser only */ } return false; };
+  const focusCap = () => { if (!touch) cap.focus({ preventScroll: true }); };
 
   function build() {
     panel = el('div', 'calc'); panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-label', 'Calculator'); panel.hidden = true;
     const top = el('div', 'calc-top'), title = el('span', 'calc-title', 'Calculator');
-    const helpBtn = el('button', 'calc-ic', '?'); helpBtn.type = 'button'; helpBtn.setAttribute('aria-label', 'Keyboard shortcuts'); helpBtn.setAttribute('aria-expanded', 'false');
+    keysBtn = el('button', 'calc-ic calc-kb', '<span class="kb-g"><i></i><i></i><i></i><i></i><i></i><i></i></span>'); keysBtn.type = 'button'; keysBtn.setAttribute('aria-label', 'Symbol keys');
+    const helpBtn = el('button', 'calc-ic', '?'); helpBtn.type = 'button'; helpBtn.setAttribute('aria-label', 'What to type'); helpBtn.setAttribute('aria-expanded', 'false');
     const x = el('button', 'calc-ic', '×'); x.type = 'button'; x.setAttribute('aria-label', 'Close calculator');
-    top.append(title, helpBtn, x);
+    top.append(title, keysBtn, helpBtn, x);
     helpEl = el('dl', 'calc-help'); helpEl.hidden = true;
-    HELP.forEach(([k, d]) => { helpEl.append(el('dt', null, k.replace(/&/g, '&amp;').replace(/</g, '&lt;')), el('dd', null, d)); });
-    edEl = el('div', 'calc-ed'); edEl.tabIndex = 0; edEl.setAttribute('role', 'textbox'); edEl.setAttribute('aria-label', 'Calculation'); edEl.setAttribute('aria-describedby', 'calc-res');
+    HELP.forEach(([k, d]) => { helpEl.append(el('dt', null, k), el('dd', null, d)); });
+    const wrap = el('div', 'calc-edwrap');
+    edEl = el('div', 'calc-ed'); edEl.setAttribute('aria-hidden', 'true');
+    // a real text box over the drawing: brings up the phone keyboard and takes the typing
+    cap = el('input', 'calc-cap'); cap.type = 'text'; cap.value = SENT;
+    ['autocomplete', 'autocorrect', 'autocapitalize', 'spellcheck'].forEach((a) => cap.setAttribute(a, 'off'));
+    cap.setAttribute('aria-label', 'Calculation'); cap.setAttribute('aria-describedby', 'calc-res'); cap.setAttribute('enterkeyhint', 'done');
+    wrap.append(edEl, cap);
     resEl = el('div', 'calc-res'); resEl.id = 'calc-res'; resEl.setAttribute('aria-live', 'polite');
-    const keys = el('div', 'calc-keys');
+    keysEl = el('div', 'calc-keys');
     KEYS.forEach(([k, label, aria, cls]) => {
       const b = el('button', 'ck' + (cls ? ' ck-' + cls : ''), label); b.type = 'button'; b.setAttribute('aria-label', aria || k);
-      b.addEventListener('mousedown', (ev) => ev.preventDefault()); // keep the caret in the editor
-      b.addEventListener('click', () => { press(k); edEl.focus({ preventScroll: true }); });
-      keys.appendChild(b);
+      b.addEventListener('pointerdown', (ev) => { touch = ev.pointerType === 'touch'; });
+      b.addEventListener('mousedown', (ev) => ev.preventDefault()); // keep the caret where it is
+      b.addEventListener('click', () => { press(k, true); focusCap(); });
+      keysEl.appendChild(b);
     });
     histEl = el('div', 'calc-hist');
-    const foot = el('div', 'calc-foot');
-    useBtn = el('button', 'btn primary small', 'Use in answer'); useBtn.type = 'button';
-    forEl = el('span', 'calc-for');
-    foot.append(useBtn, forEl);
-    panel.append(top, helpEl, edEl, resEl, keys, histEl, foot);
+    forEl = el('div', 'calc-for');
+    panel.append(top, helpEl, wrap, resEl, keysEl, histEl, forEl);
     doc.body.appendChild(panel);
+    showKeys(pref());
 
     fab = el('button', 'calc-fab', '<span aria-hidden="true">±×</span> Calculator'); fab.type = 'button'; fab.hidden = true; fab.setAttribute('aria-label', 'Open calculator');
     doc.body.appendChild(fab);
 
     x.addEventListener('click', () => { close(); if (live(target)) target.focus(); });
+    keysBtn.addEventListener('click', () => { showKeys(keysEl.hidden); pref(!keysEl.hidden); });
     helpBtn.addEventListener('click', () => { helpEl.hidden = !helpEl.hidden; helpBtn.setAttribute('aria-expanded', String(!helpEl.hidden)); pad(); });
-    fab.addEventListener('click', () => { dismissed = false; open(true); });
-    useBtn.addEventListener('click', use);
-    edEl.addEventListener('keydown', onKey);
-    edEl.addEventListener('paste', (ev) => { const t = (ev.clipboardData || root.clipboardData).getData('text'); ev.preventDefault(); if (fresh) { E.clear(); fresh = false; } E.type(t); draw(); });
-    edEl.addEventListener('mousedown', (ev) => { if (ev.target === edEl) { E.setCursor(E.root, E.root.it.length); draw(); } });
-    edEl.addEventListener('focus', () => panel.classList.add('focus'));
-    edEl.addEventListener('blur', () => panel.classList.remove('focus'));
+    fab.addEventListener('click', () => { dismissed = false; touch = false; open(true); });
+    cap.addEventListener('keydown', onKey);
+    cap.addEventListener('input', onInput);
+    cap.addEventListener('paste', (ev) => { const t = (ev.clipboardData || root.clipboardData).getData('text'); ev.preventDefault(); if (fresh) { E.clear(); fresh = false; } E.type(t); edited(); });
+    cap.addEventListener('click', (ev) => { place(ev.clientX, ev.clientY); });
+    cap.addEventListener('focus', () => { touch = false; panel.classList.add('focus'); draw(); });
+    cap.addEventListener('blur', () => { panel.classList.remove('focus'); draw(); });
+  }
+  function showKeys(on) { keysEl.hidden = !on; keysBtn.setAttribute('aria-expanded', String(!!on)); keysBtn.classList.toggle('on', !!on); pad(); }
+  // a tap on the text box: find the drawn symbol under it and put the cursor there
+  function place(x, y) {
+    const under = doc.elementsFromPoint ? doc.elementsFromPoint(x, y) : [];
+    for (const u of under) {
+      const s = spots.get(u); if (!s) continue;
+      if (s.item) { const b = u.getBoundingClientRect(); E.setCursor(s.row, s.i + (x > b.left + b.width / 2 ? 1 : 0)); } else E.setCursor(s.row, s.row.it.length);
+      fresh = false; draw(); return;
+    }
+    E.setCursor(E.root, E.root.it.length); draw();
   }
 
   const NAV = { ArrowLeft: 'left', ArrowRight: 'right', ArrowUp: 'up', ArrowDown: 'down', Home: 'home', End: 'end', Backspace: 'back', Delete: 'del' };
   function onKey(ev) {
-    if (ev.altKey || ((ev.ctrlKey || ev.metaKey) && ev.key !== 'Enter')) return;
+    if (ev.altKey || ev.ctrlKey || ev.metaKey || ev.isComposing) return;
     let k = ev.key;
-    if (k === 'Enter' && (ev.ctrlKey || ev.metaKey)) { ev.preventDefault(); use(); return; }
     if (k === 'Escape') { ev.preventDefault(); if (live(target)) target.focus(); else close(); return; }
     if (k === 'Enter') k = '=';
     else if (NAV[k]) k = NAV[k];
-    else if (k.length !== 1) return;
+    else if (k.length !== 1) return; // phone keyboards send 'Unidentified': the input event below takes it
     else if (/[A-Z]/.test(k)) k = k.toLowerCase();
-    if (k === ' ') { ev.preventDefault(); return; }
-    if (press(k)) ev.preventDefault();
+    ev.preventDefault();
+    if (k !== ' ') press(k);
+  }
+  function onInput() {
+    const v = cap.value;
+    if (v.indexOf(SENT) < 0) press('back');
+    else for (const ch of v.replace(SENT, '')) if (ch !== ' ') press(/[A-Z]/.test(ch) ? ch.toLowerCase() : ch);
+    cap.value = SENT; try { cap.setSelectionRange(1, 1); } catch (e) { /* ignore */ }
   }
   // after =, an operator carries on from the result; anything else starts a new calculation
   function press(k) {
     if (k === '=') { equals(); return true; }
-    if (k === 'clear') { E.clear(); fresh = false; draw(); return true; }
-    if (fresh && !/^(left|right|up|down|home|end)$/.test(k)) {
-      const carry = /^[+\-*:\/^!%−×÷]$/.test(k) || k === 'back';
+    if (k === 'clear') { E.clear(); fresh = false; edited(); return true; }
+    const nav = /^(left|right|up|down|home|end)$/.test(k);
+    if (fresh && !nav) {
+      const carry = /^[+\-*:\/^!%−×÷]$/.test(k);
       E.clear();
-      if (carry && k !== 'back' && ans != null) E.key('ans');
+      if (carry && ans != null) E.key('ans');
     }
     fresh = false;
     const done = E.key(k);
-    if (done) draw();
+    if (done) { if (nav) draw(); else edited(); }
     return done;
   }
   function equals() {
@@ -419,16 +447,17 @@
     hist.unshift({ t: lin(E.root), v: r.v }); hist = hist.slice(0, 5);
     fresh = true; draw();
   }
-  function current() { const r = evaluate(E.root, { ans }); return r.ok ? r.v : null; }
-  function use() {
-    const v = current();
-    if (v == null) { resEl.className = 'calc-res err'; resEl.textContent = E.isEmpty() ? 'Type a calculation first' : 'Not finished yet'; return; }
+  // every change to the calculation goes straight into the answer field
+  function edited() {
+    draw();
+    const r = evaluate(E.root, { ans });
+    if (!r.ok || E.isEmpty()) return;
     if (!live(target)) pickTarget();
-    if (!live(target)) { resEl.className = 'calc-res err'; resEl.textContent = 'No open answer field on this page'; return; }
-    target.value = plain(v);
+    if (!live(target)) return;
+    const s = plain(r.v);
+    if (target.value === s) return;
+    target.value = s;
     target.dispatchEvent(new Event('input', { bubbles: true }));
-    target.classList.add('calc-filled'); const t = target; setTimeout(() => t.classList.remove('calc-filled'), 900);
-    if (!fresh) equals();
   }
   function pickTarget() { target = fields().find((f) => !f.disabled) || null; }
   function label(f) { return (f && (f.getAttribute('aria-label') || f.getAttribute('placeholder'))) || 'answer'; }
@@ -437,26 +466,22 @@
   function caret() { return el('span', 'cx-caret'); }
   function rowEl(r, cls) {
     const box = el('span', 'cx-row' + (cls ? ' ' + cls : ''));
+    spots.set(box, { row: r });
     const here = E.cur.row === r;
     if (!r.it.length) { box.classList.add('cx-empty'); if (here) box.appendChild(caret()); }
     r.it.forEach((n, i) => {
       if (here && E.cur.i === i) box.appendChild(caret());
       const ne = itemEl(n);
-      ne.addEventListener('mousedown', (ev) => {
-        ev.preventDefault(); ev.stopPropagation();
-        const b = ne.getBoundingClientRect();
-        E.setCursor(r, i + (ev.clientX > b.left + b.width / 2 ? 1 : 0)); fresh = false; edEl.focus({ preventScroll: true }); draw();
-      });
+      spots.set(ne, { row: r, i, item: true });
       box.appendChild(ne);
     });
     if (here && r.it.length && E.cur.i === r.it.length) box.appendChild(caret());
-    box.addEventListener('mousedown', (ev) => { ev.preventDefault(); ev.stopPropagation(); E.setCursor(r, r.it.length); fresh = false; edEl.focus({ preventScroll: true }); draw(); });
     return box;
   }
   function itemEl(n) {
     if (!isS(n)) {
       const v = n.v, c = OPS.includes(v) ? 'cx-op' : /^[0-9.]$/.test(v) ? 'cx-d' : v === 'π' || v === 'e' || v === 'Ans' ? 'cx-k' : /^[a-z]$/.test(v) ? 'cx-l' : 'cx-p';
-      return el('span', c, v === '.' ? '.' : v.replace(/&/g, '&amp;').replace(/</g, '&lt;'));
+      const s = el('span', c); s.textContent = v; return s;
     }
     const w = el('span', 'cx-s cx-' + n.k);
     if (n.k === 'frac') w.append(rowEl(n.r[0], 'cx-num'), rowEl(n.r[1], 'cx-den'));
@@ -477,7 +502,7 @@
   function draw() {
     if (!panel) return;
     edEl.innerHTML = '';
-    if (E.isEmpty() && !panel.classList.contains('focus')) edEl.appendChild(el('span', 'cx-hint', 'Type or tap a calculation'));
+    if (E.isEmpty() && !panel.classList.contains('focus')) edEl.appendChild(el('span', 'cx-hint', 'Type a calculation'));
     edEl.appendChild(rowEl(E.root, 'cx-root'));
     const c = edEl.querySelector('.cx-caret');
     if (c) { // keep the caret in view on long formulas
@@ -493,14 +518,14 @@
       const b = el('button', 'calc-h'); b.type = 'button'; b.title = 'Insert this result';
       b.append(el('span', 'calc-ht'), el('span', 'calc-hv'));
       b.firstChild.textContent = x.t; b.lastChild.textContent = '= ' + show(x.v);
+      b.addEventListener('pointerdown', (ev) => { touch = ev.pointerType === 'touch'; });
       b.addEventListener('mousedown', (ev) => ev.preventDefault());
-      b.addEventListener('click', () => { if (fresh) { E.clear(); fresh = false; } E.type(plain(x.v)); draw(); edEl.focus({ preventScroll: true }); });
+      b.addEventListener('click', () => { if (fresh) { E.clear(); fresh = false; } E.type(plain(x.v)); edited(); focusCap(); });
       histEl.appendChild(b);
     });
     histEl.hidden = !hist.length;
     if (!live(target)) pickTarget();
-    useBtn.disabled = !live(target);
-    forEl.textContent = live(target) ? 'Fills: ' + label(target) : 'No open answer field';
+    forEl.textContent = live(target) ? 'Writes to: ' + label(target) : 'No open answer field';
     pad();
   }
 
@@ -513,7 +538,7 @@
     if (!panel) build();
     if (mode() === 'off') return;
     panel.hidden = false; fab.hidden = true; draw();
-    if (focusEd) edEl.focus({ preventScroll: true });
+    if (focusEd) cap.focus({ preventScroll: true });
     root.requestAnimationFrame(inView);
   }
   function inView() { // keep the answer field visible above the panel
@@ -535,7 +560,7 @@
     doc.addEventListener('focusin', (ev) => {
       const t = ev.target;
       if (!t || !t.matches || !t.matches('input[data-calc]')) return;
-      target = t;
+      if (t !== target) { target = t; E.clear(); fresh = false; } // a new field starts a new calculation
       const m = mode();
       if (m === 'off') return;
       if (m === 'auto' && !dismissed) open(false); else sync();

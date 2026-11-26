@@ -369,14 +369,19 @@
 
   /* results: [{unitId, correct (first try), retried, callback}] for a finished practice set of `unitId`.
      opts.xpDone: the view already awarded per-item XP live (SA.itemXp), so don't award it again. */
+  SA.itemCredit = (x) => (x.correct ? 1 : x.hinted && x.first ? 1 / (Math.max(1, x.hints || 1) + 1) : 0);
   SA.applyPractice = function (st, unitId, results, opts) {
     const ev = [], d = SA.today(), own = results.filter((x) => !x.callback);
     if (!(opts && opts.xpDone)) addXp(st, SA.practiceXp(results) * ((opts && opts.mult) || 1), ev);
-    const score = own.length ? own.filter((x) => x.correct).length / own.length : 0;
+    // score (shown): answered right at the first check, hints or not. credit (levels only, never shown): an answer
+    // reached with n hints counts 1/(n+1) of a clean one, so 1, 2, 3 hints give 1/2, 1/3, 1/4
+    const okShown = (x) => x.correct || (x.hinted && x.first);
+    const score = own.length ? own.filter(okShown).length / own.length : 0;
+    const credit = own.length ? own.reduce((a, x) => a + SA.itemCredit(x), 0) / own.length : 0;
     const u = U(st, unitId), before = u.lv;
     u.lv = Math.max(u.lv, 1);
-    if (score >= 0.7) u.lv = Math.max(u.lv, 2);
-    if (score === 1 && u.lv < 3) { u.lv = 3; u.pd = d; }
+    if (credit >= 0.7 - 1e-9) u.lv = Math.max(u.lv, 2);
+    if (credit >= 1 - 1e-9 && u.lv < 3) { u.lv = 3; u.pd = d; }
     if (u.lv !== before) ev.push({ type: 'level', unitId, from: before, to: u.lv });
     reviewByUnit(st, results.filter((r) => r.callback && r.unitId !== unitId), d, ev); // own unit: the set itself decides
     mergeLevels(ev);
