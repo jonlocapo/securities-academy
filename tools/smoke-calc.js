@@ -42,6 +42,19 @@ err('2+', true); err('', true); err('1/', true); err('sqrt(', true); err('ncr(10
 tex('1.26^(1/8) - 1', '1.26^{\\frac{1}{8}} - 1'); tex('100/1.05^3', '\\frac{100}{1.05^{3}}'); tex('2pi', '2\\pi'); tex('2*3', '2 \\times 3');
 tex('sqrt(2)', '\\sqrt{2}'); tex('root(3, 27)', '\\sqrt[3]{27}'); tex('ncr(10,3)', '\\binom{10}{3}'); tex('log_2(8)', '\\log_{2}\\left(8\\right)');
 tex('exp(0.05)', 'e^{0.05}'); tex('5%', '5\\%'); tex('-(1+2)', '-\\left(1 + 2\\right)'); tex('(1+0.05)^3', '\\left(1 + 0.05\\right)^{3}'); tex('2+', null);
+// variables: q = 20/4 defines q; later lines use it (20q, 2qpi), multi-letter names, redefinition, built-in names refused
+{
+  const V = {}, def = (src) => { n++; const r = C.evaluate(src, { vars: V }); if (!r.ok || !r.name) bad('definition ' + src + ' -> ' + JSON.stringify(r)); else V[r.name] = r.v; };
+  def('q = 20/4'); def('pv = 100/1.05^3'); def('Rate=5%');
+  const vv = (src, want) => { n++; const r = C.evaluate(src, { vars: V }); if (!r.ok || Math.abs(r.v - want) > 1e-9 * Math.max(1, Math.abs(want))) bad(src + ' with variables -> ' + JSON.stringify(r) + ', want ' + want); };
+  vv('20q', 100); vv('q^2', 25); vv('2qpi', 10 * Math.PI); vv('sqrt(q)', Math.sqrt(5)); vv('pv*1.05^3', 100); vv('1000*(1+rate)', 1050); vv('qq', 25);
+  n++; const r = C.evaluate('q = q + 1', { vars: V }); if (!r.ok || r.v !== 6 || r.name !== 'q') bad('q = q + 1 -> ' + JSON.stringify(r));
+  n++; if (C.evaluate('e = 3', { vars: V }).ok) bad('e = 3 should be refused');
+  n++; if (C.evaluate('z + 1', { vars: V }).ok) bad('an undefined name should be an error');
+  n++; if (C.evaluate('20q').ok) bad('q without its definition should be an error');
+  n++; if (C.tex('pv = 100/1.05^3', V) !== '\\mathit{pv} = \\frac{100}{1.05^{3}}') bad('tex of a definition: ' + C.tex('pv = 100/1.05^3', V));
+  n++; if (C.tex('20q', V) !== '20q') bad('tex of 20q: ' + C.tex('20q', V));
+}
 // suggestions: by prefix, not once a constant is typed in full
 [['l', ['ln', 'log', 'log_b']], ['sq', ['sqrt']], ['e', ['exp']], ['pi', []], ['z', []], ['nc', ['ncr']]].forEach(([w, want]) => {
   n++; const got = C.suggest(w).map((x) => x[0]).join(','); if (got !== want.join(',')) bad('suggest(' + w + ') = ' + got + ', want ' + want.join(','));
