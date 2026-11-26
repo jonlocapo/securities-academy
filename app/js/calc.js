@@ -319,7 +319,20 @@
     const [i, d] = (/e/i.test(s) ? Number(v.toPrecision(10)).toFixed(12).replace(/\.?0+$/, '') : s).split('.');
     return i.replace(/\B(?=(\d{3})+(?!\d))/g, ',') + (d ? '.' + d : '');
   }
-  SA.calcEngine = { Editor, evaluate, lin, plain, show };
+  /* what goes into an answer field: × 100 for a % field, then rounded to the field's decimals. With a relative tolerance
+     (significant-figure questions) it keeps at least 6 significant figures instead. o = { dp, rel, pct } */
+  function output(v, o) {
+    o = o || {};
+    const x = o.pct ? v * 100 : v;
+    if (o.dp == null || !isFinite(o.dp)) return plain(x);
+    let dec = Math.max(0, Math.floor(o.dp));
+    if (o.rel && x !== 0) dec = Math.max(dec, Math.min(12, 5 - Math.floor(Math.log10(Math.abs(x)))));
+    let s = (x + Math.sign(x) * 1e-12 * Math.max(1, Math.abs(x))).toFixed(dec);
+    if (o.rel && s.indexOf('.') >= 0) s = s.replace(/\.?0+$/, '');
+    if (/^-0(\.0*)?$/.test(s)) s = s.slice(1);
+    return s;
+  }
+  SA.calcEngine = { Editor, evaluate, lin, plain, show, output };
 
   /* ---------- panel (browser only) ---------- */
   const doc = root.document;
@@ -336,8 +349,9 @@
   ];
   const HELP = [['/', 'fraction (the number before it goes on top)'], ['^', 'power'], ['*', '×'], [':', '÷'], ['sqrt, root', 'square and nth root'],
     ['ln, log, exp', 'logs, e to the power'], ['log then _', 'log to another base'], ['pi, e, ans', 'π, e, last result'], ['!, ncr', 'factorial, combinations'], ['%', 'per cent (5% = 0.05)'],
-    ['arrows', 'move in and out of boxes'], ['Enter', 'keep the result as Ans'], ['Esc', 'back to the answer']];
-  const SENT = '​'; // the text box always holds one invisible character, so Backspace on phone keyboards reaches us
+    ['arrows', 'move in and out of boxes'], ['Enter', 'keep the result as Ans; again to check'], ['Esc', 'back to the answer']];
+  const TOUCH = !!(root.matchMedia && root.matchMedia('(pointer: coarse)').matches); // phones and tablets: keypad first
+  const SENT = '\u200b'; // the text box always holds one invisible character, so Backspace on phone keyboards reaches us
 
   let panel = null, edEl, cap, resEl, histEl, forEl, helpEl, keysEl, keysBtn, fab = null;
   let target = null, dismissed = false, ans = null, hist = [], fresh = false, touch = false;
@@ -346,7 +360,12 @@
   const fields = () => Array.from(doc.querySelectorAll('#app input[data-calc]'));
   const live = (x) => x && doc.body.contains(x) && !x.disabled;
   const el = (tag, cls, html) => { const x = doc.createElement(tag); if (cls) x.className = cls; if (html != null) x.innerHTML = html; return x; };
-  const pref = (v) => { try { if (v == null) return root.localStorage.getItem('sa-calc-keys') === '1'; root.localStorage.setItem('sa-calc-keys', v ? '1' : '0'); } catch (e) { /* per browser only */ } return false; };
+  // keypad shown or hidden: remembered per browser; shown by default on touch screens, hidden on desktop
+  const pref = (v) => { try { if (v == null) { const s = root.localStorage.getItem('sa-calc-keys'); return s == null ? TOUCH : s === '1'; } root.localStorage.setItem('sa-calc-keys', v ? '1' : '0'); } catch (e) { /* per browser only */ } return TOUCH; };
+  const fieldOpts = (f) => ({ dp: f && f.getAttribute('data-calc-dp') != null ? Number(f.getAttribute('data-calc-dp')) : null, rel: !!(f && f.getAttribute('data-calc-rel')), pct: !!(f && f.getAttribute('data-calc-pct')) });
+  // on touch screens the calculator is the keyboard: number fields stop calling up the phone keyboard while it is on
+  function inputMode() { return TOUCH && mode() !== 'off' && !dismissed && (mode() === 'auto' || (panel && !panel.hidden)) ? 'none' : 'decimal'; }
+  function setModes() { const m = inputMode(); fields().forEach((f) => { if (f.getAttribute('inputmode') !== m) f.setAttribute('inputmode', m); }); }
   const focusCap = () => { if (!touch) cap.focus({ preventScroll: true }); };
 
   function build() {
@@ -386,7 +405,7 @@
     x.addEventListener('click', () => { close(); if (live(target)) target.focus(); });
     keysBtn.addEventListener('click', () => { showKeys(keysEl.hidden); pref(!keysEl.hidden); });
     helpBtn.addEventListener('click', () => { helpEl.hidden = !helpEl.hidden; helpBtn.setAttribute('aria-expanded', String(!helpEl.hidden)); pad(); });
-    fab.addEventListener('click', () => { dismissed = false; touch = false; open(true); });
+    fab.addEventListener('click', () => { dismissed = false; setModes(); if (TOUCH) { const a = doc.activeElement; if (a && a.matches && a.matches('input[data-calc]')) a.blur(); open(false); } else open(true); });
     cap.addEventListener('keydown', onKey);
     cap.addEventListener('input', onInput);
     cap.addEventListener('paste', (ev) => { const t = (ev.clipboardData || root.clipboardData).getData('text'); ev.preventDefault(); if (fresh) { E.clear(); fresh = false; } E.type(t); edited(); });
@@ -394,7 +413,7 @@
     cap.addEventListener('focus', () => { touch = false; panel.classList.add('focus'); draw(); });
     cap.addEventListener('blur', () => { panel.classList.remove('focus'); draw(); });
   }
-  function showKeys(on) { keysEl.hidden = !on; keysBtn.setAttribute('aria-expanded', String(!!on)); keysBtn.classList.toggle('on', !!on); pad(); }
+  function showKeys(on) { keysEl.hidden = !on; keysBtn.setAttribute('aria-expanded', String(!!on)); keysBtn.classList.toggle('on', !!on); cap.setAttribute('inputmode', on && TOUCH ? 'none' : 'text'); pad(); }
   // a tap on the text box: find the drawn symbol under it and put the cursor there
   function place(x, y) {
     const under = doc.elementsFromPoint ? doc.elementsFromPoint(x, y) : [];
@@ -411,7 +430,11 @@
     if (ev.altKey || ev.ctrlKey || ev.metaKey || ev.isComposing) return;
     let k = ev.key;
     if (k === 'Escape') { ev.preventDefault(); if (live(target)) target.focus(); else close(); return; }
-    if (k === 'Enter') k = '=';
+    if (k === 'Enter') { // first Enter keeps the result as Ans; Enter again checks the answer, as Enter in the field would
+      ev.preventDefault();
+      if (fresh || E.isEmpty()) { if (target && doc.body.contains(target)) target.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true })); } else equals();
+      return;
+    }
     else if (NAV[k]) k = NAV[k];
     else if (k.length !== 1) return; // phone keyboards send 'Unidentified': the input event below takes it
     else if (/[A-Z]/.test(k)) k = k.toLowerCase();
@@ -454,7 +477,7 @@
     if (!r.ok || E.isEmpty()) return;
     if (!live(target)) pickTarget();
     if (!live(target)) return;
-    const s = plain(r.v);
+    const s = output(r.v, fieldOpts(target));
     if (target.value === s) return;
     target.value = s;
     target.dispatchEvent(new Event('input', { bubbles: true }));
@@ -513,6 +536,10 @@
     const r = evaluate(E.root, { ans });
     resEl.className = 'calc-res' + (fresh ? ' done' : '') + (!r.ok && !r.inc ? ' err' : '');
     resEl.textContent = r.ok ? '= ' + show(r.v) : r.inc ? '' : r.msg;
+    if (r.ok && live(target)) { // what the field receives, when rounding or % changes it
+      const o = fieldOpts(target), out = output(r.v, o);
+      if (show(Number(out)) !== show(r.v) || o.pct) resEl.appendChild(el('span', 'calc-out', '→ ' + out + (o.pct ? ' %' : '')));
+    }
     histEl.innerHTML = '';
     hist.forEach((x) => {
       const b = el('button', 'calc-h'); b.type = 'button'; b.title = 'Insert this result';
@@ -537,7 +564,7 @@
   function open(focusEd) {
     if (!panel) build();
     if (mode() === 'off') return;
-    panel.hidden = false; fab.hidden = true; draw();
+    panel.hidden = false; fab.hidden = true; setModes(); draw();
     if (focusEd) cap.focus({ preventScroll: true });
     root.requestAnimationFrame(inView);
   }
@@ -546,25 +573,31 @@
     const tr = target.getBoundingClientRect(), pr = panel.getBoundingClientRect();
     if (tr.bottom > pr.top - 8 && tr.right > pr.left) root.scrollBy(0, Math.min(tr.top - 72, tr.bottom - pr.top + 24));
   }
-  function close() { if (!panel) return; panel.hidden = true; dismissed = true; pad(); sync(); }
+  function close() { if (!panel) return; panel.hidden = true; dismissed = true; setModes(); pad(); sync(); }
   function sync() {
     const m = mode(), any = fields().some((f) => !f.disabled);
     if (!panel) { if (m === 'off' || !any) return; build(); }
     if (m === 'off' || !any) { panel.hidden = true; fab.hidden = true; pad(); return; }
     if (!live(target)) pickTarget();
+    setModes();
     if (panel.hidden) fab.hidden = false; else draw();
   }
-  SA.calc = { open: () => { dismissed = false; open(true); }, close, sync, editor: E };
+  SA.calc = { open: () => { dismissed = false; open(!TOUCH); }, close, sync, editor: E, inputMode };
 
   function init() {
     doc.addEventListener('focusin', (ev) => {
       const t = ev.target;
       if (!t || !t.matches || !t.matches('input[data-calc]')) return;
-      if (t !== target) { target = t; E.clear(); fresh = false; } // a new field starts a new calculation
+      const isNew = t !== target;
+      if (isNew) { target = t; E.clear(); fresh = false; } // a new field starts a new calculation
       const m = mode();
       if (m === 'off') return;
       if (m === 'auto' && !dismissed) open(false); else sync();
-      if (panel && !panel.hidden) { draw(); root.requestAnimationFrame(inView); }
+      if (panel && !panel.hidden) {
+        draw(); root.requestAnimationFrame(inView);
+        // desktop: a new field sends the typing to the calculator (clicking the field again lets you type there)
+        if (isNew && !TOUCH) cap.focus({ preventScroll: true });
+      }
     });
     root.addEventListener('hashchange', () => { dismissed = false; });
     let queued = false;

@@ -54,6 +54,10 @@ err('2+', true); err('', true); err('1/', true); err(['^', '2']);
   n++; const p = C.plain(v); if (p !== s) bad('plain(' + v + ') = ' + p + ', want ' + s);
   if (Math.abs(SA.parseNum(p) - v) > 1e-9 * Math.max(1, Math.abs(v))) bad('parseNum(plain(' + v + ')) does not round trip');
 });
+// answer-field output: rounding to the field's decimals, × 100 for % fields, significant figures under a relative tolerance
+[[[0.0365438829846, { dp: 2, pct: true }], '3.65'], [[1157.625, { dp: 2 }], '1157.63'], [[2.675, { dp: 2 }], '2.68'], [[1157.625, { dp: 0 }], '1158'],
+  [[-0.001, { dp: 2 }], '0.00'], [[0.000123456789, { dp: 2, rel: true }], '0.000123457'], [[729, { dp: 8, rel: true }], '729'], [[1 / 3, {}], '0.333333333333'],
+  [[0.05, { dp: 4, pct: true }], '5.0000']].forEach(([[v, o], s]) => { n++; const g = C.output(v, o); if (g !== s) bad('output(' + v + ', ' + JSON.stringify(o) + ') = ' + g + ', want ' + s); });
 [[1157.625, '1,157.625'], [1e16, '1 × 10^16'], [0.5, '0.5']].forEach(([v, s]) => { n++; if (C.show(v) !== s) bad('show(' + v + ') = ' + C.show(v)); });
 
 // the setting travels in the progress code; codes made before it read as 'auto'
