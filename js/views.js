@@ -726,7 +726,7 @@
     });
     copyBtn.addEventListener('click', () => SA.render.copyText(pwOut.textContent, (ok) => { cmsg.textContent = ok ? 'Copied' : 'Copy failed. Select the text and copy it.'; }));
     rootEl.appendChild(h('div', { class: 'btn-row' }, showBtn, copyBtn, cmsg)); rootEl.appendChild(pwOut);
-    const ta = h('textarea', { rows: '3', class: 'pw-in', placeholder: 'Paste a progress code to load it', 'aria-label': 'Progress code to load', spellcheck: 'false' }), err = h('p', { class: 'badtxt', role: 'alert' }), loadBtn = h('button', { type: 'button', class: 'btn' }, 'Load');
+    const ta = h('textarea', { rows: '3', class: 'pw-in', 'aria-label': 'Progress code to load', spellcheck: 'false' }), err = h('p', { class: 'badtxt', role: 'alert' }), loadBtn = h('button', { type: 'button', class: 'btn' }, 'Load');
     loadBtn.addEventListener('click', () => {
       err.textContent = '';
       let ns; try { ns = SA.decodePassword(ta.value); } catch (e) { err.textContent = e.message; return; }

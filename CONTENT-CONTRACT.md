@@ -174,6 +174,13 @@ Examples are not all Italian or all EUR. Any generator with money, a person, a c
 - `{ prompt, rubric: md, gradingPrompt: 'text containing {{answer}}' }`
 - It is self-graded, gives XP only, and never counts towards mastery.
 
+## Nothing for authors reaches the learner (binding)
+- Scoping notes in the syllabus ("at headline level", "conceptually", "preview only", "for role names only") guide you;
+  they never appear in lesson text, questions or hints.
+- Write to the learner, never about them: no "the learner can".
+- Refer to levels as "Module N" (the course's name for them), never "L4" or "Level 4". Module codes such as P3 are fine.
+- No notes on how the course works (drills, retries, callbacks, XP, unlocks) and no TODO or TBD.
+
 ## Validation (required before you reply)
 `node tools/validate-content.js app/content/L1/F1.1.js` runs every generator with 50 seeds. It checks:
 - the fields;
@@ -182,4 +189,6 @@ Examples are not all Italian or all EUR. Any generator with money, a person, a c
 - that the output has no NaN, `undefined` or empty strings;
 - that there are no forbidden APIs.
 
-Fix everything it reports.
+Then run `node tools/lint-copy.js`, which fails on anything from "Nothing for authors reaches the learner".
+
+Fix everything they report.
