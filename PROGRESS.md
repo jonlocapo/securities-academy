@@ -124,6 +124,34 @@ Spec: DECISIONS.md. Update this file at the end of every session.
 - Next: rebuild the L1 units that gained books (T1.x Baker, Q2.x Blitzstein/Wasserman, F1 Luenberger, F1.5 Bacon,
   A1.x Picker, C1.x Collardi), then Step 4 (L2 content: same pipeline — build_course.py after writing units).
 
+## Calculator (2026-11-26)
+- js/calc.js: maths editor beside numeric fields (inputs marked `data-calc`: numeric, numeric cloze blanks, journal
+  amounts, table number cells, Ledger amounts). / makes a fraction from the operand before it, ^ a power, * ×, : ÷;
+  typed names sqrt, root, ln, log (then _ for a base), exp, pi, ans, ncr become functions; n!, %, Ans, history of 5.
+  Every edit writes the value straight into the field (plain digits, 12 significant figures, read by parseNum); a
+  new field starts a new calculation. Typed through a transparent text box over the drawing (phone keyboards work);
+  the symbol keypad is hidden behind a small button (choice kept per browser in localStorage 'sa-calc-keys'). Setting settings.calc =
+  auto | button | off (Profile), carried in the progress code (2 bits after the stats; older codes read as auto).
+  Output is rounded to the field's decimals (data-calc-dp from the exercise's dp; at least 6 significant figures when
+  the tolerance is relative) and multiplied by 100 for % fields (numeric unit '%', cloze blank followed by %, table
+  column with % in its header); the result line shows "→ value" when that changes what is written. Typing % in the
+  calculator (5%) keeps percentages consistent. Desktop: a new field sends typing to the calculator; Enter keeps the
+  result as Ans, Enter again checks the answer. Touch screens (pointer: coarse): keypad shown by default and number
+  fields use inputmode none while the calculator is on, so the phone keyboard does not cover it.
+  Engine test: tools/smoke-calc.js. Asset stamps were refreshed with the stamp_assets() logic because sources/ was
+  not available; the next build_course.py run will restamp as usual.
+
+## Mobile pass (2026-11-26)
+- Every route checked at 375 px (no horizontal overflow). Skill tree "Layers" has a narrow layout under 600 px
+  (layoutNarrow in views.js: depths run downwards, up to 3 nodes a row, all edges vertical) instead of a 780 px drawing
+  scrolled sideways. Header on phones: brand + theme, nav, progress + resume in three rows. Larger tap targets.
+
+## Hint weighting (2026-11-26, hidden from the learner by design)
+- Practice: the shown score and "right first time" count an answer that was right at the first check as right, hints or
+  not. Levels use a separate credit (SA.itemCredit): an answer reached with n hints counts 1/(n+1), so 1/2, 1/3, 1/4.
+  Familiar needs credit >= 70%, Proficient 100%. Nothing in the UI explains this: keep it that way (no tooltips or
+  notes). Tour and demo text no longer describe the hint rule. Tests in validate-content --core.
+
 ## Step 4 — Remaining levels: not started
 
 ## Round 4: rewards subsystems (2026-11-11)

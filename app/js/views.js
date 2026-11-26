@@ -82,7 +82,7 @@
       hintBox.appendChild(h('div', { class: 'hint' }, mdEl('span', '', hints[hintsShown - 1], true)));
       hintBtn.textContent = hintsShown >= hints.length ? 'No more hints' : 'Another hint'; hintBtn.disabled = hintsShown >= hints.length;
     });
-    const result = () => ({ correct: firstOk && !hintUsed && !retried, retried: hintUsed || retried, hinted: hintUsed, tries: attempts, solved: lastOk, attempts, res: lastRes });
+    const result = () => ({ correct: firstOk && !hintUsed && !retried, first: firstOk && !retried, hints: hintsShown, retried: hintUsed || retried, hinted: hintUsed, tries: attempts, solved: lastOk, attempts, res: lastRes });
     let nextBtn = null;
     function grade(skipped) {
       const res = skipped ? { correct: false } : SA.grade(inst, handle.get());
@@ -164,7 +164,7 @@
         hints: cfg.hints, retry: cfg.retry, deferred: cfg.deferred, skip: cfg.skip, autofocus: true, nextLabel: idx === items.length - 1 ? 'Finish' : 'Next',
         onNext(res, el) {
           run = res.correct ? run + 1 : 0;
-          const rec = { unitId: it.unitId, correct: res.correct, retried: res.retried, hinted: res.hinted, tries: res.tries, solved: res.solved, callback: it.callback, inst, host: cfg.deferred ? el : null };
+          const rec = { unitId: it.unitId, correct: res.correct, first: res.first, hints: res.hints, retried: res.retried, hinted: res.hinted, tries: res.tries, solved: res.solved, callback: it.callback, inst, host: cfg.deferred ? el : null };
           results.push(rec);
           if (cfg.liveXp) { const n = SA.itemXp(rec, run) * (cfg.xpMult || 1); if (n) award(SA.awardXp(S(), n), el.querySelector('.feedback .btn.primary') || el); }
           const d = dots[idx]; if (!cfg.deferred) d.classList.add(res.correct ? 'ok' : 'bad'); else d.classList.add('done');
@@ -203,7 +203,27 @@
   const getView = () => { try { return localStorage.getItem('sa-tree-view') || 'layers'; } catch (e) { return 'layers'; } };
   const setView = (v) => { try { localStorage.setItem('sa-tree-view', v); } catch (e) { /* ignore */ } };
 
+  /* narrow screens (phones): prerequisites run downwards instead of across. Each depth becomes rows of up to 3 nodes, so the
+     whole tree fits the width and scrolls only vertically; every edge then leaves a node's bottom and enters the next one's top */
+  const NARROW = '(max-width: 600px)';
+  const isNarrow = () => !!(root.matchMedia && root.matchMedia(NARROW).matches);
+  if (root.matchMedia) { const mq = root.matchMedia(NARROW), re = () => { if (/^#\/?$|^#\/at\//.test(location.hash || '#/') || !location.hash) SA.app.reload(); }; if (mq.addEventListener) mq.addEventListener('change', re); }
+  function layoutNarrow(c) {
+    const W = 380, ROW = 136, HEAD = 76, BOT = 14, PER = 3, pos = {}, bands = []; let y0 = 0;
+    c.levels.forEach((lv) => {
+      const mods = lv.modules.map((id) => c.modules[id]), depth = {};
+      const dep = (m) => { if (depth[m.id] != null) return depth[m.id]; depth[m.id] = 0; let d = 0; m.prereqs.forEach((p) => { if (lv.modules.indexOf(p) >= 0) d = Math.max(d, dep(c.modules[p]) + 1); }); return (depth[m.id] = d); };
+      mods.forEach(dep);
+      const nd = Math.max.apply(null, mods.map((m) => depth[m.id])) + 1, rows = [];
+      for (let d = 0; d < nd; d++) { const ring = mods.filter((m) => depth[m.id] === d); for (let i = 0; i < ring.length; i += PER) rows.push(ring.slice(i, i + PER)); }
+      rows.forEach((row, r) => row.forEach((m, j) => { pos[m.id] = { x: W * (j + 0.5) / row.length, y: y0 + HEAD + r * ROW + 34 }; }));
+      const bh = HEAD + rows.length * ROW + BOT;
+      bands.push({ lv, y: y0, h: bh }); y0 += bh;
+    });
+    return { W, H: y0, pos, bands, narrow: true };
+  }
   function layoutLayers(c) {
+    if (isNarrow()) return layoutNarrow(c);
     const W = 1000, ROW = 118, HEAD = 50, BOT = 18, pos = {}, bands = []; let y0 = 0;
     c.levels.forEach((lv) => {
       const mods = lv.modules.map((id) => c.modules[id]), depth = {};
@@ -268,7 +288,7 @@
   V.tree = function (rootEl, focusId) {
     const c = C(), st = S(), mode = getView();
     const L = mode === 'rings' ? layoutRings(c, st) : layoutLayers(c), pos = L.pos;
-    const svg = sv('svg', { viewBox: mode === 'rings' ? (L.cx - L.view) + ' ' + (L.cy - L.view) + ' ' + 2 * L.view + ' ' + 2 * L.view : '0 0 ' + L.W + ' ' + L.H, class: 'tree-svg ' + mode, role: 'group', 'aria-label': 'Skill tree', preserveAspectRatio: 'xMidYMid meet' });
+    const svg = sv('svg', { viewBox: mode === 'rings' ? (L.cx - L.view) + ' ' + (L.cy - L.view) + ' ' + 2 * L.view + ' ' + 2 * L.view : '0 0 ' + L.W + ' ' + L.H, class: 'tree-svg ' + mode + (L.narrow ? ' narrow' : ''), role: 'group', 'aria-label': 'Skill tree', preserveAspectRatio: 'xMidYMid meet' });
     // metal ring gradients: dark edge, bright middle, dark edge; the gradient turns slowly so the highlight travels round
     const still = root.matchMedia && root.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const metal = (k, id) => sv('linearGradient', { id, x1: '0', y1: '0', x2: '1', y2: '1' }, sv('stop', { offset: '0', class: k + '1' }), sv('stop', { offset: '.5', class: k + '2' }), sv('stop', { offset: '1', class: k + '3' }),
@@ -288,9 +308,10 @@
         svg.appendChild(sv('rect', { x: 0, y: b.y, width: L.W, height: b.h, class: 'band ' + (i % 2 ? 'alt' : '') }));
         svg.appendChild(sv('rect', { x: 0, y: b.y, width: L.W, height: b.h, class: 'band-glow' }));
         if (i) svg.appendChild(sv('line', { x1: 0, x2: L.W, y1: b.y, y2: b.y, class: 'band-rule' }));
-        svg.appendChild(sv('text', { x: 18, y: b.y + 32, class: 'band-title' }, levelName(b.lv) + ' · ' + b.lv.title));
+        svg.appendChild(sv('text', { x: L.narrow ? 14 : 18, y: b.y + 32, class: 'band-title' }, L.narrow ? levelName(b.lv) : levelName(b.lv) + ' · ' + b.lv.title));
+        if (L.narrow) svg.appendChild(sv('text', { x: 14, y: b.y + 54, class: 'band-sub' }, b.lv.title));
         const cp = cpLabel(b.lv);
-        if (cp) svg.appendChild(sv('a', { href: '#/c/' + b.lv.id, class: 'cp-link' }, sv('text', { x: L.W - 18, y: b.y + 32, 'text-anchor': 'end', class: 'cp-text' + (st.checkpoints[b.lv.id] ? ' done' : '') }, cp)));
+        if (cp) svg.appendChild(sv('a', { href: '#/c/' + b.lv.id, class: 'cp-link' }, sv('text', { x: L.W - (L.narrow ? 14 : 18), y: b.y + 32, 'text-anchor': 'end', class: 'cp-text' + (st.checkpoints[b.lv.id] ? ' done' : '') }, cp)));
       });
     }
     const edges = sv('g', { class: 'edges' }), nodes = sv('g', { class: 'nodes' });
@@ -303,11 +324,14 @@
         const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2, vx = mx - L.cx, vy = my - L.cy, vl = Math.hypot(vx, vy) || 1, k = 0.12 * Math.hypot(b.x - a.x, b.y - a.y);
         const ux = (b.x - a.x), uy = (b.y - a.y), ul = Math.hypot(ux, uy) || 1;
         d = 'M' + (a.x + ux / ul * a.nr) + ' ' + (a.y + uy / ul * a.nr) + ' Q' + (mx + vx / vl * k) + ' ' + (my + vy / vl * k) + ' ' + (b.x - ux / ul * b.nr) + ' ' + (b.y - uy / ul * b.nr);
-      } else if (!cross) {
+      } else if (!cross && !L.narrow) {
         // same level: prerequisite is always in an earlier column, so leave from its right side, arrive at the left side
         const mx = (a.x + b.x) / 2; d = 'M' + (a.x + R) + ' ' + a.y + ' C' + mx + ' ' + a.y + ' ' + mx + ' ' + b.y + ' ' + (b.x - R) + ' ' + b.y;
+      } else if (L.narrow && a.y === b.y) {
+        // narrow: a prerequisite in the same row (a depth split over rows never puts one there, but stay safe)
+        d = 'M' + (a.x + R) + ' ' + a.y + ' L' + (b.x - R) + ' ' + b.y;
       } else {
-        // across levels: the prerequisite is always above, so leave from its bottom and arrive at the top
+        // across levels (and every edge on narrow screens): the prerequisite is above, so leave from its bottom and arrive at the top
         const my = (a.y + R + b.y - R) / 2; d = 'M' + a.x + ' ' + (a.y + R) + ' C' + a.x + ' ' + my + ' ' + b.x + ' ' + my + ' ' + b.x + ' ' + (b.y - R);
       }
       edges.appendChild(sv('path', { d, class: 'edge' + (ok ? ' ok' : '') + (cross ? ' cross' : '') }));
@@ -535,7 +559,7 @@
           const own = results.filter((r) => !r.callback), nu = nextUnitAfter(id);
           summary(rootEl2, {
             score: out.score, events: out.events, xp: S().xp - xp0,
-            headline: own.filter((r) => r.correct).length + ' of ' + own.length + ' right first time',
+            headline: own.filter((r) => r.correct || (r.hinted && r.first)).length + ' of ' + own.length + ' right first time',
             actions: [h('button', { type: 'button', class: 'btn primary', onclick: () => SA.app.reload() }, challenge ? 'Again' : 'Practise again'), nu ? btnLink('#/u/' + nu, 'Next unit') : null, btnLink('#/m/' + mod.id, 'Back')],
           });
         },
@@ -720,6 +744,9 @@
     const fbSeg = h('div', { class: 'seg-group', role: 'group', 'aria-label': 'Practice answers' });
     [['each', 'After each question'], ['end', 'At the end']].forEach(([v, t]) => fbSeg.appendChild(h('button', { type: 'button', class: 'seg-btn' + (st.settings.feedback === v ? ' sel' : ''), 'aria-pressed': String(st.settings.feedback === v), onclick: () => { S().settings.feedback = v; SA.app.save(); SA.app.reload(); } }, t)));
     rootEl.appendChild(h('div', { class: 'setting' }, h('span', { class: 'setting-k', title: 'Unit tests and checkpoints always show results at the end.' }, 'Practice answers'), fbSeg));
+    const calSeg = h('div', { class: 'seg-group', role: 'group', 'aria-label': 'Calculator' }), calNow = st.settings.calc || 'auto';
+    [['auto', 'Opens by itself'], ['button', 'From its button'], ['off', 'Off']].forEach(([v, t]) => calSeg.appendChild(h('button', { type: 'button', class: 'seg-btn' + (calNow === v ? ' sel' : ''), 'aria-pressed': String(calNow === v), onclick: () => { S().settings.calc = v; SA.app.save(); if (SA.calc) SA.calc.sync(); SA.app.reload(); } }, t)));
+    rootEl.appendChild(h('div', { class: 'setting' }, h('span', { class: 'setting-k', title: 'A calculator for numeric answers. It can open by itself when you reach a number field, wait for its button, or stay hidden.' }, 'Calculator'), calSeg));
     const dgSeg = h('div', { class: 'seg-group', role: 'group', 'aria-label': 'Daily goal' });
     const goal = st.settings.dailyGoal || 10, preset = [5, 10, 20].includes(goal);
     const setGoal = (n) => { const ev = SA.setDailyGoal(S(), n); if (!ev) return false; SA.app.save(); if (ev.length) SA.app.announce(ev); SA.app.reload(); return true; };

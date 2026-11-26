@@ -12,7 +12,7 @@ Version 0.1.0 contains Level 1 (Market Literacy).
 ## Working on it
 
 - Course data is generated from `syllabus/` by `python tools/build_course.py` (run after every change; it also stamps cache-busting versions).
-- Checks: `node tools/validate-content.js --core`, `node tools/validate-content.js app/content/L1`, `node tools/smoke-ui.js`, `node tools/smoke-ledger.js`, `node tools/validate-blitz.js`.
+- Checks: `node tools/validate-content.js --core`, `node tools/validate-content.js app/content/L1`, `node tools/smoke-ui.js`, `node tools/smoke-ledger.js`, `node tools/validate-blitz.js`, `node tools/smoke-calc.js`.
 - Publishing: commit on `main`, then `sh tools/publish-pages.sh` updates the `gh-pages` branch that GitHub Pages serves.
 - Authoring rules: `app/CONTENT-CONTRACT.md`. Project decisions and status: `DECISIONS.md`, `PROGRESS.md`.
 

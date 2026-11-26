@@ -198,8 +198,9 @@
   // levels: 0 none, 1 attempted, 2 familiar, 3 proficient, 4 mastered
   SA.LEVELS = ['Not started', 'Attempted', 'Familiar', 'Proficient', 'Mastered'];
   SA.today = () => Math.floor((Date.now() - new Date().getTimezoneOffset() * 60000) / 86400000); // local day number
+  // settings.calc: 'auto' (calculator opens beside numeric fields) | 'button' (opens from its button) | 'off'
   // settings.feedback: 'each' (mark each practice answer as you go) | 'end' (all marking and solutions at the end)
-  SA.newState = () => ({ v: 1, xp: 0, streak: 0, lastDay: 0, freezes: 0, units: {}, modTests: {}, checkpoints: {}, badges: {}, games: {}, lessons: {}, daily: { d: 0, n: 0, done: 0 }, stats: {}, ach: {}, settings: { sandbox: false, feedback: 'each', placed: 0, dailyGoal: 10 } });
+  SA.newState = () => ({ v: 1, xp: 0, streak: 0, lastDay: 0, freezes: 0, units: {}, modTests: {}, checkpoints: {}, badges: {}, games: {}, lessons: {}, daily: { d: 0, n: 0, done: 0 }, stats: {}, ach: {}, settings: { sandbox: false, feedback: 'each', placed: 0, dailyGoal: 10, calc: 'auto' } });
   const U = (st, id) => st.units[id] || (st.units[id] = { lv: 0, pd: 0 }); // pd = day reached proficient
   SA.unitLevel = (st, id) => (st.units[id] ? st.units[id].lv : 0);
   SA.moduleLevel = (st, mod) => Math.min(...mod.units.map((u) => SA.unitLevel(st, u)));
@@ -368,14 +369,19 @@
 
   /* results: [{unitId, correct (first try), retried, callback}] for a finished practice set of `unitId`.
      opts.xpDone: the view already awarded per-item XP live (SA.itemXp), so don't award it again. */
+  SA.itemCredit = (x) => (x.correct ? 1 : x.hinted && x.first ? 1 / (Math.max(1, x.hints || 1) + 1) : 0);
   SA.applyPractice = function (st, unitId, results, opts) {
     const ev = [], d = SA.today(), own = results.filter((x) => !x.callback);
     if (!(opts && opts.xpDone)) addXp(st, SA.practiceXp(results) * ((opts && opts.mult) || 1), ev);
-    const score = own.length ? own.filter((x) => x.correct).length / own.length : 0;
+    // score (shown): answered right at the first check, hints or not. credit (levels only, never shown): an answer
+    // reached with n hints counts 1/(n+1) of a clean one, so 1, 2, 3 hints give 1/2, 1/3, 1/4
+    const okShown = (x) => x.correct || (x.hinted && x.first);
+    const score = own.length ? own.filter(okShown).length / own.length : 0;
+    const credit = own.length ? own.reduce((a, x) => a + SA.itemCredit(x), 0) / own.length : 0;
     const u = U(st, unitId), before = u.lv;
     u.lv = Math.max(u.lv, 1);
-    if (score >= 0.7) u.lv = Math.max(u.lv, 2);
-    if (score === 1 && u.lv < 3) { u.lv = 3; u.pd = d; }
+    if (credit >= 0.7 - 1e-9) u.lv = Math.max(u.lv, 2);
+    if (credit >= 1 - 1e-9 && u.lv < 3) { u.lv = 3; u.pd = d; }
     if (u.lv !== before) ev.push({ type: 'level', unitId, from: before, to: u.lv });
     reviewByUnit(st, results.filter((r) => r.callback && r.unitId !== unitId), d, ev); // own unit: the set itself decides
     mergeLevels(ev);
@@ -504,7 +510,7 @@
      [ver 8][xp][streak][freezes 2 bits][lastDay-20000][nUnits][(level 3 bits, run)...][nMods][alternating 0/1 runs...]
      [nLevels][bits][nGames][present bits][best per present game][crc16]; numbers are 4-bit groups + continuation bit */
   // fixed orders for the code: append new entries at the end only
-  const GOALS = [5, 10, 20], STATS = ['sets', 'cleared', 'flawless', 'reviews', 'challenge', 'plays', 'pb', 'dailyDays', 'bestCombo'];
+  const GOALS = [5, 10, 20], CALC = ['auto', 'button', 'off'], STATS = ['sets', 'cleared', 'flawless', 'reviews', 'challenge', 'plays', 'pb', 'dailyDays', 'bestCombo'];
   SA.accentIds = () => ['copper'].concat((SA.REWARDS || []).filter((r) => r.kind === 'accent').map((r) => r.id));
   function vlq(w, v) { v = Math.max(0, Math.floor(v)); do { const c = v % 16; v = Math.floor(v / 16); w.u(c, 4); w.u(v ? 1 : 0, 1); } while (v); }
   function rvlq(r) { let v = 0, m = 1, more; do { v += r.u(4) * m; m *= 16; more = r.u(1); } while (more && m < 1e12); return v; }
@@ -528,6 +534,7 @@
     w.u(se.theme === 'light' ? 2 : se.theme === 'dark' ? 1 : 0, 2); vlq(w, Math.max(0, acc));
     const D = st.daily || {}; vlq(w, D.d ? Math.max(0, D.d - 20000) : 0); vlq(w, D.n || 0); w.u(D.done ? 1 : 0, 1);
     vlq(w, STATS.length); for (const k of STATS) vlq(w, (st.stats && st.stats[k]) || 0);
+    w.u(CALC.indexOf(se.calc) > 0 ? CALC.indexOf(se.calc) : 0, 2); // added Nov 2026; older codes read 0 = 'auto' from padding
     const bytes = w.done(), crc = crc32(bytes) & 0xFFFF; bytes.push(crc >>> 8, crc & 255);
     // password form: Crockford base32 (no I, L, O, U), groups of 4, four groups a line
     let bits = '', out = ''; for (const x of bytes) bits += x.toString(2).padStart(8, '0');
@@ -570,6 +577,7 @@
         const nS = rvlq(r); for (let i = 0; i < nS; i++) { const v = rvlq(r); if (v && STATS[i]) st.stats[STATS[i]] = v; }
         st.settings = Object.assign(st.settings, se);
       } catch (e) { Object.defineProperty(st, 'noSettings', { value: true }); /* older code without settings */ }
+      try { if (!st.noSettings) st.settings.calc = CALC[r.u(2)] || 'auto'; } catch (e) { /* code made before the calculator setting */ }
       return st;
     }
     throw new Error('That code does not check out. Look for a typo.');
