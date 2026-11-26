@@ -128,10 +128,18 @@ Spec: DECISIONS.md. Update this file at the end of every session.
 - js/calc.js: maths editor beside numeric fields (inputs marked `data-calc`: numeric, numeric cloze blanks, journal
   amounts, table number cells, Ledger amounts). / makes a fraction from the operand before it, ^ a power, * ×, : ÷;
   typed names sqrt, root, ln, log (then _ for a base), exp, pi, ans, ncr become functions; n!, %, Ans, history of 5.
-  "Use in answer" writes plain digits (12 significant figures) that parseNum reads. Setting settings.calc =
+  Every edit writes the value straight into the field (plain digits, 12 significant figures, read by parseNum); a
+  new field starts a new calculation. Typed through a transparent text box over the drawing (phone keyboards work);
+  the symbol keypad is hidden behind a small button (choice kept per browser in localStorage 'sa-calc-keys'). Setting settings.calc =
   auto | button | off (Profile), carried in the progress code (2 bits after the stats; older codes read as auto).
   Engine test: tools/smoke-calc.js. Asset stamps were refreshed with the stamp_assets() logic because sources/ was
   not available; the next build_course.py run will restamp as usual.
+
+## Hint weighting (2026-11-26, hidden from the learner by design)
+- Practice: the shown score and "right first time" count an answer that was right at the first check as right, hints or
+  not. Levels use a separate credit (SA.itemCredit): an answer reached with n hints counts 1/(n+1), so 1/2, 1/3, 1/4.
+  Familiar needs credit >= 70%, Proficient 100%. Nothing in the UI explains this: keep it that way (no tooltips or
+  notes). Tour and demo text no longer describe the hint rule. Tests in validate-content --core.
 
 ## Step 4 — Remaining levels: not started
 

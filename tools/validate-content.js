@@ -183,6 +183,17 @@ function coreTests() {
   st.units['F1.1'].pd -= 1; SA.applyPractice(st, 'F1.2', [{ unitId: 'F1.2', correct: true }, { unitId: 'F1.1', correct: true, callback: true }]);
   eq('mastered via callback next day', SA.unitLevel(st, 'F1.1'), 4);
   eq('xp', st.xp, 10 * 2 + 3 + 30 + 5 + 20); // +5 combo for 3 first-try answers in a row
+  // hints: the shown score counts a right first answer as right; the level credit counts it 1/(hints+1)
+  {
+    const set = (clean, hinted, n) => Array.from({ length: clean }, () => ({ unitId: 'F1.1', correct: true })).concat(Array.from({ length: hinted }, () => ({ unitId: 'F1.1', correct: false, first: true, hinted: true, retried: true, hints: n })));
+    const lvOf = (res) => { const s = SA.newState(); const o = SA.applyPractice(s, 'F1.1', res); return [o.score, SA.unitLevel(s, 'F1.1')]; };
+    eq('hints 1/2: 6 clean + 4 hinted -> 100% shown, Familiar', lvOf(set(6, 4, 1)).join(), '1,2');
+    eq('hints 1/4: 6 clean + 4 with 3 hints -> credit 0.7, Familiar', lvOf(set(6, 4, 3)).join(), '1,2');
+    eq('hints 1/3: 5 clean + 5 with 2 hints -> Attempted', lvOf(set(5, 5, 2)).join(), '1,1');
+    eq('one hinted answer blocks Proficient', lvOf(set(9, 1, 1)).join(), '1,2');
+    eq('clean set still Proficient', lvOf(set(10, 0, 1)).join(), '1,3');
+    eq('wrong after a hint counts nothing', SA.itemCredit({ correct: false, first: false, hinted: true, hints: 1 }), 0);
+  }
   // password round-trip + tamper detection
   const r = SA.rng('pw');
   for (let n = 0; n < 200; n++) {
