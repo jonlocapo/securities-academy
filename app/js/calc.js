@@ -540,7 +540,9 @@
   function wordAtCaret() { const m = /[a-zA-Z_]+$/.exec(inp.value.slice(0, inp.selectionStart)); return m ? m[0] : ''; }
   function suggestNow() {
     const w = wordAtCaret(), after = inp.value.slice(inp.selectionStart);
-    sugs = /^[a-zA-Z(_]/.test(after) ? [] : suggest(w);
+    const row = inp.value.slice(0, inp.selectionStart).split('\n').length - 1; // names used on the other lines
+    const used = new Set([].concat(...sheet(inp.value, { ans }).lines.map((L, i) => (i === row ? [] : L.names || []))));
+    sugs = /^[a-zA-Z(_]/.test(after) || w.length < 2 || used.has(w.toLowerCase()) ? [] : suggest(w);
     if (sugs.length === 1 && sugs[0][0] === w.toLowerCase()) sugs = []; // already typed in full
     sugAt = 0; drawSug();
   }
@@ -670,7 +672,8 @@
     doc.addEventListener('pointerdown', (ev) => {
       if (!box || box.hidden) return;
       const t = ev.target;
-      if (box.contains(t) || (kb && kb.contains(t)) || t === target) return;
+      if (box.contains(t) || (kb && kb.contains(t)) || t === target) { if (sugs.length && !sugEl.contains(t)) hideSug(); return; }
+      if (sugs.length || !tipEl.hidden) { hideSug(); toggleTip(false); return; }
       if (t.matches && t.matches('input[data-calc]')) return; // another number field: focusin moves it there
       close();
     }, true);
