@@ -55,6 +55,26 @@ tex('exp(0.05)', 'e^{0.05}'); tex('5%', '5\\%'); tex('-(1+2)', '-\\left(1 + 2\\r
   n++; if (C.tex('pv = 100/1.05^3', V) !== '\\mathit{pv} = \\frac{100}{1.05^{3}}') bad('tex of a definition: ' + C.tex('pv = 100/1.05^3', V));
   n++; if (C.tex('20q', V) !== '20q') bad('tex of 20q: ' + C.tex('20q', V));
 }
+// several lines: definitions in any order, the one line that is not a definition fills the field
+{
+  const sv = (text, want) => { n++; const r = C.sheet(text).value; if (!r || !r.ok || Math.abs(r.v - want) > 1e-9 * Math.max(1, Math.abs(want))) bad('sheet ' + JSON.stringify(text) + ' -> ' + JSON.stringify(r) + ', want ' + want); };
+  sv('q = 20/4\n20q', 100); sv('20q\n\nq = 3+5', 160); sv('a = b + 1\nb = 2\na*10', 30); sv('pv = 100/1.05^3\nr = 5%\npv*(1+r)^3', 100);
+  n++; if (C.sheet('q = 5').main !== -1) bad('definitions alone fill nothing');
+  const no = (text, lineRe, why) => { n++; const r = C.sheet(text); const msgs = r.lines.map((L) => (L.r && L.r.msg) || '').join(' | '); if ((r.value && r.value.ok) || !lineRe.test(msgs)) bad(why + ': ' + msgs); };
+  no('q = 1\nq = 2\nq', /Does not hold/, 'a name defined twice');
+  no('a = b\nb = a\na', /many solutions/, 'equations that do not fix their unknowns');
+  no('q = q + 1\nq', /No value of q/, 'an equation with no solution');
+  no('5/x\nx = 0', /Division by zero, with x = 0/, 'an impossible value names the value behind it');
+  no('2+2\n3+3', /Only one line/, 'two answer lines');
+  no('x + y = 3\nx', /Needs 1 more equation/, 'too few equations');
+  no('x + y = 3\nx - y = 1\nx + y = 4\nx', /No values of x and y/, 'equations that contradict each other');
+  no('e = 3\ne', /built-in/, 'a built-in name on the left');
+  // equations: linear systems, a yield, a root, a consistent extra equation
+  sv('2x + y = 3\nx - 5y = 10\n\nx', 25 / 11); sv('2x + y = 3\nx - 5y = 10\ny', 3 - 50 / 11);
+  sv('100 = 5*(1-(1+r)^-10)/r + 100*(1+r)^-10\nr', 0.05); sv('x^2 = 2\nx', Math.SQRT2); sv('x + y = 3\nx - y = 1\n2x + 2y = 6\ny', 1);
+  sv('fv = 1000\nfv = pv*1.05^3\npv', 1000 / Math.pow(1.05, 3));
+  n++; { const r = C.sheet('2+2\n\n'); if (!r.value.ok || r.value.v !== 4) bad('blank lines are ignored'); }
+}
 // suggestions: by prefix, not once a constant is typed in full
 [['l', ['ln', 'log', 'log_b']], ['sq', ['sqrt']], ['e', ['exp']], ['pi', []], ['z', []], ['nc', ['ncr']]].forEach(([w, want]) => {
   n++; const got = C.suggest(w).map((x) => x[0]).join(','); if (got !== want.join(',')) bad('suggest(' + w + ') = ' + got + ', want ' + want.join(','));

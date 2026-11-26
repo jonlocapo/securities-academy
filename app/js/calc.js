@@ -48,13 +48,14 @@
       if (/[a-zA-Z]/.test(c)) {
         let j = i; while (j < s.length && /[a-zA-Z]/.test(s[j])) j++;
         const word = s.slice(i, j).toLowerCase(); i = j;
-        // a run of letters may hold several names (2pie = 2·π·e, 2qr = 2·q·r): split it, longest name first
-        let k = 0;
-        while (k < word.length) {
-          const nm = names.find((n) => word.startsWith(n, k));
-          if (!nm) throw fail('Unknown name “' + word + '”');
-          k += nm.length;
-          if (nm === 'log' && k === word.length && s[i] === '_') { // log_2(8), log_e(x)
+        // a run of letters is split into known names where it can be (2qpi = 2·q·π, pie = π·e); a run that cannot be
+        // split is a name of its own (pv, ytm)
+        const parts = []; let k = 0;
+        while (k < word.length) { const nm = names.find((n) => word.startsWith(n, k)); if (!nm) break; parts.push(nm); k += nm.length; }
+        if (k < word.length) { parts.length = 0; parts.push(word); }
+        for (let q = 0; q < parts.length; q++) {
+          const nm = parts[q];
+          if (nm === 'log' && q === parts.length - 1 && s[i] === '_') { // log_2(8), log_e(x)
             i++; let j2 = i; while (j2 < s.length && /[0-9.a-zA-Z]/.test(s[j2])) j2++;
             const b = s.slice(i, j2); i = j2;
             if (!b) throw (i >= s.length ? INC : fail('Put the base after log_, as in log_2(8)'));
@@ -153,7 +154,7 @@
     switch (n.k) {
       case 'num': return n.v;
       case 'par': return ev(n.a, ctx);
-      case 'var': return ctx.vars[n.v];
+      case 'var': if (!ctx.vars || ctx.vars[n.v] == null) throw fail(n.v + ' has no value'); return ctx.vars[n.v];
       case 'neg': return -ev(n.a, ctx);
       case 'const': if (n.v === 'pi') return Math.PI; if (n.v === 'e') return Math.E; if (ctx.ans == null) throw fail('ans is the last result: there is none yet'); return ctx.ans;
       case 'post': { const a = ev(n.a, ctx); return n.op === '!' ? fact(a) : a / 100; }
@@ -213,6 +214,131 @@
       if (e && e.msg) return { ok: false, msg: e.msg };
       throw e;
     }
+  }
+
+  /* a calculation of several lines, worked out together like a small worksheet:
+     - a line with "=" is an equation: q = 3 + 5 defines q; 2x + y = 3 is solved together with the other equations;
+     - the one line without "=" is the answer, and fills the answer field (a second such line is an error);
+     - equations are taken in any order; "name = expression" lines are worked out directly, the rest are solved
+       numerically for their unknowns (linear systems exactly, others such as a yield by Newton's method);
+     - too few equations, equations that contradict each other, and impossible values (5/x with x = 0) are errors.
+     -> { lines: [{ src, kind: 'empty' | 'eq' | 'expr', r, tex }], vars, solved: [names], main, value } */
+  const vlist = (n, out) => { if (!n || typeof n !== 'object') return out; if (n.k === 'var') out.add(n.v); ['a', 'b'].forEach((k) => vlist(n[k], out)); (n.args || []).forEach((x) => vlist(x, out)); return out; };
+  const fmtList = (xs) => xs.length < 2 ? xs.join('') : xs.slice(0, -1).join(', ') + ' and ' + xs[xs.length - 1];
+  function solveSystem(eqs, unknown, vars) { // Gauss-Newton with a numerical Jacobian; -> values, or { msg }
+    const n = unknown.length, at = (x) => { const v = Object.assign({}, vars); unknown.forEach((u, i) => { v[u] = x[i]; }); return v; };
+    const F = (x) => { try { const v = at(x); return eqs.map((L) => ev(L.a, { vars: v }) - ev(L.b, { vars: v })); } catch (e) { return null; } };
+    const norm = (r) => (r ? Math.sqrt(r.reduce((a, b) => a + b * b, 0)) : Infinity);
+    let best = null;
+    for (const s0 of [1, 0.1, 0.5, 2, 10, -1, 0.01, 100]) {
+      let x = Array(n).fill(s0), r = F(x);
+      if (!r || !r.every(isFinite)) continue;
+      for (let it = 0; it < 100 && norm(r) > 1e-12; it++) {
+        const J = eqs.map(() => Array(n).fill(0));
+        for (let j = 0; j < n; j++) { const h = 1e-6 * Math.max(1, Math.abs(x[j])), xp = x.slice(), xm = x.slice(); xp[j] += h; xm[j] -= h; const a = F(xp), b = F(xm); if (!a || !b) { r = null; break; } for (let i = 0; i < eqs.length; i++) J[i][j] = (a[i] - b[i]) / (2 * h); }
+        if (!r) break;
+        // normal equations (J'J) dx = -J'r, by Gaussian elimination with partial pivoting
+        const A = Array.from({ length: n }, (_, i) => Array.from({ length: n }, (_, j) => J.reduce((acc, row) => acc + row[i] * row[j], 0)));
+        const g = Array.from({ length: n }, (_, i) => -J.reduce((acc, row, k) => acc + row[i] * r[k], 0));
+        const scale = Math.max(1e-300, ...A.map((row) => Math.max(...row.map(Math.abs))));
+        let rank = n;
+        for (let c = 0; c < n; c++) {
+          let piv = c; for (let i = c + 1; i < n; i++) if (Math.abs(A[i][c]) > Math.abs(A[piv][c])) piv = i;
+          if (Math.abs(A[piv][c]) < 1e-12 * scale) { rank = c; break; }
+          [A[c], A[piv]] = [A[piv], A[c]]; [g[c], g[piv]] = [g[piv], g[c]];
+          for (let i = c + 1; i < n; i++) { const f = A[i][c] / A[c][c]; for (let j = c; j < n; j++) A[i][j] -= f * A[c][j]; g[i] -= f * g[c]; }
+        }
+        if (rank < n) break;
+        const dx = Array(n).fill(0);
+        for (let i = n - 1; i >= 0; i--) { let t = g[i]; for (let j = i + 1; j < n; j++) t -= A[i][j] * dx[j]; dx[i] = t / A[i][i]; }
+        let step = 1, x2, r2;
+        for (let k = 0; k < 30; k++, step /= 2) { x2 = x.map((v, i) => v + step * dx[i]); r2 = F(x2); if (r2 && r2.every(isFinite) && norm(r2) < norm(r)) break; r2 = null; }
+        if (!r2) break;
+        x = x2; r = r2;
+      }
+      if (r && norm(r) <= 1e-9 * Math.max(1, ...x.map(Math.abs))) { best = x; break; }
+    }
+    if (!best) return { msg: (n > 1 ? 'No values of ' + fmtList(unknown) + ' make' : 'No value of ' + unknown[0] + ' makes') + ' these equations true' };
+    // a solution that is one of many (a = b, b = a) does not fix the unknowns
+    if (rankAt(best) < n) return { msg: 'These equations do not fix ' + fmtList(unknown) + ': there are many solutions' };
+    return best;
+    function rankAt(x) {
+      const r0 = F(x); if (!r0) return 0;
+      const M = eqs.map(() => Array(n).fill(0));
+      for (let j = 0; j < n; j++) { const h = 1e-6 * Math.max(1, Math.abs(x[j])), xp = x.slice(), xm = x.slice(); xp[j] += h; xm[j] -= h; const a = F(xp), b = F(xm); if (!a || !b) return 0; for (let i = 0; i < eqs.length; i++) M[i][j] = (a[i] - b[i]) / (2 * h); }
+      const big = Math.max(1e-300, ...M.map((row) => Math.max(...row.map(Math.abs))));
+      let rank = 0;
+      for (let c = 0; c < n && rank < M.length; c++) {
+        let piv = rank; for (let i = rank + 1; i < M.length; i++) if (Math.abs(M[i][c]) > Math.abs(M[piv][c])) piv = i;
+        if (Math.abs(M[piv][c]) < 1e-9 * big) continue;
+        [M[rank], M[piv]] = [M[piv], M[rank]];
+        for (let i = rank + 1; i < M.length; i++) { const f = M[i][c] / M[rank][c]; for (let j = c; j < n; j++) M[i][j] -= f * M[rank][j]; }
+        rank++;
+      }
+      return rank;
+    }
+  }
+  function sheet(text, ctx) {
+    ctx = ctx || {};
+    const lines = String(text == null ? '' : text).split('\n').map((src) => ({ src }));
+    // names written on the left of "name = ..." may be longer than a letter (pv, rate); every other letter is its own name
+    const declared = {};
+    lines.forEach((L) => { const m = /^\s*([a-zA-Z]+)\s*=[^=]/.exec(L.src + ' '); if (m && !BUILTIN.includes(m[1].toLowerCase())) declared[m[1].toLowerCase()] = 0; });
+    lines.forEach((L) => {
+      const s = L.src.trim();
+      if (!s) { L.kind = 'empty'; return; }
+      const parts = s.split('=');
+      if (parts.length > 2) { L.kind = 'eq'; L.r = { ok: false, msg: 'One = per line' }; return; }
+      try {
+        if (parts.length === 2) {
+          L.kind = 'eq';
+          const left = parts[0].trim();
+          if (BUILTIN.includes(left.toLowerCase())) throw fail('“' + left + '” is a built-in name: pick another');
+          L.a = parse(parts[0], declared); L.b = parse(parts[1], declared);
+          L.names = [...vlist(L.b, vlist(L.a, new Set()))];
+          if (L.a.k === 'var') L.name = L.a.v;
+          L.tex = tex(L.a) + ' = ' + tex(L.b);
+        } else { L.kind = 'expr'; L.t = parse(s, declared); L.names = [...vlist(L.t, new Set())]; L.tex = tex(L.t); }
+      } catch (e) { L.r = e && e.inc ? { ok: false, inc: true } : { ok: false, msg: (e && e.msg) || 'Check this line' }; }
+    });
+    const vars = {}, solved = [];
+    const evalIn = (t) => { try { const v = ev(t, { ans: ctx.ans, vars }); return isFinite(v) ? { ok: true, v: Math.abs(v) < 1e-13 ? 0 : v } : { ok: false, msg: 'Too large' }; } catch (e) { return e && e.msg ? { ok: false, msg: e.msg } : { ok: false, inc: true }; } };
+    const eqs = lines.filter((L) => L.kind === 'eq' && !L.r);
+    // 1. "name = expression" with everything on the right already known: work it out directly, repeating until stuck
+    for (let moved = true; moved;) {
+      moved = false;
+      for (const L of eqs) {
+        if (L.done || !L.name || vars[L.name] != null || L.names.some((v) => v !== L.name && vars[v] == null) || vlist(L.b, new Set()).has(L.name)) continue;
+        L.r = evalIn(L.b); L.done = true; moved = true;
+        if (L.r.ok) vars[L.name] = L.r.v;
+      }
+    }
+    // 2. everything else is solved together
+    const rest = eqs.filter((L) => !L.done), unknown = [...new Set([].concat(...rest.map((L) => L.names)).filter((v) => vars[v] == null))];
+    if (rest.length && !unknown.length) {
+      rest.forEach((L) => { const a = evalIn(L.a), b = evalIn(L.b); L.r = !a.ok ? a : !b.ok ? b : Math.abs(a.v - b.v) <= 1e-9 * Math.max(1, Math.abs(a.v), Math.abs(b.v)) ? { ok: true, check: true } : { ok: false, msg: 'Does not hold: the left side is ' + show(a.v, 7) + ', the right side ' + show(b.v, 7) }; });
+    } else if (rest.length) {
+      if (rest.length < unknown.length) rest.forEach((L) => { L.r = { ok: false, msg: 'Needs ' + (unknown.length - rest.length) + ' more equation' + (unknown.length - rest.length > 1 ? 's' : '') + ' to find ' + fmtList(unknown) }; });
+      else {
+        const x = solveSystem(rest, unknown, vars);
+        if (x.msg) rest.forEach((L) => { L.r = { ok: false, msg: x.msg }; });
+        else { unknown.forEach((u, i) => { vars[u] = Math.abs(x[i]) < 1e-13 ? 0 : x[i]; solved.push(u); }); rest.forEach((L) => { L.r = { ok: true, check: true }; }); }
+      }
+    }
+    // 3. the answer line
+    const answers = lines.filter((L) => L.kind === 'expr');
+    let main = -1;
+    if (answers.length > 1) answers.forEach((L) => { L.r = { ok: false, msg: 'Only one line can give the answer: turn the others into name = …' }; });
+    const broken = lines.some((L) => L.kind === 'eq' && L.r && !L.r.ok && !L.r.inc);
+    lines.forEach((L, i) => {
+      if (L.kind !== 'expr' || L.r) return;
+      main = i;
+      const missing = L.names.filter((v) => vars[v] == null);
+      L.r = broken ? { ok: false, msg: 'One of the equations has a problem' } : missing.length ? { ok: false, msg: fmtList(missing) + (missing.length > 1 ? ' have' : ' has') + ' no value' } : evalIn(L.t);
+      // an impossible value names the values that led to it: Division by zero, with x = 0
+      if (!L.r.ok && L.r.msg && !missing.length && !broken && L.names.length) L.r.msg += ', with ' + fmtList(L.names.map((v) => v + ' = ' + show(vars[v], 7)));
+    });
+    return { lines, vars, solved, main, value: main >= 0 ? lines[main].r : answers.length > 1 ? { ok: false, msg: 'more than one answer line' } : null };
   }
 
   /* ---------- typeset form (TeX for KaTeX) ---------- */
@@ -286,7 +412,7 @@
     if (!w) return [];
     return NAMES.filter((n) => n[0].startsWith(w) && !(n[0] === w && n[4] === 0)).slice(0, 5);
   }
-  SA.calcEngine = { parse, evaluate, tex: toTex, plain, show, output, suggest, NAMES };
+  SA.calcEngine = { parse, evaluate, sheet, tex: toTex, plain, show, output, suggest, NAMES };
 
   /* ---------- the popup (browser only) ---------- */
   const doc = root.document;
@@ -331,7 +457,7 @@
   function build() {
     box = el('div', 'cq'); box.setAttribute('role', 'group'); box.setAttribute('aria-label', 'Calculator'); box.hidden = true;
     const row = el('div', 'cq-row');
-    inp = el('input', 'cq-in'); inp.type = 'text';
+    inp = el('textarea', 'cq-in'); inp.rows = 1;
     ['autocomplete', 'autocorrect', 'autocapitalize', 'spellcheck'].forEach((a) => inp.setAttribute(a, 'off'));
     inp.setAttribute('aria-label', 'Calculation'); inp.setAttribute('enterkeyhint', 'done');
     inp.setAttribute('role', 'combobox'); inp.setAttribute('aria-autocomplete', 'list'); inp.setAttribute('aria-expanded', 'false'); inp.setAttribute('aria-controls', 'cq-sug');
@@ -386,7 +512,7 @@
       if (id === 'left' || id === 'right') { const q = Math.max(0, inp.selectionStart + (id === 'left' ? -1 : 1)); inp.setSelectionRange(q, q); suggestNow(); return; }
       if (id === 'back') { const a = inp.selectionStart, z = inp.selectionEnd; if (a === z && a > 0) setText(inp.value.slice(0, a - 1) + inp.value.slice(z), a - 1); else setText(inp.value.slice(0, a) + inp.value.slice(z), a); return; }
       if (id === 'clear') { setText('', 0); return; }
-      if (id === 'enter') { submit(); return; }
+      if (id === 'enter') { if (onEmptyLine()) submit(); else insert('\n'); return; }
       insert(ins);
     });
     return b;
@@ -419,6 +545,7 @@
   }
   function drawSug() {
     sugEl.innerHTML = '';
+    sugEl.style.top = (36 + 23 * (inp.value.slice(0, inp.selectionStart).split('\n').length - 1)) + 'px'; // under the caret's line
     sugEl.hidden = !sugs.length; inp.setAttribute('aria-expanded', String(!!sugs.length));
     sugs.forEach((n, i) => {
       const r = el('div', 'cq-opt' + (i === sugAt ? ' on' : '')); r.setAttribute('role', 'option'); r.setAttribute('aria-selected', String(i === sugAt));
@@ -447,37 +574,45 @@
       if (!tipEl.hidden) { toggleTip(false); return; }
       const t = target; close(); if (live(t)) { suppress = t; t.focus(); } return;
     }
-    if (ev.key === 'Enter') { ev.preventDefault(); submit(); }
+    if (ev.key === 'Enter') { if (onEmptyLine()) { ev.preventDefault(); submit(); } } // otherwise a new line
   }
   // Enter: the field already holds the value; check the answer as Enter in the field would
+  // the caret's line is empty (or there is nothing typed): Enter checks the answer instead of starting a line
+  function onEmptyLine() {
+    const v = inp.value, a = inp.selectionStart, from = v.lastIndexOf('\n', a - 1) + 1, to = v.indexOf('\n', a);
+    return !v.slice(from, to < 0 ? v.length : to).trim();
+  }
   function submit() {
-    const r = evaluate(inp.value, { ans });
+    const r = sheet(inp.value, { ans }).value || {};
     if (r.ok) ans = r.v;
     if (target && doc.body.contains(target)) target.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
   }
   function changed() {
     if (target) exprs.set(target, inp.value);
     suggestNow();
-    const src = inp.value.trim();
+    fit();
     prev.innerHTML = '';
-    if (!src) { // an empty calculation empties the field it was filling
-      prev.hidden = true;
-      if (live(target) && target.value !== '') { target.value = ''; target.dispatchEvent(new Event('input', { bubbles: true })); }
-      place(); return;
-    }
-    const r = evaluate(src, { ans }), tx = toTex(src);
-    prev.hidden = false;
-    prev.appendChild(el('span', 'cq-arrow', '↳'));
-    if (tx != null) { const m = el('span', 'cq-tex'); try { if (root.katex) root.katex.render(tx, m, { throwOnError: false }); else m.textContent = src; } catch (e) { m.textContent = src; } prev.appendChild(m); }
-    if (r.ok) { const v = el('span', 'cq-val'), s = show(r.v, 7); v.textContent = '= ' + s + (Math.abs(Number(s.replace(/,/g, '')) - r.v) > 1e-12 * Math.max(1, Math.abs(r.v)) ? '…' : ''); prev.appendChild(v); }
-    else if (!r.inc) { const e = el('span', 'cq-err'); e.textContent = r.msg; prev.appendChild(e); }
-    else if (tx == null) prev.appendChild(el('span', 'cq-wait', '…'));
-    if (r.ok && live(target)) {
-      const s = output(r.v, fieldOpts(target));
-      if (target.value !== s) { target.value = s; target.dispatchEvent(new Event('input', { bubbles: true })); }
+    const res = sheet(inp.value, { ans }), shown = res.lines.filter((L) => L.kind !== 'empty');
+    prev.hidden = !shown.length;
+    shown.forEach((L) => {
+      const row = el('div', 'cq-line'), r = L.r || { ok: false, inc: true };
+      row.appendChild(el('span', 'cq-arrow', '↳'));
+      if (L.tex != null) { const m = el('span', 'cq-tex'); try { if (root.katex) root.katex.render(L.tex, m, { throwOnError: false }); else m.textContent = L.src; } catch (e) { m.textContent = L.src; } row.appendChild(m); }
+      if (r.ok) { const v = el('span', 'cq-val'), t = show(r.v, 7); v.textContent = '= ' + t + (Math.abs(Number(t.replace(/,/g, '')) - r.v) > 1e-12 * Math.max(1, Math.abs(r.v)) ? '…' : ''); row.appendChild(v); }
+      else if (!r.inc) { const e = el('span', 'cq-err'); e.textContent = r.msg; row.appendChild(e); }
+      else if (L.tex == null) row.appendChild(el('span', 'cq-wait', '…'));
+      prev.appendChild(row);
+    });
+    // the field takes the line that is not a definition; with none, or nothing typed, it is empty
+    if (live(target)) {
+      const v = res.value, s = v && v.ok ? output(v.v, fieldOpts(target)) : (res.main < 0 ? '' : null);
+      if (s != null && target.value !== s) { target.value = s; target.dispatchEvent(new Event('input', { bubbles: true })); }
     }
     place();
   }
+  // one line high, growing a line at a time
+  function fit() { inp.rows = Math.max(1, inp.value.split('\n').length); }
+
 
   /* ---------- open, place, close ---------- */
   // a standalone number answer gets the calculator in the page flow, under its row; fields inside tables, sentences and
@@ -514,7 +649,7 @@
   }
   function close() {
     if (!box || box.hidden) return;
-    const r = evaluate(inp.value, { ans }); if (r.ok) ans = r.v;
+    const r = sheet(inp.value, { ans }).value; if (r && r.ok) ans = r.v;
     box.hidden = true; if (kb) kb.hidden = true; doc.body.style.paddingBottom = '';
     if (target) target.classList.remove('calc-target');
     target = null; hideSug();
