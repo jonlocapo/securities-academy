@@ -29,7 +29,9 @@
   /* ---------- lexer ---------- */
   const fail = (msg) => ({ msg });
   const INC = { inc: true };
-  function lex(src) {
+  const BUILTIN = ['sqrt', 'root', 'ncr', 'exp', 'log', 'ans', 'ln', 'pi', 'e'];
+  function lex(src, vars) {
+    const names = BUILTIN.concat(Object.keys(vars || {})).sort((a, b) => b.length - a.length); // longest name first
     const s = String(src == null ? '' : src).replace(/\*\*/g, '^').replace(/[×·]/g, '*').replace(/[÷:]/g, '/').replace(/[−–]/g, '-').replace(/π/g, 'pi').replace(/√/g, 'sqrt');
     const out = [], two = []; // stack: does this bracket belong to a two-argument function (its commas separate)?
     const dec = (j) => s[j] === ',' && !two[two.length - 1] && /[0-9]/.test(s[j + 1] || '') && /[0-9]/.test(s[j - 1] || ''); // 3,25 = 3.25
@@ -46,10 +48,10 @@
       if (/[a-zA-Z]/.test(c)) {
         let j = i; while (j < s.length && /[a-zA-Z]/.test(s[j])) j++;
         const word = s.slice(i, j).toLowerCase(); i = j;
-        // a run of letters may hold several names (2pie = 2·π·e): split it, longest name first
+        // a run of letters may hold several names (2pie = 2·π·e, 2qr = 2·q·r): split it, longest name first
         let k = 0;
         while (k < word.length) {
-          const nm = ['sqrt', 'root', 'ncr', 'exp', 'log', 'ans', 'ln', 'pi', 'e'].find((n) => word.startsWith(n, k));
+          const nm = names.find((n) => word.startsWith(n, k));
           if (!nm) throw fail('Unknown name “' + word + '”');
           k += nm.length;
           if (nm === 'log' && k === word.length && s[i] === '_') { // log_2(8), log_e(x)
@@ -60,7 +62,7 @@
             if (!isFinite(bv)) throw fail('A log base must be a number');
             out.push({ t: 'id', v: 'log', base: b, bv }); continue;
           }
-          out.push({ t: 'id', v: nm });
+          out.push(BUILTIN.includes(nm) ? { t: 'id', v: nm } : { t: 'var', v: nm });
         }
         continue;
       }
@@ -75,13 +77,13 @@
   }
 
   /* ---------- parser: text -> tree ---------- */
-  // nodes: num {v,s} | const {v} | neg {a} | bin {op,a,b,imp} | pow {a,b} | post {op,a} | fn {f,args,base,bv} | par {a}
-  function parse(src) {
-    const t = lex(src);
+  // nodes: num {v,s} | const {v} | var {v} | neg {a} | bin {op,a,b,imp} | pow {a,b} | post {op,a} | fn {f,args,base,bv} | par {a}
+  function parse(src, vars) {
+    const t = lex(src, vars);
     if (!t.length) throw INC;
     let p = 0;
     const peek = () => t[p];
-    const starts = (x) => x && (x.t === 'num' || x.t === 'id' || x.t === 'lp');
+    const starts = (x) => x && (x.t === 'num' || x.t === 'id' || x.t === 'var' || x.t === 'lp');
     function add() {
       let a = mul();
       while (peek() && peek().t === 'op' && (peek().v === '+' || peek().v === '-')) { const op = t[p++].v; a = { k: 'bin', op, a, b: mul() }; }
@@ -113,6 +115,7 @@
       if (!x) throw INC;
       p++;
       if (x.t === 'num') return { k: 'num', v: x.v, s: x.s };
+      if (x.t === 'var') return { k: 'var', v: x.v };
       if (x.t === 'lp') { const a = add(); if (peek() && peek().t === 'rp') p++; else if (peek()) throw fail('Expected )'); return { k: 'par', a }; } // a missing ) closes at the end
       if (x.t === 'id') {
         if (CONSTS[x.v]) return { k: 'const', v: x.v };
@@ -150,6 +153,7 @@
     switch (n.k) {
       case 'num': return n.v;
       case 'par': return ev(n.a, ctx);
+      case 'var': return ctx.vars[n.v];
       case 'neg': return -ev(n.a, ctx);
       case 'const': if (n.v === 'pi') return Math.PI; if (n.v === 'e') return Math.E; if (ctx.ans == null) throw fail('ans is the last result: there is none yet'); return ctx.ans;
       case 'post': { const a = ev(n.a, ctx); return n.op === '!' ? fact(a) : a / 100; }
@@ -186,12 +190,24 @@
     }
     throw INC;
   }
-  // -> { ok, v } | { ok: false, inc: true } (still typing) | { ok: false, msg }
+  /* variables: "q = 20/4" defines q (a name of letters, not one of the built-in names); later lines use it, as in 20q */
+  function assignment(src) {
+    const m = /^\s*([a-zA-Z]+)\s*=(.*)$/.exec(String(src == null ? '' : src));
+    if (!m) return null;
+    const name = m[1].toLowerCase();
+    if (BUILTIN.includes(name)) throw fail('“' + name + '” is a built-in name: pick another');
+    return { name, expr: m[2] };
+  }
+  // -> { ok, v, name? } | { ok: false, inc: true } (still typing) | { ok: false, msg }; ctx = { ans, vars }
   function evaluate(src, ctx) {
+    ctx = ctx || {};
     try {
-      const v = ev(parse(src), ctx || {});
+      const a = assignment(src), vars = ctx.vars || {}; // in q = q + 1 the right side uses the earlier q
+      const v = ev(parse(a ? a.expr : src, vars), Object.assign({}, ctx, { vars }));
       if (!isFinite(v)) return { ok: false, msg: 'Too large' };
-      return { ok: true, v: Math.abs(v) < 1e-13 ? 0 : v };
+      const r = { ok: true, v: Math.abs(v) < 1e-13 ? 0 : v };
+      if (a) r.name = a.name;
+      return r;
     } catch (e) {
       if (e && e.inc) return { ok: false, inc: true };
       if (e && e.msg) return { ok: false, msg: e.msg };
@@ -201,13 +217,14 @@
 
   /* ---------- typeset form (TeX for KaTeX) ---------- */
   const strip = (n) => (n.k === 'par' ? n.a : n);
-  const atom = (n) => n.k === 'num' || n.k === 'const' || n.k === 'par' || (n.k === 'fn' && n.f !== 'exp');
+  const atom = (n) => n.k === 'num' || n.k === 'const' || n.k === 'var' || n.k === 'par' || (n.k === 'fn' && n.f !== 'exp');
   const wrap = (n) => (atom(n) ? tex(n) : '\\left(' + tex(n) + '\\right)');
   const sum = (n) => n.k === 'bin' && (n.op === '+' || n.op === '-');
   function tex(n) {
     switch (n.k) {
       case 'num': return n.s.replace(/^\./, '0.');
       case 'const': return n.v === 'pi' ? '\\pi' : n.v === 'e' ? 'e' : '\\mathrm{Ans}';
+      case 'var': return n.v.length === 1 ? n.v : '\\mathit{' + n.v + '}';
       case 'par': return '\\left(' + tex(n.a) + '\\right)';
       case 'neg': return '-' + (sum(n.a) ? wrap(n.a) : tex(n.a));
       case 'post': return wrap(n.a) + (n.op === '%' ? '\\%' : '!');
@@ -231,7 +248,9 @@
     }
     return '';
   }
-  function toTex(src) { try { return tex(parse(src)); } catch (e) { return null; } }
+  function toTex(src, vars) {
+    try { const a = assignment(src); if (a) return (a.name.length === 1 ? a.name : '\\mathit{' + a.name + '}') + ' = ' + tex(parse(a.expr, vars)); return tex(parse(src, vars)); } catch (e) { return null; }
+  }
 
   /* ---------- numbers out ---------- */
   // for the answer field: plain digits that SA.parseNum reads (no exponent, no separators), 12 significant figures
@@ -441,7 +460,11 @@
     suggestNow();
     const src = inp.value.trim();
     prev.innerHTML = '';
-    if (!src) { prev.hidden = true; place(); return; }
+    if (!src) { // an empty calculation empties the field it was filling
+      prev.hidden = true;
+      if (live(target) && target.value !== '') { target.value = ''; target.dispatchEvent(new Event('input', { bubbles: true })); }
+      place(); return;
+    }
     const r = evaluate(src, { ans }), tx = toTex(src);
     prev.hidden = false;
     prev.appendChild(el('span', 'cq-arrow', '↳'));
