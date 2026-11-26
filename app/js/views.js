@@ -463,7 +463,6 @@
         const host = h('div', { class: 'game-host' }), out = h('p', { class: 'muted', 'aria-live': 'polite' });
         const play = h('button', { type: 'button', class: 'btn primary' }, 'Play');
         rootEl.appendChild(h('h2', null, mg.name));
-        rootEl.appendChild(h('p', null, mg.variant));
         play.addEventListener('click', () => {
           play.hidden = true; clear(host);
           try {
@@ -475,7 +474,6 @@
         rootEl.appendChild(h('div', { class: 'btn-row' }, play, best ? h('span', { class: 'muted' }, 'Best: ' + best) : null)); rootEl.appendChild(out); rootEl.appendChild(host);
       }
     }
-    if (m.jurisdiction_notes) { rootEl.appendChild(h('h2', null, 'Other jurisdictions')); rootEl.appendChild(mdEl('p', null, m.jurisdiction_notes, true)); }
   };
 
   /* ---------- lesson ---------- */
