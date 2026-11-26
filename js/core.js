@@ -198,8 +198,9 @@
   // levels: 0 none, 1 attempted, 2 familiar, 3 proficient, 4 mastered
   SA.LEVELS = ['Not started', 'Attempted', 'Familiar', 'Proficient', 'Mastered'];
   SA.today = () => Math.floor((Date.now() - new Date().getTimezoneOffset() * 60000) / 86400000); // local day number
+  // settings.calc: 'auto' (calculator opens beside numeric fields) | 'button' (opens from its button) | 'off'
   // settings.feedback: 'each' (mark each practice answer as you go) | 'end' (all marking and solutions at the end)
-  SA.newState = () => ({ v: 1, xp: 0, streak: 0, lastDay: 0, freezes: 0, units: {}, modTests: {}, checkpoints: {}, badges: {}, games: {}, lessons: {}, daily: { d: 0, n: 0, done: 0 }, stats: {}, ach: {}, settings: { sandbox: false, feedback: 'each', placed: 0, dailyGoal: 10 } });
+  SA.newState = () => ({ v: 1, xp: 0, streak: 0, lastDay: 0, freezes: 0, units: {}, modTests: {}, checkpoints: {}, badges: {}, games: {}, lessons: {}, daily: { d: 0, n: 0, done: 0 }, stats: {}, ach: {}, settings: { sandbox: false, feedback: 'each', placed: 0, dailyGoal: 10, calc: 'auto' } });
   const U = (st, id) => st.units[id] || (st.units[id] = { lv: 0, pd: 0 }); // pd = day reached proficient
   SA.unitLevel = (st, id) => (st.units[id] ? st.units[id].lv : 0);
   SA.moduleLevel = (st, mod) => Math.min(...mod.units.map((u) => SA.unitLevel(st, u)));
@@ -504,7 +505,7 @@
      [ver 8][xp][streak][freezes 2 bits][lastDay-20000][nUnits][(level 3 bits, run)...][nMods][alternating 0/1 runs...]
      [nLevels][bits][nGames][present bits][best per present game][crc16]; numbers are 4-bit groups + continuation bit */
   // fixed orders for the code: append new entries at the end only
-  const GOALS = [5, 10, 20], STATS = ['sets', 'cleared', 'flawless', 'reviews', 'challenge', 'plays', 'pb', 'dailyDays', 'bestCombo'];
+  const GOALS = [5, 10, 20], CALC = ['auto', 'button', 'off'], STATS = ['sets', 'cleared', 'flawless', 'reviews', 'challenge', 'plays', 'pb', 'dailyDays', 'bestCombo'];
   SA.accentIds = () => ['copper'].concat((SA.REWARDS || []).filter((r) => r.kind === 'accent').map((r) => r.id));
   function vlq(w, v) { v = Math.max(0, Math.floor(v)); do { const c = v % 16; v = Math.floor(v / 16); w.u(c, 4); w.u(v ? 1 : 0, 1); } while (v); }
   function rvlq(r) { let v = 0, m = 1, more; do { v += r.u(4) * m; m *= 16; more = r.u(1); } while (more && m < 1e12); return v; }
@@ -528,6 +529,7 @@
     w.u(se.theme === 'light' ? 2 : se.theme === 'dark' ? 1 : 0, 2); vlq(w, Math.max(0, acc));
     const D = st.daily || {}; vlq(w, D.d ? Math.max(0, D.d - 20000) : 0); vlq(w, D.n || 0); w.u(D.done ? 1 : 0, 1);
     vlq(w, STATS.length); for (const k of STATS) vlq(w, (st.stats && st.stats[k]) || 0);
+    w.u(CALC.indexOf(se.calc) > 0 ? CALC.indexOf(se.calc) : 0, 2); // added Nov 2026; older codes read 0 = 'auto' from padding
     const bytes = w.done(), crc = crc32(bytes) & 0xFFFF; bytes.push(crc >>> 8, crc & 255);
     // password form: Crockford base32 (no I, L, O, U), groups of 4, four groups a line
     let bits = '', out = ''; for (const x of bytes) bits += x.toString(2).padStart(8, '0');
@@ -570,6 +572,7 @@
         const nS = rvlq(r); for (let i = 0; i < nS; i++) { const v = rvlq(r); if (v && STATS[i]) st.stats[STATS[i]] = v; }
         st.settings = Object.assign(st.settings, se);
       } catch (e) { Object.defineProperty(st, 'noSettings', { value: true }); /* older code without settings */ }
+      try { if (!st.noSettings) st.settings.calc = CALC[r.u(2)] || 'auto'; } catch (e) { /* code made before the calculator setting */ }
       return st;
     }
     throw new Error('That code does not check out. Look for a typo.');

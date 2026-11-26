@@ -149,7 +149,7 @@
 
   /* ---------- numeric ---------- */
   R.numeric = function (c, inst, onChange) {
-    const input = h('input', { type: 'text', inputmode: 'decimal', autocomplete: 'off', spellcheck: 'false', class: 'num-input', 'aria-label': 'Your answer' });
+    const input = h('input', { type: 'text', inputmode: 'decimal', autocomplete: 'off', spellcheck: 'false', class: 'num-input', 'data-calc': '1', 'aria-label': 'Your answer' });
     input.addEventListener('input', () => onChange(input.value));
     const unit = inst.unit ? mdEl('span', 'unit', inst.unit, true) : null;
     c.appendChild(h('div', { class: 'num-row' }, input, unit));
@@ -178,7 +178,8 @@
         b.addEventListener('click', () => { if (locked) return; if (vals[k]) { release(k); } else { active = k; refresh(); } });
         slots[k] = b; p.appendChild(b);
       } else {
-        const inp = h('input', { type: 'text', class: 'blank-input', autocomplete: 'off', spellcheck: 'false', 'aria-label': 'Blank ' + (k + 1) });
+        const num = !!inst.blanks[k].numeric;
+        const inp = h('input', { type: 'text', class: 'blank-input', autocomplete: 'off', spellcheck: 'false', inputmode: num ? 'decimal' : null, 'data-calc': num ? '1' : null, 'aria-label': 'Blank ' + (k + 1) });
         inp.addEventListener('input', () => { vals[k] = inp.value; onChange(vals.slice()); });
         inputs[k] = inp; p.appendChild(inp);
       }
@@ -371,7 +372,7 @@
         const cr = h('button', { type: 'button', class: 'seg-btn' + (l.side === 'Cr' ? ' sel' : ''), 'aria-pressed': l.side === 'Cr' ? 'true' : 'false' }, 'Cr');
         const setSide = (s) => { l.side = s; dr.classList.toggle('sel', s === 'Dr'); cr.classList.toggle('sel', s === 'Cr'); dr.setAttribute('aria-pressed', s === 'Dr' ? 'true' : 'false'); cr.setAttribute('aria-pressed', s === 'Cr' ? 'true' : 'false'); upd(); onChange(get()); };
         dr.addEventListener('click', () => setSide('Dr')); cr.addEventListener('click', () => setSide('Cr'));
-        const amt = h('input', { type: 'text', inputmode: 'decimal', autocomplete: 'off', class: 'j-amt', placeholder: 'Amount', 'aria-label': 'Amount, line ' + (i + 1), value: l.amount });
+        const amt = h('input', { type: 'text', inputmode: 'decimal', autocomplete: 'off', class: 'j-amt', 'data-calc': '1', placeholder: 'Amount', 'aria-label': 'Amount, line ' + (i + 1), value: l.amount });
         amt.addEventListener('input', () => { l.amount = amt.value; upd(); onChange(get()); });
         const rm = h('button', { type: 'button', class: 'icon-btn', 'aria-label': 'Remove line ' + (i + 1), disabled: lines.length <= 1 }, '×');
         rm.addEventListener('click', () => { lines.splice(i, 1); draw(); upd(); onChange(get()); });
@@ -406,7 +407,7 @@
       const tr = h('tr');
       row.forEach((cell, ci) => {
         if (isBlankCell(cell)) {
-          const inp = h('input', { type: 'text', class: 'cell-input', autocomplete: 'off', inputmode: cell.accept ? 'text' : 'decimal', 'aria-label': 'Row ' + (ri + 1) + ', ' + stripMd(inst.columns[ci]) });
+          const inp = h('input', { type: 'text', class: 'cell-input', autocomplete: 'off', inputmode: cell.accept ? 'text' : 'decimal', 'data-calc': cell.accept ? null : '1', 'aria-label': 'Row ' + (ri + 1) + ', ' + stripMd(inst.columns[ci]) });
           inp.addEventListener('input', () => { resp[ri + ',' + ci] = inp.value; onChange(Object.assign({}, resp)); });
           inputs.push({ key: ri + ',' + ci, el: inp }); tr.appendChild(h('td', { class: 'blank' }, inp));
         } else tr.appendChild(h('td', null, mdEl('span', '', String(cell), true)));
